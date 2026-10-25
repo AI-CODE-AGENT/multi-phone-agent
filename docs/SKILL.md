@@ -48,3 +48,11 @@ Use this skill whenever an AI agent needs to interact with, test, debug, or orch
 | 16 | `android_run_self_evolution_loop` | Trigger the 12-Subagent Autonomous Self-Evolution Engine. |
 | 17 | `android_mine_experience_macros` | Query or list distilled Macro-Action shortcuts from `ExperienceMinerSubagent`. |
 | 18 | `android_open_multi_scrcpy_wall` | Open a tiled desktop grid of Scrcpy windows for all online phones. |
+| 19 | `android_manage_git_worktree` | Create, list, commit, or merge isolated Git feature worktrees (`D:\Project\multi-phone-agent-worktrees\<slug>`) for Subagent feature development. |
+
+---
+
+## 3. Repository & Git Worktree Locations
+- **Main Repository (`main`)**: `D:\Project\multi-phone-agent` (`https://github.com/tan21072005/multi-phone-agent`)
+- **Subagent Isolated Worktrees**: `D:\Project\multi-phone-agent-worktrees\<feature-slug>`
+- **MCP Server Entrypoint**: `D:\Project\multi-phone-agent\mcp_bridge\android_farm_mcp_server.py`
