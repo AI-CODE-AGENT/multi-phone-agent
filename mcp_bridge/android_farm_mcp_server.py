@@ -1,8 +1,9 @@
 """
-Model Context Protocol (MCP) Server 2.0 for Android Multi-Agent Farm (AMAF 4.0).
+Model Context Protocol (MCP) Server 2.0 for Android Multi-Agent Farm (AMAF 5.0).
 Allows any AI Agent (Antigravity, Cursor, Claude Code, Kilo Code, ARTEMIS, OpenCode)
 to discover, lease, observe, navigate, broadcast group actions, manage real physical phones,
-orchestrate multi-app testing flows, crawl UI state graphs, and trigger 16-subagent autonomous self-evolution loops.
+orchestrate multi-app testing flows, crawl UI state graphs, execute human-like Cubic Bezier gestures,
+auto-dismiss Vivo/OriginOS/MIUI USB installation popups, solve CAPTCHAs, and trigger 20-subagent self-evolution loops.
 Implements JSON-RPC 2.0 over standard I/O (stdio) with zero external dependencies.
 """
 
@@ -23,6 +24,8 @@ from core.mock_otp_service import MockOTPService
 from core.real_device_manager import RealDeviceManager
 from core.group_control_broadcaster import GroupControlBroadcaster
 from core.multi_app_manager import MultiAppAutomationManager
+from core.human_touch_engine import HumanTouchEngine
+from core.oem_popup_watcher import OEMPopupWatcher
 from core.scrcpy_manager import ScrcpyManager
 from core.memory_manager import MemoryManager
 from core.git_worktree_manager import GitWorktreeManager
@@ -31,6 +34,10 @@ from agents.experience_miner_subagent import ExperienceMinerSubagent
 from agents.cross_app_notetaker_subagent import CrossAppNotetakerSubagent
 from agents.action_reflector_subagent import ActionReflectorSubagent
 from agents.multi_app_crawler_subagent import MultiAppCrawlerSubagent
+from agents.human_touch_subagent import HumanTouchSubagent
+from agents.oem_popup_guard_subagent import OEMPopupGuardSubagent
+from agents.captcha_solver_subagent import CaptchaSolverSubagent
+from agents.network_visual_qa_subagent import NetworkAndVisualQASubagent
 from mcp_bridge.artemis_bridge import ArtemisBridge
 from config.farm_config import DEFAULT_FARM_DEVICES
 
@@ -39,7 +46,7 @@ logger = logging.getLogger("AndroidFarmMCP")
 
 
 class AndroidFarmMCPServer:
-    """Standard Model Context Protocol Server 2.0 (24 Tools) for Hybrid Real & Virtual Multi-App Farm."""
+    """Standard Model Context Protocol Server 2.0 (28 Tools) for Hybrid Real & Virtual Multi-App Farm."""
 
     def __init__(self):
         self.adb = ADBWrapper()
@@ -48,6 +55,8 @@ class AndroidFarmMCPServer:
         self.real_mgr = RealDeviceManager(self.adb)
         self.broadcaster = GroupControlBroadcaster(self.adb, self.real_mgr)
         self.multi_app_mgr = MultiAppAutomationManager(self.adb, self.real_mgr, self.broadcaster, self.otp_service)
+        self.human_engine = HumanTouchEngine(self.adb, self.real_mgr)
+        self.oem_watcher = OEMPopupWatcher(self.adb)
         self.scrcpy_mgr = ScrcpyManager()
         self.memory = MemoryManager()
         self.worktree_mgr = GitWorktreeManager()
@@ -55,6 +64,10 @@ class AndroidFarmMCPServer:
         self.notetaker = CrossAppNotetakerSubagent(self.adb, self.memory)
         self.reflector = ActionReflectorSubagent(self.adb, self.memory)
         self.crawler = MultiAppCrawlerSubagent(self.adb, self.memory)
+        self.human_subagent = HumanTouchSubagent(self.adb, self.memory)
+        self.oem_guard = OEMPopupGuardSubagent(self.adb, self.memory)
+        self.captcha_solver = CaptchaSolverSubagent(self.adb, self.memory)
+        self.net_visual_qa = NetworkAndVisualQASubagent(self.adb, self.memory)
         self.lock_mgr = DeviceLockManager()
         self.bridge = ArtemisBridge()
         self.tools = self._register_tools()
@@ -285,7 +298,7 @@ class AndroidFarmMCPServer:
             },
             {
                 "name": "android_run_self_evolution_loop",
-                "description": "Trigger the 16-Subagent Autonomous Self-Evolution Engine (Worktree Audit -> Scout -> Multi-App Discovery -> Ideation -> Group Sync -> Multi-App Flow + Notetaker + Action Reflector -> UI Graph Crawler -> Kanban Pipeline -> Prompt Evolution).",
+                "description": "Trigger the 20-Subagent Autonomous Self-Evolution Engine (Worktree Audit -> Scout -> Vivo/OEM Guard -> Multi-App Discovery -> Human Touch & CAPTCHA Check -> Multi-App Flow + Notetaker + Action Reflector -> UI Graph Crawler -> 48dp Visual QA -> Kanban Pipeline -> Prompt Evolution).",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
@@ -417,6 +430,80 @@ class AndroidFarmMCPServer:
                         "max_steps": {"type": "integer", "description": "Max exploration steps per app (default 3)"},
                         "run_monkey_burst": {"type": "boolean", "description": "Run fast monkey event burst (default false)"}
                     }
+                }
+            },
+            {
+                "name": "android_human_touch_action",
+                "description": "Execute biometric human-like touch interactions (Gaussian-jitter dwell tap, Cubic Bezier curve swipe, slider drag with overshoot, or natural cadence typing).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "action": {
+                            "type": "string",
+                            "enum": ["tap", "bezier_swipe", "slider_drag", "type_text"],
+                            "description": "Human-like touch action"
+                        },
+                        "x": {"type": "number", "description": "Start X coordinate (pixel or normalized 0..1)"},
+                        "y": {"type": "number", "description": "Start Y coordinate (pixel or normalized 0..1)"},
+                        "end_x": {"type": "integer", "description": "End X coordinate for bezier_swipe"},
+                        "end_y": {"type": "integer", "description": "End Y coordinate for bezier_swipe"},
+                        "distance_px": {"type": "integer", "description": "Horizontal drag distance in pixels for slider_drag"},
+                        "text": {"type": "string", "description": "Text to type with human cadence"}
+                    },
+                    "required": ["serial", "action"]
+                }
+            },
+            {
+                "name": "android_oem_popup_guard",
+                "description": "Auto-detect and click Vivo/OriginOS ('Tiếp tục cài đặt', 'Cho phép cài đặt qua USB'), Xiaomi MIUI/HyperOS, OPPO ColorOS, and Play Protect installation/consent dialogs, or install an APK with a background popup watcher.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "action": {
+                            "type": "string",
+                            "enum": ["scan_and_dismiss", "start_watcher", "stop_watcher", "guarded_install_apk"],
+                            "description": "OEM popup guard action"
+                        },
+                        "apk_path": {"type": "string", "description": "Path to APK file when action='guarded_install_apk'"},
+                        "use_vivo_fallback": {"type": "boolean", "description": "Use Vivo OriginOS bottom-sheet coordinate fallback when overlay hides XML nodes"}
+                    },
+                    "required": ["serial", "action"]
+                }
+            },
+            {
+                "name": "android_solve_captcha",
+                "description": "Automatically detect and solve mobile CAPTCHA / verification challenges (Slider Puzzle with Cubic Bezier drag, Math/Text OCR, Checkbox challenge, or Image Grid).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "action": {
+                            "type": "string",
+                            "enum": ["detect", "solve"],
+                            "description": "Whether to only detect or detect and solve the CAPTCHA"
+                        },
+                        "hint_distance_px": {"type": "integer", "description": "Optional explicit drag distance in pixels for Slider CAPTCHAs"}
+                    },
+                    "required": ["serial"]
+                }
+            },
+            {
+                "name": "android_network_and_visual_qa",
+                "description": "Audit UI hierarchy against Google Material 48dp touch-target accessibility guidelines or verify app crash resilience across Wi-Fi network toggles.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "action": {
+                            "type": "string",
+                            "enum": ["layout_audit", "network_resilience"],
+                            "description": "QA verification mode"
+                        },
+                        "package_name": {"type": "string", "description": "Target package name for network_resilience"}
+                    },
+                    "required": ["serial", "action"]
                 }
             }
         ]
@@ -699,6 +786,50 @@ class AndroidFarmMCPServer:
                     res = self.crawler.crawl_application(serial, pkg, max_steps=max_steps, run_monkey_burst=monkey)
                 return {"success": True, **res}
 
+            elif name == "android_human_touch_action":
+                serial = args["serial"]
+                res = self.human_subagent.execute_human_action(serial, args)
+                return {"success": True, **res}
+
+            elif name == "android_oem_popup_guard":
+                serial = args["serial"]
+                act = args["action"]
+                vivo_fb = bool(args.get("use_vivo_fallback", True))
+                if act == "scan_and_dismiss":
+                    res = self.oem_guard.guard_device(serial, use_vivo_fallback=vivo_fb)
+                elif act == "start_watcher":
+                    res = self.oem_watcher.start_background_watcher(serial, use_vivo_fallback=vivo_fb)
+                elif act == "stop_watcher":
+                    res = self.oem_watcher.stop_background_watcher(serial)
+                elif act == "guarded_install_apk":
+                    apk_path = args.get("apk_path", "")
+                    res = self.oem_guard.guarded_apk_install(serial, apk_path)
+                else:
+                    return {"success": False, "error": f"Unknown oem_popup_guard action: {act}"}
+                return {"success": True, **res}
+
+            elif name == "android_solve_captcha":
+                serial = args["serial"]
+                act = args.get("action", "solve")
+                if act == "detect":
+                    res = self.captcha_solver.detect_captcha_challenge(serial)
+                else:
+                    res = self.captcha_solver.solve_captcha(
+                        serial,
+                        hint_distance_px=args.get("hint_distance_px")
+                    )
+                return {"success": True, **res}
+
+            elif name == "android_network_and_visual_qa":
+                serial = args["serial"]
+                act = args["action"]
+                if act == "layout_audit":
+                    res = self.net_visual_qa.audit_ui_accessibility_and_layout(serial)
+                else:
+                    pkg = args.get("package_name", "com.android.settings")
+                    res = self.net_visual_qa.run_network_resilience_check(serial, pkg)
+                return {"success": True, **res}
+
             else:
                 return {"success": False, "error": f"Unknown tool: {name}"}
 
@@ -708,7 +839,7 @@ class AndroidFarmMCPServer:
 
     def run_stdio(self):
         """Standard JSON-RPC 2.0 I/O loop."""
-        logger.info("Android Multi-Agent Farm MCP Server 2.0 started on stdio.")
+        logger.info("Android Multi-Agent Farm MCP Server 2.0 (AMAF 5.0 - 28 Tools) started on stdio.")
         for line in sys.stdin:
             line = line.strip()
             if not line:
@@ -728,7 +859,7 @@ class AndroidFarmMCPServer:
                             "capabilities": {"tools": {}},
                             "serverInfo": {
                                 "name": "android-multi-agent-farm",
-                                "version": "4.0.0"
+                                "version": "5.0.0"
                             }
                         }
                     }

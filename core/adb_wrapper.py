@@ -1,6 +1,7 @@
 """
-ADB Wrapper for Multi-Device Android Farm
-Thread-safe, robust ADB communication layer with multi-device serial routing.
+ADB Wrapper for Multi-Device Android Farm (AMAF 5.0)
+Thread-safe, robust ADB communication layer with multi-device serial routing
+and automatic Vivo/OriginOS/MIUI/ColorOS USB installation popup bypass.
 """
 
 import subprocess
@@ -18,7 +19,6 @@ from config.farm_config import ADB_PATH
 class ADBWrapper:
     def __init__(self, adb_path: Optional[Path] = None):
         self.adb_path = str(adb_path or ADB_PATH)
-        # Ensure adb path exists
         if not os.path.exists(self.adb_path):
             self.adb_path = "adb"
 
@@ -89,7 +89,6 @@ class ADBWrapper:
         while time.time() - start_time < timeout_seconds:
             devices = [d["serial"] for d in self.get_connected_devices() if d["status"] == "device"]
             if serial in devices and self.is_boot_completed(serial):
-                # Apply animation optimizations to speed up UI
                 self.optimize_system_animations(serial)
                 return True
             time.sleep(poll_interval)
@@ -101,10 +100,28 @@ class ADBWrapper:
         self.shell(serial, "settings put global transition_animation_scale 0.0")
         self.shell(serial, "settings put global animator_duration_scale 0.0")
 
-    def install_apk(self, serial: str, apk_path: str, replace: bool = True) -> Tuple[bool, str]:
-        """Install an APK file on the target device."""
+    def install_apk(
+        self,
+        serial: str,
+        apk_path: str,
+        replace: bool = True,
+        auto_accept_oem_popups: bool = True
+    ) -> Tuple[bool, str]:
+        """
+        Install an APK file on the target device.
+        When `auto_accept_oem_popups=True`, spawns a concurrent OEMPopupWatcher thread to
+        auto-click 'Tiếp tục cài đặt' / 'Cho phép cài đặt qua USB' on Vivo/OriginOS, MIUI, and ColorOS.
+        """
         if not os.path.exists(apk_path):
             return False, f"APK file not found: {apk_path}"
+        if auto_accept_oem_popups:
+            try:
+                from core.oem_popup_watcher import OEMPopupWatcher
+                watcher = OEMPopupWatcher(self)
+                res = watcher.install_apk_with_oem_guard(serial, apk_path, timeout=120)
+                return bool(res.get("success")), str(res.get("output", ""))
+            except Exception:
+                pass
         args = ["install"]
         if replace:
             args.append("-r")
@@ -135,7 +152,6 @@ class ADBWrapper:
     def capture_screenshot(self, serial: str, local_output_path: str) -> bool:
         """Capture screen as PNG image with minimal latency."""
         try:
-            # Direct exec-out screencap saves file I/O on the device
             cmd = [self.adb_path, "-s", serial, "exec-out", "screencap", "-p"]
             with open(local_output_path, "wb") as f:
                 res = subprocess.run(
@@ -147,7 +163,6 @@ class ADBWrapper:
                 )
             return res.returncode == 0 and os.path.getsize(local_output_path) > 1000
         except Exception:
-            # Fallback: capture to /sdcard/ and pull
             try:
                 remote_path = "/sdcard/screen_temp.png"
                 self.shell(serial, f"screencap -p {remote_path}")
@@ -162,7 +177,6 @@ class ADBWrapper:
         remote_xml = "/sdcard/window_dump.xml"
         out = self.shell(serial, f"uiautomator dump {remote_xml}")
         if "already registered" in out.lower() or "error" in out.lower() or "exception" in out.lower():
-            # Reset stale uiautomator process and retry
             self.shell(serial, "pkill -f uiautomator")
             time.sleep(0.6)
             self.shell(serial, f"uiautomator dump {remote_xml}")
@@ -182,7 +196,6 @@ class ADBWrapper:
                 bounds_str = attrib.get("bounds", "")
                 bounds = None
                 if bounds_str and bounds_str.startswith("["):
-                    # Format: [x1,y1][x2,y2]
                     try:
                         clean = bounds_str.replace("][", ",").replace("[", "").replace("]", "")
                         coords = [int(c) for c in clean.split(",")]
@@ -225,7 +238,6 @@ class ADBWrapper:
 
     def input_text(self, serial: str, text: str):
         """Input text (escapes spaces and special characters)."""
-        # Escape spaces for ADB input
         escaped = text.replace(" ", "%s").replace("'", "\\'").replace('"', '\\"')
         self.shell(serial, f"input text '{escaped}'")
 
@@ -257,7 +269,6 @@ class ADBWrapper:
         """Extract fatal crashes, ANR, and Java/Kotlin exceptions from logcat."""
         out = self.shell(serial, f"logcat -d -b crash -t {lines}")
         if not out.strip():
-            # Check fatal errors in main logcat
             out = self.shell(serial, f"logcat -d -t {lines} *:E | grep -E 'FATAL EXCEPTION|ANR in|Crash|NullPointerException'")
         return out.strip()
 
