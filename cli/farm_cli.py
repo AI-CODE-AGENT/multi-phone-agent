@@ -178,6 +178,37 @@ def main():
     p_crawl.add_argument("--package", default="com.android.settings", help="Target package name")
     p_crawl.add_argument("--steps", type=int, default=3, help="Exploration steps")
 
+    # auto-screenshot (Subagent #21 Set-of-Mark & NCC Template Matching)
+    p_shot = subparsers.add_parser("auto-screenshot", help="Capture smart screenshot with Set-of-Mark (SoM) visual grounding badges")
+    p_shot.add_argument("--serial", default="emulator-5554", help="Target device serial")
+    p_shot.add_argument("--tag", default="cli_som", help="Screenshot tag")
+
+    # solve-captcha (Subagent #19 & #22 Universal 10-Type Complex CAPTCHA CV Solver)
+    p_cap = subparsers.add_parser("solve-captcha", help="Detect and solve all 10 simple & complex CAPTCHA types with CV + Cubic Bezier")
+    p_cap.add_argument("--serial", default="emulator-5554", help="Target device serial")
+    p_cap.add_argument("--list-types", action="store_true", help="List all 10 supported CAPTCHA types")
+
+    # dismiss-oem-popup (Subagent #18 Vivo/OriginOS/Xiaomi/OPPO USB Guard)
+    p_oem = subparsers.add_parser("dismiss-oem-popup", help="Auto-detect and click Vivo/OriginOS ('Tiếp tục cài đặt' / 'Cho phép cài đặt qua USB') popups")
+    p_oem.add_argument("--serial", default="emulator-5554", help="Target device serial")
+    p_oem.add_argument("--vivo-fallback", action="store_true", help="Use Vivo bottom-sheet coordinate fallback")
+
+    # deeplink-qr (Subagent #23 DeepLink Fuzzing & QR Code Injection)
+    p_qr = subparsers.add_parser("deeplink-qr", help="Open/fuzz Deep Links or inject synthetic QR code payload")
+    p_qr.add_argument("--serial", default="emulator-5554", help="Target device serial")
+    p_qr.add_argument("--payload", default="https://example.com/qr_verify", help="QR payload or Deep Link URI")
+
+    # clipboard-biometric (Subagent #24 Clipboard OTP, Fingerprint & Notification Shade)
+    p_cb = subparsers.add_parser("clipboard-biometric", help="Read/set clipboard OTP, trigger biometric auth, or inspect notifications")
+    p_cb.add_argument("--serial", default="emulator-5554", help="Target device serial")
+    p_cb.add_argument("--action", default="get_clipboard", choices=["get_clipboard", "set_clipboard", "biometric", "notifications"])
+    p_cb.add_argument("--text", default="", help="Text for set_clipboard")
+
+    # perf-audit (Subagent #25 FPS Jank & PSS Memory Leak Profiler)
+    p_perf = subparsers.add_parser("perf-audit", help="Profile rendering FPS jank and PSS/Java/Native Heap memory leaks")
+    p_perf.add_argument("--serial", default="emulator-5554", help="Target device serial")
+    p_perf.add_argument("--package", default="com.android.settings", help="Target package name")
+
     args = parser.parse_args()
 
     if args.command == "setup":
@@ -424,6 +455,45 @@ def main():
         crawler = MultiAppCrawlerSubagent()
         res = crawler.crawl_application(args.serial, args.package, max_steps=args.steps)
         print(f"Crawl completed on {args.serial} ({args.package}): {res['unique_states_discovered']} states, {res['transitions_recorded']} transitions.")
+    elif args.command == "auto-screenshot":
+        from agents.auto_screenshot_subagent import AutoScreenshotSubagent
+        sub = AutoScreenshotSubagent()
+        res = sub.capture_smart_screenshot(args.serial, tag=args.tag, annotate_som=True)
+        print(f"Captured Set-of-Mark Screenshot on {args.serial}: {res['annotated_screenshot_path']} ({res['marks_count']} marks)")
+    elif args.command == "solve-captcha":
+        from agents.complex_captcha_subagent import ComplexCaptchaSubagent
+        sub = ComplexCaptchaSubagent()
+        if args.list_types:
+            print("Supported 10 CAPTCHA Types:", sub.get_supported_captcha_types())
+        else:
+            res = sub.solve_any_captcha_with_vision(args.serial)
+            print("Complex CAPTCHA CV Result:", res)
+    elif args.command == "dismiss-oem-popup":
+        from agents.oem_popup_guard_subagent import OEMPopupGuardSubagent
+        sub = OEMPopupGuardSubagent()
+        res = sub.guard_device(args.serial, use_vivo_fallback=args.vivo_fallback)
+        print("OEM Popup Guard Result:", res)
+    elif args.command == "deeplink-qr":
+        from agents.deeplink_qr_scanner_subagent import DeepLinkAndQRScannerSubagent
+        sub = DeepLinkAndQRScannerSubagent()
+        res = sub.inject_qr_or_barcode_payload(args.serial, args.payload)
+        print("DeepLink/QR Injection Result:", res)
+    elif args.command == "clipboard-biometric":
+        from agents.clipboard_biometric_subagent import ClipboardAndBiometricHookSubagent
+        sub = ClipboardAndBiometricHookSubagent()
+        if args.action == "set_clipboard":
+            print(sub.set_clipboard(args.serial, args.text))
+        elif args.action == "biometric":
+            print(sub.authenticate_biometric(args.serial))
+        elif args.action == "notifications":
+            print(sub.inspect_and_interact_notifications(args.serial))
+        else:
+            print(sub.get_clipboard(args.serial))
+    elif args.command == "perf-audit":
+        from agents.performance_memleak_subagent import PerformanceAndMemLeakSubagent
+        sub = PerformanceAndMemLeakSubagent()
+        res = sub.run_comprehensive_performance_audit(args.serial, args.package)
+        print(f"Performance Grade on {args.serial} ({args.package}): {res['performance_grade']} (Score: {res['performance_score']}/100, FPS: {res['graphics']['estimated_fps']}, PSS: {res['memory']['total_pss_mb']} MB)")
 
 
 if __name__ == "__main__":

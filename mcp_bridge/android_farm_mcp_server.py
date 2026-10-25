@@ -38,6 +38,11 @@ from agents.human_touch_subagent import HumanTouchSubagent
 from agents.oem_popup_guard_subagent import OEMPopupGuardSubagent
 from agents.captcha_solver_subagent import CaptchaSolverSubagent
 from agents.network_visual_qa_subagent import NetworkAndVisualQASubagent
+from agents.auto_screenshot_subagent import AutoScreenshotSubagent
+from agents.complex_captcha_subagent import ComplexCaptchaSubagent
+from agents.deeplink_qr_scanner_subagent import DeepLinkAndQRScannerSubagent
+from agents.clipboard_biometric_subagent import ClipboardAndBiometricHookSubagent
+from agents.performance_memleak_subagent import PerformanceAndMemLeakSubagent
 from mcp_bridge.artemis_bridge import ArtemisBridge
 from config.farm_config import DEFAULT_FARM_DEVICES
 
@@ -68,6 +73,11 @@ class AndroidFarmMCPServer:
         self.oem_guard = OEMPopupGuardSubagent(self.adb, self.memory)
         self.captcha_solver = CaptchaSolverSubagent(self.adb, self.memory)
         self.net_visual_qa = NetworkAndVisualQASubagent(self.adb, self.memory)
+        self.auto_screenshot = AutoScreenshotSubagent(self.adb, self.memory)
+        self.complex_captcha = ComplexCaptchaSubagent(self.adb, self.memory, solver=self.captcha_solver)
+        self.deeplink_qr = DeepLinkAndQRScannerSubagent(self.adb, self.memory)
+        self.clipboard_bio = ClipboardAndBiometricHookSubagent(self.adb, self.memory)
+        self.perf_profiler = PerformanceAndMemLeakSubagent(self.adb, self.memory)
         self.lock_mgr = DeviceLockManager()
         self.bridge = ArtemisBridge()
         self.tools = self._register_tools()
@@ -505,6 +515,117 @@ class AndroidFarmMCPServer:
                     },
                     "required": ["serial", "action"]
                 }
+            },
+            {
+                "name": "android_auto_screenshot_som",
+                "description": "Capture smart screenshot, render Set-of-Mark (SoM) numbered visual grounding badges (#1, #2...), or crop and zoom a UI region (OmniParser / Mobile-Agent-v2 style).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "action": {
+                            "type": "string",
+                            "enum": ["capture_som", "crop_zoom", "locate_mark"],
+                            "description": "Auto-screenshot & Set-of-Mark operation"
+                        },
+                        "mark_id": {"type": "integer", "description": "Set-of-Mark badge number to resolve"},
+                        "bounds": {"type": "object", "description": "Bounds {x1,y1,x2,y2} for crop_zoom"},
+                        "zoom_factor": {"type": "integer", "description": "Upscale zoom factor (default 2)"}
+                    },
+                    "required": ["serial"]
+                }
+            },
+            {
+                "name": "android_visual_template_match_and_diff",
+                "description": "Run Airtest-style 2D Normalized Cross-Correlation (NCC) template matching or Maestro-style visual regression diffing (SSIM/PSNR/MAE + diff heatmap).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "action": {
+                            "type": "string",
+                            "enum": ["match_template", "compare_screenshots"],
+                            "description": "Visual matching or regression diff operation"
+                        },
+                        "template_path": {"type": "string", "description": "Template PNG path for match_template"},
+                        "baseline_path": {"type": "string", "description": "Baseline PNG path for compare_screenshots"},
+                        "current_path": {"type": "string", "description": "Optional current screenshot PNG path"}
+                    },
+                    "required": ["serial", "action"]
+                }
+            },
+            {
+                "name": "android_solve_complex_captcha_cv",
+                "description": "Universal Computer Vision CAPTCHA solver supporting all 10 simple & complex CAPTCHA types (Slider Sobel Gap, Rotation Polar Angle, Click-Order Blobs, Icon/Shape Outlier, Continuous Path Trace, Hold-Press Tremor, Audio Challenge, Opaque WebView Canvas, Math/OCR, Checkbox & Grid).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "action": {
+                            "type": "string",
+                            "enum": ["solve_any", "list_supported_types", "detect_sobel_gap", "estimate_rotation"],
+                            "description": "Complex CAPTCHA CV operation"
+                        },
+                        "screenshot_path": {"type": "string", "description": "Optional screenshot path for CV analysis"},
+                        "xml_override": {"type": "string", "description": "Optional XML hierarchy override"}
+                    },
+                    "required": ["serial"]
+                }
+            },
+            {
+                "name": "android_deeplink_and_qr_scanner",
+                "description": "Automate Android App Links / Deep Link route fuzzing, detect camera QR viewfinder screens, generate synthetic QR codes, and inject ZXing/Camera QR/Barcode payloads.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "action": {
+                            "type": "string",
+                            "enum": ["open_deeplink", "fuzz_routes", "detect_scanner", "inject_qr"],
+                            "description": "DeepLink or QR scanner operation"
+                        },
+                        "uri": {"type": "string", "description": "Deep link URI"},
+                        "payload": {"type": "string", "description": "QR or Barcode payload string"},
+                        "package_name": {"type": "string", "description": "Optional package name"}
+                    },
+                    "required": ["serial", "action"]
+                }
+            },
+            {
+                "name": "android_clipboard_biometric_and_notifications",
+                "description": "Read/write/paste device clipboard, auto-extract OTPs from clipboard or notification shade, and trigger biometric fingerprint / PIN prompt authentication.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "action": {
+                            "type": "string",
+                            "enum": ["set_clipboard", "get_clipboard", "paste_clipboard", "biometric_auth", "inspect_notifications"],
+                            "description": "Clipboard, biometric, or notification shade action"
+                        },
+                        "text": {"type": "string", "description": "Clipboard text to set"},
+                        "finger_id": {"type": "integer", "description": "Fingerprint sensor ID (default 1)"},
+                        "click_keyword": {"type": "string", "description": "Optional notification keyword to tap"}
+                    },
+                    "required": ["serial", "action"]
+                }
+            },
+            {
+                "name": "android_profile_performance_and_memleak",
+                "description": "Profile real-time rendering FPS, Janky frames, P50/P90/P95/P99 latency (`dumpsys gfxinfo`), and PSS / Java Heap / Native Heap memory leak telemetry (`dumpsys meminfo`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "package_name": {"type": "string", "description": "Target Android package name (default com.android.settings)"},
+                        "action": {
+                            "type": "string",
+                            "enum": ["full_audit", "graphics_fps", "memory_leak"],
+                            "description": "Performance profiling action (default full_audit)"
+                        }
+                    },
+                    "required": ["serial"]
+                }
             }
         ]
 
@@ -830,6 +951,127 @@ class AndroidFarmMCPServer:
                     res = self.net_visual_qa.run_network_resilience_check(serial, pkg)
                 return {"success": True, **res}
 
+            elif name == "android_auto_screenshot_som":
+                serial = args["serial"]
+                act = args.get("action", "capture_som")
+                if act == "crop_zoom":
+                    shot = args.get("screenshot_path") or self.auto_screenshot.capture_smart_screenshot(serial, annotate_som=False)["screenshot_path"]
+                    bounds = args.get("bounds") or {"x1": 100, "y1": 200, "x2": 400, "y2": 500}
+                    res = self.auto_screenshot.engine.crop_and_zoom_region(shot, bounds, zoom_factor=int(args.get("zoom_factor", 2)))
+                elif act == "locate_mark":
+                    res = self.auto_screenshot.locate_by_template_or_som(
+                        serial,
+                        mark_id=int(args.get("mark_id", 1)),
+                        screenshot_path=args.get("screenshot_path"),
+                        xml_override=args.get("xml_override")
+                    )
+                else:
+                    res = self.auto_screenshot.capture_smart_screenshot(
+                        serial,
+                        tag=args.get("tag", "mcp_som"),
+                        annotate_som=True,
+                        xml_override=args.get("xml_override")
+                    )
+                return {"success": True, **res}
+
+            elif name == "android_visual_template_match_and_diff":
+                serial = args["serial"]
+                act = args["action"]
+                if act == "match_template":
+                    res = self.auto_screenshot.locate_by_template_or_som(
+                        serial,
+                        template_path=args.get("template_path"),
+                        screenshot_path=args.get("current_path")
+                    )
+                else:
+                    res = self.auto_screenshot.visual_regression_check(
+                        serial,
+                        baseline_path=args.get("baseline_path", ""),
+                        current_path=args.get("current_path")
+                    )
+                return {"success": True, **res}
+
+            elif name == "android_solve_complex_captcha_cv":
+                serial = args["serial"]
+                act = args.get("action", "solve_any")
+                if act == "list_supported_types":
+                    types = self.complex_captcha.get_supported_captcha_types()
+                    return {"success": True, "count": len(types), "supported_captcha_types": types}
+                elif act == "detect_sobel_gap":
+                    res = self.complex_captcha.cv_engine.detect_slider_gap_sobel(
+                        args.get("screenshot_path", ""),
+                        track_width=int(args.get("track_width", 520))
+                    )
+                    return {"success": True, **res}
+                elif act == "estimate_rotation":
+                    res = self.complex_captcha.cv_engine.estimate_rotation_angle(
+                        args.get("screenshot_path"),
+                        track_width=int(args.get("track_width", 520))
+                    )
+                    return {"success": True, **res}
+                else:
+                    res = self.complex_captcha.solve_any_captcha_with_vision(
+                        serial,
+                        xml_override=args.get("xml_override"),
+                        screenshot_path=args.get("screenshot_path"),
+                        auto_screenshot=bool(args.get("auto_screenshot", True))
+                    )
+                    return {"success": True, **res}
+
+            elif name == "android_deeplink_and_qr_scanner":
+                serial = args["serial"]
+                act = args["action"]
+                if act == "open_deeplink":
+                    res = self.deeplink_qr.open_deep_link(serial, args.get("uri", "https://example.com"), args.get("package_name"))
+                elif act == "fuzz_routes":
+                    res = self.deeplink_qr.fuzz_deep_link_routes(serial, args.get("uri", "https://example.com/route"), package_name=args.get("package_name"))
+                elif act == "detect_scanner":
+                    res = self.deeplink_qr.detect_qr_scanner_screen(serial, xml_override=args.get("xml_override"))
+                else:
+                    res = self.deeplink_qr.inject_qr_or_barcode_payload(
+                        serial,
+                        payload=args.get("payload", "https://example.com/qr"),
+                        format_type=args.get("format_type", "QR_CODE")
+                    )
+                return {"success": True, **res}
+
+            elif name == "android_clipboard_biometric_and_notifications":
+                serial = args["serial"]
+                act = args["action"]
+                if act == "set_clipboard":
+                    res = self.clipboard_bio.set_clipboard(serial, args.get("text", ""))
+                elif act == "get_clipboard":
+                    res = self.clipboard_bio.get_clipboard(serial)
+                elif act == "paste_clipboard":
+                    res = self.clipboard_bio.paste_clipboard(serial)
+                elif act == "biometric_auth":
+                    res = self.clipboard_bio.authenticate_biometric(
+                        serial,
+                        finger_id=int(args.get("finger_id", 1)),
+                        pin_fallback=str(args.get("pin_fallback", "1234")),
+                        xml_override=args.get("xml_override")
+                    )
+                else:
+                    res = self.clipboard_bio.inspect_and_interact_notifications(
+                        serial,
+                        click_keyword=args.get("click_keyword"),
+                        expand_shade=bool(args.get("expand_shade", False)),
+                        dumpsys_override=args.get("dumpsys_override")
+                    )
+                return {"success": True, **res}
+
+            elif name == "android_profile_performance_and_memleak":
+                serial = args["serial"]
+                pkg = args.get("package_name", "com.android.settings")
+                act = args.get("action", "full_audit")
+                if act == "graphics_fps":
+                    res = self.perf_profiler.profile_app_graphics_fps(serial, pkg)
+                elif act == "memory_leak":
+                    res = self.perf_profiler.profile_app_memory_and_leaks(serial, pkg)
+                else:
+                    res = self.perf_profiler.run_comprehensive_performance_audit(serial, pkg)
+                return {"success": True, **res}
+
             else:
                 return {"success": False, "error": f"Unknown tool: {name}"}
 
@@ -859,7 +1101,7 @@ class AndroidFarmMCPServer:
                             "capabilities": {"tools": {}},
                             "serverInfo": {
                                 "name": "android-multi-agent-farm",
-                                "version": "5.0.0"
+                                "version": "6.0.0"
                             }
                         }
                     }

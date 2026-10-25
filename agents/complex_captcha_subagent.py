@@ -158,7 +158,7 @@ class ComplexCaptchaSubagent:
                 or "captcha" in xml_lower
             )
 
-            if has_opaque_webview or (active_screen_path and os.path.exists(active_screen_path)):
+            if has_opaque_webview:
                 cv_diag = {}
                 dist = 310
                 if active_screen_path and os.path.exists(active_screen_path):

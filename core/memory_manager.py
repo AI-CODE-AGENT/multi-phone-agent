@@ -35,8 +35,11 @@ class MemoryManager:
 
     def __init__(self, memory_file: Optional[Path] = None):
         if getattr(self, "_initialized", False):
+            if memory_file is not None:
+                self.memory_file = Path(memory_file)
+                self._ensure_memory_file()
             return
-        self.memory_file = memory_file or MEMORY_FILE
+        self.memory_file = Path(memory_file) if memory_file else MEMORY_FILE
         self._rw_lock = threading.Lock()
         self._ensure_memory_file()
         self._initialized = True
@@ -81,6 +84,7 @@ class MemoryManager:
     def _write_data(self, data: Dict[str, Any]):
         """Write data atomically."""
         with self._rw_lock:
+            self.memory_file.parent.mkdir(parents=True, exist_ok=True)
             data["last_updated"] = time.strftime("%Y-%m-%d %H:%M:%S")
             tmp_file = self.memory_file.with_suffix(".tmp")
             try:
