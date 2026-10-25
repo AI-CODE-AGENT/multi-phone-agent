@@ -1,9 +1,11 @@
 """
-Model Context Protocol (MCP) Server 2.0 for Android Multi-Agent Farm (AMAF 5.0).
+Model Context Protocol (MCP) Server 2.0 for Android Multi-Agent Farm (AMAF 7.0).
 Allows any AI Agent (Antigravity, Cursor, Claude Code, Kilo Code, ARTEMIS, OpenCode)
 to discover, lease, observe, navigate, broadcast group actions, manage real physical phones,
 orchestrate multi-app testing flows, crawl UI state graphs, execute human-like Cubic Bezier gestures,
-auto-dismiss Vivo/OriginOS/MIUI USB installation popups, solve CAPTCHAs, and trigger 20-subagent self-evolution loops.
+auto-dismiss Vivo/OriginOS/MIUI USB installation popups, solve all 10+ CAPTCHAs (including Concentric Ring Rotation,
+Multi-Image Grids, and Web Browser/WebView CAPTCHAs), automate 7-mode 2FA/MFA verification, audit WCAG 2.1 contrast,
+demangle Java/Native/ANR stack traces, inspect network API latency, and trigger 30-subagent self-evolution loops.
 Implements JSON-RPC 2.0 over standard I/O (stdio) with zero external dependencies.
 """
 
@@ -43,6 +45,11 @@ from agents.complex_captcha_subagent import ComplexCaptchaSubagent
 from agents.deeplink_qr_scanner_subagent import DeepLinkAndQRScannerSubagent
 from agents.clipboard_biometric_subagent import ClipboardAndBiometricHookSubagent
 from agents.performance_memleak_subagent import PerformanceAndMemLeakSubagent
+from agents.universal_2fa_subagent import Universal2FASubagent
+from agents.web_and_advanced_captcha_subagent import WebAndAdvancedCaptchaSubagent
+from agents.accessibility_wcag_subagent import AccessibilityAndWCAGContrastSubagent
+from agents.crash_tombstone_anr_subagent import CrashTombstoneAndANRSubagent
+from agents.network_api_latency_subagent import NetworkTrafficAndAPILatencySubagent
 from mcp_bridge.artemis_bridge import ArtemisBridge
 from config.farm_config import DEFAULT_FARM_DEVICES
 
@@ -51,7 +58,7 @@ logger = logging.getLogger("AndroidFarmMCP")
 
 
 class AndroidFarmMCPServer:
-    """Standard Model Context Protocol Server 2.0 (28 Tools) for Hybrid Real & Virtual Multi-App Farm."""
+    """Standard Model Context Protocol Server 2.0 (40 Tools) for Hybrid Real & Virtual Multi-App Farm (AMAF 7.0)."""
 
     def __init__(self):
         self.adb = ADBWrapper()
@@ -78,6 +85,11 @@ class AndroidFarmMCPServer:
         self.deeplink_qr = DeepLinkAndQRScannerSubagent(self.adb, self.memory)
         self.clipboard_bio = ClipboardAndBiometricHookSubagent(self.adb, self.memory)
         self.perf_profiler = PerformanceAndMemLeakSubagent(self.adb, self.memory)
+        self.universal_2fa = Universal2FASubagent(self.adb, self.memory)
+        self.web_adv_captcha = WebAndAdvancedCaptchaSubagent(self.adb, self.memory, solver=self.captcha_solver)
+        self.wcag_auditor = AccessibilityAndWCAGContrastSubagent(self.adb, self.memory)
+        self.crash_analyzer = CrashTombstoneAndANRSubagent(self.adb, self.memory)
+        self.net_api_profiler = NetworkTrafficAndAPILatencySubagent(self.adb, self.memory)
         self.lock_mgr = DeviceLockManager()
         self.bridge = ArtemisBridge()
         self.tools = self._register_tools()
@@ -308,7 +320,7 @@ class AndroidFarmMCPServer:
             },
             {
                 "name": "android_run_self_evolution_loop",
-                "description": "Trigger the 20-Subagent Autonomous Self-Evolution Engine (Worktree Audit -> Scout -> Vivo/OEM Guard -> Multi-App Discovery -> Human Touch & CAPTCHA Check -> Multi-App Flow + Notetaker + Action Reflector -> UI Graph Crawler -> 48dp Visual QA -> Kanban Pipeline -> Prompt Evolution).",
+                "description": "Trigger the 30-Subagent Autonomous Self-Evolution Engine (Worktree Audit -> Scout -> Vivo/OEM Guard -> SoM Screenshot -> Multi-App Discovery -> Human Touch & 10+ Type CAPTCHA CV -> Universal 7-Mode 2FA -> Multi-App Flow + Notetaker + Action Reflector -> UI Graph Crawler -> 48dp & WCAG 2.1 Audit -> Crash/ANR Demangler -> Network API Latency -> FPS/MemLeak -> Kanban Pipeline -> Prompt Evolution).",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
@@ -623,6 +635,106 @@ class AndroidFarmMCPServer:
                             "enum": ["full_audit", "graphics_fps", "memory_leak"],
                             "description": "Performance profiling action (default full_audit)"
                         }
+                    },
+                    "required": ["serial"]
+                }
+            },
+            {
+                "name": "android_universal_2fa_automation",
+                "description": "Automate all 7 complex 2FA/MFA modes: RFC 6238 TOTP (SHA1/SHA256/SHA512), RFC 4226 HOTP, 6-box Split-Digit OTP Entry, Authenticator Push Number-Matching ('Tap 84'), Cross-App Authenticator Switching, Passkey/WebAuthn, and Backup Recovery Codes.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "action": {
+                            "type": "string",
+                            "enum": ["detect_and_solve", "generate_totp", "register_otpauth_uri", "list_accounts"],
+                            "description": "Universal 2FA action"
+                        },
+                        "secret": {"type": "string", "description": "Base32 TOTP/HOTP secret (default JBSWY3DPEHPK3PXP)"},
+                        "otpauth_uri": {"type": "string", "description": "otpauth://totp/... or otpauth://hotp/... URI"},
+                        "account_id": {"type": "string", "description": "Registered account ID in 2FA vault"},
+                        "push_target_number": {"type": "string", "description": "Optional target 2-digit number for Push Number-Matching"},
+                        "authenticator_pkg": {"type": "string", "description": "Optional Authenticator app package for cross-app switching"},
+                        "xml_override": {"type": "string", "description": "Optional UIAutomator XML override"}
+                    },
+                    "required": ["serial"]
+                }
+            },
+            {
+                "name": "android_solve_web_and_advanced_captcha",
+                "description": "Solve Concentric Ring Image Rotation CAPTCHAs (`xoay ảnh`), Multi-Round 3x3 & 4x4 Multi-Image Grid Selection (`chọn nhiều ảnh`), and navigate to Web Browser/WebView URLs to solve web CAPTCHAs (`truy cập trang web giải capcha`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "action": {
+                            "type": "string",
+                            "enum": ["solve_rotation_ring", "solve_multi_image_grid", "navigate_and_solve_web"],
+                            "description": "Advanced/Web CAPTCHA operation"
+                        },
+                        "url": {"type": "string", "description": "Target web URL for navigate_and_solve_web"},
+                        "screenshot_path": {"type": "string", "description": "Optional screenshot path"},
+                        "grid_size": {"type": "integer", "description": "Grid dimension (3 for 3x3, 4 for 4x4)"},
+                        "rounds": {"type": "integer", "description": "Number of dynamic replacement rounds (default 2)"},
+                        "xml_override": {"type": "string", "description": "Optional UIAutomator XML override"}
+                    },
+                    "required": ["serial", "action"]
+                }
+            },
+            {
+                "name": "android_webview_devtools_bridge",
+                "description": "Discover active Android WebView & Chrome DevTools UNIX domain sockets (`webview_devtools_remote_<pid>`, `chrome_devtools_remote`) and forward them to host TCP ports for DOM/CDP inspection.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "action": {
+                            "type": "string",
+                            "enum": ["discover_sockets", "forward_port"],
+                            "description": "WebView DevTools bridge action"
+                        },
+                        "local_port": {"type": "integer", "description": "Local TCP port on host (default 9222)"},
+                        "socket_name": {"type": "string", "description": "Socket name (default chrome_devtools_remote)"}
+                    },
+                    "required": ["serial"]
+                }
+            },
+            {
+                "name": "android_audit_wcag_accessibility",
+                "description": "Audit Android UI screens against WCAG 2.1 AA/AAA color contrast ratios (`>= 4.5:1` / `>= 7.0:1`), TalkBack logical focus order, unlabeled interactive controls, and duplicate content descriptions.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "screenshot_path": {"type": "string", "description": "Optional screenshot path for pixel luminance contrast check"},
+                        "xml_override": {"type": "string", "description": "Optional UIAutomator XML override"}
+                    },
+                    "required": ["serial"]
+                }
+            },
+            {
+                "name": "android_analyze_crashes_and_anr",
+                "description": "Parse and demangle Java/Kotlin Fatal Exceptions, Native C/C++ `SIGSEGV`/`SIGABRT` Tombstones, and `ANR in <pkg>` stack traces with deterministic SHA-256 deduplication and root-cause fix recommendations.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "package_name": {"type": "string", "description": "Optional package filter"},
+                        "raw_logcat_override": {"type": "string", "description": "Optional raw logcat crash text override"}
+                    },
+                    "required": ["serial"]
+                }
+            },
+            {
+                "name": "android_audit_network_api_telemetry",
+                "description": "Inspect `/proc/net/dev` RX/TX network throughput, parse HTTP/HTTPS API latency & status codes from logcat, and flag insecure `http://` cleartext endpoints.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "package_name": {"type": "string", "description": "Target package name (default com.android.settings)"},
+                        "raw_logcat_override": {"type": "string", "description": "Optional logcat override"}
                     },
                     "required": ["serial"]
                 }
@@ -1072,6 +1184,100 @@ class AndroidFarmMCPServer:
                     res = self.perf_profiler.run_comprehensive_performance_audit(serial, pkg)
                 return {"success": True, **res}
 
+            elif name == "android_universal_2fa_automation":
+                serial = args["serial"]
+                act = args.get("action", "detect_and_solve")
+                if act == "generate_totp":
+                    res = self.universal_2fa.engine.generate_totp(
+                        secret=args.get("secret", "JBSWY3DPEHPK3PXP"),
+                        digits=int(args.get("digits", 6)),
+                        period=int(args.get("period", 30)),
+                        algorithm=str(args.get("algorithm", "SHA1"))
+                    )
+                elif act == "register_otpauth_uri":
+                    res = self.universal_2fa.engine.register_otpauth_uri(args.get("otpauth_uri", ""))
+                elif act == "list_accounts":
+                    accts = self.universal_2fa.engine.list_accounts()
+                    res = {"accounts_count": len(accts), "accounts": accts}
+                else:
+                    res = self.universal_2fa.solve_2fa_challenge(
+                        serial=serial,
+                        secret=args.get("secret", "JBSWY3DPEHPK3PXP"),
+                        account_id=args.get("account_id"),
+                        push_target_number=args.get("push_target_number"),
+                        authenticator_pkg=args.get("authenticator_pkg"),
+                        xml_override=args.get("xml_override")
+                    )
+                return {"success": True, **res}
+
+            elif name == "android_solve_web_and_advanced_captcha":
+                serial = args["serial"]
+                act = args["action"]
+                if act == "solve_rotation_ring":
+                    res = self.web_adv_captcha.solve_rotation_captcha_advanced(
+                        serial=serial,
+                        screenshot_path=args.get("screenshot_path"),
+                        track_width=int(args.get("track_width", 520))
+                    )
+                elif act == "solve_multi_image_grid":
+                    res = self.web_adv_captcha.solve_multi_image_grid_captcha(
+                        serial=serial,
+                        screenshot_path=args.get("screenshot_path"),
+                        grid_size=int(args.get("grid_size", 3)),
+                        rounds=int(args.get("rounds", 2))
+                    )
+                else:
+                    res = self.web_adv_captcha.navigate_and_solve_web_captcha(
+                        serial=serial,
+                        url=args.get("url", "https://example.com"),
+                        xml_override=args.get("xml_override"),
+                        screenshot_path=args.get("screenshot_path"),
+                        enable_cdp_forward=bool(args.get("enable_cdp_forward", True))
+                    )
+                return {"success": True, **res}
+
+            elif name == "android_webview_devtools_bridge":
+                serial = args["serial"]
+                act = args.get("action", "discover_sockets")
+                if act == "forward_port":
+                    res = self.web_adv_captcha.engine.forward_webview_cdp_port(
+                        self.adb,
+                        serial=serial,
+                        local_port=int(args.get("local_port", 9222)),
+                        socket_name=args.get("socket_name", "chrome_devtools_remote")
+                    )
+                    return {"success": True, **res}
+                else:
+                    sockets = self.web_adv_captcha.engine.discover_webview_devtools_sockets(self.adb, serial)
+                    return {"success": True, "serial": serial, "sockets_count": len(sockets), "sockets": sockets}
+
+            elif name == "android_audit_wcag_accessibility":
+                serial = args["serial"]
+                res = self.wcag_auditor.audit_wcag_and_talkback_tree(
+                    serial=serial,
+                    xml_override=args.get("xml_override"),
+                    screenshot_path=args.get("screenshot_path")
+                )
+                return {"success": True, **res}
+
+            elif name == "android_analyze_crashes_and_anr":
+                serial = args["serial"]
+                res = self.crash_analyzer.analyze_logcat_and_tombstones(
+                    serial=serial,
+                    package_name=args.get("package_name"),
+                    raw_logcat_override=args.get("raw_logcat_override")
+                )
+                return {"success": True, **res}
+
+            elif name == "android_audit_network_api_telemetry":
+                serial = args["serial"]
+                res = self.net_api_profiler.run_network_api_telemetry_audit(
+                    serial=serial,
+                    package_name=args.get("package_name", "com.android.settings"),
+                    raw_logcat_override=args.get("raw_logcat_override")
+                )
+                return {"success": True, **res}
+
             else:
                 return {"success": False, "error": f"Unknown tool: {name}"}
 
@@ -1081,7 +1287,7 @@ class AndroidFarmMCPServer:
 
     def run_stdio(self):
         """Standard JSON-RPC 2.0 I/O loop."""
-        logger.info("Android Multi-Agent Farm MCP Server 2.0 (AMAF 5.0 - 28 Tools) started on stdio.")
+        logger.info("Android Multi-Agent Farm MCP Server 2.0 (AMAF 7.0 - 40 Tools) started on stdio.")
         for line in sys.stdin:
             line = line.strip()
             if not line:
@@ -1101,7 +1307,7 @@ class AndroidFarmMCPServer:
                             "capabilities": {"tools": {}},
                             "serverInfo": {
                                 "name": "android-multi-agent-farm",
-                                "version": "6.0.0"
+                                "version": "7.0.0"
                             }
                         }
                     }

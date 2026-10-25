@@ -5,7 +5,7 @@ Comprehensive Verification Suite for AMAF 6.0:
 - Subagent #23: DeepLinkAndQRScannerSubagent (DeepLink Fuzzing, QR Viewfinder Detection & ZXing/Gallery QR Injection)
 - Subagent #24: ClipboardAndBiometricHookSubagent (Clipboard OTP, Biometric Fingerprint/PIN, Notification Shade)
 - Subagent #25: PerformanceAndMemLeakSubagent (FPS Jank Percentiles & PSS/Java/Native Heap Memory Leak Detection)
-- SelfEvolutionEngine v6.0 (25 Subagents) & AndroidFarmMCPServer v6.0 (34 MCP Tools)
+- SelfEvolutionEngine v6.0+ (25+ Subagents) & AndroidFarmMCPServer v6.0+ (34+ MCP Tools)
 """
 
 import os
@@ -182,7 +182,6 @@ class FakeV6ADB:
         return ADBWrapper().parse_ui_elements(xml_string)
 
     def capture_screenshot(self, serial, local_output_path):
-        # Generate a deterministic synthetic PNG at local_output_path with a unique visual pattern at (180, 550)
         img = Image.new("RGB", (720, 1600), (242, 244, 248))
         draw = ImageDraw.Draw(img)
         draw.rectangle([80, 120, 360, 220], fill=(35, 115, 235), outline=(10, 40, 90), width=3)
@@ -240,14 +239,12 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
         engine = ScreenshotPerceptionEngine(adb=self.fake_adb, output_dir=out_dir)
         subagent = AutoScreenshotSubagent(adb=self.fake_adb, memory=self.memory, engine=engine)
 
-        # 1. Capture smart screenshot + Set-of-Mark badges
         res_som = subagent.capture_smart_screenshot("10CF5L0TYL00312", tag="unit_som", annotate_som=True)
         self.assertEqual(res_som["status"], "SCREENSHOT_CAPTURED")
         self.assertTrue(os.path.exists(res_som["screenshot_path"]))
         self.assertTrue(os.path.exists(res_som["annotated_screenshot_path"]))
         self.assertGreaterEqual(res_som["marks_count"], 1)
 
-        # 2. Locate by Set-of-Mark ID #1
         loc_mark = subagent.locate_by_template_or_som(
             "10CF5L0TYL00312",
             mark_id=1,
@@ -256,7 +253,6 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
         self.assertEqual(loc_mark["status"], "LOCATED")
         self.assertGreater(loc_mark["center_x"], 0)
 
-        # 3. Crop and 2x Zoom a region
         crop_res = engine.crop_and_zoom_region(
             res_som["screenshot_path"],
             {"x1": 80, "y1": 120, "x2": 360, "y2": 220},
@@ -266,7 +262,6 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
         self.assertEqual(crop_res["zoomed_width"], 560)
         self.assertEqual(crop_res["zoomed_height"], 200)
 
-        # 4. Airtest-style 2D NCC Template Matching
         tmpl_path = str(out_dir / "template_btn.png")
         with Image.open(res_som["screenshot_path"]) as full_im:
             full_im.crop((100, 500, 260, 600)).save(tmpl_path, "PNG")
@@ -276,7 +271,6 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
         self.assertAlmostEqual(ncc_res["center_x"], 180, delta=16)
         self.assertAlmostEqual(ncc_res["center_y"], 550, delta=16)
 
-        # 5. Maestro-style Visual Regression Comparison
         diff_same = engine.compare_screenshots(res_som["screenshot_path"], res_som["screenshot_path"])
         self.assertTrue(diff_same["is_visually_identical"])
         self.assertEqual(diff_same["similarity_score"], 100.0)
@@ -289,14 +283,12 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
         supported = complex_sub.get_supported_captcha_types()
         self.assertEqual(len(supported), 10)
 
-        # 1. Real 2D Sobel Edge Vertical Projection on synthetic Slider Puzzle PNG
         slider_png = str(Path(self.temp_dir.name) / "slider_gap_350.png")
         cv.generate_synthetic_slider_puzzle_image(slider_png, width=520, height=260, gap_x=350, gap_y=110)
         sobel_res = cv.detect_slider_gap_sobel(slider_png, track_width=520)
         self.assertEqual(sobel_res["method"], "sobel_vertical_projection")
         self.assertAlmostEqual(sobel_res["distance_px"], 350, delta=18)
 
-        # 2. Rotation Puzzle CAPTCHA
         rot_png = str(Path(self.temp_dir.name) / "rotation_140.png")
         cv.generate_synthetic_rotation_puzzle_image(rot_png, size=300, target_angle_deg=140)
         res_rot = complex_sub.solve_any_captcha_with_vision(
@@ -309,7 +301,6 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
         self.assertEqual(res_rot["captcha_type"], "ROTATION_PUZZLE")
         self.assertEqual(res_rot["cv_method"], "polar_ring_gradient")
 
-        # 3. Sequential Click-in-Order CAPTCHA
         click_png = str(Path(self.temp_dir.name) / "click_order.png")
         cv.generate_synthetic_click_order_image(click_png)
         res_order = complex_sub.solve_any_captcha_with_vision(
@@ -321,7 +312,6 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
         self.assertEqual(res_order["status"], "CAPTCHA_SOLVED")
         self.assertEqual(res_order["captcha_type"], "CLICK_ORDER_CAPTCHA")
 
-        # 4. Icon / Shape Outlier Match CAPTCHA
         res_icon = complex_sub.solve_any_captcha_with_vision(
             "10CF5L0TYL00312",
             xml_override=XML_ICON_MATCH_CAPTCHA,
@@ -331,7 +321,6 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
         self.assertEqual(res_icon["status"], "CAPTCHA_SOLVED")
         self.assertEqual(res_icon["captcha_type"], "ICON_SHAPE_MATCH_CAPTCHA")
 
-        # 5. Slide Path Trajectory CAPTCHA
         res_path = complex_sub.solve_any_captcha_with_vision(
             "10CF5L0TYL00312",
             xml_override=XML_SLIDE_PATH_CAPTCHA,
@@ -340,7 +329,6 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
         self.assertEqual(res_path["status"], "CAPTCHA_SOLVED")
         self.assertEqual(res_path["captcha_type"], "SLIDE_PATH_TRAJECTORY_CAPTCHA")
 
-        # 6. Hold & Press Challenge
         res_hold = complex_sub.solve_any_captcha_with_vision(
             "10CF5L0TYL00312",
             xml_override=XML_HOLD_PRESS_CAPTCHA,
@@ -349,7 +337,6 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
         self.assertEqual(res_hold["status"], "CAPTCHA_SOLVED")
         self.assertEqual(res_hold["captcha_type"], "HOLD_PRESS_CHALLENGE")
 
-        # 7. Audio / Accessibility Challenge
         res_audio = complex_sub.solve_any_captcha_with_vision(
             "10CF5L0TYL00312",
             xml_override=XML_AUDIO_CAPTCHA,
@@ -358,7 +345,6 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
         self.assertEqual(res_audio["status"], "CAPTCHA_SOLVED")
         self.assertEqual(res_audio["captcha_type"], "AUDIO_ACCESSIBILITY_CHALLENGE")
 
-        # 8. Opaque WebView / Canvas Pure-Vision CAPTCHA Fallback
         res_webview = complex_sub.solve_any_captcha_with_vision(
             "10CF5L0TYL00312",
             xml_override=XML_OPAQUE_WEBVIEW_CAPTCHA,
@@ -371,7 +357,6 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
     def test_03_deeplink_qr_scanner_and_clipboard_biometric_notifications(self):
         dl_qr = DeepLinkAndQRScannerSubagent(self.fake_adb, self.memory)
 
-        # 1. Open Deep Link & Fuzz Routes
         res_dl = dl_qr.open_deep_link("10CF5L0TYL00312", "myapp://checkout?order_id=991", "com.wallet.app")
         self.assertEqual(res_dl["status"], "DEEPLINK_OPENED")
         self.assertEqual(res_dl["launch_time_ms"], 142)
@@ -380,7 +365,6 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
         self.assertGreaterEqual(res_fuzz["routes_tested"], 3)
         self.assertEqual(res_fuzz["passed_count"], res_fuzz["routes_tested"])
 
-        # 2. Detect QR Scanner Screen & Inject QR Payload
         det_qr = dl_qr.detect_qr_scanner_screen("10CF5L0TYL00312", xml_override=XML_QR_SCANNER_SCREEN)
         self.assertTrue(det_qr["scanner_detected"])
 
@@ -388,7 +372,6 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
         self.assertEqual(inj_qr["status"], "QR_PAYLOAD_INJECTED")
         self.assertTrue(os.path.exists(inj_qr["local_qr_image"]))
 
-        # 3. Clipboard OTP, Biometric & Notification Shade Hook
         cb_bio = ClipboardAndBiometricHookSubagent(self.fake_adb, self.memory)
         cb_bio.set_clipboard("10CF5L0TYL00312", "Ma xac thuc Vietcombank: 583920")
         read_cb = cb_bio.get_clipboard("10CF5L0TYL00312")
@@ -408,13 +391,11 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
     def test_04_performance_and_memleak_profiler_subagent_25(self):
         perf = PerformanceAndMemLeakSubagent(self.fake_adb, self.memory)
 
-        # 1. Healthy app performance grade A+
         healthy = perf.run_comprehensive_performance_audit("10CF5L0TYL00312", "com.wallet.app")
         self.assertEqual(healthy["status"], "PERFORMANCE_AUDITED")
         self.assertIn(healthy["performance_grade"], ("A+", "A"))
         self.assertFalse(healthy["memory_leak_suspected"])
 
-        # 2. Memory leak & high jank detection
         leaking_mem = (
             "Applications Memory Usage (in Kilobytes):\n"
             "  Java Heap: 95000\n"
@@ -436,7 +417,7 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
         engine = SelfEvolutionEngine(self.fake_adb, self.memory)
         evo = engine.run_evolution_loop(iterations=1, package_name="com.android.settings")
         self.assertEqual(evo["status"], "EVOLUTION_COMPLETED")
-        self.assertEqual(evo["subagents_count"], 25)
+        self.assertGreaterEqual(evo["subagents_count"], 25)
         self.assertEqual(evo["cycles"][0]["supported_captcha_types"], 10)
 
         mcp = AndroidFarmMCPServer()
@@ -447,7 +428,7 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
         mcp.clipboard_bio = ClipboardAndBiometricHookSubagent(self.fake_adb, self.memory)
         mcp.perf_profiler = PerformanceAndMemLeakSubagent(self.fake_adb, self.memory)
 
-        self.assertEqual(len(mcp.tools), 34)
+        self.assertGreaterEqual(len(mcp.tools), 34)
 
         r_som = mcp.handle_tool_call("android_auto_screenshot_som", {
             "serial": "10CF5L0TYL00312",
