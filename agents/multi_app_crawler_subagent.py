@@ -338,6 +338,7 @@ class MultiAppCrawlerSubagent:
             "total_transitions_recorded": total_transitions,
             "total_crashes_detected": len(total_crashes),
             "crashes": total_crashes,
+            "apps_crawled": app_results,
             "results": app_results,
         }
 
