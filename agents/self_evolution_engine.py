@@ -1,14 +1,16 @@
 """
-Self-Evolution Engine (AMAF 4.0 Master Autonomous Loop — 16 Subagents)
-Coordinates all 16 specialized Subagents in a continuous, self-improving cycle:
-1. Worktree Topology & Fleet Audit (WorktreeCoordinatorSubagent + RealDeviceScoutSubagent)
-2. Multi-App Package Discovery & Autonomous Backlog Ideation (MultiAppAutomationManager + PlannerSubagent)
-3. Plan & Macro Lookup (PlannerSubagent + ExperienceMinerSubagent)
-4. Synchronized Group Broadcast & Declarative Multi-App Flow (GroupSyncSubagent + OperatorSubagent + CrossAppNotetakerSubagent)
-5. Post-Action Reflection & Self-Healing (ActionReflectorSubagent + SelfHealingSubagent + VisionPerceptionSubagent)
-6. UI State-Graph Crawling & Deep Security/Performance Audit (MultiAppCrawlerSubagent + AuditorSubagent + SecurityAuditorSubagent)
-7. Root-Cause Auto-Patching & Regression Proof (CodeImproverSubagent + RegressionVerifierSubagent)
-8. Self-Prompting & Macro Distillation (PromptOptimizerSubagent + ExperienceMinerSubagent)
+Self-Evolution Engine (AMAF 5.0 Master Autonomous Loop — 20 Subagents)
+Coordinates all 20 specialized Subagents in a continuous, self-improving cycle:
+1. Worktree Topology & Fleet Audit (WorktreeCoordinatorSubagent #16 + RealDeviceScoutSubagent #10)
+2. OEM Popup & Vivo OriginOS USB Install Guard (OEMPopupGuardSubagent #18)
+3. Multi-App Package Discovery & Autonomous Backlog Ideation (MultiAppAutomationManager + PlannerSubagent #1)
+4. Plan & Macro Lookup (PlannerSubagent #1 + ExperienceMinerSubagent #12)
+5. Synchronized Group Broadcast & Declarative Multi-App Flow (GroupSyncSubagent #11 + OperatorSubagent #2 + CrossAppNotetakerSubagent #13)
+6. Human-Like Touch Gestures & Automated CAPTCHA Solving (HumanTouchSubagent #17 + CaptchaSolverSubagent #19)
+7. Post-Action Reflection & Self-Healing (ActionReflectorSubagent #14 + SelfHealingSubagent #4 + VisionPerceptionSubagent #3)
+8. UI State-Graph Crawling, 48dp Accessibility Audit & Network Chaos Resilience (MultiAppCrawlerSubagent #15 + NetworkAndVisualQASubagent #20 + AuditorSubagent #5 + SecurityAuditorSubagent #6)
+9. Root-Cause Auto-Patching & Regression Proof (CodeImproverSubagent #8 + RegressionVerifierSubagent #9)
+10. Self-Prompting & Macro Distillation (PromptOptimizerSubagent #7 + ExperienceMinerSubagent #12)
 """
 
 import sys
@@ -34,10 +36,14 @@ from agents.cross_app_notetaker_subagent import CrossAppNotetakerSubagent
 from agents.action_reflector_subagent import ActionReflectorSubagent
 from agents.multi_app_crawler_subagent import MultiAppCrawlerSubagent
 from agents.worktree_coordinator_subagent import WorktreeCoordinatorSubagent
+from agents.human_touch_subagent import HumanTouchSubagent
+from agents.oem_popup_guard_subagent import OEMPopupGuardSubagent
+from agents.captcha_solver_subagent import CaptchaSolverSubagent
+from agents.network_visual_qa_subagent import NetworkAndVisualQASubagent
 
 
 class SelfEvolutionEngine:
-    """Autonomous 16-Subagent self-improvement, multi-app testing & evolution orchestrator."""
+    """Autonomous 20-Subagent self-improvement, human-like touch, CAPTCHA solving & multi-app orchestrator."""
 
     def __init__(
         self,
@@ -53,7 +59,7 @@ class SelfEvolutionEngine:
         self.multi_app_mgr = MultiAppAutomationManager(self.adb, self.real_mgr, self.broadcaster)
         self.director = AutonomousPipelineDirector(self.adb, self.memory, self.kanban)
 
-        # 16-Subagent Evolution & Multi-App Specialists
+        # 20-Subagent Evolution, Human Touch, CAPTCHA, OEM Guard & Multi-App Specialists
         self.scout = RealDeviceScoutSubagent(self.adb, self.real_mgr, self.memory)
         self.group_sync = GroupSyncSubagent(self.adb, self.broadcaster, self.memory)
         self.exp_miner = ExperienceMinerSubagent(self.memory)
@@ -63,35 +69,39 @@ class SelfEvolutionEngine:
         self.reflector = ActionReflectorSubagent(self.adb, self.memory)
         self.crawler = MultiAppCrawlerSubagent(self.adb, self.memory)
         self.worktree_coord = WorktreeCoordinatorSubagent(memory=self.memory)
+        self.human_touch = HumanTouchSubagent(self.adb, self.memory)
+        self.oem_guard = OEMPopupGuardSubagent(self.adb, self.memory)
+        self.captcha_solver = CaptchaSolverSubagent(self.adb, self.memory)
+        self.net_visual_qa = NetworkAndVisualQASubagent(self.adb, self.memory)
 
     def generate_autonomous_improvement_backlog(self, fleet_info: Dict[str, Any]) -> List[Dict[str, str]]:
         """
         Inspect memory state, open defects, and active fleet topology (Real + AVD)
-        to autonomously propose high-value multi-app testing & product improvement tasks.
+        to autonomously propose high-value multi-app, human-touch & CAPTCHA testing tasks.
         """
         mem_summary = self.memory.get_summary()
         real_count = fleet_info.get("real_devices_found", 0)
         proposals = [
+            {
+                "title": "Human-Like Cubic Bezier Touch & CAPTCHA Resilience",
+                "goal": "Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass",
+                "category": "human_touch_and_captcha"
+            },
             {
                 "title": "Multi-App OTP & Deep Link Cross-App Flow",
                 "goal": "Launch target app, inject 0-VND Mock OTP, extract code via CrossAppNotetaker, and verify deep link transition",
                 "category": "multi_app_flow"
             },
             {
-                "title": "Cross-Resolution Normalized UI Synchronization",
-                "goal": "Validate synchronized group tap and swipe scaling across 720x1600 AVDs and high-DPI physical phones",
-                "category": "cross_device_sync"
-            },
-            {
-                "title": "UI State-Graph Crawling & OWASP Security Audit",
-                "goal": "Explore interactive UI state transitions via MultiAppCrawlerSubagent and audit cleartext/exported components",
-                "category": "crawler_and_security"
+                "title": "UI State-Graph Crawling & 48dp Accessibility Audit",
+                "goal": "Explore interactive UI state transitions via MultiAppCrawlerSubagent and audit 48dp touch targets & OWASP security",
+                "category": "crawler_and_visual_qa"
             }
         ]
         if real_count > 0:
             proposals.append({
-                "title": f"Physical Phone Thermal & Battery Guard Verification ({real_count} Real Phones)",
-                "goal": "Monitor battery temperature, dim display brightness, and verify wireless ADB stability on real phones",
+                "title": f"Physical Phone Vivo/OriginOS USB Guard & Thermal Protection ({real_count} Real Phones)",
+                "goal": "Auto-confirm 'Tiếp tục cài đặt' / 'Cho phép cài đặt qua USB' dialogs, monitor battery temp, and verify wireless ADB",
                 "category": "real_hardware_guard"
             })
         if mem_summary.get("open_defects", 0) > 0:
@@ -109,7 +119,7 @@ class SelfEvolutionEngine:
         callback: Optional[Callable[[str, str], None]] = None
     ) -> Dict[str, Any]:
         """
-        Execute `iterations` full cycles of the 16-Subagent Self-Evolution Loop.
+        Execute `iterations` full cycles of the 20-Subagent Self-Evolution Loop.
         Works seamlessly whether devices are online or in offline/dry-run diagnostic mode.
         """
         def _emit(agent: str, msg: str):
@@ -121,13 +131,13 @@ class SelfEvolutionEngine:
 
         for cycle_idx in range(1, max(1, iterations) + 1):
             cycle_start = time.time()
-            _emit("SelfEvolutionEngine", f"=== Starting 16-Subagent Evolution Cycle #{cycle_idx}/{iterations} ===")
+            _emit("SelfEvolutionEngine", f"=== Starting 20-Subagent Evolution Cycle #{cycle_idx}/{iterations} ===")
 
             # Phase 0: Audit Git Worktree Isolation Topology (#16 WorktreeCoordinatorSubagent)
             _emit("WorktreeCoordinator", "Auditing isolated Git worktrees for subagent feature engineering...")
             wt_audit = self.worktree_coord.audit_worktree_topology()
 
-            # Phase 1: Scout Fleet (Virtual AVDs + Physical Real Phones) (#9 RealDeviceScoutSubagent)
+            # Phase 1: Scout Fleet (Virtual AVDs + Physical Real Phones) (#10 RealDeviceScoutSubagent)
             _emit("RealDeviceScout", "Scouting physical phones, wireless ADB endpoints, and battery/thermal health...")
             scout_report = self.scout.scout_and_prepare_fleet(auto_wireless=True)
             all_active = [
@@ -138,16 +148,29 @@ class SelfEvolutionEngine:
             primary_serial = online_serials[0] if online_serials else "emulator-5554"
             _emit("RealDeviceScout", f"Fleet ready: {len(online_serials)} online devices ({scout_report.get('real_devices_found', 0)} real phones).")
 
-            # Phase 2: Multi-App Package Discovery & Permission Auto-Grant
+            # Phase 2: OEM Security & Vivo OriginOS Popup Guard (#18 OEMPopupGuardSubagent)
+            _emit("OEMPopupGuard", f"Scanning for Vivo/OriginOS ('Tiếp tục cài đặt' / 'Cho phép cài đặt qua USB') & OEM dialogs on {primary_serial}...")
+            oem_guard_res = self.oem_guard.guard_device(primary_serial, use_vivo_fallback=False)
+
+            # Phase 3: Multi-App Package Discovery & Permission Auto-Grant
             _emit("MultiAppManager", f"Discovering installed packages and granting permissions on {primary_serial}...")
             installed_info = self.multi_app_mgr.list_installed_apps(primary_serial, include_system=False)
             self.multi_app_mgr.grant_all_runtime_permissions(primary_serial, package_name)
 
-            # Phase 3: Autonomous Ideation & Backlog Generation (#1 PlannerSubagent)
-            _emit("PlannerSubagent", "Synthesizing autonomous multi-app testing & improvement backlog...")
+            # Phase 4: Autonomous Ideation & Backlog Generation (#1 PlannerSubagent)
+            _emit("PlannerSubagent", "Synthesizing autonomous multi-app, human-touch & CAPTCHA improvement backlog...")
             proposals = self.generate_autonomous_improvement_backlog(scout_report)
 
-            # Phase 4: Declarative Multi-App Flow + Cross-App Notetaker (#13) + Action Reflector (#14)
+            # Phase 5: Human-Like Touch Gesture & CAPTCHA Challenge Inspection (#17 & #19)
+            _emit("HumanTouchSubagent", f"Executing human-like Gaussian-jitter tap and Cubic Bezier swipe on {primary_serial}...")
+            human_tap_res = self.human_touch.execute_human_action(
+                primary_serial,
+                {"action": "tap", "x": 0.5, "y": 0.4, "normalized": True}
+            )
+            _emit("CaptchaSolver", f"Inspecting screen on {primary_serial} for Slider/Math/Checkbox/Grid CAPTCHA challenges...")
+            captcha_res = self.captcha_solver.solve_captcha(primary_serial)
+
+            # Phase 6: Declarative Multi-App Flow + Cross-App Notetaker (#13) + Action Reflector (#14)
             _emit("CrossAppNotetaker", "Executing declarative multi-app flow with OTP note extraction & UI reflection...")
             before_sig = self.reflector.capture_state_snapshot(primary_serial)
             flow_report = self.multi_app_mgr.run_declarative_multi_app_flow(
@@ -170,7 +193,7 @@ class SelfEvolutionEngine:
                 expected_package=package_name
             )
 
-            # Phase 5: Synchronized Group Broadcast Check (if devices online) (#10 GroupSyncSubagent)
+            # Phase 7: Synchronized Group Broadcast Check (if devices online) (#11 GroupSyncSubagent)
             sync_report = {"status": "SKIPPED_NO_ONLINE_DEVICES", "targets_count": 0}
             if online_serials:
                 _emit("GroupSyncSubagent", f"Broadcasting synchronized warm-up macro across {len(online_serials)} devices...")
@@ -183,7 +206,7 @@ class SelfEvolutionEngine:
                     serials=online_serials
                 )
 
-            # Phase 6: UI State-Graph Exploration (#15 MultiAppCrawlerSubagent)
+            # Phase 8: UI State-Graph Exploration (#15) & 48dp Visual/Network QA (#20)
             _emit("MultiAppCrawler", f"Exploring UI state transition graph for {package_name} on {primary_serial}...")
             crawl_report = self.crawler.crawl_application(
                 serial=primary_serial,
@@ -191,8 +214,10 @@ class SelfEvolutionEngine:
                 max_steps=2,
                 run_monkey_burst=False
             )
+            _emit("NetworkAndVisualQA", f"Auditing 48dp touch-target accessibility and layout health on {primary_serial}...")
+            layout_audit = self.net_visual_qa.audit_ui_accessibility_and_layout(primary_serial)
 
-            # Phase 7: Execute Autonomous Kanban Pipeline Tasks
+            # Phase 9: Execute Autonomous Kanban Pipeline Tasks
             task_outcomes = []
             target_serials = online_serials if online_serials else ["emulator-5554"]
             for idx, prop in enumerate(proposals[:len(target_serials)]):
@@ -207,11 +232,11 @@ class SelfEvolutionEngine:
                 )
                 task_outcomes.append(res)
 
-            # Phase 8: Meta-Level Prompt Evolution & Architecture Memory Consolidation (#11 & #12)
+            # Phase 10: Meta-Level Prompt Evolution & Architecture Memory Consolidation (#7 & #12)
             _emit("PromptOptimizer", "Evolving master Planner & Operator prompts from cycle telemetry...")
             evolved_planner_prompt = self.prompt_opt.analyze_and_optimize(
                 agent_type="planner",
-                current_prompt="Deconstruct multi-app mobile testing goals into resilient milestones across AVDs and Real Phones.",
+                current_prompt="Deconstruct multi-app mobile testing goals with human-like Bezier gestures, CAPTCHA solving, and Vivo/OriginOS popup guards.",
                 execution_feedback={
                     "scenario": f"evolution_cycle_{cycle_idx}",
                     "failures": [],
@@ -221,12 +246,16 @@ class SelfEvolutionEngine:
 
             cycle_summary = {
                 "cycle_index": cycle_idx,
-                "subagents_active": 16,
+                "subagents_active": 20,
                 "duration_seconds": round(time.time() - cycle_start, 2),
                 "online_devices_count": len(online_serials),
                 "real_devices_count": scout_report.get("real_devices_found", 0),
                 "feature_worktrees_count": wt_audit.get("feature_worktrees_count", 0),
                 "installed_apps_discovered": installed_info.get("apps_count", 0),
+                "oem_popup_status": oem_guard_res.get("status"),
+                "human_touch_status": human_tap_res.get("status"),
+                "captcha_check_status": captcha_res.get("status"),
+                "layout_health_score": layout_audit.get("layout_health_score", 100),
                 "multi_app_flow_status": flow_report.get("status"),
                 "action_reflection_outcome": reflection.get("outcome"),
                 "crawler_states_discovered": crawl_report.get("unique_states_discovered", 0),
@@ -246,7 +275,7 @@ class SelfEvolutionEngine:
         total_dur = round(time.time() - start_time, 2)
         return {
             "status": "EVOLUTION_COMPLETED",
-            "subagents_count": 16,
+            "subagents_count": 20,
             "total_duration_seconds": total_dur,
             "cycles_executed": len(evolution_cycles),
             "cycles": evolution_cycles,
@@ -260,25 +289,26 @@ class SelfEvolutionEngine:
         report_file = REPORTS_DIR / f"EVOLUTION_REPORT_{ts}.md"
         mem = self.memory.get_summary()
         lines = [
-            "# 🧬 AMAF 4.0 Autonomous Self-Evolution Report (16 Subagents + Multi-App Testing)",
+            "# 🧬 AMAF 5.0 Autonomous Self-Evolution Report (20 Subagents + Human Touch + CAPTCHA + Vivo/OEM Guard)",
             f"- **Generated At**: `{time.strftime('%Y-%m-%d %H:%M:%S')}`",
-            f"- **Active Subagents**: `16`",
+            f"- **Active Subagents**: `20`",
             f"- **Cycles Executed**: `{len(cycles)}`",
             f"- **Total Mined Macros**: `{mem.get('macros_count', 0)}`",
             f"- **Total Self-Optimized Prompts**: `{mem.get('prompts_count', 0)}`",
             f"- **Total Auto-Generated Patches**: `{mem.get('patches_count', 0)}`",
             "",
             "## Cycle Telemetry",
-            "| Cycle | Duration | Online Devs | Real Phones | Worktrees | Apps Found | Flow | Reflection | Crawler States | Prompt |",
+            "| Cycle | Duration | Devs (Real) | Worktrees | OEM Guard | Human Touch | CAPTCHA | Layout Score | Flow | Prompt |",
             "| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |"
         ]
         for c in cycles:
             lines.append(
                 f"| #{c.get('cycle_index')} | {c.get('duration_seconds')}s | "
-                f"{c.get('online_devices_count')} | {c.get('real_devices_count')} | "
-                f"{c.get('feature_worktrees_count')} | {c.get('installed_apps_discovered')} | "
-                f"`{c.get('multi_app_flow_status')}` | `{c.get('action_reflection_outcome')}` | "
-                f"{c.get('crawler_states_discovered')} | `{c.get('evolved_prompt_version')}` |"
+                f"{c.get('online_devices_count')} ({c.get('real_devices_count')}) | "
+                f"{c.get('feature_worktrees_count')} | `{c.get('oem_popup_status')}` | "
+                f"`{c.get('human_touch_status')}` | `{c.get('captcha_check_status')}` | "
+                f"{c.get('layout_health_score')}/100 | `{c.get('multi_app_flow_status')}` | "
+                f"`{c.get('evolved_prompt_version')}` |"
             )
         report_file.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return report_file

@@ -1,60 +1,41 @@
 ---
 name: android-multi-agent-farm
-description: Master skill for AI Agents to control, test, broadcast, orchestrate multi-app flows, crawl UI graphs, and self-evolve mobile applications across Hybrid Real Physical Android Phones and 4 Ultra-Light Headless Android 15 Emulators via MCP Server 2.0 (24 Tools), REST API, or Python SDK.
+description: Master skill for AI Agents to control, test, broadcast, execute human-like Cubic Bezier gestures, solve CAPTCHAs, auto-bypass Vivo/OriginOS USB install popups, orchestrate multi-app flows, and self-evolve mobile applications across Hybrid Real Physical Android Phones and 4 Headless Android 15 Emulators via MCP Server 2.0 (28 Tools), REST API, or Python SDK.
 ---
 
-# Android Multi-Agent Farm (AMAF 4.0) — Hybrid Real Phone Farm, Multi-App Automation & 16-Subagent Self-Evolution Skill
+# Android Multi-Agent Farm (AMAF 5.0) — Hybrid Real Phone Farm, Human-Like Touch, CAPTCHA Solver, Vivo/OriginOS Guard & 20-Subagent Skill
 
 Use this skill whenever an AI agent needs to interact with, test, debug, or orchestrate mobile applications across **multiple physical Android phones (USB & Wireless TCP/IP)** and **4 Ultra-Lightweight Headless Android 15 Emulators (`emulator-5554` to `emulator-5560`)**.
 
 ---
 
-## 1. Architecture Overview (AMAF 4.0)
+## 1. Architecture Overview (AMAF 5.0)
 
-1. **Hybrid Real + Virtual Device Pool (`core/real_device_manager.py`)**:
-   - Supports switching dynamically between `HYBRID` (4 Headless AVDs + N Real Phones), `AVD_ONLY`, and `REAL_ONLY` modes.
-   - **Wireless ADB Provisioning**: Switch USB phones to TCP/IP (`adb tcpip 5555` -> `adb connect <IP>:5555`) with persistent auto-reconnect.
-   - **Battery & Thermal Protection Guard**: Continuously monitors `dumpsys battery` temperature (°C) and level (%). Automatically dims display brightness (`15/255`), disables system animations (`0.0x`), and triggers `dumpsys battery unplug` cooling when temperature reaches `>= 42.0°C`.
-2. **Synchronized Group Control Broadcaster (`core/group_control_broadcaster.py`)**:
-   - Broadcasts tap, swipe, text input, hardware keys, app launches, and shell commands across N devices concurrently (`ThreadPoolExecutor`).
-   - **Normalized Coordinate Scaling**: Automatically scales normalized coordinates `(0.0..1.0)` or reference `720x1600` coordinates to each target phone's real resolution (`1080x2400`, `1440x3200`, etc.).
-3. **Multi-App Testing Automation (`core/multi_app_manager.py`)**:
-   - **Package Discovery & Launcher Resolution**: Lists 3rd-party/system packages (`pm list packages -3`) and resolves main activities.
-   - **Permission Auto-Grant & Clean State**: Batch-grants runtime permissions (`pm grant`) and overlay (`SYSTEM_ALERT_WINDOW`), clears app state (`pm clear`), and snapshots/restores checkpoints.
-   - **Deep Link Routing & Maestro-Style Flows**: Launches Deep Links (`am start -W -a android.intent.action.VIEW -d <uri>`) with launch latency telemetry, and executes declarative multi-app step flows across 1 or N phones simultaneously.
-4. **16 Specialized Subagents & Self-Evolution Loop (`agents/self_evolution_engine.py`)**:
-   - `#1 PlannerSubagent`, `#2 OperatorSubagent`, `#3 VisionPerceptionSubagent`, `#4 SelfHealingSubagent` (6-Tier Recovery), `#5 AuditorSubagent`, `#6 SecurityAuditorSubagent` (OWASP Mobile Top 10), `#7 PromptOptimizerSubagent`, `#8 CodeImproverSubagent`, `#9 RegressionVerifierSubagent`, `#10 RealDeviceScoutSubagent`, `#11 GroupSyncSubagent`, `#12 ExperienceMinerSubagent`, `#13 CrossAppNotetakerSubagent` (Cross-app OTP/Order/URL/Clipboard bridge), `#14 ActionReflectorSubagent` (Pre/Post UI state transition verifier), `#15 MultiAppCrawlerSubagent` (DroidBot/Fastbot UI state-graph explorer), and `#16 WorktreeCoordinatorSubagent` (Git worktree isolation).
+1. **Human-Like Biometric Touch Engine (`core/human_touch_engine.py` & `agents/human_touch_subagent.py`)**:
+   - Inspired by Google DeepMind `android_env`, `google-research/android_world`, and Fitts's Law biomechanics.
+   - **Gaussian Jitter & Finger Dwell (`human_tap`)**: Samples natural $(x + \mathcal{N}(0, \sigma), y + \mathcal{N}(0, \sigma))$ within element bounds with a `55ms–130ms` finger press dwell.
+   - **Cubic Bézier Curve Trajectory & Overshoot (`human_bezier_swipe`, `human_slider_drag`)**: Generates non-linear minimum-jerk curves with acceleration, deceleration, and `+3..8px` overshoot + micro-correction via `input motionevent DOWN/MOVE/UP` or multi-segment micro-swipes.
+2. **Vivo/OriginOS, Xiaomi HyperOS & OPPO ColorOS Popup Auto-Guard (`core/oem_popup_watcher.py` & `agents/oem_popup_guard_subagent.py`)**:
+   - Automatically detects and clicks `"Tiếp tục cài đặt"`, `"Cho phép cài đặt qua USB"`, `"Continue installing"`, `"Install via USB"`, `"Vẫn cài đặt"`, and `"Install anyway"` both during runtime and inside a concurrent background thread during `adb install -r`.
+   - Includes normalized bottom-sheet coordinate fallback (`(0.5, 0.88)`, `(0.72, 0.90)`) when Vivo OriginOS security overlays hide buttons from UIAutomator XML dumps.
+3. **Automated CAPTCHA & Verification Solver (`agents/captcha_solver_subagent.py`)**:
+   - Automatically detects and solves `SLIDER_PUZZLE` (Cubic Bézier drag with overshoot), `TEXT_MATH_OCR` (arithmetic/code evaluation + human typing), `CHECKBOX_CHALLENGE` (Gaussian jitter + dwell tap), and `IMAGE_GRID` challenges.
+4. **20 Specialized Subagents & Self-Evolution Loop (`agents/self_evolution_engine.py`)**:
+   - `#1 PlannerSubagent`, `#2 OperatorSubagent`, `#3 VisionPerceptionSubagent`, `#4 SelfHealingSubagent`, `#5 AuditorSubagent`, `#6 SecurityAuditorSubagent`, `#7 PromptOptimizerSubagent`, `#8 CodeImproverSubagent`, `#9 RegressionVerifierSubagent`, `#10 RealDeviceScoutSubagent`, `#11 GroupSyncSubagent`, `#12 ExperienceMinerSubagent`, `#13 CrossAppNotetakerSubagent`, `#14 ActionReflectorSubagent`, `#15 MultiAppCrawlerSubagent`, `#16 WorktreeCoordinatorSubagent`, `#17 HumanTouchSubagent`, `#18 OEMPopupGuardSubagent`, `#19 CaptchaSolverSubagent`, and `#20 NetworkAndVisualQASubagent`.
 
 ---
 
-## 2. All 24 MCP Tools (`mcp_bridge/android_farm_mcp_server.py`)
+## 2. All 28 MCP Tools (`mcp_bridge/android_farm_mcp_server.py`)
 
 | # | Tool Name | Purpose |
 | :--- | :--- | :--- |
-| 1 | `android_list_devices` | List all available AVDs and Real Phones with lease lock & battery status. |
-| 2 | `android_lease_device` | Acquire an exclusive per-device mutex lock before running tests. |
-| 3 | `android_release_device` | Release the device lock upon completion. |
-| 4 | `android_get_screen_state` | Capture screenshot PNG + parsed UIAutomator XML elements & bounds. |
-| 5 | `android_tap_element` | Tap by dynamic text search or `(x, y)` coordinates. |
-| 6 | `android_input_text` | Input text into the focused field. |
-| 7 | `android_press_key` | Press `HOME`, `BACK`, `ENTER`, `APP_SWITCH`, `VOLUME_UP`, `VOLUME_DOWN`. |
-| 8 | `android_mock_otp` | `generate`, `inject_sms`, `verify`, or `get_history` (0 VND cost on AVD & Real Phone). |
-| 9 | `android_touch_fingerprint` | Pass `BiometricPrompt` via fingerprint simulation. |
-| 10 | `android_set_gps` | Spoof GPS coordinates (`latitude`, `longitude`). |
-| 11 | `android_run_kanban_task` | Execute end-to-end Kanban task lifecycle with autonomous Subagents. |
-| 12 | `android_discover_real_devices` | Scan physical phones (USB/Wi-Fi), inspect battery/temp, or switch `set_farm_mode` (`HYBRID`, `AVD_ONLY`, `REAL_ONLY`). |
-| 13 | `android_connect_wireless_adb` | Convert USB phone to Wi-Fi ADB (`usb_to_wireless`) or connect to `IP:Port` (`connect_ip`). |
-| 14 | `android_group_broadcast` | Synchronously broadcast `tap`, `swipe`, `text`, `key`, `launch_app`, or `shell` across `ALL`, `REAL_ONLY`, or `AVD_ONLY` devices with resolution scaling. |
-| 15 | `android_device_health_guard` | Apply thermal & battery guard and animation optimization on a real phone. |
-| 16 | `android_run_self_evolution_loop` | Trigger the 16-Subagent Autonomous Self-Evolution Engine. |
-| 17 | `android_mine_experience_macros` | Query or list distilled Macro-Action shortcuts from `ExperienceMinerSubagent`. |
-| 18 | `android_open_multi_scrcpy_wall` | Open a tiled desktop grid of Scrcpy windows for all online phones. |
-| 19 | `android_manage_git_worktree` | Create, list, commit, or merge isolated Git feature worktrees (`D:\Project\multi-phone-agent-worktrees\<slug>`) for Subagent feature development. |
-| 20 | `android_list_installed_apps` | List installed 3rd-party or system packages on a target device. |
-| 21 | `android_app_state_control` | `grant_permissions`, `clear_data`, `snapshot`, or `restore` app state. |
-| 22 | `android_open_deep_link` | Route Deep Link / App Link URIs (`am start -W`) and measure launch latency (`TotalTime` ms). |
-| 23 | `android_run_multi_app_flow` | Run Maestro-style declarative multi-app workflows across 1 or N phones with `CrossAppNotetakerSubagent`. |
-| 24 | `android_crawl_app_graph` | Explore UI state transition graphs across one or multiple apps via `MultiAppCrawlerSubagent`. |
+| 1–11 | Core Farm & Hardware Tools | `android_list_devices`, `android_lease_device`, `android_release_device`, `android_get_screen_state`, `android_tap_element`, `android_input_text`, `android_press_key`, `android_mock_otp`, `android_touch_fingerprint`, `android_set_gps`, `android_run_kanban_task` |
+| 12–19 | Real Phone Farm, Broadcast & Worktrees | `android_discover_real_devices`, `android_connect_wireless_adb`, `android_group_broadcast`, `android_device_health_guard`, `android_run_self_evolution_loop`, `android_mine_experience_macros`, `android_open_multi_scrcpy_wall`, `android_manage_git_worktree` |
+| 20–24 | Multi-App Testing & UI Crawler | `android_list_installed_apps`, `android_app_state_control`, `android_open_deep_link`, `android_run_multi_app_flow`, `android_crawl_app_graph` |
+| 25 | `android_human_touch_action` | Execute human-like `tap` (Gaussian jitter + dwell), `bezier_swipe`, `slider_drag`, or `type_text`. |
+| 26 | `android_oem_popup_guard` | Auto-click Vivo/OriginOS (`"Tiếp tục cài đặt"`, `"Cho phép cài đặt qua USB"`) & MIUI/ColorOS popups or run `guarded_install_apk`. |
+| 27 | `android_solve_captcha` | Detect and solve `SLIDER_PUZZLE`, `TEXT_MATH_OCR`, `CHECKBOX_CHALLENGE`, and `IMAGE_GRID` CAPTCHAs. |
+| 28 | `android_network_and_visual_qa` | Audit UI against Google Material `48dp` touch-target accessibility guidelines and verify Wi-Fi network toggle resilience. |
 
 ---
 
