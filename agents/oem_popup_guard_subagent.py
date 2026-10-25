@@ -28,6 +28,9 @@ class OEMPopupGuardSubagent:
         watcher: Optional[OEMPopupWatcher] = None,
         memory: Optional[MemoryManager] = None
     ):
+        if isinstance(watcher, MemoryManager) and memory is None:
+            memory = watcher
+            watcher = None
         self.adb = adb or ADBWrapper()
         self.watcher = watcher or OEMPopupWatcher(self.adb)
         self.memory = memory or MemoryManager()
