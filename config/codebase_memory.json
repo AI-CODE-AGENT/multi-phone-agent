@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-10-25 23:58:06",
+  "last_updated": "2026-10-26 00:40:19",
   "locators": {
     "Screen_Login": [
       {
@@ -14,7 +14,7 @@
         ],
         "confidence": 1.0,
         "notes": "",
-        "updated_at": "2026-10-25 23:53:06"
+        "updated_at": "2026-10-26 00:36:38"
       }
     ]
   },
@@ -223,6 +223,24 @@
       "explanation": "Added explicit socket and read timeouts to prevent infinite UI hangs.",
       "verified": false,
       "created_at": "2026-10-25 23:53:14"
+    },
+    {
+      "patch_id": "PATCH_1792949798",
+      "defect_id": "TEST_DEF_01",
+      "target_file": "src/main/java/com/app/auth/AuthManager.java",
+      "diff_content": "--- a/src/main/java/com/app/auth/AuthManager.java\n+++ b/src/main/java/com/app/auth/AuthManager.java\n@@ -1,4 +1,12 @@\n     public void onOtpReceived(String code) {\n-        otpTextView.setText(code);\n-        verifyButton.setEnabled(true);\n+        if (code == null || code.trim().isEmpty()) {\n+            Log.w(\"AuthManager\", \"Received empty or null OTP code. Ignoring.\");\n+            return;\n+        }\n+        if (otpTextView != null) {\n+            otpTextView.setText(code);\n+        }\n+        if (verifyButton != null) {\n+            verifyButton.setEnabled(true);\n+        }\n     }\n",
+      "explanation": "Added null checks for code parameter, otpTextView, and verifyButton to prevent NPE.",
+      "verified": false,
+      "created_at": "2026-10-26 00:36:38"
+    },
+    {
+      "patch_id": "PATCH_1792949805",
+      "defect_id": "DEFECT_INTEGRATION_01",
+      "target_file": "src/main/java/com/app/network/ApiClient.kt",
+      "diff_content": "--- a/src/main/java/com/app/network/ApiClient.kt\n+++ b/src/main/java/com/app/network/ApiClient.kt\n@@ -1,4 +1,8 @@\n     fun executeRequest() {\n-        // Standard call without timeout\n-        client.newCall(request).execute()\n+        // Configured resilient timeouts: connect 5s, read 10s\n+        val resilientClient = client.newBuilder()\n+            .connectTimeout(5, TimeUnit.SECONDS)\n+            .readTimeout(10, TimeUnit.SECONDS)\n+            .build()\n+        resilientClient.newCall(request).execute()\n     }\n",
+      "explanation": "Added explicit socket and read timeouts to prevent infinite UI hangs.",
+      "verified": false,
+      "created_at": "2026-10-26 00:36:45"
     }
   ],
   "prompts": {
@@ -478,6 +496,97 @@
         "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Validate synchronized group tap and swipe scaling across 720x1600 AVDs and high-DPI physical phones'.",
         "success_rate": 0.95,
         "created_at": "2026-10-25 23:58:06"
+      },
+      {
+        "version": "v37.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass\n# Base Instructions:\nGoal: Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:35:56"
+      },
+      {
+        "version": "v38.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Launch target app, inject 0-VND Mock OTP, extract code via CrossAppNotetaker, and verify deep link transition\n# Base Instructions:\nGoal: Launch target app, inject 0-VND Mock OTP, extract code via CrossAppNotetaker, and verify deep link transition\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Launch target app, inject 0-VND Mock OTP, extract code via CrossAppNotetaker, and verify deep link transition'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:36:04"
+      },
+      {
+        "version": "v39.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: auth_test\n# Base Instructions:\nClick Login Button\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n- [Wait Timing Rule]: Network API responses and animation transitions take up to 1.5s. Ensure explicit wait after form submission before verifying state.\n- [Mock OTP Rule]: When verifying SMS/OTP, invoke MockOTPService directly via local API to retrieve the active code instantly without relying on carrier SMS delivery.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 1 healing events and 1 failures in scenario 'auth_test'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:36:38"
+      },
+      {
+        "version": "v40.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass\n# Base Instructions:\nGoal: Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:37:00"
+      },
+      {
+        "version": "v41.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Launch target app, inject 0-VND Mock OTP, extract code via CrossAppNotetaker, and verify deep link transition\n# Base Instructions:\nGoal: Launch target app, inject 0-VND Mock OTP, extract code via CrossAppNotetaker, and verify deep link transition\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Launch target app, inject 0-VND Mock OTP, extract code via CrossAppNotetaker, and verify deep link transition'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:37:08"
+      },
+      {
+        "version": "v42.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass\n# Base Instructions:\nGoal: Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:37:23"
+      },
+      {
+        "version": "v43.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Launch target app, inject 0-VND Mock OTP, extract code via CrossAppNotetaker, and verify deep link transition\n# Base Instructions:\nGoal: Launch target app, inject 0-VND Mock OTP, extract code via CrossAppNotetaker, and verify deep link transition\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Launch target app, inject 0-VND Mock OTP, extract code via CrossAppNotetaker, and verify deep link transition'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:37:35"
+      },
+      {
+        "version": "v44.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass\n# Base Instructions:\nGoal: Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:37:43"
+      },
+      {
+        "version": "v45.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Launch target app, inject 0-VND Mock OTP, extract code via CrossAppNotetaker, and verify deep link transition\n# Base Instructions:\nGoal: Launch target app, inject 0-VND Mock OTP, extract code via CrossAppNotetaker, and verify deep link transition\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Launch target app, inject 0-VND Mock OTP, extract code via CrossAppNotetaker, and verify deep link transition'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:37:55"
+      },
+      {
+        "version": "v46.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Explore interactive UI state transitions via MultiAppCrawlerSubagent and audit 48dp touch targets & OWASP security\n# Base Instructions:\nGoal: Explore interactive UI state transitions via MultiAppCrawlerSubagent and audit 48dp touch targets & OWASP security\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Explore interactive UI state transitions via MultiAppCrawlerSubagent and audit 48dp touch targets & OWASP security'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:37:59"
+      },
+      {
+        "version": "v47.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Auto-confirm 'Tiếp tục cài đặt' / 'Cho phép cài đặt qua USB' dialogs, monitor battery temp, and verify wireless ADB\n# Base Instructions:\nGoal: Auto-confirm 'Tiếp tục cài đặt' / 'Cho phép cài đặt qua USB' dialogs, monitor battery temp, and verify wireless ADB\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Auto-confirm 'Tiếp tục cài đặt' / 'Cho phép cài đặt qua USB' dialogs, monitor battery temp, and verify wireless ADB'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:38:02"
+      },
+      {
+        "version": "v48.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass\n# Base Instructions:\nGoal: Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:39:35"
+      },
+      {
+        "version": "v49.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Launch target app, inject 0-VND Mock OTP, extract code via CrossAppNotetaker, and verify deep link transition\n# Base Instructions:\nGoal: Launch target app, inject 0-VND Mock OTP, extract code via CrossAppNotetaker, and verify deep link transition\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Launch target app, inject 0-VND Mock OTP, extract code via CrossAppNotetaker, and verify deep link transition'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:40:19"
       }
     ],
     "planner": [
@@ -522,6 +631,41 @@
         "rationale": "Optimized for 2 healing events and 0 failures in scenario 'evolution_cycle_1'.",
         "success_rate": 0.95,
         "created_at": "2026-10-25 23:58:06"
+      },
+      {
+        "version": "v7.0",
+        "prompt": "# Role: Highly Robust Planner\n# Scenario: evolution_cycle_1\n# Base Instructions:\nDeconstruct multi-app mobile testing goals with human-like Bezier gestures, CAPTCHA solving, and Vivo/OriginOS popup guards.\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n- [Viewport Rule]: Forms or submit buttons may reside below the viewport on 720x1600 screens. If a primary action button is not immediately visible, scroll down 300px before failing.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 2 healing events and 0 failures in scenario 'evolution_cycle_1'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:36:04"
+      },
+      {
+        "version": "v8.0",
+        "prompt": "# Role: Highly Robust Planner\n# Scenario: evolution_cycle_1\n# Base Instructions:\nDeconstruct multi-app mobile testing goals with human-like Bezier gestures, CAPTCHA solving, and Vivo/OriginOS popup guards.\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n- [Viewport Rule]: Forms or submit buttons may reside below the viewport on 720x1600 screens. If a primary action button is not immediately visible, scroll down 300px before failing.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 2 healing events and 0 failures in scenario 'evolution_cycle_1'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:37:08"
+      },
+      {
+        "version": "v9.0",
+        "prompt": "# Role: Highly Robust Planner\n# Scenario: evolution_cycle_1\n# Base Instructions:\nDeconstruct multi-app mobile testing goals with human-like Bezier gestures, CAPTCHA solving, and Vivo/OriginOS popup guards.\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n- [Viewport Rule]: Forms or submit buttons may reside below the viewport on 720x1600 screens. If a primary action button is not immediately visible, scroll down 300px before failing.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 2 healing events and 0 failures in scenario 'evolution_cycle_1'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:37:35"
+      },
+      {
+        "version": "v10.0",
+        "prompt": "# Role: Highly Robust Planner\n# Scenario: evolution_cycle_1\n# Base Instructions:\nDeconstruct multi-app mobile testing goals with human-like Bezier gestures, CAPTCHA solving, and Vivo/OriginOS popup guards.\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n- [Viewport Rule]: Forms or submit buttons may reside below the viewport on 720x1600 screens. If a primary action button is not immediately visible, scroll down 300px before failing.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 2 healing events and 0 failures in scenario 'evolution_cycle_1'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:38:02"
+      },
+      {
+        "version": "v11.0",
+        "prompt": "# Role: Highly Robust Planner\n# Scenario: evolution_cycle_1\n# Base Instructions:\nDeconstruct multi-app mobile testing goals with human-like Bezier gestures, CAPTCHA solving, and Vivo/OriginOS popup guards.\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n- [Viewport Rule]: Forms or submit buttons may reside below the viewport on 720x1600 screens. If a primary action button is not immediately visible, scroll down 300px before failing.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 2 healing events and 0 failures in scenario 'evolution_cycle_1'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 00:40:19"
       }
     ]
   },
@@ -851,68 +995,6 @@
       "timestamp": "2026-10-25 23:23:54"
     },
     {
-      "id": "mem_1792947186906",
-      "key": "test_key",
-      "value": "test_val",
-      "category": "general",
-      "tags": [
-        "unit_test",
-        "core"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-25 23:53:06"
-    },
-    {
-      "id": "mem_1792947227457",
-      "key": "real_device_R58M99AABB",
-      "value": {
-        "name": "Samsung Galaxy S24 Ultra",
-        "resolution": "1080x2400",
-        "android_version": "15",
-        "battery": {
-          "level": 86,
-          "temperature_c": 36.5,
-          "voltage_mv": 4180,
-          "status": "charging",
-          "plugged": "usb",
-          "overheated": false,
-          "low_battery": false
-        }
-      },
-      "category": "fleet_topology",
-      "tags": [
-        "real_device",
-        "hardware_profile"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-25 23:53:47"
-    },
-    {
-      "id": "mem_1792947227469",
-      "key": "real_device_192.168.1.88:5555",
-      "value": {
-        "name": "Xiaomi Xiaomi 14 Pro",
-        "resolution": "1440x3200",
-        "android_version": "15",
-        "battery": {
-          "level": 92,
-          "temperature_c": 43.5,
-          "voltage_mv": 4300,
-          "status": "charging",
-          "plugged": "ac",
-          "overheated": true,
-          "low_battery": false
-        }
-      },
-      "category": "fleet_topology",
-      "tags": [
-        "real_device",
-        "hardware_profile"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-25 23:53:47"
-    },
-    {
       "id": "mem_1792947241372",
       "key": "SEC_com_android_settings_1792947241",
       "value": {
@@ -981,128 +1063,6 @@
       "timestamp": "2026-10-25 23:54:12"
     },
     {
-      "id": "mem_1792947286163",
-      "key": "crawl_10CF5L0TYL00312_com.wallet.app",
-      "value": {
-        "serial": "10CF5L0TYL00312",
-        "package": "com.wallet.app",
-        "unique_states_discovered": 2,
-        "transitions_recorded": 2,
-        "crashes_detected": 0
-      },
-      "category": "crawler",
-      "tags": [
-        "crawler",
-        "state_graph",
-        "10CF5L0TYL00312",
-        "com.wallet.app"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-25 23:54:46"
-    },
-    {
-      "id": "mem_1792947296363",
-      "key": "crawl_emulator-5554_com.shop.app",
-      "value": {
-        "serial": "emulator-5554",
-        "package": "com.shop.app",
-        "unique_states_discovered": 2,
-        "transitions_recorded": 2,
-        "crashes_detected": 0
-      },
-      "category": "crawler",
-      "tags": [
-        "crawler",
-        "state_graph",
-        "emulator-5554",
-        "com.shop.app"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-25 23:54:56"
-    },
-    {
-      "id": "mem_1792947315954",
-      "key": "crawl_10CF5L0TYL00312_com.shop.app",
-      "value": {
-        "serial": "10CF5L0TYL00312",
-        "package": "com.shop.app",
-        "unique_states_discovered": 2,
-        "transitions_recorded": 2,
-        "crashes_detected": 0
-      },
-      "category": "crawler",
-      "tags": [
-        "crawler",
-        "state_graph",
-        "10CF5L0TYL00312",
-        "com.shop.app"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-25 23:55:15"
-    },
-    {
-      "id": "mem_1792947343237",
-      "key": "real_device_10CF5L0TYL00312",
-      "value": {
-        "name": "Vivo V2417A",
-        "resolution": "1260x2800",
-        "android_version": "16",
-        "battery": {
-          "level": 99,
-          "temperature_c": 33.4,
-          "voltage_mv": 4391,
-          "status": "charging",
-          "plugged": "usb",
-          "overheated": false,
-          "low_battery": false
-        }
-      },
-      "category": "fleet_topology",
-      "tags": [
-        "real_device",
-        "hardware_profile"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-25 23:55:43"
-    },
-    {
-      "id": "mem_1792947386410",
-      "key": "crawl_emulator-5554_com.android.settings",
-      "value": {
-        "serial": "emulator-5554",
-        "package": "com.android.settings",
-        "unique_states_discovered": 3,
-        "transitions_recorded": 2,
-        "crashes_detected": 0
-      },
-      "category": "crawler",
-      "tags": [
-        "crawler",
-        "state_graph",
-        "emulator-5554",
-        "com.android.settings"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-25 23:56:26"
-    },
-    {
-      "id": "mem_1792947476154",
-      "key": "screen_state_emulator-5554",
-      "value": {
-        "keyboard": true,
-        "dialog": true,
-        "dimensions": "720x1600"
-      },
-      "category": "general",
-      "tags": [
-        "vision",
-        "emulator-5554",
-        "screen_state"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-25 23:57:56"
-    },
-    {
       "id": "mem_1792947480662",
       "key": "SEC_com_android_settings_1792947480",
       "value": {
@@ -1135,6 +1095,908 @@
       ],
       "metadata": {},
       "timestamp": "2026-10-25 23:58:06"
+    },
+    {
+      "id": "mem_1792949544944",
+      "key": "human_touch_10CF5L0TYL00312_1792949544943",
+      "value": {
+        "status": "HUMAN_TYPE_OK",
+        "serial": "10CF5L0TYL00312",
+        "text_length": 12,
+        "chunks_typed": 6,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "type_text",
+        "elapsed_ms": 402.7
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "type_text",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:32:24"
+    },
+    {
+      "id": "mem_1792949742199",
+      "key": "human_touch_10CF5L0TYL00312_1792949742191",
+      "value": {
+        "status": "HUMAN_TYPE_OK",
+        "serial": "10CF5L0TYL00312",
+        "text_length": 12,
+        "chunks_typed": 7,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "type_text",
+        "elapsed_ms": 462.6
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "type_text",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:35:42"
+    },
+    {
+      "id": "mem_1792949742572",
+      "key": "oem_guarded_install_10CF5L0TYL00312_1792949742",
+      "value": {
+        "success": true,
+        "serial": "10CF5L0TYL00312",
+        "apk_path": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp9ipicf_t.apk",
+        "popups_auto_clicked": 1,
+        "output": "Performing Streamed Install\nSuccess"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "apk_install",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "apk_path": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp9ipicf_t.apk",
+        "success": true,
+        "popups_auto_clicked": 1
+      },
+      "timestamp": "2026-10-26 00:35:42"
+    },
+    {
+      "id": "mem_1792949752666",
+      "key": "oem_popup_emulator-5554_1792949752660",
+      "value": {
+        "status": "POPUP_DISMISSED",
+        "serial": "emulator-5554",
+        "matched_label": "Tiếp tục cài đặt",
+        "tapped_coords": [
+          540,
+          2088
+        ],
+        "method": "ui_xml_match",
+        "foreground_window": "mCurrentFocus=Window{111 u0 com.vivo.secime/com.vivo.secime.InstallConfirmActivity}",
+        "timestamp": "2026-10-26 00:35:52"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "security_dialog",
+        "emulator-5554",
+        "ui_xml_match"
+      ],
+      "metadata": {
+        "serial": "emulator-5554",
+        "matched_label": "Tiếp tục cài đặt",
+        "tapped_coords": [
+          540,
+          2088
+        ]
+      },
+      "timestamp": "2026-10-26 00:35:52"
+    },
+    {
+      "id": "mem_1792949752676",
+      "key": "human_touch_emulator-5554_1792949752675",
+      "value": {
+        "status": "HUMAN_TAP_OK",
+        "serial": "emulator-5554",
+        "target": [
+          540,
+          960
+        ],
+        "actual_point": [
+          543,
+          970
+        ],
+        "dwell_ms": 97,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "tap",
+        "elapsed_ms": 0.0
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "tap",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:35:52"
+    },
+    {
+      "id": "mem_1792949756248",
+      "key": "SEC_com_android_settings_1792949756",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 0,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792949756.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:35:56"
+    },
+    {
+      "id": "mem_1792949764415",
+      "key": "SEC_com_android_settings_1792949764",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 0,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792949764.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:36:04"
+    },
+    {
+      "id": "mem_1792949765291",
+      "key": "human_touch_10CF5L0TYL00312_1792949765291",
+      "value": {
+        "status": "HUMAN_SLIDER_DRAG_OK",
+        "serial": "10CF5L0TYL00312",
+        "points_count": 20,
+        "include_overshoot": true,
+        "trajectory_sample": [
+          {
+            "x": 100,
+            "y": 500,
+            "delay_ms": 42
+          },
+          {
+            "x": 104,
+            "y": 499,
+            "delay_ms": 34
+          },
+          {
+            "x": 109,
+            "y": 497,
+            "delay_ms": 30
+          },
+          {
+            "x": 123,
+            "y": 493,
+            "delay_ms": 26
+          },
+          {
+            "x": 464,
+            "y": 504,
+            "delay_ms": 39
+          },
+          {
+            "x": 460,
+            "y": 503,
+            "delay_ms": 59
+          }
+        ],
+        "start": [
+          100,
+          500
+        ],
+        "distance_px": 360,
+        "end_x": 460,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "slider_drag",
+        "elapsed_ms": 691.3
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "slider_drag",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:36:05"
+    },
+    {
+      "id": "mem_1792949768685",
+      "key": "oem_popup_10CF5L0TYL00312_1792949768676",
+      "value": {
+        "status": "POPUP_DISMISSED_FALLBACK",
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Vivo/OriginOS Bottom-Sheet Fallback",
+        "tapped_coords": [
+          631,
+          2577
+        ],
+        "method": "vivo_originos_coord_fallback",
+        "foreground_window": "mCurrentFocus=Window{3923da9 u0 com.example.fooddelivery/com.example.fooddelivery.MainActivity type=1 }",
+        "timestamp": "2026-10-26 00:36:08"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "security_dialog",
+        "10CF5L0TYL00312",
+        "vivo_originos_coord_fallback"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Vivo/OriginOS Bottom-Sheet Fallback",
+        "tapped_coords": [
+          631,
+          2577
+        ]
+      },
+      "timestamp": "2026-10-26 00:36:08"
+    },
+    {
+      "id": "mem_1792949798241",
+      "key": "test_key",
+      "value": "test_val",
+      "category": "general",
+      "tags": [
+        "unit_test",
+        "core"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:36:38"
+    },
+    {
+      "id": "mem_1792949805515",
+      "key": "screen_state_emulator-5554",
+      "value": {
+        "keyboard": true,
+        "dialog": true,
+        "dimensions": "720x1600"
+      },
+      "category": "general",
+      "tags": [
+        "vision",
+        "emulator-5554",
+        "screen_state"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:36:45"
+    },
+    {
+      "id": "mem_1792949805942",
+      "key": "human_touch_10CF5L0TYL00312_1792949805934",
+      "value": {
+        "status": "HUMAN_TYPE_OK",
+        "serial": "10CF5L0TYL00312",
+        "text_length": 12,
+        "chunks_typed": 5,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "type_text",
+        "elapsed_ms": 251.4
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "type_text",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:36:45"
+    },
+    {
+      "id": "mem_1792949806323",
+      "key": "oem_guarded_install_10CF5L0TYL00312_1792949806",
+      "value": {
+        "success": true,
+        "serial": "10CF5L0TYL00312",
+        "apk_path": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp7q6txgr_.apk",
+        "popups_auto_clicked": 1,
+        "output": "Performing Streamed Install\nSuccess"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "apk_install",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "apk_path": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp7q6txgr_.apk",
+        "success": true,
+        "popups_auto_clicked": 1
+      },
+      "timestamp": "2026-10-26 00:36:46"
+    },
+    {
+      "id": "mem_1792949816446",
+      "key": "oem_popup_emulator-5554_1792949816439",
+      "value": {
+        "status": "POPUP_DISMISSED",
+        "serial": "emulator-5554",
+        "matched_label": "Tiếp tục cài đặt",
+        "tapped_coords": [
+          538,
+          2089
+        ],
+        "method": "ui_xml_match",
+        "foreground_window": "mCurrentFocus=Window{111 u0 com.vivo.secime/com.vivo.secime.InstallConfirmActivity}",
+        "timestamp": "2026-10-26 00:36:56"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "security_dialog",
+        "emulator-5554",
+        "ui_xml_match"
+      ],
+      "metadata": {
+        "serial": "emulator-5554",
+        "matched_label": "Tiếp tục cài đặt",
+        "tapped_coords": [
+          538,
+          2089
+        ]
+      },
+      "timestamp": "2026-10-26 00:36:56"
+    },
+    {
+      "id": "mem_1792949816466",
+      "key": "human_touch_emulator-5554_1792949816464",
+      "value": {
+        "status": "HUMAN_TAP_OK",
+        "serial": "emulator-5554",
+        "target": [
+          540,
+          960
+        ],
+        "actual_point": [
+          542,
+          956
+        ],
+        "dwell_ms": 75,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "tap",
+        "elapsed_ms": 0.0
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "tap",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:36:56"
+    },
+    {
+      "id": "mem_1792949820308",
+      "key": "SEC_com_android_settings_1792949820",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 0,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792949820.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:37:00"
+    },
+    {
+      "id": "mem_1792949828769",
+      "key": "SEC_com_android_settings_1792949828",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 0,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792949828.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:37:08"
+    },
+    {
+      "id": "mem_1792949828977",
+      "key": "human_touch_10CF5L0TYL00312_1792949828975",
+      "value": {
+        "status": "HUMAN_SLIDER_DRAG_OK",
+        "serial": "10CF5L0TYL00312",
+        "points_count": 20,
+        "include_overshoot": true,
+        "trajectory_sample": [
+          {
+            "x": 100,
+            "y": 500,
+            "delay_ms": 39
+          },
+          {
+            "x": 104,
+            "y": 501,
+            "delay_ms": 34
+          },
+          {
+            "x": 113,
+            "y": 501,
+            "delay_ms": 29
+          },
+          {
+            "x": 127,
+            "y": 503,
+            "delay_ms": 30
+          },
+          {
+            "x": 468,
+            "y": 500,
+            "delay_ms": 47
+          },
+          {
+            "x": 460,
+            "y": 498,
+            "delay_ms": 46
+          }
+        ],
+        "start": [
+          100,
+          500
+        ],
+        "distance_px": 360,
+        "end_x": 460,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "slider_drag",
+        "elapsed_ms": 0.1
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "slider_drag",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:37:08"
+    },
+    {
+      "id": "mem_1792949828994",
+      "key": "oem_popup_10CF5L0TYL00312_1792949828984",
+      "value": {
+        "status": "POPUP_DISMISSED",
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "tapped_coords": [
+          540,
+          2088
+        ],
+        "method": "ui_xml_match",
+        "foreground_window": "mCurrentFocus=Window{111 u0 com.vivo.secime/com.vivo.secime.InstallConfirmActivity}",
+        "timestamp": "2026-10-26 00:37:08"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "security_dialog",
+        "10CF5L0TYL00312",
+        "ui_xml_match"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "tapped_coords": [
+          540,
+          2088
+        ]
+      },
+      "timestamp": "2026-10-26 00:37:08"
+    },
+    {
+      "id": "mem_1792949829485",
+      "key": "crawl_10CF5L0TYL00312_com.wallet.app",
+      "value": {
+        "serial": "10CF5L0TYL00312",
+        "package": "com.wallet.app",
+        "unique_states_discovered": 2,
+        "transitions_recorded": 2,
+        "crashes_detected": 0
+      },
+      "category": "crawler",
+      "tags": [
+        "crawler",
+        "state_graph",
+        "10CF5L0TYL00312",
+        "com.wallet.app"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:37:09"
+    },
+    {
+      "id": "mem_1792949838917",
+      "key": "SEC_com_example_fooddelivery_1792949838",
+      "value": {
+        "package": "com.example.fooddelivery",
+        "findings": 2,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_example_fooddelivery_1792949838.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.example.fooddelivery",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:37:18"
+    },
+    {
+      "id": "mem_1792949839686",
+      "key": "human_touch_emulator-5554_1792949839685",
+      "value": {
+        "status": "HUMAN_TAP_OK",
+        "serial": "emulator-5554",
+        "target": [
+          360,
+          640
+        ],
+        "actual_point": [
+          359,
+          642
+        ],
+        "dwell_ms": 103,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "tap",
+        "elapsed_ms": 0.0
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "tap",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:37:19"
+    },
+    {
+      "id": "mem_1792949839952",
+      "key": "crawl_emulator-5554_com.shop.app",
+      "value": {
+        "serial": "emulator-5554",
+        "package": "com.shop.app",
+        "unique_states_discovered": 2,
+        "transitions_recorded": 2,
+        "crashes_detected": 0
+      },
+      "category": "crawler",
+      "tags": [
+        "crawler",
+        "state_graph",
+        "emulator-5554",
+        "com.shop.app"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:37:19"
+    },
+    {
+      "id": "mem_1792949855841",
+      "key": "crawl_10CF5L0TYL00312_com.shop.app",
+      "value": {
+        "serial": "10CF5L0TYL00312",
+        "package": "com.shop.app",
+        "unique_states_discovered": 2,
+        "transitions_recorded": 2,
+        "crashes_detected": 0
+      },
+      "category": "crawler",
+      "tags": [
+        "crawler",
+        "state_graph",
+        "10CF5L0TYL00312",
+        "com.shop.app"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:37:35"
+    },
+    {
+      "id": "mem_1792949857239",
+      "key": "real_device_R58M99AABB",
+      "value": {
+        "name": "Samsung Galaxy S24 Ultra",
+        "resolution": "1080x2400",
+        "android_version": "15",
+        "battery": {
+          "level": 86,
+          "temperature_c": 36.5,
+          "voltage_mv": 4180,
+          "status": "charging",
+          "plugged": "usb",
+          "overheated": false,
+          "low_battery": false
+        }
+      },
+      "category": "fleet_topology",
+      "tags": [
+        "real_device",
+        "hardware_profile"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:37:37"
+    },
+    {
+      "id": "mem_1792949857254",
+      "key": "real_device_192.168.1.88:5555",
+      "value": {
+        "name": "Xiaomi Xiaomi 14 Pro",
+        "resolution": "1440x3200",
+        "android_version": "15",
+        "battery": {
+          "level": 92,
+          "temperature_c": 43.5,
+          "voltage_mv": 4300,
+          "status": "charging",
+          "plugged": "ac",
+          "overheated": true,
+          "low_battery": false
+        }
+      },
+      "category": "fleet_topology",
+      "tags": [
+        "real_device",
+        "hardware_profile"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:37:37"
+    },
+    {
+      "id": "mem_1792949857281",
+      "key": "human_touch_emulator-5554_1792949857279",
+      "value": {
+        "status": "HUMAN_TAP_OK",
+        "serial": "emulator-5554",
+        "target": [
+          360,
+          640
+        ],
+        "actual_point": [
+          362,
+          640
+        ],
+        "dwell_ms": 94,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "tap",
+        "elapsed_ms": 0.0
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "tap",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:37:37"
+    },
+    {
+      "id": "mem_1792949863235",
+      "key": "SEC_com_android_settings_1792949863",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 0,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792949863.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:37:43"
+    },
+    {
+      "id": "mem_1792949874886",
+      "key": "screen_state_emulator-5556",
+      "value": {
+        "keyboard": false,
+        "dialog": false,
+        "dimensions": "720x1600"
+      },
+      "category": "general",
+      "tags": [
+        "vision",
+        "emulator-5556",
+        "screen_state"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:37:54"
+    },
+    {
+      "id": "mem_1792949875427",
+      "key": "SEC_com_android_settings_1792949875",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 0,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792949875.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "emulator-5556"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:37:55"
+    },
+    {
+      "id": "mem_1792949879125",
+      "key": "SEC_com_android_settings_1792949879",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 0,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792949879.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "R58M99AABB"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:37:59"
+    },
+    {
+      "id": "mem_1792949882814",
+      "key": "SEC_com_android_settings_1792949882",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 0,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792949882.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "192.168.1.88:5555"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:38:02"
+    },
+    {
+      "id": "mem_1792949922411",
+      "key": "real_device_10CF5L0TYL00312",
+      "value": {
+        "name": "Vivo V2417A",
+        "resolution": "1260x2800",
+        "android_version": "16",
+        "battery": {
+          "level": 100,
+          "temperature_c": 33.7,
+          "voltage_mv": 4400,
+          "status": "charging",
+          "plugged": "usb",
+          "overheated": false,
+          "low_battery": false
+        }
+      },
+      "category": "fleet_topology",
+      "tags": [
+        "real_device",
+        "hardware_profile"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:38:42"
+    },
+    {
+      "id": "mem_1792949928482",
+      "key": "human_touch_emulator-5554_1792949928481",
+      "value": {
+        "status": "HUMAN_TAP_OK",
+        "serial": "emulator-5554",
+        "target": [
+          360,
+          640
+        ],
+        "actual_point": [
+          357,
+          637
+        ],
+        "dwell_ms": 98,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "tap",
+        "elapsed_ms": 421.1
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "tap",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:38:48"
+    },
+    {
+      "id": "mem_1792949966421",
+      "key": "crawl_emulator-5554_com.android.settings",
+      "value": {
+        "serial": "emulator-5554",
+        "package": "com.android.settings",
+        "unique_states_discovered": 1,
+        "transitions_recorded": 2,
+        "crashes_detected": 0
+      },
+      "category": "crawler",
+      "tags": [
+        "crawler",
+        "state_graph",
+        "emulator-5554",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:39:26"
+    },
+    {
+      "id": "mem_1792949975663",
+      "key": "SEC_com_android_settings_1792949975",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 2,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792949975.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:39:35"
+    },
+    {
+      "id": "mem_1792950018819",
+      "key": "screen_state_10CF5L0TYL00312",
+      "value": {
+        "keyboard": true,
+        "dialog": true,
+        "dimensions": "1260x2800"
+      },
+      "category": "general",
+      "tags": [
+        "vision",
+        "10CF5L0TYL00312",
+        "screen_state"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:40:18"
+    },
+    {
+      "id": "mem_1792950019653",
+      "key": "SEC_com_android_settings_1792950019",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 1,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792950019.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 00:40:19"
     }
   ],
   "macros": {
@@ -1157,8 +2019,8 @@
       ],
       "steps_count": 1,
       "avg_duration_s": 1.25,
-      "success_count": 2,
-      "updated_at": "2026-10-25 23:53:47"
+      "success_count": 3,
+      "updated_at": "2026-10-26 00:37:37"
     },
     "com.android.settings::verify_0_vnd_mock_otp_delivery_clipboard_fallback": {
       "goal_signature": "com.android.settings::verify_0_vnd_mock_otp_delivery_clipboard_fallback",
@@ -1321,12 +2183,12 @@
           "locator": "gửi mã|tiếp tục|login|sign in|xác nhận",
           "description": "Tap request OTP / submit phone",
           "verified_coords": [
-            360,
-            800
+            630,
+            1400
           ],
           "normalized_coords": [
-            0.5,
-            0.5
+            0.5833,
+            0.5833
           ]
         },
         {
@@ -1341,19 +2203,19 @@
           "locator": "xác thực|hoàn tất|verify|submit",
           "description": "Submit verification and verify dashboard entry",
           "verified_coords": [
-            360,
-            1360
+            630,
+            2380
           ],
           "normalized_coords": [
-            0.5,
-            0.85
+            0.5833,
+            0.9917
           ]
         }
       ],
       "steps_count": 5,
-      "avg_duration_s": 15.82,
-      "success_count": 2,
-      "updated_at": "2026-10-25 23:55:12"
+      "avg_duration_s": 11.86,
+      "success_count": 3,
+      "updated_at": "2026-10-26 00:37:35"
     },
     "com.shop.app::validate_synchronized_group_tap_and_swipe_scaling_across": {
       "goal_signature": "com.shop.app::validate_synchronized_group_tap_and_swipe_scaling_across",
@@ -1405,8 +2267,8 @@
           "locator": "gửi mã|tiếp tục|login|sign in|xác nhận",
           "description": "Tap request OTP / submit phone",
           "verified_coords": [
-            360,
-            800
+            630,
+            1400
           ],
           "normalized_coords": [
             0.5,
@@ -1425,8 +2287,8 @@
           "locator": "xác thực|hoàn tất|verify|submit",
           "description": "Submit verification and verify dashboard entry",
           "verified_coords": [
-            360,
-            1360
+            630,
+            2380
           ],
           "normalized_coords": [
             0.5,
@@ -1435,9 +2297,9 @@
         }
       ],
       "steps_count": 5,
-      "avg_duration_s": 94.51,
-      "success_count": 2,
-      "updated_at": "2026-10-25 23:58:00"
+      "avg_duration_s": 43.84,
+      "success_count": 6,
+      "updated_at": "2026-10-26 00:40:19"
     },
     "com.android.settings::explore_interactive_ui_state_transitions_via_multiappcrawlersubagent_and": {
       "goal_signature": "com.android.settings::explore_interactive_ui_state_transitions_via_multiappcrawlersubagent_and",
@@ -1462,9 +2324,90 @@
         }
       ],
       "steps_count": 3,
-      "avg_duration_s": 3.58,
+      "avg_duration_s": 3.63,
+      "success_count": 2,
+      "updated_at": "2026-10-26 00:37:59"
+    },
+    "com.android.settings::execute_human_like_gaussian_jitter_taps_cubic_bezier": {
+      "goal_signature": "com.android.settings::execute_human_like_gaussian_jitter_taps_cubic_bezier",
+      "package_name": "com.android.settings",
+      "steps": [
+        {
+          "milestone": "Launch_App",
+          "action": "launch",
+          "package": "com.android.settings",
+          "description": "Launch app com.android.settings"
+        },
+        {
+          "milestone": "Dismiss_Dialogs",
+          "action": "dismiss_dialogs",
+          "description": "Handle system permission and greeting modals"
+        },
+        {
+          "milestone": "Explore_Core_Flows",
+          "action": "explore",
+          "max_steps": 15,
+          "description": "Autonomously navigate UI buttons and forms according to goal: Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass"
+        }
+      ],
+      "steps_count": 3,
+      "avg_duration_s": 6.01,
+      "success_count": 4,
+      "updated_at": "2026-10-26 00:39:35"
+    },
+    "com.shop.app::execute_human_like_gaussian_jitter_taps_cubic_bezier": {
+      "goal_signature": "com.shop.app::execute_human_like_gaussian_jitter_taps_cubic_bezier",
+      "package_name": "com.shop.app",
+      "steps": [
+        {
+          "milestone": "Launch_App",
+          "action": "launch",
+          "package": "com.shop.app",
+          "description": "Launch app com.shop.app"
+        },
+        {
+          "milestone": "Dismiss_Dialogs",
+          "action": "dismiss_dialogs",
+          "description": "Handle system permission and greeting modals"
+        },
+        {
+          "milestone": "Explore_Core_Flows",
+          "action": "explore",
+          "max_steps": 15,
+          "description": "Autonomously navigate UI buttons and forms according to goal: Execute human-like Gaussian-jitter taps, Cubic Bezier swipes, and verify automated CAPTCHA & Vivo/OriginOS popup bypass"
+        }
+      ],
+      "steps_count": 3,
+      "avg_duration_s": 3.77,
       "success_count": 1,
-      "updated_at": "2026-10-25 23:54:08"
+      "updated_at": "2026-10-26 00:37:23"
+    },
+    "com.android.settings::auto_confirm_ti_p_t_c_c_i": {
+      "goal_signature": "com.android.settings::auto_confirm_ti_p_t_c_c_i",
+      "package_name": "com.android.settings",
+      "steps": [
+        {
+          "milestone": "Launch_App",
+          "action": "launch",
+          "package": "com.android.settings",
+          "description": "Launch app com.android.settings"
+        },
+        {
+          "milestone": "Dismiss_Dialogs",
+          "action": "dismiss_dialogs",
+          "description": "Handle system permission and greeting modals"
+        },
+        {
+          "milestone": "Explore_Core_Flows",
+          "action": "explore",
+          "max_steps": 15,
+          "description": "Autonomously navigate UI buttons and forms according to goal: Auto-confirm 'Tiếp tục cài đặt' / 'Cho phép cài đặt qua USB' dialogs, monitor battery temp, and verify wireless ADB"
+        }
+      ],
+      "steps_count": 3,
+      "avg_duration_s": 3.62,
+      "success_count": 1,
+      "updated_at": "2026-10-26 00:38:02"
     }
   },
   "evolution_history": [
@@ -1573,6 +2516,126 @@
       "group_sync_status": "SYNC_COMPLETED",
       "evolved_prompt_version": "v6.0",
       "macros_total": 9
+    },
+    {
+      "cycle_id": "EVO_1792949764556",
+      "timestamp": "2026-10-26 00:36:04",
+      "cycle_index": 1,
+      "subagents_active": 20,
+      "duration_seconds": 21.96,
+      "online_devices_count": 2,
+      "real_devices_count": 1,
+      "feature_worktrees_count": 14,
+      "installed_apps_discovered": 3,
+      "oem_popup_status": "POPUP_DISMISSED",
+      "human_touch_status": "HUMAN_TAP_OK",
+      "captcha_check_status": "NO_CAPTCHA_PRESENT",
+      "layout_health_score": 100,
+      "multi_app_flow_status": "FLOW_COMPLETED",
+      "action_reflection_outcome": "UNEXPECTED_APP_SWITCH",
+      "crawler_states_discovered": 1,
+      "cross_app_notes_count": 6,
+      "proposals_generated": 5,
+      "tasks_completed": 2,
+      "group_sync_status": "SYNC_COMPLETED",
+      "evolved_prompt_version": "v7.0",
+      "macros_total": 10
+    },
+    {
+      "cycle_id": "EVO_1792949828908",
+      "timestamp": "2026-10-26 00:37:08",
+      "cycle_index": 1,
+      "subagents_active": 20,
+      "duration_seconds": 22.56,
+      "online_devices_count": 2,
+      "real_devices_count": 1,
+      "feature_worktrees_count": 14,
+      "installed_apps_discovered": 3,
+      "oem_popup_status": "POPUP_DISMISSED",
+      "human_touch_status": "HUMAN_TAP_OK",
+      "captcha_check_status": "NO_CAPTCHA_PRESENT",
+      "layout_health_score": 100,
+      "multi_app_flow_status": "FLOW_COMPLETED",
+      "action_reflection_outcome": "UNEXPECTED_APP_SWITCH",
+      "crawler_states_discovered": 1,
+      "cross_app_notes_count": 6,
+      "proposals_generated": 5,
+      "tasks_completed": 2,
+      "group_sync_status": "SYNC_COMPLETED",
+      "evolved_prompt_version": "v8.0",
+      "macros_total": 10
+    },
+    {
+      "cycle_id": "EVO_1792949855773",
+      "timestamp": "2026-10-26 00:37:35",
+      "cycle_index": 1,
+      "subagents_active": 20,
+      "duration_seconds": 26.19,
+      "online_devices_count": 2,
+      "real_devices_count": 1,
+      "feature_worktrees_count": 14,
+      "installed_apps_discovered": 3,
+      "oem_popup_status": "NO_POPUP_DETECTED",
+      "human_touch_status": "HUMAN_TAP_OK",
+      "captcha_check_status": "NO_CAPTCHA_PRESENT",
+      "layout_health_score": 100,
+      "multi_app_flow_status": "FLOW_COMPLETED",
+      "action_reflection_outcome": "PROGRESS_VERIFIED",
+      "crawler_states_discovered": 2,
+      "cross_app_notes_count": 6,
+      "proposals_generated": 5,
+      "tasks_completed": 2,
+      "group_sync_status": "SYNC_COMPLETED",
+      "evolved_prompt_version": "v9.0",
+      "macros_total": 11
+    },
+    {
+      "cycle_id": "EVO_1792949883023",
+      "timestamp": "2026-10-26 00:38:03",
+      "cycle_index": 1,
+      "subagents_active": 20,
+      "duration_seconds": 25.84,
+      "online_devices_count": 4,
+      "real_devices_count": 2,
+      "feature_worktrees_count": 14,
+      "installed_apps_discovered": 3,
+      "oem_popup_status": "NO_POPUP_DETECTED",
+      "human_touch_status": "HUMAN_TAP_OK",
+      "captcha_check_status": "NO_CAPTCHA_PRESENT",
+      "layout_health_score": 100,
+      "multi_app_flow_status": "FLOW_COMPLETED",
+      "action_reflection_outcome": "NO_CHANGE_STUCK",
+      "crawler_states_discovered": 3,
+      "cross_app_notes_count": 6,
+      "proposals_generated": 5,
+      "tasks_completed": 4,
+      "group_sync_status": "SYNC_COMPLETED",
+      "evolved_prompt_version": "v10.0",
+      "macros_total": 12
+    },
+    {
+      "cycle_id": "EVO_1792950019853",
+      "timestamp": "2026-10-26 00:40:19",
+      "cycle_index": 1,
+      "subagents_active": 20,
+      "duration_seconds": 109.49,
+      "online_devices_count": 2,
+      "real_devices_count": 1,
+      "feature_worktrees_count": 14,
+      "installed_apps_discovered": 3,
+      "oem_popup_status": "NO_POPUP_DETECTED",
+      "human_touch_status": "HUMAN_TAP_OK",
+      "captcha_check_status": "NO_CAPTCHA_PRESENT",
+      "layout_health_score": 100,
+      "multi_app_flow_status": "FLOW_COMPLETED",
+      "action_reflection_outcome": "PROGRESS_VERIFIED",
+      "crawler_states_discovered": 1,
+      "cross_app_notes_count": 6,
+      "proposals_generated": 5,
+      "tasks_completed": 2,
+      "group_sync_status": "SYNC_COMPLETED",
+      "evolved_prompt_version": "v11.0",
+      "macros_total": 12
     }
   ]
 }
