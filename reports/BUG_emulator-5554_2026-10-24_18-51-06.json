@@ -1,0 +1,11 @@
+{
+  "report_id": "BUG_emulator-5554_2026-10-24_18-51-06",
+  "title": "Application Crash detected in com.android.settings",
+  "serial": "emulator-5554",
+  "package_name": "com.android.settings",
+  "error_type": "FATAL_CRASH",
+  "error_message": "Fatal crash or unhandled exception detected in logcat buffer.",
+  "created_at": "2026-10-24T18:51:06",
+  "screenshot": "D:\\Long-app\\Android-Mutile-Agents\\reports\\screenshots\\crash_emulator-5554_1792842665.png",
+  "report_path": "D:\\Long-app\\Android-Mutile-Agents\\reports\\BUG_emulator-5554_2026-10-24_18-51-06.md"
+}

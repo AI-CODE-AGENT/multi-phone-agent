@@ -1,0 +1,1025 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-10-25 23:23:54",
+  "locators": {
+    "Screen_Login": [
+      {
+        "element_role": "login_button",
+        "locator": {
+          "text": "Đăng nhập"
+        },
+        "coordinates": [
+          360,
+          1200
+        ],
+        "confidence": 1.0,
+        "notes": "",
+        "updated_at": "2026-10-25 23:20:40"
+      }
+    ]
+  },
+  "defects": [
+    {
+      "defect_id": "DEFECT_1792844986",
+      "defect_type": "UI_OR_CRASH_DEFECT",
+      "title": "Defect during goal: Verify SMS Mock OTP 184397 for phone 0941189263 an",
+      "serial": "emulator-5554",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "stack_trace": "",
+      "context": {
+        "failures": [
+          {
+            "step": 3,
+            "reason": "Self-healing exhausted 3 strategies; element 'gửi mã|tiếp tục|login|sign in|xác nhận' not reachable."
+          },
+          {
+            "step": 5,
+            "reason": "Self-healing exhausted 3 strategies; element 'xác thực|hoàn tất|verify|submit' not reachable."
+          }
+        ],
+        "recommendations": [
+          "**UI Responsiveness**: Có 2 bước giao diện mất trên 1.5s để phản hồi. Cần tối ưu render hoặc thêm Skeleton Loading."
+        ]
+      },
+      "timestamp": "2026-10-24 19:29:46"
+    },
+    {
+      "defect_id": "DEFECT_1792863372",
+      "defect_type": "UI_OR_CRASH_DEFECT",
+      "title": "Defect during goal: Kiem tra luong dang nhap OTP so 0941189263",
+      "serial": "emulator-5554",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "stack_trace": "",
+      "context": {
+        "failures": [
+          {
+            "step": 3,
+            "reason": "Self-healing exhausted 3 strategies; element 'gửi mã|tiếp tục|login|sign in|xác nhận' not reachable."
+          },
+          {
+            "step": 5,
+            "reason": "Self-healing exhausted 3 strategies; element 'xác thực|hoàn tất|verify|submit' not reachable."
+          }
+        ],
+        "recommendations": [
+          "**UI Responsiveness**: Có 2 bước giao diện mất trên 1.5s để phản hồi. Cần tối ưu render hoặc thêm Skeleton Loading."
+        ]
+      },
+      "timestamp": "2026-10-25 00:36:12"
+    }
+  ],
+  "patches": [
+    {
+      "patch_id": "PATCH_1792844986",
+      "defect_id": "DEFECT_1792844986",
+      "target_file": "src/main/java/com/app/network/ApiClient.kt",
+      "diff_content": "--- a/src/main/java/com/app/network/ApiClient.kt\n+++ b/src/main/java/com/app/network/ApiClient.kt\n@@ -1,4 +1,8 @@\n     fun executeRequest() {\n-        // Standard call without timeout\n-        client.newCall(request).execute()\n+        // Configured resilient timeouts: connect 5s, read 10s\n+        val resilientClient = client.newBuilder()\n+            .connectTimeout(5, TimeUnit.SECONDS)\n+            .readTimeout(10, TimeUnit.SECONDS)\n+            .build()\n+        resilientClient.newCall(request).execute()\n     }\n",
+      "explanation": "Added explicit socket and read timeouts to prevent infinite UI hangs.",
+      "verified": false,
+      "created_at": "2026-10-24 19:29:46"
+    },
+    {
+      "patch_id": "PATCH_1792845573",
+      "defect_id": "TEST_DEF_01",
+      "target_file": "src/main/java/com/app/auth/AuthManager.java",
+      "diff_content": "--- a/src/main/java/com/app/auth/AuthManager.java\n+++ b/src/main/java/com/app/auth/AuthManager.java\n@@ -1,4 +1,12 @@\n     public void onOtpReceived(String code) {\n-        otpTextView.setText(code);\n-        verifyButton.setEnabled(true);\n+        if (code == null || code.trim().isEmpty()) {\n+            Log.w(\"AuthManager\", \"Received empty or null OTP code. Ignoring.\");\n+            return;\n+        }\n+        if (otpTextView != null) {\n+            otpTextView.setText(code);\n+        }\n+        if (verifyButton != null) {\n+            verifyButton.setEnabled(true);\n+        }\n     }\n",
+      "explanation": "Added null checks for code parameter, otpTextView, and verifyButton to prevent NPE.",
+      "verified": false,
+      "created_at": "2026-10-24 19:39:33"
+    },
+    {
+      "patch_id": "PATCH_1792845588",
+      "defect_id": "TEST_DEF_01",
+      "target_file": "src/main/java/com/app/auth/AuthManager.java",
+      "diff_content": "--- a/src/main/java/com/app/auth/AuthManager.java\n+++ b/src/main/java/com/app/auth/AuthManager.java\n@@ -1,4 +1,12 @@\n     public void onOtpReceived(String code) {\n-        otpTextView.setText(code);\n-        verifyButton.setEnabled(true);\n+        if (code == null || code.trim().isEmpty()) {\n+            Log.w(\"AuthManager\", \"Received empty or null OTP code. Ignoring.\");\n+            return;\n+        }\n+        if (otpTextView != null) {\n+            otpTextView.setText(code);\n+        }\n+        if (verifyButton != null) {\n+            verifyButton.setEnabled(true);\n+        }\n     }\n",
+      "explanation": "Added null checks for code parameter, otpTextView, and verifyButton to prevent NPE.",
+      "verified": false,
+      "created_at": "2026-10-24 19:39:48"
+    },
+    {
+      "patch_id": "PATCH_1792852324",
+      "defect_id": "DEFECT_INTEGRATION_01",
+      "target_file": "src/main/java/com/app/network/ApiClient.kt",
+      "diff_content": "--- a/src/main/java/com/app/network/ApiClient.kt\n+++ b/src/main/java/com/app/network/ApiClient.kt\n@@ -1,4 +1,8 @@\n     fun executeRequest() {\n-        // Standard call without timeout\n-        client.newCall(request).execute()\n+        // Configured resilient timeouts: connect 5s, read 10s\n+        val resilientClient = client.newBuilder()\n+            .connectTimeout(5, TimeUnit.SECONDS)\n+            .readTimeout(10, TimeUnit.SECONDS)\n+            .build()\n+        resilientClient.newCall(request).execute()\n     }\n",
+      "explanation": "Added explicit socket and read timeouts to prevent infinite UI hangs.",
+      "verified": false,
+      "created_at": "2026-10-24 21:32:04"
+    },
+    {
+      "patch_id": "PATCH_1792852339",
+      "defect_id": "DEFECT_INTEGRATION_01",
+      "target_file": "src/main/java/com/app/network/ApiClient.kt",
+      "diff_content": "--- a/src/main/java/com/app/network/ApiClient.kt\n+++ b/src/main/java/com/app/network/ApiClient.kt\n@@ -1,4 +1,8 @@\n     fun executeRequest() {\n-        // Standard call without timeout\n-        client.newCall(request).execute()\n+        // Configured resilient timeouts: connect 5s, read 10s\n+        val resilientClient = client.newBuilder()\n+            .connectTimeout(5, TimeUnit.SECONDS)\n+            .readTimeout(10, TimeUnit.SECONDS)\n+            .build()\n+        resilientClient.newCall(request).execute()\n     }\n",
+      "explanation": "Added explicit socket and read timeouts to prevent infinite UI hangs.",
+      "verified": false,
+      "created_at": "2026-10-24 21:32:19"
+    },
+    {
+      "patch_id": "PATCH_1792852347",
+      "defect_id": "TEST_DEF_01",
+      "target_file": "src/main/java/com/app/auth/AuthManager.java",
+      "diff_content": "--- a/src/main/java/com/app/auth/AuthManager.java\n+++ b/src/main/java/com/app/auth/AuthManager.java\n@@ -1,4 +1,12 @@\n     public void onOtpReceived(String code) {\n-        otpTextView.setText(code);\n-        verifyButton.setEnabled(true);\n+        if (code == null || code.trim().isEmpty()) {\n+            Log.w(\"AuthManager\", \"Received empty or null OTP code. Ignoring.\");\n+            return;\n+        }\n+        if (otpTextView != null) {\n+            otpTextView.setText(code);\n+        }\n+        if (verifyButton != null) {\n+            verifyButton.setEnabled(true);\n+        }\n     }\n",
+      "explanation": "Added null checks for code parameter, otpTextView, and verifyButton to prevent NPE.",
+      "verified": false,
+      "created_at": "2026-10-24 21:32:27"
+    },
+    {
+      "patch_id": "PATCH_1792852568",
+      "defect_id": "TEST_DEF_01",
+      "target_file": "src/main/java/com/app/auth/AuthManager.java",
+      "diff_content": "--- a/src/main/java/com/app/auth/AuthManager.java\n+++ b/src/main/java/com/app/auth/AuthManager.java\n@@ -1,4 +1,12 @@\n     public void onOtpReceived(String code) {\n-        otpTextView.setText(code);\n-        verifyButton.setEnabled(true);\n+        if (code == null || code.trim().isEmpty()) {\n+            Log.w(\"AuthManager\", \"Received empty or null OTP code. Ignoring.\");\n+            return;\n+        }\n+        if (otpTextView != null) {\n+            otpTextView.setText(code);\n+        }\n+        if (verifyButton != null) {\n+            verifyButton.setEnabled(true);\n+        }\n     }\n",
+      "explanation": "Added null checks for code parameter, otpTextView, and verifyButton to prevent NPE.",
+      "verified": false,
+      "created_at": "2026-10-24 21:36:08"
+    },
+    {
+      "patch_id": "PATCH_1792852570",
+      "defect_id": "DEFECT_INTEGRATION_01",
+      "target_file": "src/main/java/com/app/network/ApiClient.kt",
+      "diff_content": "--- a/src/main/java/com/app/network/ApiClient.kt\n+++ b/src/main/java/com/app/network/ApiClient.kt\n@@ -1,4 +1,8 @@\n     fun executeRequest() {\n-        // Standard call without timeout\n-        client.newCall(request).execute()\n+        // Configured resilient timeouts: connect 5s, read 10s\n+        val resilientClient = client.newBuilder()\n+            .connectTimeout(5, TimeUnit.SECONDS)\n+            .readTimeout(10, TimeUnit.SECONDS)\n+            .build()\n+        resilientClient.newCall(request).execute()\n     }\n",
+      "explanation": "Added explicit socket and read timeouts to prevent infinite UI hangs.",
+      "verified": false,
+      "created_at": "2026-10-24 21:36:10"
+    },
+    {
+      "patch_id": "PATCH_1792858980",
+      "defect_id": "TEST_DEF_01",
+      "target_file": "src/main/java/com/app/auth/AuthManager.java",
+      "diff_content": "--- a/src/main/java/com/app/auth/AuthManager.java\n+++ b/src/main/java/com/app/auth/AuthManager.java\n@@ -1,4 +1,12 @@\n     public void onOtpReceived(String code) {\n-        otpTextView.setText(code);\n-        verifyButton.setEnabled(true);\n+        if (code == null || code.trim().isEmpty()) {\n+            Log.w(\"AuthManager\", \"Received empty or null OTP code. Ignoring.\");\n+            return;\n+        }\n+        if (otpTextView != null) {\n+            otpTextView.setText(code);\n+        }\n+        if (verifyButton != null) {\n+            verifyButton.setEnabled(true);\n+        }\n     }\n",
+      "explanation": "Added null checks for code parameter, otpTextView, and verifyButton to prevent NPE.",
+      "verified": false,
+      "created_at": "2026-10-24 23:23:00"
+    },
+    {
+      "patch_id": "PATCH_1792858980",
+      "defect_id": "DEFECT_INTEGRATION_01",
+      "target_file": "src/main/java/com/app/network/ApiClient.kt",
+      "diff_content": "--- a/src/main/java/com/app/network/ApiClient.kt\n+++ b/src/main/java/com/app/network/ApiClient.kt\n@@ -1,4 +1,8 @@\n     fun executeRequest() {\n-        // Standard call without timeout\n-        client.newCall(request).execute()\n+        // Configured resilient timeouts: connect 5s, read 10s\n+        val resilientClient = client.newBuilder()\n+            .connectTimeout(5, TimeUnit.SECONDS)\n+            .readTimeout(10, TimeUnit.SECONDS)\n+            .build()\n+        resilientClient.newCall(request).execute()\n     }\n",
+      "explanation": "Added explicit socket and read timeouts to prevent infinite UI hangs.",
+      "verified": false,
+      "created_at": "2026-10-24 23:23:00"
+    },
+    {
+      "patch_id": "PATCH_1792863372",
+      "defect_id": "DEFECT_1792863372",
+      "target_file": "src/main/java/com/app/network/ApiClient.kt",
+      "diff_content": "--- a/src/main/java/com/app/network/ApiClient.kt\n+++ b/src/main/java/com/app/network/ApiClient.kt\n@@ -1,4 +1,8 @@\n     fun executeRequest() {\n-        // Standard call without timeout\n-        client.newCall(request).execute()\n+        // Configured resilient timeouts: connect 5s, read 10s\n+        val resilientClient = client.newBuilder()\n+            .connectTimeout(5, TimeUnit.SECONDS)\n+            .readTimeout(10, TimeUnit.SECONDS)\n+            .build()\n+        resilientClient.newCall(request).execute()\n     }\n",
+      "explanation": "Added explicit socket and read timeouts to prevent infinite UI hangs.",
+      "verified": false,
+      "created_at": "2026-10-25 00:36:12"
+    },
+    {
+      "patch_id": "PATCH_1792863519",
+      "defect_id": "TEST_DEF_01",
+      "target_file": "src/main/java/com/app/auth/AuthManager.java",
+      "diff_content": "--- a/src/main/java/com/app/auth/AuthManager.java\n+++ b/src/main/java/com/app/auth/AuthManager.java\n@@ -1,4 +1,12 @@\n     public void onOtpReceived(String code) {\n-        otpTextView.setText(code);\n-        verifyButton.setEnabled(true);\n+        if (code == null || code.trim().isEmpty()) {\n+            Log.w(\"AuthManager\", \"Received empty or null OTP code. Ignoring.\");\n+            return;\n+        }\n+        if (otpTextView != null) {\n+            otpTextView.setText(code);\n+        }\n+        if (verifyButton != null) {\n+            verifyButton.setEnabled(true);\n+        }\n     }\n",
+      "explanation": "Added null checks for code parameter, otpTextView, and verifyButton to prevent NPE.",
+      "verified": false,
+      "created_at": "2026-10-25 00:38:39"
+    },
+    {
+      "patch_id": "PATCH_1792863519",
+      "defect_id": "DEFECT_INTEGRATION_01",
+      "target_file": "src/main/java/com/app/network/ApiClient.kt",
+      "diff_content": "--- a/src/main/java/com/app/network/ApiClient.kt\n+++ b/src/main/java/com/app/network/ApiClient.kt\n@@ -1,4 +1,8 @@\n     fun executeRequest() {\n-        // Standard call without timeout\n-        client.newCall(request).execute()\n+        // Configured resilient timeouts: connect 5s, read 10s\n+        val resilientClient = client.newBuilder()\n+            .connectTimeout(5, TimeUnit.SECONDS)\n+            .readTimeout(10, TimeUnit.SECONDS)\n+            .build()\n+        resilientClient.newCall(request).execute()\n     }\n",
+      "explanation": "Added explicit socket and read timeouts to prevent infinite UI hangs.",
+      "verified": false,
+      "created_at": "2026-10-25 00:38:39"
+    },
+    {
+      "patch_id": "PATCH_1792945240",
+      "defect_id": "TEST_DEF_01",
+      "target_file": "src/main/java/com/app/auth/AuthManager.java",
+      "diff_content": "--- a/src/main/java/com/app/auth/AuthManager.java\n+++ b/src/main/java/com/app/auth/AuthManager.java\n@@ -1,4 +1,12 @@\n     public void onOtpReceived(String code) {\n-        otpTextView.setText(code);\n-        verifyButton.setEnabled(true);\n+        if (code == null || code.trim().isEmpty()) {\n+            Log.w(\"AuthManager\", \"Received empty or null OTP code. Ignoring.\");\n+            return;\n+        }\n+        if (otpTextView != null) {\n+            otpTextView.setText(code);\n+        }\n+        if (verifyButton != null) {\n+            verifyButton.setEnabled(true);\n+        }\n     }\n",
+      "explanation": "Added null checks for code parameter, otpTextView, and verifyButton to prevent NPE.",
+      "verified": false,
+      "created_at": "2026-10-25 23:20:40"
+    },
+    {
+      "patch_id": "PATCH_1792945248",
+      "defect_id": "DEFECT_INTEGRATION_01",
+      "target_file": "src/main/java/com/app/network/ApiClient.kt",
+      "diff_content": "--- a/src/main/java/com/app/network/ApiClient.kt\n+++ b/src/main/java/com/app/network/ApiClient.kt\n@@ -1,4 +1,8 @@\n     fun executeRequest() {\n-        // Standard call without timeout\n-        client.newCall(request).execute()\n+        // Configured resilient timeouts: connect 5s, read 10s\n+        val resilientClient = client.newBuilder()\n+            .connectTimeout(5, TimeUnit.SECONDS)\n+            .readTimeout(10, TimeUnit.SECONDS)\n+            .build()\n+        resilientClient.newCall(request).execute()\n     }\n",
+      "explanation": "Added explicit socket and read timeouts to prevent infinite UI hangs.",
+      "verified": false,
+      "created_at": "2026-10-25 23:20:48"
+    }
+  ],
+  "prompts": {
+    "operator": [
+      {
+        "version": "v1.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Audit launch performance and detect frame drops on com.android.settings\n# Base Instructions:\nExecute testing goal: Audit launch performance and detect frame drops on com.android.settings\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Audit launch performance and detect frame drops on com.android.settings'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-24 19:28:09"
+      },
+      {
+        "version": "v2.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Simulate driver order delivery at Landmark 81 TP.HCM\n# Base Instructions:\nExecute testing goal: Simulate driver order delivery at Landmark 81 TP.HCM\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Simulate driver order delivery at Landmark 81 TP.HCM'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-24 19:29:03"
+      },
+      {
+        "version": "v3.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Audit launch performance and detect frame drops on com.android.settings\n# Base Instructions:\nExecute testing goal: Audit launch performance and detect frame drops on com.android.settings\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Audit launch performance and detect frame drops on com.android.settings'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-24 19:29:03"
+      },
+      {
+        "version": "v4.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Stress-test UI resilience against screen rotations and sudden network drops\n# Base Instructions:\nExecute testing goal: Stress-test UI resilience against screen rotations and sudden network drops\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Stress-test UI resilience against screen rotations and sudden network drops'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-24 19:29:04"
+      },
+      {
+        "version": "v5.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Simulate driver order delivery at Landmark 81 TP.HCM\n# Base Instructions:\nExecute testing goal: Simulate driver order delivery at Landmark 81 TP.HCM\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Simulate driver order delivery at Landmark 81 TP.HCM'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-24 19:29:31"
+      },
+      {
+        "version": "v6.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Stress-test UI resilience against screen rotations and sudden network drops\n# Base Instructions:\nExecute testing goal: Stress-test UI resilience against screen rotations and sudden network drops\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Stress-test UI resilience against screen rotations and sudden network drops'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-24 19:29:32"
+      },
+      {
+        "version": "v7.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Verify SMS Mock OTP 184397 for phone 0941189263 and confirm biometric state\n# Base Instructions:\nExecute testing goal: Verify SMS Mock OTP 184397 for phone 0941189263 and confirm biometric state\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 2 failures in scenario 'Verify SMS Mock OTP 184397 for phone 0941189263 and confirm biometric state'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-24 19:29:46"
+      },
+      {
+        "version": "v8.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: auth_test\n# Base Instructions:\nClick Login Button\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n- [Wait Timing Rule]: Network API responses and animation transitions take up to 1.5s. Ensure explicit wait after form submission before verifying state.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 1 healing events and 1 failures in scenario 'auth_test'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-24 19:39:33"
+      },
+      {
+        "version": "v9.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: auth_test\n# Base Instructions:\nClick Login Button\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n- [Wait Timing Rule]: Network API responses and animation transitions take up to 1.5s. Ensure explicit wait after form submission before verifying state.\n- [Mock OTP Rule]: When verifying SMS/OTP, invoke MockOTPService directly via local API to retrieve the active code instantly without relying on carrier SMS delivery.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 1 healing events and 1 failures in scenario 'auth_test'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-24 19:39:48"
+      },
+      {
+        "version": "v10.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: auth_test\n# Base Instructions:\nClick Login Button\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n- [Wait Timing Rule]: Network API responses and animation transitions take up to 1.5s. Ensure explicit wait after form submission before verifying state.\n- [Mock OTP Rule]: When verifying SMS/OTP, invoke MockOTPService directly via local API to retrieve the active code instantly without relying on carrier SMS delivery.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 1 healing events and 1 failures in scenario 'auth_test'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-24 21:32:27"
+      },
+      {
+        "version": "v11.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Stress test with boundary inputs, screen rotations, and network profile changes\n# Base Instructions:\nGoal: Stress test with boundary inputs, screen rotations, and network profile changes\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Stress test with boundary inputs, screen rotations, and network profile changes'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-24 21:34:47"
+      },
+      {
+        "version": "v12.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Measure cold launch latency, frame jank drops, and audit OWASP mobile security\n# Base Instructions:\nGoal: Measure cold launch latency, frame jank drops, and audit OWASP mobile security\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Measure cold launch latency, frame jank drops, and audit OWASP mobile security'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-24 21:34:58"
+      },
+      {
+        "version": "v13.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Simulate merchant order pickup, spoof GPS to Landmark 81, and progress delivery route\n# Base Instructions:\nGoal: Simulate merchant order pickup, spoof GPS to Landmark 81, and progress delivery route\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Simulate merchant order pickup, spoof GPS to Landmark 81, and progress delivery route'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-24 21:35:23"
+      },
+      {
+        "version": "v14.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Verify user registration and authentication with Mock OTP for 0941189263 and fingerprint touch\n# Base Instructions:\nGoal: Verify user registration and authentication with Mock OTP for 0941189263 and fingerprint touch\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Verify user registration and authentication with Mock OTP for 0941189263 and fingerprint touch'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-24 21:35:26"
+      },
+      {
+        "version": "v15.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: auth_test\n# Base Instructions:\nClick Login Button\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n- [Wait Timing Rule]: Network API responses and animation transitions take up to 1.5s. Ensure explicit wait after form submission before verifying state.\n- [Mock OTP Rule]: When verifying SMS/OTP, invoke MockOTPService directly via local API to retrieve the active code instantly without relying on carrier SMS delivery.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 1 healing events and 1 failures in scenario 'auth_test'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-24 21:36:08"
+      },
+      {
+        "version": "v16.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: auth_test\n# Base Instructions:\nClick Login Button\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n- [Wait Timing Rule]: Network API responses and animation transitions take up to 1.5s. Ensure explicit wait after form submission before verifying state.\n- [Mock OTP Rule]: When verifying SMS/OTP, invoke MockOTPService directly via local API to retrieve the active code instantly without relying on carrier SMS delivery.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 1 healing events and 1 failures in scenario 'auth_test'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-24 23:23:00"
+      },
+      {
+        "version": "v17.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Kiem tra luong dang nhap OTP so 0941189263\n# Base Instructions:\nExecute testing goal: Kiem tra luong dang nhap OTP so 0941189263\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 2 failures in scenario 'Kiem tra luong dang nhap OTP so 0941189263'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-25 00:36:12"
+      },
+      {
+        "version": "v18.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: auth_test\n# Base Instructions:\nClick Login Button\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n- [Wait Timing Rule]: Network API responses and animation transitions take up to 1.5s. Ensure explicit wait after form submission before verifying state.\n- [Mock OTP Rule]: When verifying SMS/OTP, invoke MockOTPService directly via local API to retrieve the active code instantly without relying on carrier SMS delivery.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 1 healing events and 1 failures in scenario 'auth_test'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-25 00:38:39"
+      },
+      {
+        "version": "v19.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: auth_test\n# Base Instructions:\nClick Login Button\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n- [Wait Timing Rule]: Network API responses and animation transitions take up to 1.5s. Ensure explicit wait after form submission before verifying state.\n- [Mock OTP Rule]: When verifying SMS/OTP, invoke MockOTPService directly via local API to retrieve the active code instantly without relying on carrier SMS delivery.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 1 healing events and 1 failures in scenario 'auth_test'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-25 23:20:40"
+      },
+      {
+        "version": "v20.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Verify 0-VND Mock OTP delivery, clipboard fallback, and fingerprint authentication across hybrid devices\n# Base Instructions:\nGoal: Verify 0-VND Mock OTP delivery, clipboard fallback, and fingerprint authentication across hybrid devices\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Verify 0-VND Mock OTP delivery, clipboard fallback, and fingerprint authentication across hybrid devices'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-25 23:21:04"
+      },
+      {
+        "version": "v21.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Validate synchronized group tap and swipe scaling across 720x1600 AVDs and high-DPI physical phones\n# Base Instructions:\nGoal: Validate synchronized group tap and swipe scaling across 720x1600 AVDs and high-DPI physical phones\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Validate synchronized group tap and swipe scaling across 720x1600 AVDs and high-DPI physical phones'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-25 23:21:07"
+      },
+      {
+        "version": "v22.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Audit cleartext traffic, exported components, and 60FPS UI rendering smoothness under rapid navigation\n# Base Instructions:\nGoal: Audit cleartext traffic, exported components, and 60FPS UI rendering smoothness under rapid navigation\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Audit cleartext traffic, exported components, and 60FPS UI rendering smoothness under rapid navigation'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-25 23:21:11"
+      },
+      {
+        "version": "v23.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Monitor battery temperature, dim display brightness, and verify wireless ADB stability on real phones\n# Base Instructions:\nGoal: Monitor battery temperature, dim display brightness, and verify wireless ADB stability on real phones\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Monitor battery temperature, dim display brightness, and verify wireless ADB stability on real phones'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-25 23:21:15"
+      },
+      {
+        "version": "v24.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Verify 0-VND Mock OTP delivery, clipboard fallback, and fingerprint authentication across hybrid devices\n# Base Instructions:\nGoal: Verify 0-VND Mock OTP delivery, clipboard fallback, and fingerprint authentication across hybrid devices\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Verify 0-VND Mock OTP delivery, clipboard fallback, and fingerprint authentication across hybrid devices'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-25 23:23:49"
+      },
+      {
+        "version": "v25.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Validate synchronized group tap and swipe scaling across 720x1600 AVDs and high-DPI physical phones\n# Base Instructions:\nGoal: Validate synchronized group tap and swipe scaling across 720x1600 AVDs and high-DPI physical phones\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Validate synchronized group tap and swipe scaling across 720x1600 AVDs and high-DPI physical phones'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-25 23:23:54"
+      }
+    ],
+    "planner": [
+      {
+        "version": "v1.0",
+        "prompt": "# Role: Highly Robust Planner\n# Scenario: evolution_cycle_1\n# Base Instructions:\nDeconstruct mobile testing goals into resilient milestones across AVDs and Real Phones.\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n- [Viewport Rule]: Forms or submit buttons may reside below the viewport on 720x1600 screens. If a primary action button is not immediately visible, scroll down 300px before failing.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 2 healing events and 0 failures in scenario 'evolution_cycle_1'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-25 23:21:15"
+      },
+      {
+        "version": "v2.0",
+        "prompt": "# Role: Highly Robust Planner\n# Scenario: evolution_cycle_1\n# Base Instructions:\nDeconstruct mobile testing goals into resilient milestones across AVDs and Real Phones.\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n- [Viewport Rule]: Forms or submit buttons may reside below the viewport on 720x1600 screens. If a primary action button is not immediately visible, scroll down 300px before failing.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 2 healing events and 0 failures in scenario 'evolution_cycle_1'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-25 23:23:54"
+      }
+    ]
+  },
+  "knowledge_items": [
+    {
+      "id": "mem_1792844889764",
+      "key": "run_emulator-5560_1792844889",
+      "value": {
+        "goal": "Audit launch performance and detect frame drops on com.android.settings",
+        "duration": 5.33,
+        "steps": 3,
+        "healed_count": 0,
+        "audit_summary": null
+      },
+      "category": "general",
+      "tags": [
+        "test_run",
+        "emulator-5560",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-24 19:28:09"
+    },
+    {
+      "id": "mem_1792844943254",
+      "key": "run_emulator-5556_1792844943",
+      "value": {
+        "goal": "Simulate driver order delivery at Landmark 81 TP.HCM",
+        "duration": 5.55,
+        "steps": 3,
+        "healed_count": 0,
+        "audit_summary": null
+      },
+      "category": "general",
+      "tags": [
+        "test_run",
+        "emulator-5556",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-24 19:29:03"
+    },
+    {
+      "id": "mem_1792844943422",
+      "key": "run_emulator-5560_1792844943",
+      "value": {
+        "goal": "Audit launch performance and detect frame drops on com.android.settings",
+        "duration": 5.25,
+        "steps": 3,
+        "healed_count": 0,
+        "audit_summary": null
+      },
+      "category": "general",
+      "tags": [
+        "test_run",
+        "emulator-5560",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-24 19:29:03"
+    },
+    {
+      "id": "mem_1792844944784",
+      "key": "run_emulator-5558_1792844944",
+      "value": {
+        "goal": "Stress-test UI resilience against screen rotations and sudden network drops",
+        "duration": 5.31,
+        "steps": 3,
+        "healed_count": 0,
+        "audit_summary": null
+      },
+      "category": "general",
+      "tags": [
+        "test_run",
+        "emulator-5558",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-24 19:29:04"
+    },
+    {
+      "id": "mem_1792844971644",
+      "key": "run_emulator-5556_1792844971",
+      "value": {
+        "goal": "Simulate driver order delivery at Landmark 81 TP.HCM",
+        "duration": 5.38,
+        "steps": 3,
+        "healed_count": 0,
+        "audit_summary": null
+      },
+      "category": "general",
+      "tags": [
+        "test_run",
+        "emulator-5556",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-24 19:29:31"
+    },
+    {
+      "id": "mem_1792844971656",
+      "key": "run_emulator-5560_1792844971",
+      "value": {
+        "goal": "Audit launch performance and detect frame drops on com.android.settings",
+        "duration": 5.02,
+        "steps": 3,
+        "healed_count": 0,
+        "audit_summary": null
+      },
+      "category": "general",
+      "tags": [
+        "test_run",
+        "emulator-5560",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-24 19:29:31"
+    },
+    {
+      "id": "mem_1792844972940",
+      "key": "run_emulator-5558_1792844972",
+      "value": {
+        "goal": "Stress-test UI resilience against screen rotations and sudden network drops",
+        "duration": 4.8,
+        "steps": 3,
+        "healed_count": 0,
+        "audit_summary": null
+      },
+      "category": "general",
+      "tags": [
+        "test_run",
+        "emulator-5558",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-24 19:29:32"
+    },
+    {
+      "id": "mem_1792844986097",
+      "key": "run_emulator-5554_1792844986",
+      "value": {
+        "goal": "Verify SMS Mock OTP 184397 for phone 0941189263 and confirm biometric state",
+        "duration": 21.43,
+        "steps": 5,
+        "healed_count": 0,
+        "audit_summary": null
+      },
+      "category": "general",
+      "tags": [
+        "test_run",
+        "emulator-5554",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-24 19:29:46"
+    },
+    {
+      "id": "mem_1792852487279",
+      "key": "SEC_com_android_settings_1792852487",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 2,
+        "report_path": "D:\\Long-app\\Android-Mutile-Agents\\reports\\security_reports\\SEC_com_android_settings_1792852487.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "emulator-5558"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-24 21:34:47"
+    },
+    {
+      "id": "mem_1792852498906",
+      "key": "SEC_com_android_settings_1792852498",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 2,
+        "report_path": "D:\\Long-app\\Android-Mutile-Agents\\reports\\security_reports\\SEC_com_android_settings_1792852498.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "emulator-5560"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-24 21:34:58"
+    },
+    {
+      "id": "mem_1792852525989",
+      "key": "SEC_com_android_settings_1792852525",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 2,
+        "report_path": "D:\\Long-app\\Android-Mutile-Agents\\reports\\security_reports\\SEC_com_android_settings_1792852525.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-24 21:35:25"
+    },
+    {
+      "id": "mem_1792863372304",
+      "key": "run_emulator-5554_1792863372",
+      "value": {
+        "goal": "Kiem tra luong dang nhap OTP so 0941189263",
+        "duration": 21.11,
+        "steps": 5,
+        "healed_count": 0,
+        "audit_summary": null
+      },
+      "category": "general",
+      "tags": [
+        "test_run",
+        "emulator-5554",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-25 00:36:12"
+    },
+    {
+      "id": "mem_1792945240771",
+      "key": "test_key",
+      "value": "test_val",
+      "category": "general",
+      "tags": [
+        "unit_test",
+        "core"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-25 23:20:40"
+    },
+    {
+      "id": "mem_1792945250144",
+      "key": "real_device_R58M99AABB",
+      "value": {
+        "name": "Samsung Galaxy S24 Ultra",
+        "resolution": "1080x2400",
+        "android_version": "15",
+        "battery": {
+          "level": 86,
+          "temperature_c": 36.5,
+          "voltage_mv": 4180,
+          "status": "charging",
+          "plugged": "usb",
+          "overheated": false,
+          "low_battery": false
+        }
+      },
+      "category": "fleet_topology",
+      "tags": [
+        "real_device",
+        "hardware_profile"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-25 23:20:50"
+    },
+    {
+      "id": "mem_1792945250152",
+      "key": "real_device_192.168.1.88:5555",
+      "value": {
+        "name": "Xiaomi Xiaomi 14 Pro",
+        "resolution": "1440x3200",
+        "android_version": "15",
+        "battery": {
+          "level": 92,
+          "temperature_c": 43.5,
+          "voltage_mv": 4300,
+          "status": "charging",
+          "plugged": "ac",
+          "overheated": true,
+          "low_battery": false
+        }
+      },
+      "category": "fleet_topology",
+      "tags": [
+        "real_device",
+        "hardware_profile"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-25 23:20:50"
+    },
+    {
+      "id": "mem_1792945264195",
+      "key": "SEC_com_android_settings_1792945264",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 0,
+        "report_path": "D:\\Long-app\\Android-Mutile-Agents\\reports\\security_reports\\SEC_com_android_settings_1792945264.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-25 23:21:04"
+    },
+    {
+      "id": "mem_1792945267809",
+      "key": "SEC_com_android_settings_1792945267",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 0,
+        "report_path": "D:\\Long-app\\Android-Mutile-Agents\\reports\\security_reports\\SEC_com_android_settings_1792945267.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "emulator-5556"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-25 23:21:07"
+    },
+    {
+      "id": "mem_1792945271433",
+      "key": "SEC_com_android_settings_1792945271",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 0,
+        "report_path": "D:\\Long-app\\Android-Mutile-Agents\\reports\\security_reports\\SEC_com_android_settings_1792945271.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "R58M99AABB"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-25 23:21:11"
+    },
+    {
+      "id": "mem_1792945275049",
+      "key": "SEC_com_android_settings_1792945275",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 0,
+        "report_path": "D:\\Long-app\\Android-Mutile-Agents\\reports\\security_reports\\SEC_com_android_settings_1792945275.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "192.168.1.88:5555"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-25 23:21:15"
+    },
+    {
+      "id": "mem_1792945357989",
+      "key": "real_device_10CF5L0TYL00312",
+      "value": {
+        "name": "Vivo V2417A",
+        "resolution": "1260x2800",
+        "android_version": "16",
+        "battery": {
+          "level": 98,
+          "temperature_c": 33.5,
+          "voltage_mv": 4373,
+          "status": "charging",
+          "plugged": "usb",
+          "overheated": false,
+          "low_battery": false
+        }
+      },
+      "category": "fleet_topology",
+      "tags": [
+        "real_device",
+        "hardware_profile"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-25 23:22:37"
+    },
+    {
+      "id": "mem_1792945427800",
+      "key": "screen_state_emulator-5554",
+      "value": {
+        "keyboard": true,
+        "dialog": true,
+        "dimensions": "720x1600"
+      },
+      "category": "general",
+      "tags": [
+        "vision",
+        "emulator-5554",
+        "screen_state"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-25 23:23:47"
+    },
+    {
+      "id": "mem_1792945429147",
+      "key": "SEC_com_android_settings_1792945429",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 2,
+        "report_path": "D:\\Long-app\\Android-Mutile-Agents\\reports\\security_reports\\SEC_com_android_settings_1792945429.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-25 23:23:49"
+    },
+    {
+      "id": "mem_1792945434743",
+      "key": "SEC_com_android_settings_1792945434",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 1,
+        "report_path": "D:\\Long-app\\Android-Mutile-Agents\\reports\\security_reports\\SEC_com_android_settings_1792945434.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-25 23:23:54"
+    }
+  ],
+  "macros": {
+    "com.android.settings::verify_otp_login_flow_on_hybrid_farm": {
+      "goal_signature": "com.android.settings::verify_otp_login_flow_on_hybrid_farm",
+      "package_name": "com.android.settings",
+      "steps": [
+        {
+          "action": "tap",
+          "milestone": "Confirm OTP",
+          "verified_coords": [
+            360,
+            800
+          ],
+          "normalized_coords": [
+            0.5,
+            0.5
+          ]
+        }
+      ],
+      "steps_count": 1,
+      "avg_duration_s": 1.25,
+      "success_count": 1,
+      "updated_at": "2026-10-25 23:20:50"
+    },
+    "com.android.settings::verify_0_vnd_mock_otp_delivery_clipboard_fallback": {
+      "goal_signature": "com.android.settings::verify_0_vnd_mock_otp_delivery_clipboard_fallback",
+      "package_name": "com.android.settings",
+      "steps": [
+        {
+          "milestone": "Launch_App",
+          "action": "launch",
+          "package": "com.android.settings",
+          "description": "Launch target app com.android.settings"
+        },
+        {
+          "milestone": "Enter_Phone_Number",
+          "action": "input",
+          "locator": "phone",
+          "text": "0941189263",
+          "description": "Enter phone number 0941189263"
+        },
+        {
+          "milestone": "Request_OTP",
+          "action": "tap",
+          "locator": "gửi mã|tiếp tục|login|sign in|xác nhận",
+          "description": "Tap request OTP / submit phone",
+          "verified_coords": [
+            360,
+            800
+          ],
+          "normalized_coords": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "milestone": "Auto_Deliver_Mock_OTP",
+          "action": "mock_otp_flow",
+          "phone": "0941189263",
+          "description": "Intercept and autofill OTP locally with 0 VND carrier cost"
+        },
+        {
+          "milestone": "Submit_Verification",
+          "action": "tap",
+          "locator": "xác thực|hoàn tất|verify|submit",
+          "description": "Submit verification and verify dashboard entry",
+          "verified_coords": [
+            360,
+            1360
+          ],
+          "normalized_coords": [
+            0.5,
+            0.85
+          ]
+        }
+      ],
+      "steps_count": 5,
+      "avg_duration_s": 63.28,
+      "success_count": 2,
+      "updated_at": "2026-10-25 23:23:49"
+    },
+    "com.android.settings::validate_synchronized_group_tap_and_swipe_scaling_across": {
+      "goal_signature": "com.android.settings::validate_synchronized_group_tap_and_swipe_scaling_across",
+      "package_name": "com.android.settings",
+      "steps": [
+        {
+          "milestone": "Launch_App",
+          "action": "launch",
+          "package": "com.android.settings",
+          "description": "Launch app com.android.settings"
+        },
+        {
+          "milestone": "Dismiss_Dialogs",
+          "action": "dismiss_dialogs",
+          "description": "Handle system permission and greeting modals"
+        },
+        {
+          "milestone": "Explore_Core_Flows",
+          "action": "explore",
+          "max_steps": 15,
+          "description": "Autonomously navigate UI buttons and forms according to goal: Validate synchronized group tap and swipe scaling across 720x1600 AVDs and high-DPI physical phones"
+        }
+      ],
+      "steps_count": 3,
+      "avg_duration_s": 5.55,
+      "success_count": 2,
+      "updated_at": "2026-10-25 23:23:54"
+    },
+    "com.android.settings::audit_cleartext_traffic_exported_components_and_60fps_ui": {
+      "goal_signature": "com.android.settings::audit_cleartext_traffic_exported_components_and_60fps_ui",
+      "package_name": "com.android.settings",
+      "steps": [
+        {
+          "milestone": "Launch_App",
+          "action": "launch",
+          "package": "com.android.settings",
+          "description": "Launch app com.android.settings"
+        },
+        {
+          "milestone": "Dismiss_Dialogs",
+          "action": "dismiss_dialogs",
+          "description": "Handle system permission and greeting modals"
+        },
+        {
+          "milestone": "Explore_Core_Flows",
+          "action": "explore",
+          "max_steps": 15,
+          "description": "Autonomously navigate UI buttons and forms according to goal: Audit cleartext traffic, exported components, and 60FPS UI rendering smoothness under rapid navigation"
+        }
+      ],
+      "steps_count": 3,
+      "avg_duration_s": 3.58,
+      "success_count": 1,
+      "updated_at": "2026-10-25 23:21:11"
+    },
+    "com.android.settings::monitor_battery_temperature_dim_display_brightness_and_verify": {
+      "goal_signature": "com.android.settings::monitor_battery_temperature_dim_display_brightness_and_verify",
+      "package_name": "com.android.settings",
+      "steps": [
+        {
+          "milestone": "Launch_App",
+          "action": "launch",
+          "package": "com.android.settings",
+          "description": "Launch app com.android.settings"
+        },
+        {
+          "milestone": "Dismiss_Dialogs",
+          "action": "dismiss_dialogs",
+          "description": "Handle system permission and greeting modals"
+        },
+        {
+          "milestone": "Explore_Core_Flows",
+          "action": "explore",
+          "max_steps": 15,
+          "description": "Autonomously navigate UI buttons and forms according to goal: Monitor battery temperature, dim display brightness, and verify wireless ADB stability on real phones"
+        }
+      ],
+      "steps_count": 3,
+      "avg_duration_s": 3.58,
+      "success_count": 1,
+      "updated_at": "2026-10-25 23:21:15"
+    }
+  },
+  "evolution_history": [
+    {
+      "cycle_id": "EVO_1792945275133",
+      "timestamp": "2026-10-25 23:21:15",
+      "cycle_index": 1,
+      "duration_seconds": 24.99,
+      "online_devices_count": 4,
+      "real_devices_count": 2,
+      "proposals_generated": 5,
+      "tasks_completed": 4,
+      "group_sync_status": "SYNC_COMPLETED",
+      "evolved_prompt_version": "v1.0",
+      "macros_total": 5
+    },
+    {
+      "cycle_id": "EVO_1792945434899",
+      "timestamp": "2026-10-25 23:23:54",
+      "cycle_index": 1,
+      "duration_seconds": 88.91,
+      "online_devices_count": 2,
+      "real_devices_count": 1,
+      "proposals_generated": 5,
+      "tasks_completed": 2,
+      "group_sync_status": "SYNC_COMPLETED",
+      "evolved_prompt_version": "v2.0",
+      "macros_total": 5
+    }
+  ]
+}

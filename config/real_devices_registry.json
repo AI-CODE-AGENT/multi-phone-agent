@@ -1,0 +1,37 @@
+{
+  "enabled": true,
+  "farm_mode": "HYBRID",
+  "known_devices": {
+    "R58M99AABB": {
+      "name": "Samsung Galaxy S24 Ultra",
+      "manufacturer": "Samsung",
+      "model": "Galaxy S24 Ultra",
+      "android_version": "15",
+      "resolution": "1080x2400",
+      "wifi_ip": "192.168.1.77",
+      "last_seen": "2026-10-25 23:21:15"
+    },
+    "192.168.1.88:5555": {
+      "name": "Xiaomi Xiaomi 14 Pro",
+      "manufacturer": "Xiaomi",
+      "model": "Xiaomi 14 Pro",
+      "android_version": "15",
+      "resolution": "1440x3200",
+      "wifi_ip": "192.168.1.88",
+      "last_seen": "2026-10-25 23:21:15"
+    },
+    "10CF5L0TYL00312": {
+      "name": "Vivo V2417A",
+      "manufacturer": "vivo",
+      "model": "V2417A",
+      "android_version": "16",
+      "resolution": "1260x2800",
+      "wifi_ip": "192.168.1.124",
+      "last_seen": "2026-10-25 23:23:46"
+    }
+  },
+  "wireless_endpoints": [
+    "192.168.1.77:5555"
+  ],
+  "last_updated": "2026-10-25 23:23:46"
+}

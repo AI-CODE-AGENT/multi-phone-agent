@@ -1,0 +1,21 @@
+# Python byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Runtime & temporary locks / caches
+*.tmp
+config/device_locks.json
+reports/screenshots/*.png
+reports/dumps/*.xml
+
+# OS / IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

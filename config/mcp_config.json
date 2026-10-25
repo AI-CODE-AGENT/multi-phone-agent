@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "android-multi-agent-farm": {
+      "command": "python",
+      "args": [
+        "D:\\Project\\multi-phone-agent\\mcp_bridge\\android_farm_mcp_server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    }
+  }
+}
