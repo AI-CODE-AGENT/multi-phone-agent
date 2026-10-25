@@ -1,0 +1,66 @@
+{
+  "updated_at": "2026-10-25 23:55:53",
+  "count": 6,
+  "notes": {
+    "otp_code": {
+      "key": "otp_code",
+      "value": "839201",
+      "source_app": "notification",
+      "serial": "10CF5L0TYL00312",
+      "timestamp": "2026-10-25 23:54:46",
+      "metadata": {
+        "extractor": "notification",
+        "pattern": "otp_6_digit"
+      }
+    },
+    "order_id": {
+      "key": "order_id",
+      "value": "ORD-99281A",
+      "source_app": "com.shop.app",
+      "serial": "10CF5L0TYL00312",
+      "timestamp": "2026-10-25 23:54:46",
+      "metadata": {
+        "extractor": "screen_ui",
+        "pattern": "order_txn_id"
+      }
+    },
+    "extracted_url": {
+      "key": "extracted_url",
+      "value": "https://shop.example.com/verify",
+      "source_app": "clipboard",
+      "serial": "10CF5L0TYL00312",
+      "timestamp": "2026-10-25 23:54:46",
+      "metadata": {
+        "extractor": "clipboard",
+        "pattern": "url_or_deeplink"
+      }
+    },
+    "price_amount": {
+      "key": "price_amount",
+      "value": "$149.99",
+      "source_app": "com.shop.app",
+      "serial": "10CF5L0TYL00312",
+      "timestamp": "2026-10-25 23:54:46",
+      "metadata": {
+        "extractor": "screen_ui",
+        "pattern": "currency_price"
+      }
+    },
+    "last_otp": {
+      "key": "last_otp",
+      "value": "617119",
+      "source_app": "com.android.settings",
+      "serial": "emulator-5554",
+      "timestamp": "2026-10-25 23:55:53",
+      "metadata": {}
+    },
+    "active_package": {
+      "key": "active_package",
+      "value": "com.android.settings",
+      "source_app": "com.android.settings",
+      "serial": "emulator-5554",
+      "timestamp": "2026-10-25 23:55:53",
+      "metadata": {}
+    }
+  }
+}

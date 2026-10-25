@@ -1,0 +1,12 @@
+{
+  "10CF5L0TYL00312::com.shop.app::pre_checkout": {
+    "key": "10CF5L0TYL00312::com.shop.app::pre_checkout",
+    "serial": "10CF5L0TYL00312",
+    "package": "com.shop.app",
+    "label": "pre_checkout",
+    "foreground_activity": "com.shop.app/com.shop.app.MainActivity",
+    "version_name": "4.2.0",
+    "timestamp": "2026-10-25 23:54:46",
+    "status": "SNAPSHOT_SAVED"
+  }
+}
