@@ -1,8 +1,8 @@
 """
-Model Context Protocol (MCP) Server 2.0 for Android Multi-Agent Farm (AMAF 3.0).
+Model Context Protocol (MCP) Server 2.0 for Android Multi-Agent Farm (AMAF 4.0).
 Allows any AI Agent (Antigravity, Cursor, Claude Code, Kilo Code, ARTEMIS, OpenCode)
 to discover, lease, observe, navigate, broadcast group actions, manage real physical phones,
-and trigger 12-subagent autonomous self-evolution loops.
+orchestrate multi-app testing flows, crawl UI state graphs, and trigger 16-subagent autonomous self-evolution loops.
 Implements JSON-RPC 2.0 over standard I/O (stdio) with zero external dependencies.
 """
 
@@ -22,11 +22,15 @@ from core.hardware_simulator import HardwareSimulator
 from core.mock_otp_service import MockOTPService
 from core.real_device_manager import RealDeviceManager
 from core.group_control_broadcaster import GroupControlBroadcaster
+from core.multi_app_manager import MultiAppAutomationManager
 from core.scrcpy_manager import ScrcpyManager
 from core.memory_manager import MemoryManager
 from core.git_worktree_manager import GitWorktreeManager
 from agents.device_lock_manager import DeviceLockManager
 from agents.experience_miner_subagent import ExperienceMinerSubagent
+from agents.cross_app_notetaker_subagent import CrossAppNotetakerSubagent
+from agents.action_reflector_subagent import ActionReflectorSubagent
+from agents.multi_app_crawler_subagent import MultiAppCrawlerSubagent
 from mcp_bridge.artemis_bridge import ArtemisBridge
 from config.farm_config import DEFAULT_FARM_DEVICES
 
@@ -35,7 +39,7 @@ logger = logging.getLogger("AndroidFarmMCP")
 
 
 class AndroidFarmMCPServer:
-    """Standard Model Context Protocol Server 2.0 (19 Tools) for Hybrid Real & Virtual Android Farm."""
+    """Standard Model Context Protocol Server 2.0 (24 Tools) for Hybrid Real & Virtual Multi-App Farm."""
 
     def __init__(self):
         self.adb = ADBWrapper()
@@ -43,10 +47,14 @@ class AndroidFarmMCPServer:
         self.otp_service = MockOTPService(self.hardware)
         self.real_mgr = RealDeviceManager(self.adb)
         self.broadcaster = GroupControlBroadcaster(self.adb, self.real_mgr)
+        self.multi_app_mgr = MultiAppAutomationManager(self.adb, self.real_mgr, self.broadcaster, self.otp_service)
         self.scrcpy_mgr = ScrcpyManager()
         self.memory = MemoryManager()
         self.worktree_mgr = GitWorktreeManager()
         self.exp_miner = ExperienceMinerSubagent(self.memory)
+        self.notetaker = CrossAppNotetakerSubagent(self.adb, self.memory)
+        self.reflector = ActionReflectorSubagent(self.adb, self.memory)
+        self.crawler = MultiAppCrawlerSubagent(self.adb, self.memory)
         self.lock_mgr = DeviceLockManager()
         self.bridge = ArtemisBridge()
         self.tools = self._register_tools()
@@ -182,7 +190,7 @@ class AndroidFarmMCPServer:
             },
             {
                 "name": "android_run_kanban_task",
-                "description": "Execute a high-level task through the 12-Subagent autonomous pipeline (Planner -> Operator -> Vision -> Healer -> Auditor -> CodeImprover -> RegressionVerifier -> ExperienceMiner).",
+                "description": "Execute a high-level task through the autonomous pipeline (Planner -> Operator -> Vision -> Healer -> Auditor -> CodeImprover -> RegressionVerifier -> ExperienceMiner).",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
@@ -277,7 +285,7 @@ class AndroidFarmMCPServer:
             },
             {
                 "name": "android_run_self_evolution_loop",
-                "description": "Trigger the 12-Subagent Autonomous Self-Evolution Engine (Scout -> Ideation -> Plan -> Group Sync -> Execute -> Heal -> Audit -> Auto-Patch -> Regression -> Prompt Evolution -> Macro Mining).",
+                "description": "Trigger the 16-Subagent Autonomous Self-Evolution Engine (Worktree Audit -> Scout -> Multi-App Discovery -> Ideation -> Group Sync -> Multi-App Flow + Notetaker + Action Reflector -> UI Graph Crawler -> Kanban Pipeline -> Prompt Evolution).",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
@@ -329,6 +337,86 @@ class AndroidFarmMCPServer:
                         "push_remote": {"type": "boolean", "description": "Push merged branch to origin (default true)"}
                     },
                     "required": ["action"]
+                }
+            },
+            {
+                "name": "android_list_installed_apps",
+                "description": "List installed third-party or system packages on a target device to support multi-application testing.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial (default emulator-5554)"},
+                        "include_system": {"type": "boolean", "description": "Include system packages (default false)"}
+                    }
+                }
+            },
+            {
+                "name": "android_app_state_control",
+                "description": "Control application state for reproducible multi-app testing: clear app data, auto-grant runtime permissions, snapshot state, or restore state.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "action": {
+                            "type": "string",
+                            "enum": ["grant_permissions", "clear_data", "snapshot", "restore"],
+                            "description": "App state operation"
+                        },
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "package_name": {"type": "string", "description": "Target Android package name"},
+                        "label": {"type": "string", "description": "Optional checkpoint label for snapshot/restore"}
+                    },
+                    "required": ["action", "serial", "package_name"]
+                }
+            },
+            {
+                "name": "android_open_deep_link",
+                "description": "Route a Deep Link or App Link URI (`https://...` or `customscheme://...`) on a device and measure launch latency in milliseconds.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "uri": {"type": "string", "description": "Deep link URI to open"},
+                        "package_name": {"type": "string", "description": "Optional target package name"}
+                    },
+                    "required": ["serial", "uri"]
+                }
+            },
+            {
+                "name": "android_run_multi_app_flow",
+                "description": "Execute a Maestro-style declarative multi-app workflow (`launchApp`, `clearState`, `grantPermissions`, `openLink`, `tapOn`, `inputText`, `assertVisible`, `switchApp`, `injectMockOtp`, `extractNote`) across one or multiple devices with CrossAppNotetaker support.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "steps": {
+                            "type": "array",
+                            "items": {"type": "object"},
+                            "description": "Ordered list of declarative multi-app flow step objects"
+                        },
+                        "serials": {
+                            "type": "array",
+                            "items": {"type": "string"},
+                            "description": "Optional target device serials"
+                        }
+                    },
+                    "required": ["steps"]
+                }
+            },
+            {
+                "name": "android_crawl_app_graph",
+                "description": "Run DroidBot/Fastbot-inspired UI state-graph exploration and optional Monkey burst across one or multiple Android applications.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial (default emulator-5554)"},
+                        "package_name": {"type": "string", "description": "Single package name to crawl"},
+                        "packages": {
+                            "type": "array",
+                            "items": {"type": "string"},
+                            "description": "Optional list of multiple packages to crawl sequentially"
+                        },
+                        "max_steps": {"type": "integer", "description": "Max exploration steps per app (default 3)"},
+                        "run_monkey_burst": {"type": "boolean", "description": "Run fast monkey event burst (default false)"}
+                    }
                 }
             }
         ]
@@ -561,6 +649,56 @@ class AndroidFarmMCPServer:
                     return self.worktree_mgr.merge_worktree_to_main(slug, push_remote=push)
                 return {"success": False, "error": f"Unknown worktree action: {act}"}
 
+            elif name == "android_list_installed_apps":
+                serial = args.get("serial", "emulator-5554")
+                inc_sys = bool(args.get("include_system", False))
+                res = self.multi_app_mgr.list_installed_apps(serial, include_system=inc_sys)
+                return {"success": True, **res}
+
+            elif name == "android_app_state_control":
+                act = args["action"]
+                serial = args["serial"]
+                pkg = args["package_name"]
+                label = args.get("label", "checkpoint_1")
+                if act == "grant_permissions":
+                    res = self.multi_app_mgr.grant_all_runtime_permissions(serial, pkg)
+                elif act == "clear_data":
+                    res = self.multi_app_mgr.clear_app_data(serial, pkg)
+                elif act == "snapshot":
+                    res = self.multi_app_mgr.snapshot_app_state(serial, pkg, label=label)
+                elif act == "restore":
+                    res = self.multi_app_mgr.restore_app_state(serial, pkg, label=label)
+                else:
+                    return {"success": False, "error": f"Unknown app state action: {act}"}
+                return {"success": True, **res}
+
+            elif name == "android_open_deep_link":
+                serial = args["serial"]
+                uri = args["uri"]
+                pkg = args.get("package_name")
+                res = self.multi_app_mgr.open_deep_link(serial, uri, package=pkg)
+                return {"success": True, **res}
+
+            elif name == "android_run_multi_app_flow":
+                steps = args.get("steps", [])
+                serials = args.get("serials")
+                res = self.multi_app_mgr.run_declarative_multi_app_flow(flow_steps=steps, serials=serials)
+                for k, v in res.get("shared_notes", {}).items():
+                    self.notetaker.record_note(k, str(v), source_app="multi_app_flow")
+                return {"success": True, **res}
+
+            elif name == "android_crawl_app_graph":
+                serial = args.get("serial", "emulator-5554")
+                pkgs = args.get("packages")
+                max_steps = int(args.get("max_steps", 3))
+                monkey = bool(args.get("run_monkey_burst", False))
+                if pkgs and isinstance(pkgs, list):
+                    res = self.crawler.crawl_multiple_apps(serial, pkgs, steps_per_app=max_steps)
+                else:
+                    pkg = args.get("package_name", "com.android.settings")
+                    res = self.crawler.crawl_application(serial, pkg, max_steps=max_steps, run_monkey_burst=monkey)
+                return {"success": True, **res}
+
             else:
                 return {"success": False, "error": f"Unknown tool: {name}"}
 
@@ -590,7 +728,7 @@ class AndroidFarmMCPServer:
                             "capabilities": {"tools": {}},
                             "serverInfo": {
                                 "name": "android-multi-agent-farm",
-                                "version": "3.0.0"
+                                "version": "4.0.0"
                             }
                         }
                     }
