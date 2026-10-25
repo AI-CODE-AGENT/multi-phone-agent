@@ -26,6 +26,9 @@ class HumanTouchSubagent:
         engine: Optional[HumanTouchEngine] = None,
         memory: Optional[MemoryManager] = None,
     ):
+        if isinstance(real_mgr, MemoryManager) and memory is None:
+            memory = real_mgr
+            real_mgr = None
         self.adb = adb or ADBWrapper()
         self.real_mgr = real_mgr or RealDeviceManager(self.adb)
         self.engine = engine or HumanTouchEngine(adb=self.adb, real_mgr=self.real_mgr)
