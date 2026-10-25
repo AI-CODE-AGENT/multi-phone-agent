@@ -1,5 +1,5 @@
 """
-Android Multi-Agent Farm - Command Line Interface (CLI)
+Android Multi-Agent Farm - Command Line Interface (CLI) (AMAF 4.0)
 Automation interface for terminal workflows, CI/CD pipelines, and script runners.
 """
 
@@ -51,7 +51,7 @@ def print_status():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Android Multi-Agent Farm CLI")
+    parser = argparse.ArgumentParser(description="Android Multi-Agent Farm CLI (AMAF 4.0)")
     subparsers = parser.add_subparsers(dest="command", help="Available sub-commands")
 
     # setup
@@ -116,7 +116,7 @@ def main():
     p_inst.add_argument("--apk", required=True, help="Path to .apk file")
 
     # matrix (Parallel Multi-Device Persona Matrix)
-    p_mat = subparsers.add_parser("matrix", help="Run 4-device parallel persona matrix test")
+    subparsers.add_parser("matrix", help="Run 4-device parallel persona matrix test")
 
     # memory (Codebase Memory Inspector)
     p_mem = subparsers.add_parser("memory", help="Inspect Codebase Memory and Agent Knowledge")
@@ -125,7 +125,7 @@ def main():
     p_mem.add_argument("--prompts", action="store_true", help="List self-optimized prompts")
 
     # pipeline (Full Autonomous Kanban Pipeline)
-    p_pipe = subparsers.add_parser("pipeline", help="Run full autonomous agile Dev-QA-Patch pipeline")
+    subparsers.add_parser("pipeline", help="Run full autonomous agile Dev-QA-Patch pipeline")
 
     # security (OWASP Mobile Audit)
     p_sec = subparsers.add_parser("security", help="Run Mobile OWASP security audit")
@@ -133,7 +133,7 @@ def main():
     p_sec.add_argument("--package", default="com.android.settings", help="Target package name")
 
     # kanban (Inspect Kanban Board)
-    p_kan = subparsers.add_parser("kanban", help="Inspect live Kanban Board")
+    subparsers.add_parser("kanban", help="Inspect live Kanban Board")
 
     # real-devices (Discover & manage optional Real Phone Farm)
     p_real = subparsers.add_parser("real-devices", help="Scan physical Android phones, switch farm mode, or connect Wireless ADB")
@@ -149,8 +149,8 @@ def main():
     p_bcast.add_argument("--y", type=float, default=0.5, help="Tap/Swipe Y (normalized 0..1 or pixel)")
     p_bcast.add_argument("--text", default="HOME", help="Text, key name, package name, or shell command")
 
-    # evolve (12-Subagent Autonomous Self-Evolution Loop)
-    p_evo = subparsers.add_parser("evolve", help="Run 12-Subagent Autonomous Self-Evolution Loop")
+    # evolve (16-Subagent Autonomous Self-Evolution Loop)
+    p_evo = subparsers.add_parser("evolve", help="Run 16-Subagent Autonomous Self-Evolution Loop")
     p_evo.add_argument("--iterations", type=int, default=1, help="Number of evolution cycles")
     p_evo.add_argument("--package", default="com.android.settings", help="Target package name")
 
@@ -164,6 +164,19 @@ def main():
     p_wt.add_argument("--feature", default="subagent-feature", help="Feature slug name")
     p_wt.add_argument("--subagent", default="CodeImproverSubagent", help="Subagent owner name")
     p_wt.add_argument("--message", default="feat: automated subagent improvement", help="Commit message")
+
+    # apps (Multi-App Discovery, Permissions, State & Deep Links)
+    p_apps = subparsers.add_parser("apps", help="Discover installed apps, grant permissions, clear/snapshot state, or open deep links")
+    p_apps.add_argument("--serial", default="emulator-5554", help="Target device serial")
+    p_apps.add_argument("--action", default="list", choices=["list", "grant", "clear", "snapshot", "restore", "deeplink"], help="Multi-app operation")
+    p_apps.add_argument("--package", default="com.android.settings", help="Target package name")
+    p_apps.add_argument("--uri", default="https://example.com", help="Deep link URI (for action=deeplink)")
+
+    # crawl (UI State-Graph Crawler across one or multiple apps)
+    p_crawl = subparsers.add_parser("crawl", help="Run DroidBot/Fastbot UI state-graph crawler on target package(s)")
+    p_crawl.add_argument("--serial", default="emulator-5554", help="Target device serial")
+    p_crawl.add_argument("--package", default="com.android.settings", help="Target package name")
+    p_crawl.add_argument("--steps", type=int, default=3, help="Exploration steps")
 
     args = parser.parse_args()
 
@@ -383,6 +396,34 @@ def main():
         elif args.action == "merge":
             res = wm.merge_worktree_to_main(args.feature, push_remote=True)
             print("Merge Worktree Result:", res)
+    elif args.command == "apps":
+        from core.multi_app_manager import MultiAppAutomationManager
+        mm = MultiAppAutomationManager()
+        if args.action == "list":
+            res = mm.list_installed_apps(args.serial)
+            print(f"=== Installed Packages on {args.serial} ({res['apps_count']}) ===")
+            for p in res["packages"][:30]:
+                print(f" - {p}")
+        elif args.action == "grant":
+            res = mm.grant_all_runtime_permissions(args.serial, args.package)
+            print("Permissions Granted:", res)
+        elif args.action == "clear":
+            res = mm.clear_app_data(args.serial, args.package)
+            print("Clear App Data:", res)
+        elif args.action == "snapshot":
+            res = mm.snapshot_app_state(args.serial, args.package)
+            print("Snapshot Saved:", res)
+        elif args.action == "restore":
+            res = mm.restore_app_state(args.serial, args.package)
+            print("State Restored:", res)
+        elif args.action == "deeplink":
+            res = mm.open_deep_link(args.serial, args.uri, package=args.package)
+            print("Deep Link Opened:", res)
+    elif args.command == "crawl":
+        from agents.multi_app_crawler_subagent import MultiAppCrawlerSubagent
+        crawler = MultiAppCrawlerSubagent()
+        res = crawler.crawl_application(args.serial, args.package, max_steps=args.steps)
+        print(f"Crawl completed on {args.serial} ({args.package}): {res['unique_states_discovered']} states, {res['transitions_recorded']} transitions.")
 
 
 if __name__ == "__main__":

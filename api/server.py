@@ -1,5 +1,5 @@
 """
-Lightweight REST API Server for Multi-Agent & Multi-IDE Integration
+Lightweight REST API Server for Multi-Agent & Multi-IDE Integration (AMAF 4.0)
 Built on standard library http.server (Zero external dependencies).
 Enables Cursor, OpenCode, Kilo Code, and Antigravity agents to control the farm over HTTP.
 """
@@ -22,6 +22,7 @@ from core.hardware_simulator import HardwareSimulator
 from core.scrcpy_manager import ScrcpyManager
 from core.real_device_manager import RealDeviceManager
 from core.group_control_broadcaster import GroupControlBroadcaster
+from core.multi_app_manager import MultiAppAutomationManager
 from agents.loop_orchestrator import LoopOrchestrator
 from agents.device_lock_manager import DeviceLockManager
 from agents.bug_reporter import BugReporter
@@ -31,6 +32,7 @@ class FarmAPIHandler(BaseHTTPRequestHandler):
     adb = ADBWrapper()
     real_mgr = RealDeviceManager(adb)
     broadcaster = GroupControlBroadcaster(adb, real_mgr)
+    multi_app_mgr = MultiAppAutomationManager(adb, real_mgr, broadcaster)
     proc_mgr = ProcessManager(adb, real_mgr)
     hardware = HardwareSimulator(adb)
     scrcpy_mgr = ScrcpyManager()
@@ -83,6 +85,12 @@ class FarmAPIHandler(BaseHTTPRequestHandler):
                 "real_devices_count": len(real_devs),
                 "real_devices": real_devs
             })
+        elif path == "/api/apps/list":
+            query = urllib.parse.parse_qs(parsed.query)
+            serial = query.get("serial", ["emulator-5554"])[0]
+            inc_sys = query.get("include_system", ["false"])[0].lower() == "true"
+            res = self.multi_app_mgr.list_installed_apps(serial, include_system=inc_sys)
+            self._send_json(200, res)
         elif path == "/api/memory/macros":
             from core.memory_manager import MemoryManager
             self._send_json(200, {"macros": MemoryManager().list_macros()})
@@ -152,13 +160,54 @@ class FarmAPIHandler(BaseHTTPRequestHandler):
             res = director.run_4_device_autonomous_pipeline()
             self._send_json(200, res)
 
-        # Route: /api/evolution/run (12-Subagent Self-Evolution Loop)
+        # Route: /api/evolution/run (16-Subagent Self-Evolution Loop)
         elif path == "/api/evolution/run":
             from agents.self_evolution_engine import SelfEvolutionEngine
             iterations = int(body.get("iterations", 1))
             pkg = body.get("package", "com.android.settings")
             engine = SelfEvolutionEngine()
             res = engine.run_evolution_loop(iterations=iterations, package_name=pkg)
+            self._send_json(200, res)
+
+        # Route: /api/apps/state (grant_permissions, clear_data, snapshot, restore)
+        elif path == "/api/apps/state":
+            act = body.get("action", "grant_permissions")
+            serial = body.get("serial", "emulator-5554")
+            pkg = body.get("package", "com.android.settings")
+            label = body.get("label", "checkpoint_1")
+            if act == "grant_permissions":
+                res = self.multi_app_mgr.grant_all_runtime_permissions(serial, pkg)
+            elif act == "clear_data":
+                res = self.multi_app_mgr.clear_app_data(serial, pkg)
+            elif act == "snapshot":
+                res = self.multi_app_mgr.snapshot_app_state(serial, pkg, label=label)
+            else:
+                res = self.multi_app_mgr.restore_app_state(serial, pkg, label=label)
+            self._send_json(200, res)
+
+        # Route: /api/apps/deeplink
+        elif path == "/api/apps/deeplink":
+            serial = body.get("serial", "emulator-5554")
+            uri = body.get("uri", "https://example.com")
+            pkg = body.get("package")
+            res = self.multi_app_mgr.open_deep_link(serial, uri, package=pkg)
+            self._send_json(200, res)
+
+        # Route: /api/apps/flow (Declarative Multi-App Flow)
+        elif path == "/api/apps/flow":
+            steps = body.get("steps", [])
+            serials = body.get("serials")
+            res = self.multi_app_mgr.run_declarative_multi_app_flow(flow_steps=steps, serials=serials)
+            self._send_json(200, res)
+
+        # Route: /api/apps/crawl (UI State-Graph Crawler)
+        elif path == "/api/apps/crawl":
+            from agents.multi_app_crawler_subagent import MultiAppCrawlerSubagent
+            serial = body.get("serial", "emulator-5554")
+            pkg = body.get("package", "com.android.settings")
+            steps = int(body.get("max_steps", 3))
+            crawler = MultiAppCrawlerSubagent(self.adb)
+            res = crawler.crawl_application(serial, pkg, max_steps=steps)
             self._send_json(200, res)
 
         # Route: /api/farm-mode (Switch HYBRID / AVD_ONLY / REAL_ONLY)
@@ -237,7 +286,6 @@ class FarmAPIHandler(BaseHTTPRequestHandler):
                 action = parts[3]
 
                 if action == "start":
-                    # Find dev config
                     dev = next((d for d in DEFAULT_FARM_DEVICES if d["serial"] == serial), None)
                     if dev:
                         ok, msg = self.proc_mgr.start_instance(dev["name"], dev["port"], headless=True)
