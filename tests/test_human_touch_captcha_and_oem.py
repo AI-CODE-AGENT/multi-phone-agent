@@ -197,6 +197,9 @@ class TestAMAFv5HumanTouchCaptchaAndOEM(unittest.TestCase):
 
         mcp = AndroidFarmMCPServer()
         mcp.adb = self.fake_adb
+        mcp.human_subagent = HumanTouchSubagent(self.fake_adb, memory=self.memory)
+        mcp.oem_guard = OEMPopupGuardSubagent(self.fake_adb, memory=self.memory)
+        mcp.captcha_solver = CaptchaSolverSubagent(self.fake_adb, self.memory)
         self.assertEqual(len(mcp.tools), 28)
 
         r_ht = mcp.handle_tool_call("android_human_touch_action", {
