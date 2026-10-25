@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-10-26 00:40:19",
+  "last_updated": "2026-10-26 02:22:14",
   "locators": {
     "Screen_Login": [
       {
@@ -587,6 +587,20 @@
         "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Launch target app, inject 0-VND Mock OTP, extract code via CrossAppNotetaker, and verify deep link transition'.",
         "success_rate": 0.95,
         "created_at": "2026-10-26 00:40:19"
+      },
+      {
+        "version": "v50.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Capture Set-of-Mark screenshot, run Sobel/Polar/Blob CV analysis for complex CAPTCHAs, and execute human Cubic Bezier gestures\n# Base Instructions:\nGoal: Capture Set-of-Mark screenshot, run Sobel/Polar/Blob CV analysis for complex CAPTCHAs, and execute human Cubic Bezier gestures\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Capture Set-of-Mark screenshot, run Sobel/Polar/Blob CV analysis for complex CAPTCHAs, and execute human Cubic Bezier gestures'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 02:21:33"
+      },
+      {
+        "version": "v51.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Launch target app, inject 0-VND Mock OTP & QR payload, extract clipboard/notification OTP, and verify deep link transition\n# Base Instructions:\nGoal: Launch target app, inject 0-VND Mock OTP & QR payload, extract clipboard/notification OTP, and verify deep link transition\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Launch target app, inject 0-VND Mock OTP & QR payload, extract clipboard/notification OTP, and verify deep link transition'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 02:22:14"
       }
     ],
     "planner": [
@@ -666,6 +680,13 @@
         "rationale": "Optimized for 2 healing events and 0 failures in scenario 'evolution_cycle_1'.",
         "success_rate": 0.95,
         "created_at": "2026-10-26 00:40:19"
+      },
+      {
+        "version": "v12.0",
+        "prompt": "# Role: Highly Robust Planner\n# Scenario: evolution_cycle_1\n# Base Instructions:\nDeconstruct multi-app mobile testing goals with Set-of-Mark visual grounding, 10-type complex CAPTCHA CV solving, Vivo/OriginOS popup guards, and FPS/MemLeak telemetry.\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 2 healing events and 0 failures in scenario 'evolution_cycle_1'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 02:22:14"
       }
     ]
   },
@@ -1875,31 +1896,6 @@
       "timestamp": "2026-10-26 00:38:02"
     },
     {
-      "id": "mem_1792949922411",
-      "key": "real_device_10CF5L0TYL00312",
-      "value": {
-        "name": "Vivo V2417A",
-        "resolution": "1260x2800",
-        "android_version": "16",
-        "battery": {
-          "level": 100,
-          "temperature_c": 33.7,
-          "voltage_mv": 4400,
-          "status": "charging",
-          "plugged": "usb",
-          "overheated": false,
-          "low_battery": false
-        }
-      },
-      "category": "fleet_topology",
-      "tags": [
-        "real_device",
-        "hardware_profile"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 00:38:42"
-    },
-    {
       "id": "mem_1792949928482",
       "key": "human_touch_emulator-5554_1792949928481",
       "value": {
@@ -1928,26 +1924,6 @@
       "timestamp": "2026-10-26 00:38:48"
     },
     {
-      "id": "mem_1792949966421",
-      "key": "crawl_emulator-5554_com.android.settings",
-      "value": {
-        "serial": "emulator-5554",
-        "package": "com.android.settings",
-        "unique_states_discovered": 1,
-        "transitions_recorded": 2,
-        "crashes_detected": 0
-      },
-      "category": "crawler",
-      "tags": [
-        "crawler",
-        "state_graph",
-        "emulator-5554",
-        "com.android.settings"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 00:39:26"
-    },
-    {
       "id": "mem_1792949975663",
       "key": "SEC_com_android_settings_1792949975",
       "value": {
@@ -1965,23 +1941,6 @@
       "timestamp": "2026-10-26 00:39:35"
     },
     {
-      "id": "mem_1792950018819",
-      "key": "screen_state_10CF5L0TYL00312",
-      "value": {
-        "keyboard": true,
-        "dialog": true,
-        "dimensions": "1260x2800"
-      },
-      "category": "general",
-      "tags": [
-        "vision",
-        "10CF5L0TYL00312",
-        "screen_state"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 00:40:18"
-    },
-    {
       "id": "mem_1792950019653",
       "key": "SEC_com_android_settings_1792950019",
       "value": {
@@ -1997,6 +1956,171 @@
       ],
       "metadata": {},
       "timestamp": "2026-10-26 00:40:19"
+    },
+    {
+      "id": "mem_1792955994460",
+      "key": "real_device_10CF5L0TYL00312",
+      "value": {
+        "name": "Vivo V2417A",
+        "resolution": "1260x2800",
+        "android_version": "16",
+        "battery": {
+          "level": 100,
+          "temperature_c": 33.5,
+          "voltage_mv": 4425,
+          "status": "charging",
+          "plugged": "usb",
+          "overheated": false,
+          "low_battery": false
+        }
+      },
+      "category": "fleet_topology",
+      "tags": [
+        "real_device",
+        "hardware_profile"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 02:19:54"
+    },
+    {
+      "id": "mem_1792956007039",
+      "key": "smart_screenshot_emulator-5554_evo_cycle_1",
+      "value": {
+        "screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\screen_emulator-5554_evo_cycle_1_1792956000531.png",
+        "annotated_screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\som_emulator-5554_1792956006979.png",
+        "marks_count": 73,
+        "mean_brightness": 221.583,
+        "edge_density": 0.0221,
+        "is_blank": false
+      },
+      "category": "visual_perception",
+      "tags": [
+        "screenshot",
+        "perception",
+        "som",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 02:20:07"
+    },
+    {
+      "id": "mem_1792956009518",
+      "key": "human_touch_emulator-5554_1792956009517",
+      "value": {
+        "status": "HUMAN_TAP_OK",
+        "serial": "emulator-5554",
+        "target": [
+          360,
+          640
+        ],
+        "actual_point": [
+          355,
+          637
+        ],
+        "dwell_ms": 110,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "tap",
+        "elapsed_ms": 597.7
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "tap",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 02:20:09"
+    },
+    {
+      "id": "mem_1792956063899",
+      "key": "crawl_emulator-5554_com.android.settings",
+      "value": {
+        "serial": "emulator-5554",
+        "package": "com.android.settings",
+        "unique_states_discovered": 3,
+        "transitions_recorded": 2,
+        "crashes_detected": 0
+      },
+      "category": "crawler",
+      "tags": [
+        "crawler",
+        "state_graph",
+        "emulator-5554",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 02:21:03"
+    },
+    {
+      "id": "mem_1792956078246",
+      "key": "perf_audit_emulator-5554_com.android.settings",
+      "value": {
+        "score": 45,
+        "grade": "D",
+        "fps": 15.0,
+        "pss_mb": 61.22,
+        "leak_suspected": false
+      },
+      "category": "general",
+      "tags": [
+        "performance",
+        "memleak",
+        "emulator-5554",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 02:21:18"
+    },
+    {
+      "id": "mem_1792956093341",
+      "key": "SEC_com_android_settings_1792956093",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 2,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792956093.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 02:21:33"
+    },
+    {
+      "id": "mem_1792956133849",
+      "key": "screen_state_10CF5L0TYL00312",
+      "value": {
+        "keyboard": true,
+        "dialog": true,
+        "dimensions": "1260x2800"
+      },
+      "category": "general",
+      "tags": [
+        "vision",
+        "10CF5L0TYL00312",
+        "screen_state"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 02:22:13"
+    },
+    {
+      "id": "mem_1792956134621",
+      "key": "SEC_com_android_settings_1792956134",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 1,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792956134.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 02:22:14"
     }
   ],
   "macros": {
@@ -2297,9 +2421,9 @@
         }
       ],
       "steps_count": 5,
-      "avg_duration_s": 43.84,
-      "success_count": 6,
-      "updated_at": "2026-10-26 00:40:19"
+      "avg_duration_s": 40.96,
+      "success_count": 7,
+      "updated_at": "2026-10-26 02:22:14"
     },
     "com.android.settings::explore_interactive_ui_state_transitions_via_multiappcrawlersubagent_and": {
       "goal_signature": "com.android.settings::explore_interactive_ui_state_transitions_via_multiappcrawlersubagent_and",
@@ -2408,6 +2532,33 @@
       "avg_duration_s": 3.62,
       "success_count": 1,
       "updated_at": "2026-10-26 00:38:02"
+    },
+    "com.android.settings::capture_set_of_mark_screenshot_run_sobel_polar": {
+      "goal_signature": "com.android.settings::capture_set_of_mark_screenshot_run_sobel_polar",
+      "package_name": "com.android.settings",
+      "steps": [
+        {
+          "milestone": "Launch_App",
+          "action": "launch",
+          "package": "com.android.settings",
+          "description": "Launch app com.android.settings"
+        },
+        {
+          "milestone": "Dismiss_Dialogs",
+          "action": "dismiss_dialogs",
+          "description": "Handle system permission and greeting modals"
+        },
+        {
+          "milestone": "Explore_Core_Flows",
+          "action": "explore",
+          "max_steps": 15,
+          "description": "Autonomously navigate UI buttons and forms according to goal: Capture Set-of-Mark screenshot, run Sobel/Polar/Blob CV analysis for complex CAPTCHAs, and execute human Cubic Bezier gestures"
+        }
+      ],
+      "steps_count": 3,
+      "avg_duration_s": 15.46,
+      "success_count": 1,
+      "updated_at": "2026-10-26 02:21:33"
     }
   },
   "evolution_history": [
@@ -2636,6 +2787,36 @@
       "group_sync_status": "SYNC_COMPLETED",
       "evolved_prompt_version": "v11.0",
       "macros_total": 12
+    },
+    {
+      "cycle_id": "EVO_1792956134803",
+      "timestamp": "2026-10-26 02:22:14",
+      "cycle_index": 1,
+      "subagents_active": 25,
+      "duration_seconds": 152.41,
+      "online_devices_count": 2,
+      "real_devices_count": 1,
+      "feature_worktrees_count": 19,
+      "installed_apps_discovered": 3,
+      "oem_popup_status": "NO_POPUP_DETECTED",
+      "som_marks_count": 73,
+      "human_touch_status": "HUMAN_TAP_OK",
+      "captcha_check_status": "NO_CAPTCHA_PRESENT",
+      "supported_captcha_types": 10,
+      "qr_scanner_detected": false,
+      "clipboard_status": "CLIPBOARD_READ",
+      "layout_health_score": 100,
+      "performance_grade": "D",
+      "performance_score": 45,
+      "multi_app_flow_status": "FLOW_COMPLETED",
+      "action_reflection_outcome": "PROGRESS_VERIFIED",
+      "crawler_states_discovered": 3,
+      "cross_app_notes_count": 6,
+      "proposals_generated": 5,
+      "tasks_completed": 2,
+      "group_sync_status": "SYNC_COMPLETED",
+      "evolved_prompt_version": "v12.0",
+      "macros_total": 13
     }
   ]
 }

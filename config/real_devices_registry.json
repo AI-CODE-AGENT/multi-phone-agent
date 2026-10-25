@@ -9,7 +9,7 @@
       "android_version": "15",
       "resolution": "1080x2400",
       "wifi_ip": "192.168.1.77",
-      "last_seen": "2026-10-26 00:38:03"
+      "last_seen": "2026-10-26 02:19:19"
     },
     "192.168.1.88:5555": {
       "name": "Xiaomi Xiaomi 14 Pro",
@@ -18,7 +18,7 @@
       "android_version": "15",
       "resolution": "1440x3200",
       "wifi_ip": "192.168.1.88",
-      "last_seen": "2026-10-26 00:38:03"
+      "last_seen": "2026-10-26 02:19:19"
     },
     "10CF5L0TYL00312": {
       "name": "Vivo V2417A",
@@ -27,11 +27,11 @@
       "android_version": "16",
       "resolution": "1260x2800",
       "wifi_ip": "192.168.1.124",
-      "last_seen": "2026-10-26 00:38:43"
+      "last_seen": "2026-10-26 02:19:55"
     }
   },
   "wireless_endpoints": [
     "192.168.1.77:5555"
   ],
-  "last_updated": "2026-10-26 00:38:43"
+  "last_updated": "2026-10-26 02:19:55"
 }
