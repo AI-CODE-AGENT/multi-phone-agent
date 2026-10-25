@@ -49,6 +49,7 @@ from agents.accessibility_wcag_subagent import AccessibilityAndWCAGContrastSubag
 from agents.crash_tombstone_anr_subagent import CrashTombstoneAndANRSubagent
 from agents.network_api_latency_subagent import NetworkTrafficAndAPILatencySubagent
 from agents.performance_memleak_subagent import PerformanceAndMemLeakSubagent
+from agents.human_persona_ux_auditor_subagent import HumanPersonaUXAuditorSubagent
 from core.memory_manager import MemoryManager
 from core.kanban_board import KanbanBoard
 from agents.device_lock_manager import DeviceLockManager
@@ -74,7 +75,7 @@ C_TEAL = "#94e2d5"
 class FarmDashboardApp:
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.root.title("Android Multi-Agent Farm (AMAF 7.0) | 30 Subagents & 40 MCP Tools Control Center")
+        self.root.title("Android Multi-Agent Farm (AMAF 8.0) | 31 Subagents & FoodGo P18 Live Control Center")
         self.root.geometry("1340x880")
         self.root.minsize(1100, 740)
         self.root.configure(bg=C_BASE)
@@ -105,6 +106,7 @@ class FarmDashboardApp:
         self.crash_analyzer = CrashTombstoneAndANRSubagent(self.adb, self.memory)
         self.net_api_profiler = NetworkTrafficAndAPILatencySubagent(self.adb, self.memory)
         self.perf_profiler = PerformanceAndMemLeakSubagent(self.adb, self.memory)
+        self.human_ux_auditor = HumanPersonaUXAuditorSubagent(self.adb)
 
         # Device card widget references: serial -> widget dict
         self.device_cards: Dict[str, Dict[str, Any]] = {}
@@ -163,7 +165,7 @@ class FarmDashboardApp:
 
         title_lbl = tk.Label(
             title_frame,
-            text="⚡ Android Multi-Agent Farm (AMAF 7.0)",
+            text="⚡ Android Multi-Agent Farm (AMAF 8.0)",
             font=("Segoe UI", 16, "bold"),
             fg=C_BLUE,
             bg=C_MANTLE
@@ -172,7 +174,7 @@ class FarmDashboardApp:
 
         sub_lbl = tk.Label(
             title_frame,
-            text="30 Subagents | 40 MCP Tools | Hybrid Real Phone + AVD Farm | Universal 2FA & Complex/Web CAPTCHA CV | WCAG & Crash/ANR",
+            text="31 Subagents | 40 MCP Tools | FoodGo P18 Live Viewer | Human-Persona UX Auditor (#31) | Universal 2FA & CAPTCHA CV",
             font=("Segoe UI", 9),
             fg=C_SUBTEXT,
             bg=C_MANTLE
@@ -199,6 +201,10 @@ class FarmDashboardApp:
         btn_apk = tk.Button(header, text="📦 Guarded Install APK", font=("Segoe UI", 9, "bold"), bg=C_MAUVE, fg=C_CRUST,
                             activebackground="#b4befe", relief="flat", padx=10, pady=6, cursor="hand2", command=self.on_install_apk_all)
         btn_apk.pack(side=tk.RIGHT, padx=4)
+
+        btn_foodgo = tk.Button(header, text="🍔 Mở & Xem FoodGo P18", font=("Segoe UI", 9, "bold"), bg=C_PEACH, fg=C_CRUST,
+                               activebackground="#f9e2af", relief="flat", padx=10, pady=6, cursor="hand2", command=self.on_launch_foodgo_latest)
+        btn_foodgo.pack(side=tk.RIGHT, padx=4)
 
     def _build_main_content(self):
         main_pane = tk.PanedWindow(self.root, orient=tk.VERTICAL, bg=C_BASE, sashrelief="flat", sashwidth=4)
@@ -558,6 +564,9 @@ class FarmDashboardApp:
 
         tk.Button(diag_bar, text="🚀 Profile FPS Jank & Memory Leak (#25)", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_GREEN,
                   relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_v7_profile_perf).pack(side=tk.LEFT, padx=3)
+
+        tk.Button(diag_bar, text="🧠 Audit Human UX & Logic (#31)", font=("Segoe UI", 9, "bold"), bg=C_PEACH, fg=C_CRUST,
+                  relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_v8_audit_human_ux).pack(side=tk.LEFT, padx=3)
 
         # Output Console for AMAF 7.0 Lab
         self.v7_output_text = tk.Text(self.tab_v7_lab, bg=C_CRUST, fg=C_TEXT, font=("Consolas", 9), relief="flat", padx=10, pady=8)
@@ -1272,6 +1281,33 @@ class FarmDashboardApp:
         self._is_running = False
         self.scrcpy_mgr.close_all()
         self.root.destroy()
+
+    def on_launch_foodgo_latest(self):
+        """One-click install & launch of FoodGo P18 + live Scrcpy screen viewer."""
+        apk_path = Path(r"D:\Project\food-delivery\app\build\outputs\apk\debug\app-debug.apk")
+        def _worker():
+            connected = [d["serial"] for d in self.adb.get_connected_devices() if d.get("status") == "device"]
+            target = "emulator-5554" if "emulator-5554" in connected else (connected[0] if connected else "emulator-5554")
+            self.log_agent_msg("FoodGoP18", f"Launching FoodGo (P18 latest build) on {target}...", "info")
+            if apk_path.exists():
+                self.adb.run_device_cmd(target, ["install", "-r", str(apk_path)], timeout=60)
+            self.adb.shell(target, "am start -n com.example.fooddelivery/.ui.splash.SplashActivity", timeout=10)
+            self.root.after(0, lambda: self.scrcpy_mgr.open_viewer(target, title=f"FoodGo P18 Live ({target})"))
+            self.log_agent_msg("FoodGoP18", f"FoodGo P18 is live on {target} (Scrcpy window opened).", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v8_audit_human_ux(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "emulator-5554"
+        def _worker():
+            self._v7_log(f"[{serial}] Running Subagent #31 HumanPersonaUXAuditorSubagent...")
+            rep = self.human_ux_auditor.audit_screen_ux_and_logic(serial, "live_screen")
+            self._v7_log(
+                f"[{serial}] Combined Score: {rep['combined_score']}/100 "
+                f"(Layout={rep['layout_health_score']}/100, UX Logic={rep['ux_logic_score']}/100) | "
+                f"Semantic Issues: {rep['semantic_issues']} | Layout Warnings: {len(rep['layout_warnings'])}"
+            )
+            self.log_agent_msg("HumanPersonaUX(#31)", f"[{serial}] Score={rep['combined_score']}/100 (Layout={rep['layout_health_score']}, UX={rep['ux_logic_score']})", "success")
+        threading.Thread(target=_worker, daemon=True).start()
 
 
 def main():

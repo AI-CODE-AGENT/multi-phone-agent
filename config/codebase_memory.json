@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-10-26 03:06:04",
+  "last_updated": "2026-10-26 06:27:33",
   "locators": {
     "Screen_Login": [
       {
@@ -2227,6 +2227,95 @@
       ],
       "metadata": {},
       "timestamp": "2026-10-26 03:05:59"
+    },
+    {
+      "id": "mem_1792961810546",
+      "key": "perf_audit_10CF5L0TYL00312_com.android.settings",
+      "value": {
+        "score": 99,
+        "grade": "A+",
+        "fps": 59.6,
+        "pss_mb": 82.52,
+        "leak_suspected": false
+      },
+      "category": "general",
+      "tags": [
+        "performance",
+        "memleak",
+        "10CF5L0TYL00312",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 03:56:50"
+    },
+    {
+      "id": "mem_1792962119340",
+      "key": "smart_screenshot_10CF5L0TYL00312_gui_som",
+      "value": {
+        "screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\screen_10CF5L0TYL00312_gui_som_1792962116103.png",
+        "annotated_screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\som_10CF5L0TYL00312_1792962119208.png",
+        "marks_count": 15,
+        "mean_brightness": 38.798,
+        "edge_density": 0.01808,
+        "is_blank": false
+      },
+      "category": "visual_perception",
+      "tags": [
+        "screenshot",
+        "perception",
+        "som",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 04:01:59"
+    },
+    {
+      "id": "mem_1792968560240",
+      "key": "oem_guarded_install_10CF5L0TYL00312_1792968560",
+      "value": {
+        "success": false,
+        "serial": "10CF5L0TYL00312",
+        "apk_path": "D:\\Project\\food-delivery\\app\\build\\outputs\\apk\\debug\\app-debug.apk",
+        "popups_auto_clicked": 1,
+        "output": "Performing Streamed Install"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "apk_install",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "apk_path": "D:\\Project\\food-delivery\\app\\build\\outputs\\apk\\debug\\app-debug.apk",
+        "success": false,
+        "popups_auto_clicked": 1
+      },
+      "timestamp": "2026-10-26 05:49:20"
+    },
+    {
+      "id": "mem_1792970853934",
+      "key": "oem_guarded_install_10CF5L0TYL00312_1792970853",
+      "value": {
+        "success": false,
+        "serial": "10CF5L0TYL00312",
+        "apk_path": "D:\\Project\\food-delivery\\app\\build\\outputs\\apk\\debug\\app-debug.apk",
+        "popups_auto_clicked": 1,
+        "output": "Performing Streamed Install"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "apk_install",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "apk_path": "D:\\Project\\food-delivery\\app\\build\\outputs\\apk\\debug\\app-debug.apk",
+        "success": false,
+        "popups_auto_clicked": 1
+      },
+      "timestamp": "2026-10-26 06:27:33"
     }
   ],
   "macros": {
