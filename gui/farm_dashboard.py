@@ -1,7 +1,9 @@
 """
-Android Multi-Agent Farm - Modern Desktop Control Center
-High-DPI aware, dark-themed control center for managing headless Android devices,
-hardware simulation, scrcpy viewing, and parallel AI agent testing.
+Android Multi-Agent Farm (AMAF 7.0) - Modern Desktop Control Center
+High-DPI aware, dark-themed control center for managing hybrid Real Phones & Headless AVDs,
+30-Subagent Self-Evolution, Universal 7-Mode 2FA Automation, 10+ Type & Web/Rotation/Grid CAPTCHA CV,
+Set-of-Mark (SoM) Visual Grounding, Vivo/OriginOS USB Popup Guard, WCAG 2.1 Contrast,
+Crash/Tombstone/ANR Demangling, and Network API Telemetry.
 """
 
 import sys
@@ -38,6 +40,15 @@ from agents.loop_orchestrator import LoopOrchestrator
 from agents.agents_orchestrator import AgentsOrchestrator
 from agents.autonomous_pipeline_director import AutonomousPipelineDirector
 from agents.self_evolution_engine import SelfEvolutionEngine
+from agents.oem_popup_guard_subagent import OEMPopupGuardSubagent
+from agents.auto_screenshot_subagent import AutoScreenshotSubagent
+from agents.complex_captcha_subagent import ComplexCaptchaSubagent
+from agents.universal_2fa_subagent import Universal2FASubagent
+from agents.web_and_advanced_captcha_subagent import WebAndAdvancedCaptchaSubagent
+from agents.accessibility_wcag_subagent import AccessibilityAndWCAGContrastSubagent
+from agents.crash_tombstone_anr_subagent import CrashTombstoneAndANRSubagent
+from agents.network_api_latency_subagent import NetworkTrafficAndAPILatencySubagent
+from agents.performance_memleak_subagent import PerformanceAndMemLeakSubagent
 from core.memory_manager import MemoryManager
 from core.kanban_board import KanbanBoard
 from agents.device_lock_manager import DeviceLockManager
@@ -63,12 +74,12 @@ C_TEAL = "#94e2d5"
 class FarmDashboardApp:
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.root.title("Android Multi-Agent Farm | Control Center")
-        self.root.geometry("1280x860")
-        self.root.minsize(1050, 720)
+        self.root.title("Android Multi-Agent Farm (AMAF 7.0) | 30 Subagents & 40 MCP Tools Control Center")
+        self.root.geometry("1340x880")
+        self.root.minsize(1100, 740)
         self.root.configure(bg=C_BASE)
 
-        # Core Engines
+        # Core Engines & 30-Subagent Specialists
         self.adb = ADBWrapper()
         self.real_mgr = RealDeviceManager(self.adb)
         self.broadcaster = GroupControlBroadcaster(self.adb, self.real_mgr)
@@ -83,6 +94,17 @@ class FarmDashboardApp:
         self.kanban = KanbanBoard()
         self.pipeline_director = AutonomousPipelineDirector(self.adb, self.memory, self.kanban)
         self.evolution_engine = SelfEvolutionEngine(self.adb, self.memory, self.kanban)
+
+        # AMAF 5.0 - 7.0 Subagents
+        self.oem_guard = OEMPopupGuardSubagent(self.adb, self.memory)
+        self.auto_screenshot = AutoScreenshotSubagent(self.adb, self.memory)
+        self.complex_captcha = ComplexCaptchaSubagent(self.adb, self.memory)
+        self.universal_2fa = Universal2FASubagent(self.adb, self.memory)
+        self.web_adv_captcha = WebAndAdvancedCaptchaSubagent(self.adb, self.memory)
+        self.wcag_auditor = AccessibilityAndWCAGContrastSubagent(self.adb, self.memory)
+        self.crash_analyzer = CrashTombstoneAndANRSubagent(self.adb, self.memory)
+        self.net_api_profiler = NetworkTrafficAndAPILatencySubagent(self.adb, self.memory)
+        self.perf_profiler = PerformanceAndMemLeakSubagent(self.adb, self.memory)
 
         # Device card widget references: serial -> widget dict
         self.device_cards: Dict[str, Dict[str, Any]] = {}
@@ -104,10 +126,9 @@ class FarmDashboardApp:
         style = ttk.Style()
         style.theme_use("clam")
 
-        # Global style overrides
         style.configure(".", background=C_BASE, foreground=C_TEXT, font=("Segoe UI", 10))
         style.configure("TNotebook", background=C_MANTLE, borderwidth=0)
-        style.configure("TNotebook.Tab", background=C_SURFACE0, foreground=C_TEXT, padding=[16, 8], font=("Segoe UI", 10, "bold"))
+        style.configure("TNotebook.Tab", background=C_SURFACE0, foreground=C_TEXT, padding=[14, 8], font=("Segoe UI", 9, "bold"))
         style.map("TNotebook.Tab",
                   background=[("selected", C_SURFACE1), ("active", C_SURFACE0)],
                   foreground=[("selected", C_BLUE), ("active", C_TEXT)])
@@ -120,23 +141,44 @@ class FarmDashboardApp:
                         bordercolor=C_SURFACE0,
                         borderwidth=1)
         style.map("Treeview", background=[("selected", C_SURFACE0)], foreground=[("selected", C_BLUE)])
-        style.configure("Treeview.Heading", background=C_SURFACE0, foreground=C_TEXT, font=("Segoe UI", 10, "bold"), relief="flat")
+        style.configure("Treeview.Heading", background=C_SURFACE0, foreground=C_TEXT, font=("Segoe UI", 9, "bold"), relief="flat")
+
+    def _get_all_known_serials(self) -> List[str]:
+        base = ["emulator-5554", "emulator-5556", "emulator-5558", "emulator-5560"]
+        try:
+            connected = [d["serial"] for d in self.adb.get_connected_devices() if d.get("serial")]
+            for s in connected:
+                if s not in base:
+                    base.insert(0, s)
+        except Exception:
+            pass
+        return base
 
     def _build_header(self):
         header = tk.Frame(self.root, bg=C_MANTLE, height=70, padx=20, pady=12)
         header.pack(fill=tk.X, side=tk.TOP)
 
-        # Title & Subtitle
         title_frame = tk.Frame(header, bg=C_MANTLE)
         title_frame.pack(side=tk.LEFT)
 
-        title_lbl = tk.Label(title_frame, text="⚡ Android Multi-Agent Farm", font=("Segoe UI", 16, "bold"), fg=C_BLUE, bg=C_MANTLE)
+        title_lbl = tk.Label(
+            title_frame,
+            text="⚡ Android Multi-Agent Farm (AMAF 7.0)",
+            font=("Segoe UI", 16, "bold"),
+            fg=C_BLUE,
+            bg=C_MANTLE
+        )
         title_lbl.pack(anchor="w")
 
-        sub_lbl = tk.Label(title_frame, text="Ultra-Light Headless Farm | RTX 3050 Offload | Multi-Agent Testing", font=("Segoe UI", 9), fg=C_SUBTEXT, bg=C_MANTLE)
+        sub_lbl = tk.Label(
+            title_frame,
+            text="30 Subagents | 40 MCP Tools | Hybrid Real Phone + AVD Farm | Universal 2FA & Complex/Web CAPTCHA CV | WCAG & Crash/ANR",
+            font=("Segoe UI", 9),
+            fg=C_SUBTEXT,
+            bg=C_MANTLE
+        )
         sub_lbl.pack(anchor="w")
 
-        # System Metrics Badges
         self.metrics_frame = tk.Frame(header, bg=C_MANTLE)
         self.metrics_frame.pack(side=tk.RIGHT, padx=10)
 
@@ -146,17 +188,16 @@ class FarmDashboardApp:
         self.sys_cpu_lbl = tk.Label(self.metrics_frame, text="CPU: --%", font=("Segoe UI", 9, "bold"), fg=C_YELLOW, bg=C_SURFACE0, padx=10, pady=4)
         self.sys_cpu_lbl.pack(side=tk.LEFT, padx=4)
 
-        # Batch Action Buttons
-        btn_start_all = tk.Button(header, text="▶ Start All Headless", font=("Segoe UI", 10, "bold"), bg=C_GREEN, fg=C_CRUST,
-                                  activebackground="#89dceb", relief="flat", padx=12, pady=6, cursor="hand2", command=self.on_start_all)
+        btn_start_all = tk.Button(header, text="▶ Start All Headless", font=("Segoe UI", 9, "bold"), bg=C_GREEN, fg=C_CRUST,
+                                  activebackground="#89dceb", relief="flat", padx=10, pady=6, cursor="hand2", command=self.on_start_all)
         btn_start_all.pack(side=tk.RIGHT, padx=4)
 
-        btn_stop_all = tk.Button(header, text="⏹ Stop All", font=("Segoe UI", 10, "bold"), bg=C_RED, fg=C_CRUST,
-                                 activebackground="#f2cdcd", relief="flat", padx=12, pady=6, cursor="hand2", command=self.on_stop_all)
+        btn_stop_all = tk.Button(header, text="⏹ Stop All", font=("Segoe UI", 9, "bold"), bg=C_RED, fg=C_CRUST,
+                                 activebackground="#f2cdcd", relief="flat", padx=10, pady=6, cursor="hand2", command=self.on_stop_all)
         btn_stop_all.pack(side=tk.RIGHT, padx=4)
 
-        btn_apk = tk.Button(header, text="📦 Install APK to All", font=("Segoe UI", 10, "bold"), bg=C_MAUVE, fg=C_CRUST,
-                            activebackground="#b4befe", relief="flat", padx=12, pady=6, cursor="hand2", command=self.on_install_apk_all)
+        btn_apk = tk.Button(header, text="📦 Guarded Install APK", font=("Segoe UI", 9, "bold"), bg=C_MAUVE, fg=C_CRUST,
+                            activebackground="#b4befe", relief="flat", padx=10, pady=6, cursor="hand2", command=self.on_install_apk_all)
         btn_apk.pack(side=tk.RIGHT, padx=4)
 
     def _build_main_content(self):
@@ -164,8 +205,16 @@ class FarmDashboardApp:
         main_pane.pack(fill=tk.BOTH, expand=True, padx=14, pady=10)
 
         # Top Section: 4 Device Cards Grid
-        devices_wrapper = tk.LabelFrame(main_pane, text=" Virtual Phone Devices (4 Headless Instances) ", font=("Segoe UI", 11, "bold"), fg=C_BLUE, bg=C_BASE, padx=10, pady=10)
-        main_pane.add(devices_wrapper, minsize=290)
+        devices_wrapper = tk.LabelFrame(
+            main_pane,
+            text=" Virtual Phone Devices (4 Headless AVD Instances + Real Phones in Tab 2 & 3) ",
+            font=("Segoe UI", 10, "bold"),
+            fg=C_BLUE,
+            bg=C_BASE,
+            padx=10,
+            pady=8
+        )
+        main_pane.add(devices_wrapper, minsize=275)
 
         self.cards_grid = tk.Frame(devices_wrapper, bg=C_BASE)
         self.cards_grid.pack(fill=tk.BOTH, expand=True)
@@ -176,39 +225,43 @@ class FarmDashboardApp:
         for idx, dev in enumerate(DEFAULT_FARM_DEVICES):
             self._create_device_card(dev, idx)
 
-        # Bottom Section: Tabs for Multi-Agent & Bug Reports
+        # Bottom Section: 5 Feature Tabs
         tabs_frame = tk.Frame(main_pane, bg=C_BASE)
-        main_pane.add(tabs_frame, minsize=350)
+        main_pane.add(tabs_frame, minsize=390)
 
         self.notebook = ttk.Notebook(tabs_frame)
         self.notebook.pack(fill=tk.BOTH, expand=True)
 
-        # Tab 1: Multi-Agent Parallel Testing
+        # Tab 1: Multi-Agent & 30-Subagent Evolution
         self.tab_agents = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
-        self.notebook.add(self.tab_agents, text=" 🤖 Multi-Agent & 12-Subagent Evolution ")
+        self.notebook.add(self.tab_agents, text=" 🤖 30-Subagent Evolution & Loops ")
         self._build_agents_tab()
 
         # Tab 2: Real Phone Farm & Group Broadcast Control
         self.tab_real_farm = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
-        self.notebook.add(self.tab_real_farm, text=" 📱 Real Phone Farm & Group Control ")
+        self.notebook.add(self.tab_real_farm, text=" 📱 Real Phone Farm & Group Broadcast ")
         self._build_real_farm_tab()
 
-        # Tab 3: Defect Reports (Bug Tracker)
+        # Tab 3: AMAF 7.0 2FA, CAPTCHA CV, Web & Deep Diagnostics
+        self.tab_v7_lab = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
+        self.notebook.add(self.tab_v7_lab, text=" 🔐 2FA, CAPTCHA CV, Web & Diagnostics (v7.0) ")
+        self._build_v7_lab_tab()
+
+        # Tab 4: Defect Reports (Bug Tracker)
         self.tab_reports = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
         self.notebook.add(self.tab_reports, text=" 🐞 Defect Reports & Evidence ")
         self._build_reports_tab()
 
-        # Tab 4: Codebase Memory & Auto-Patches
+        # Tab 5: Codebase Memory & Auto-Patches
         self.tab_memory = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
         self.notebook.add(self.tab_memory, text=" 🧠 Memory, Macros & Patches ")
         self._build_memory_tab()
 
     def _create_device_card(self, dev: Dict[str, Any], col: int):
         serial = dev["serial"]
-        card = tk.Frame(self.cards_grid, bg=C_MANTLE, highlightbackground=C_SURFACE0, highlightthickness=1, padx=12, pady=12)
+        card = tk.Frame(self.cards_grid, bg=C_MANTLE, highlightbackground=C_SURFACE0, highlightthickness=1, padx=12, pady=10)
         card.grid(row=0, column=col, sticky="nsew", padx=6, pady=4)
 
-        # Header: Name + Badge
         top = tk.Frame(card, bg=C_MANTLE)
         top.pack(fill=tk.X)
 
@@ -218,16 +271,14 @@ class FarmDashboardApp:
         status_badge = tk.Label(top, text="OFFLINE", font=("Segoe UI", 8, "bold"), fg=C_SUBTEXT, bg=C_SURFACE0, padx=6, pady=2)
         status_badge.pack(side=tk.RIGHT)
 
-        # Port & Serial & Description
         sub = tk.Label(card, text=f"{serial} | Port {dev['port']}", font=("Segoe UI", 8), fg=C_SUBTEXT, bg=C_MANTLE)
         sub.pack(anchor="w", pady=(2, 0))
 
         desc = tk.Label(card, text=dev["description"], font=("Segoe UI", 8, "italic"), fg=C_TEAL, bg=C_MANTLE)
-        desc.pack(anchor="w", pady=(0, 8))
+        desc.pack(anchor="w", pady=(0, 6))
 
-        # Metrics box
-        metrics_box = tk.Frame(card, bg=C_CRUST, padx=8, pady=6)
-        metrics_box.pack(fill=tk.X, pady=4)
+        metrics_box = tk.Frame(card, bg=C_CRUST, padx=8, pady=5)
+        metrics_box.pack(fill=tk.X, pady=3)
 
         ram_lbl = tk.Label(metrics_box, text="RAM: -- MB", font=("Segoe UI", 9), fg=C_TEXT, bg=C_CRUST)
         ram_lbl.pack(anchor="w")
@@ -238,9 +289,8 @@ class FarmDashboardApp:
         lock_lbl = tk.Label(metrics_box, text="Agent: None (Idle)", font=("Segoe UI", 8), fg=C_SUBTEXT, bg=C_CRUST)
         lock_lbl.pack(anchor="w")
 
-        # Action Buttons
         btn_row1 = tk.Frame(card, bg=C_MANTLE)
-        btn_row1.pack(fill=tk.X, pady=(8, 4))
+        btn_row1.pack(fill=tk.X, pady=(6, 3))
 
         btn_toggle = tk.Button(btn_row1, text="▶ Start", font=("Segoe UI", 9, "bold"), bg=C_GREEN, fg=C_CRUST,
                                relief="flat", cursor="hand2", command=lambda s=serial, d=dev: self.on_toggle_device(s, d))
@@ -250,15 +300,14 @@ class FarmDashboardApp:
                              relief="flat", cursor="hand2", command=lambda s=serial: self.on_view_screen(s))
         btn_view.pack(side=tk.RIGHT, fill=tk.X, expand=True, padx=(2, 0))
 
-        # Hardware Simulator Toolbar
         hw_row = tk.Frame(card, bg=C_MANTLE)
-        hw_row.pack(fill=tk.X, pady=4)
+        hw_row.pack(fill=tk.X, pady=3)
 
-        btn_fp = tk.Button(hw_row, text="🔑 Fingerprint", font=("Segoe UI", 8), bg=C_SURFACE0, fg=C_TEXT,
+        btn_fp = tk.Button(hw_row, text="🔑 Finger", font=("Segoe UI", 8), bg=C_SURFACE0, fg=C_TEXT,
                            relief="flat", cursor="hand2", command=lambda s=serial: self.on_trigger_fingerprint(s))
         btn_fp.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=1)
 
-        btn_sms = tk.Button(hw_row, text="💬 SMS OTP", font=("Segoe UI", 8), bg=C_SURFACE0, fg=C_TEXT,
+        btn_sms = tk.Button(hw_row, text="💬 OTP", font=("Segoe UI", 8), bg=C_SURFACE0, fg=C_TEXT,
                             relief="flat", cursor="hand2", command=lambda s=serial: self.on_popup_sms_otp(s))
         btn_sms.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=1)
 
@@ -270,7 +319,6 @@ class FarmDashboardApp:
                             relief="flat", cursor="hand2", command=lambda s=serial: self.on_optimize_device(s))
         btn_opt.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=1)
 
-        # Store widget references
         self.device_cards[serial] = {
             "card": card,
             "badge": status_badge,
@@ -282,12 +330,11 @@ class FarmDashboardApp:
         }
 
     def _build_agents_tab(self):
-        # Config & Control Bar (Row 1: Parallel Exploration)
         ctl = tk.Frame(self.tab_agents, bg=C_BASE)
         ctl.pack(fill=tk.X, pady=(0, 6))
 
         tk.Label(ctl, text="Package:", font=("Segoe UI", 9, "bold"), fg=C_TEXT, bg=C_BASE).pack(side=tk.LEFT, padx=(0, 4))
-        self.pkg_entry = tk.Entry(ctl, font=("Segoe UI", 9), bg=C_MANTLE, fg=C_TEXT, insertbackground=C_TEXT, relief="flat", width=26)
+        self.pkg_entry = tk.Entry(ctl, font=("Segoe UI", 9), bg=C_MANTLE, fg=C_TEXT, insertbackground=C_TEXT, relief="flat", width=24)
         self.pkg_entry.insert(0, "com.android.settings")
         self.pkg_entry.pack(side=tk.LEFT, padx=(0, 10))
 
@@ -305,37 +352,35 @@ class FarmDashboardApp:
                                     relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_abort_agents)
         btn_stop_agents.pack(side=tk.LEFT, padx=3)
 
-        # Config & Control Bar (Row 2: 4-Subagent Closed Loop: Planner -> Operator -> Healer -> Auditor)
         ctl2 = tk.Frame(self.tab_agents, bg=C_BASE)
         ctl2.pack(fill=tk.X, pady=(0, 8))
 
         tk.Label(ctl2, text="Goal Prompt:", font=("Segoe UI", 9, "bold"), fg=C_BLUE, bg=C_BASE).pack(side=tk.LEFT, padx=(0, 4))
-        self.goal_entry = tk.Entry(ctl2, font=("Segoe UI", 9), bg=C_MANTLE, fg=C_TEXT, insertbackground=C_TEXT, relief="flat", width=38)
-        self.goal_entry.insert(0, "Kiem tra luong dang nhap OTP so 0941189263")
-        self.goal_entry.pack(side=tk.LEFT, padx=(0, 10))
+        self.goal_entry = tk.Entry(ctl2, font=("Segoe UI", 9), bg=C_MANTLE, fg=C_TEXT, insertbackground=C_TEXT, relief="flat", width=34)
+        self.goal_entry.insert(0, "Giai xac thuc 2FA TOTP va kiem tra CAPTCHA xoay anh / chon nhieu anh")
+        self.goal_entry.pack(side=tk.LEFT, padx=(0, 8))
 
         tk.Label(ctl2, text="Device:", font=("Segoe UI", 9, "bold"), fg=C_TEXT, bg=C_BASE).pack(side=tk.LEFT, padx=(0, 4))
-        self.device_combo = ttk.Combobox(ctl2, values=["emulator-5554", "emulator-5556", "emulator-5558", "emulator-5560"], width=13, state="readonly")
+        self.device_combo = ttk.Combobox(ctl2, values=self._get_all_known_serials(), width=16, state="readonly")
         self.device_combo.current(0)
-        self.device_combo.pack(side=tk.LEFT, padx=(0, 10))
+        self.device_combo.pack(side=tk.LEFT, padx=(0, 8))
 
-        btn_run_loop = tk.Button(ctl2, text="🧠 Run 4-Subagent Closed Loop", font=("Segoe UI", 9, "bold"), bg=C_GREEN, fg=C_CRUST,
-                                 relief="flat", padx=12, pady=3, cursor="hand2", command=self.on_run_closed_loop)
-        btn_run_loop.pack(side=tk.LEFT, padx=3)
+        btn_run_loop = tk.Button(ctl2, text="🧠 4-Subagent Loop", font=("Segoe UI", 9, "bold"), bg=C_GREEN, fg=C_CRUST,
+                                 relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_run_closed_loop)
+        btn_run_loop.pack(side=tk.LEFT, padx=2)
 
-        btn_matrix = tk.Button(ctl2, text="⚡ Run 4-Device Persona Matrix", font=("Segoe UI", 9, "bold"), bg=C_PEACH, fg=C_CRUST,
-                               relief="flat", padx=12, pady=3, cursor="hand2", command=self.on_run_matrix)
-        btn_matrix.pack(side=tk.LEFT, padx=3)
+        btn_matrix = tk.Button(ctl2, text="⚡ 4-Device Matrix", font=("Segoe UI", 9, "bold"), bg=C_PEACH, fg=C_CRUST,
+                               relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_run_matrix)
+        btn_matrix.pack(side=tk.LEFT, padx=2)
 
-        btn_pipeline = tk.Button(ctl2, text="🚀 Run Autonomous Agile Pipeline", font=("Segoe UI", 9, "bold"), bg=C_MAUVE, fg=C_CRUST,
-                                 relief="flat", padx=12, pady=3, cursor="hand2", command=self.on_run_pipeline)
-        btn_pipeline.pack(side=tk.LEFT, padx=3)
+        btn_pipeline = tk.Button(ctl2, text="🚀 Agile Kanban Pipeline", font=("Segoe UI", 9, "bold"), bg=C_MAUVE, fg=C_CRUST,
+                                 relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_run_pipeline)
+        btn_pipeline.pack(side=tk.LEFT, padx=2)
 
-        btn_evo = tk.Button(ctl2, text="🧬 Run 12-Subagent Self-Evolution", font=("Segoe UI", 9, "bold"), bg=C_TEAL, fg=C_CRUST,
+        btn_evo = tk.Button(ctl2, text="🧬 Run 30-Subagent Self-Evolution (v7.0)", font=("Segoe UI", 9, "bold"), bg=C_TEAL, fg=C_CRUST,
                             relief="flat", padx=12, pady=3, cursor="hand2", command=self.on_run_self_evolution)
         btn_evo.pack(side=tk.LEFT, padx=3)
 
-        # Live Execution Logs
         log_frame = tk.Frame(self.tab_agents, bg=C_MANTLE, highlightbackground=C_SURFACE0, highlightthickness=1)
         log_frame.pack(fill=tk.BOTH, expand=True)
 
@@ -346,17 +391,15 @@ class FarmDashboardApp:
         scroll.pack(side=tk.RIGHT, fill=tk.Y)
         self.agent_log_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
-        # Setup text tags
         self.agent_log_text.tag_configure("info", foreground=C_BLUE)
         self.agent_log_text.tag_configure("success", foreground=C_GREEN)
         self.agent_log_text.tag_configure("warn", foreground=C_YELLOW)
         self.agent_log_text.tag_configure("error", foreground=C_RED)
         self.agent_log_text.tag_configure("agent", foreground=C_MAUVE, font=("Consolas", 9, "bold"))
 
-        self.log_agent_msg("System", "Multi-Agent Orchestrator is ready. Connects with ARTEMIS MCP Server and IDE sessions.", "info")
+        self.log_agent_msg("AMAF 7.0", "30-Subagent Orchestrator & 40-Tool MCP Server Ready (Universal 2FA + Web/Rotation/Grid CAPTCHA CV + WCAG + Crash/ANR).", "success")
 
     def _build_real_farm_tab(self):
-        # Row 1: Farm Mode Selector & Wireless ADB Connection Bar
         bar1 = tk.Frame(self.tab_real_farm, bg=C_BASE)
         bar1.pack(fill=tk.X, pady=(0, 8))
 
@@ -366,28 +409,31 @@ class FarmDashboardApp:
         self.farm_mode_combo.pack(side=tk.LEFT, padx=(0, 6))
         self.farm_mode_combo.bind("<<ComboboxSelected>>", self.on_change_farm_mode)
 
-        btn_scan_real = tk.Button(bar1, text="🔍 Scan Real Phones & Apply Thermal Guard", font=("Segoe UI", 9, "bold"),
+        btn_scan_real = tk.Button(bar1, text="🔍 Scan Real Phones & Thermal Guard", font=("Segoe UI", 9, "bold"),
                                   bg=C_GREEN, fg=C_CRUST, relief="flat", padx=10, pady=3, cursor="hand2", command=self.refresh_real_devices_tab)
         btn_scan_real.pack(side=tk.LEFT, padx=4)
 
-        tk.Label(bar1, text="Wireless IP:Port:", font=("Segoe UI", 9, "bold"), fg=C_TEXT, bg=C_BASE).pack(side=tk.LEFT, padx=(12, 4))
-        self.wireless_ip_entry = tk.Entry(bar1, font=("Segoe UI", 9), bg=C_MANTLE, fg=C_TEXT, insertbackground=C_TEXT, relief="flat", width=18)
+        btn_vivo_guard = tk.Button(bar1, text="🛡️ Dismiss Vivo/OriginOS USB Popup", font=("Segoe UI", 9, "bold"),
+                                   bg=C_YELLOW, fg=C_CRUST, relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_dismiss_oem_popup)
+        btn_vivo_guard.pack(side=tk.LEFT, padx=4)
+
+        tk.Label(bar1, text="Wireless IP:Port:", font=("Segoe UI", 9, "bold"), fg=C_TEXT, bg=C_BASE).pack(side=tk.LEFT, padx=(10, 4))
+        self.wireless_ip_entry = tk.Entry(bar1, font=("Segoe UI", 9), bg=C_MANTLE, fg=C_TEXT, insertbackground=C_TEXT, relief="flat", width=16)
         self.wireless_ip_entry.insert(0, "192.168.1.50:5555")
         self.wireless_ip_entry.pack(side=tk.LEFT, padx=(0, 4))
 
-        btn_wifi_conn = tk.Button(bar1, text="📡 Connect Wi-Fi ADB", font=("Segoe UI", 9, "bold"),
-                                  bg=C_BLUE, fg=C_CRUST, relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_connect_wireless_adb)
-        btn_wifi_conn.pack(side=tk.LEFT, padx=3)
+        btn_wifi_conn = tk.Button(bar1, text="📡 Connect Wi-Fi", font=("Segoe UI", 9, "bold"),
+                                  bg=C_BLUE, fg=C_CRUST, relief="flat", padx=8, pady=3, cursor="hand2", command=self.on_connect_wireless_adb)
+        btn_wifi_conn.pack(side=tk.LEFT, padx=2)
 
-        btn_usb2wifi = tk.Button(bar1, text="🔌➔📡 USB to Wireless", font=("Segoe UI", 9, "bold"),
-                                 bg=C_MAUVE, fg=C_CRUST, relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_usb_to_wireless)
-        btn_usb2wifi.pack(side=tk.LEFT, padx=3)
+        btn_usb2wifi = tk.Button(bar1, text="🔌➔📡 USB to Wi-Fi", font=("Segoe UI", 9, "bold"),
+                                 bg=C_MAUVE, fg=C_CRUST, relief="flat", padx=8, pady=3, cursor="hand2", command=self.on_usb_to_wireless)
+        btn_usb2wifi.pack(side=tk.LEFT, padx=2)
 
         btn_wall = tk.Button(bar1, text="🖥️ Open Multi-Scrcpy Wall", font=("Segoe UI", 9, "bold"),
                              bg=C_PEACH, fg=C_CRUST, relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_open_scrcpy_wall)
         btn_wall.pack(side=tk.RIGHT, padx=3)
 
-        # Row 2: Group Control Broadcast Bar (Synchronized Multi-Device Actions)
         bar2 = tk.LabelFrame(self.tab_real_farm, text=" ⚡ Group Control Synchronized Broadcast (Normalized Cross-Resolution) ",
                              font=("Segoe UI", 9, "bold"), fg=C_TEAL, bg=C_BASE, padx=8, pady=6)
         bar2.pack(fill=tk.X, pady=(0, 8))
@@ -422,7 +468,6 @@ class FarmDashboardApp:
         tk.Button(bar2, text="🚀 Sync Launch App", font=("Segoe UI", 9, "bold"), bg=C_MAUVE, fg=C_CRUST, relief="flat",
                   padx=8, cursor="hand2", command=self.on_broadcast_launch).pack(side=tk.LEFT, padx=2)
 
-        # Row 3: Real Devices Table
         cols = ("serial", "name", "conn_type", "android", "resolution", "battery", "temp_c", "wifi_ip", "status")
         self.real_tree = ttk.Treeview(self.tab_real_farm, columns=cols, show="headings", selectmode="browse")
         self.real_tree.heading("serial", text="Serial / Endpoint")
@@ -445,6 +490,88 @@ class FarmDashboardApp:
         self.real_tree.pack(fill=tk.BOTH, expand=True)
         self.refresh_real_devices_tab()
 
+    def _build_v7_lab_tab(self):
+        """Interactive AMAF 7.0 Control Lab for Universal 2FA, Web/Rotation/Grid CAPTCHA CV, SoM & Deep Diagnostics."""
+        top_sel = tk.Frame(self.tab_v7_lab, bg=C_BASE)
+        top_sel.pack(fill=tk.X, pady=(0, 6))
+
+        tk.Label(top_sel, text="Target Device:", font=("Segoe UI", 9, "bold"), fg=C_BLUE, bg=C_BASE).pack(side=tk.LEFT, padx=(0, 4))
+        self.v7_device_combo = ttk.Combobox(top_sel, values=self._get_all_known_serials(), width=18, state="readonly")
+        self.v7_device_combo.current(0)
+        self.v7_device_combo.pack(side=tk.LEFT, padx=(0, 10))
+
+        tk.Label(top_sel, text="2FA Base32 Secret:", font=("Segoe UI", 9, "bold"), fg=C_TEXT, bg=C_BASE).pack(side=tk.LEFT, padx=(0, 4))
+        self.v7_secret_entry = tk.Entry(top_sel, font=("Segoe UI", 9), bg=C_MANTLE, fg=C_TEXT, relief="flat", width=20)
+        self.v7_secret_entry.insert(0, "JBSWY3DPEHPK3PXP")
+        self.v7_secret_entry.pack(side=tk.LEFT, padx=(0, 8))
+
+        tk.Button(top_sel, text="🔑 Generate Live TOTP", font=("Segoe UI", 9, "bold"), bg=C_GREEN, fg=C_CRUST,
+                  relief="flat", padx=8, cursor="hand2", command=self.on_v7_generate_totp).pack(side=tk.LEFT, padx=3)
+
+        tk.Button(top_sel, text="🔐 Auto-Detect & Solve 2FA (7 Modes)", font=("Segoe UI", 9, "bold"), bg=C_TEAL, fg=C_CRUST,
+                  relief="flat", padx=10, cursor="hand2", command=self.on_v7_solve_2fa).pack(side=tk.LEFT, padx=3)
+
+        tk.Button(top_sel, text="📸 Capture Set-of-Mark (SoM) Screenshot", font=("Segoe UI", 9, "bold"), bg=C_PEACH, fg=C_CRUST,
+                  relief="flat", padx=10, cursor="hand2", command=self.on_v7_capture_som).pack(side=tk.LEFT, padx=3)
+
+        # Row 2: Universal Complex CAPTCHA, Rotation, Grid & Web Browser CAPTCHA
+        cap_bar = tk.LabelFrame(
+            self.tab_v7_lab,
+            text=" 🧩 Universal 10-Type CAPTCHA CV, Xoay Ảnh Đồng Tâm, Chọn Nhiều Ảnh 3x3/4x4 & Truy Cập Web Giải CAPTCHA ",
+            font=("Segoe UI", 9, "bold"),
+            fg=C_MAUVE,
+            bg=C_BASE,
+            padx=8,
+            pady=6
+        )
+        cap_bar.pack(fill=tk.X, pady=(0, 6))
+
+        tk.Button(cap_bar, text="🧩 Solve Any CAPTCHA (10 Types CV)", font=("Segoe UI", 9, "bold"), bg=C_MAUVE, fg=C_CRUST,
+                  relief="flat", padx=8, cursor="hand2", command=self.on_v7_solve_any_captcha).pack(side=tk.LEFT, padx=3)
+
+        tk.Button(cap_bar, text="🔄 Solve Rotation Ring (Xoay ảnh)", font=("Segoe UI", 9, "bold"), bg=C_BLUE, fg=C_CRUST,
+                  relief="flat", padx=8, cursor="hand2", command=self.on_v7_solve_rotation).pack(side=tk.LEFT, padx=3)
+
+        tk.Button(cap_bar, text="🖼️ Solve 3x3/4x4 Grid (Chọn nhiều ảnh)", font=("Segoe UI", 9, "bold"), bg=C_GREEN, fg=C_CRUST,
+                  relief="flat", padx=8, cursor="hand2", command=self.on_v7_solve_grid).pack(side=tk.LEFT, padx=3)
+
+        tk.Label(cap_bar, text="Web URL:", font=("Segoe UI", 9), fg=C_TEXT, bg=C_BASE).pack(side=tk.LEFT, padx=(8, 4))
+        self.v7_url_entry = tk.Entry(cap_bar, font=("Segoe UI", 9), bg=C_MANTLE, fg=C_TEXT, relief="flat", width=26)
+        self.v7_url_entry.insert(0, "https://example.com")
+        self.v7_url_entry.pack(side=tk.LEFT, padx=(0, 4))
+
+        tk.Button(cap_bar, text="🌐 Open Web & Solve CAPTCHA", font=("Segoe UI", 9, "bold"), bg=C_YELLOW, fg=C_CRUST,
+                  relief="flat", padx=8, cursor="hand2", command=self.on_v7_solve_web_captcha).pack(side=tk.LEFT, padx=3)
+
+        # Row 3: Deep Diagnostics (#25, #28, #29, #30)
+        diag_bar = tk.Frame(self.tab_v7_lab, bg=C_BASE)
+        diag_bar.pack(fill=tk.X, pady=(0, 6))
+
+        tk.Button(diag_bar, text="🎨 Audit WCAG 2.1 Contrast & TalkBack (#28)", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_TEAL,
+                  relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_v7_audit_wcag).pack(side=tk.LEFT, padx=3)
+
+        tk.Button(diag_bar, text="💥 Analyze Crash / Tombstone / ANR (#29)", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_RED,
+                  relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_v7_analyze_crash).pack(side=tk.LEFT, padx=3)
+
+        tk.Button(diag_bar, text="🌐 Audit Network RX/TX & API Latency (#30)", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_BLUE,
+                  relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_v7_audit_net_api).pack(side=tk.LEFT, padx=3)
+
+        tk.Button(diag_bar, text="🚀 Profile FPS Jank & Memory Leak (#25)", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_GREEN,
+                  relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_v7_profile_perf).pack(side=tk.LEFT, padx=3)
+
+        # Output Console for AMAF 7.0 Lab
+        self.v7_output_text = tk.Text(self.tab_v7_lab, bg=C_CRUST, fg=C_TEXT, font=("Consolas", 9), relief="flat", padx=10, pady=8)
+        v7_scroll = tk.Scrollbar(self.tab_v7_lab, command=self.v7_output_text.yview)
+        self.v7_output_text.configure(yscrollcommand=v7_scroll.set)
+        v7_scroll.pack(side=tk.RIGHT, fill=tk.Y)
+        self.v7_output_text.pack(fill=tk.BOTH, expand=True)
+        self._v7_log("AMAF 7.0 Lab Ready — Select a device (e.g., 10CF5L0TYL00312 or emulator-5554) and trigger any 2FA, CAPTCHA CV, or Diagnostic tool above.")
+
+    def _v7_log(self, text: str):
+        t_str = time.strftime("%H:%M:%S")
+        self.v7_output_text.insert(tk.END, f"[{t_str}] {text}\n")
+        self.v7_output_text.see(tk.END)
+
     def _build_reports_tab(self):
         top_bar = tk.Frame(self.tab_reports, bg=C_BASE)
         top_bar.pack(fill=tk.X, pady=(0, 8))
@@ -457,7 +584,6 @@ class FarmDashboardApp:
                                     relief="flat", padx=10, pady=4, cursor="hand2", command=self.on_open_reports_folder)
         btn_open_folder.pack(side=tk.LEFT, padx=4)
 
-        # Reports Table
         cols = ("report_id", "created_at", "serial", "package", "error_type", "error_message")
         self.rep_tree = ttk.Treeview(self.tab_reports, columns=cols, show="headings", selectmode="browse")
 
@@ -499,7 +625,6 @@ class FarmDashboardApp:
         self.mem_summary_lbl = tk.Label(top_bar, text="Tri thức: -- | Bản vá: -- | Prompts: --", font=("Segoe UI", 9, "italic"), fg=C_TEAL, bg=C_BASE)
         self.mem_summary_lbl.pack(side=tk.RIGHT, padx=8)
 
-        # Split pane for Patches List (Left) and Content Viewer (Right)
         paned = tk.PanedWindow(self.tab_memory, orient=tk.HORIZONTAL, bg=C_BASE, sashrelief="flat", sashwidth=4)
         paned.pack(fill=tk.BOTH, expand=True)
 
@@ -509,7 +634,6 @@ class FarmDashboardApp:
         right_frame = tk.Frame(paned, bg=C_MANTLE)
         paned.add(right_frame, minsize=420)
 
-        # Left: Patches Treeview
         tk.Label(left_frame, text=" Auto-Generated Git Patches (.diff) ", font=("Segoe UI", 9, "bold"), fg=C_BLUE, bg=C_MANTLE).pack(anchor="w", padx=6, pady=4)
         cols = ("patch_id", "defect_id", "target_file")
         self.patch_tree = ttk.Treeview(left_frame, columns=cols, show="headings", selectmode="browse")
@@ -526,7 +650,6 @@ class FarmDashboardApp:
         self.patch_tree.pack(fill=tk.BOTH, expand=True)
         self.patch_tree.bind("<<TreeviewSelect>>", self.on_select_patch)
 
-        # Right: Content Viewer
         tk.Label(right_frame, text=" Patch Diff & Self-Optimized Prompt Inspector ", font=("Segoe UI", 9, "bold"), fg=C_GREEN, bg=C_MANTLE).pack(anchor="w", padx=6, pady=4)
         self.mem_content_text = tk.Text(right_frame, bg=C_CRUST, fg=C_TEXT, font=("Consolas", 9), relief="flat", padx=8, pady=8)
         content_scroll = tk.Scrollbar(right_frame, command=self.mem_content_text.yview)
@@ -559,7 +682,8 @@ class FarmDashboardApp:
                 f"Tri thức: {summary.get('knowledge_items_count')} | "
                 f"Macros: {summary.get('macros_count', 0)} | "
                 f"Bản vá: {summary.get('patches_count')} | "
-                f"Prompts: {summary.get('prompts_count')}"
+                f"Prompts: {summary.get('prompts_count')} | "
+                f"Evolution Cycles: {summary.get('evolution_cycles_count', 0)}"
             )
         )
 
@@ -585,10 +709,16 @@ class FarmDashboardApp:
         status_bar = tk.Frame(self.root, bg=C_CRUST, height=26, padx=12)
         status_bar.pack(fill=tk.X, side=tk.BOTTOM)
 
-        self.status_lbl = tk.Label(status_bar, text="Ready | 4 AVDs Provisioned on D:\\Android_AVD", font=("Segoe UI", 8), fg=C_SUBTEXT, bg=C_CRUST)
+        self.status_lbl = tk.Label(
+            status_bar,
+            text="Ready | AMAF 7.0 (30 Subagents | 40 MCP Tools | 51/51 Tests Passing) | D:\\Project\\multi-phone-agent",
+            font=("Segoe UI", 8),
+            fg=C_SUBTEXT,
+            bg=C_CRUST
+        )
         self.status_lbl.pack(side=tk.LEFT)
 
-        author_lbl = tk.Label(status_bar, text="Antigravity Multi-Device Testing Core", font=("Segoe UI", 8), fg=C_SURFACE1, bg=C_CRUST)
+        author_lbl = tk.Label(status_bar, text="Antigravity Multi-Device Testing Core v7.0", font=("Segoe UI", 8), fg=C_SURFACE1, bg=C_CRUST)
         author_lbl.pack(side=tk.RIGHT)
 
     def log_agent_msg(self, sender: str, msg: str, tag: str = "info"):
@@ -599,19 +729,13 @@ class FarmDashboardApp:
         self.agent_log_text.see(tk.END)
 
     def _auto_refresh_loop(self):
-        """Periodically poll device states and system metrics every 2.5s."""
         while self._is_running:
             try:
-                # 1. System Metrics
                 mem = psutil.virtual_memory()
                 free_gb = round(mem.available / (1024**3), 1)
                 cpu_pct = psutil.cpu_percent(interval=None)
-
-                # 2. Farm States
                 states = self.proc_mgr.get_farm_state()
                 locks = self.lock_mgr.list_active_locks()
-
-                # Update UI on main thread
                 self.root.after(0, self._update_ui_state, free_gb, cpu_pct, states, locks)
             except Exception:
                 pass
@@ -647,7 +771,6 @@ class FarmDashboardApp:
                 ram_lbl.config(text="RAM: -- MB")
                 cpu_lbl.config(text="CPU: --%")
 
-            # Lock status
             active_lock = locks.get(serial)
             if active_lock:
                 agent = active_lock.get("agent_id", "Agent")
@@ -674,12 +797,10 @@ class FarmDashboardApp:
 
         threading.Thread(target=_worker, daemon=True).start()
 
-
     def on_view_screen(self, serial: str):
         if self.scrcpy_mgr.is_viewer_open(serial):
             self.scrcpy_mgr.close_viewer(serial)
             return
-
         ok, msg = self.scrcpy_mgr.open_viewer(serial, title=f"Phone Display ({serial})")
         if not ok:
             messagebox.showerror("Scrcpy Error", f"Could not launch scrcpy viewer:\n{msg}")
@@ -692,7 +813,6 @@ class FarmDashboardApp:
                 self.log_agent_msg("Farm", f"Instance {r['name']}: {r['message']}", "success" if r["success"] else "error")
         threading.Thread(target=_worker, daemon=True).start()
 
-
     def on_stop_all(self):
         def _worker():
             self.log_agent_msg("Farm", "Stopping all running farm devices...", "warn")
@@ -701,7 +821,6 @@ class FarmDashboardApp:
             for r in res:
                 self.log_agent_msg("Farm", f"Shutdown {r['name']}: {r['message']}", "info")
         threading.Thread(target=_worker, daemon=True).start()
-
 
     def on_install_apk_all(self):
         apk_path = filedialog.askopenfilename(
@@ -717,13 +836,121 @@ class FarmDashboardApp:
                 self.log_agent_msg("InstallAPK", "No devices currently online to install APK!", "error")
                 return
 
-            self.log_agent_msg("InstallAPK", f"Broadcasting install for: {Path(apk_path).name}...", "info")
+            self.log_agent_msg("OEMPopupGuard", f"Broadcasting guarded APK install (with Vivo/OriginOS USB popup auto-confirm) for: {Path(apk_path).name}...", "info")
             for serial in connected:
-                ok, msg = self.adb.install_apk(serial, apk_path)
-                self.log_agent_msg("InstallAPK", f"[{serial}] Install: {'Success' if ok else msg}", "success" if ok else "error")
+                res = self.oem_guard.guarded_apk_install(serial, apk_path)
+                ok = res.get("install_success", False)
+                self.log_agent_msg("InstallAPK", f"[{serial}] Guarded Install: {res}", "success" if ok else "error")
 
         threading.Thread(target=_worker, daemon=True).start()
 
+    def on_dismiss_oem_popup(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.oem_guard.guard_device(serial, use_vivo_fallback=True)
+            self.log_agent_msg("OEMPopupGuard", f"[{serial}] Vivo/OriginOS USB Popup Guard: {res}", "success")
+            self._v7_log(f"[OEMPopupGuard #18] {serial} -> {res}")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    # AMAF 7.0 Lab Handlers
+    def on_v7_generate_totp(self):
+        secret = self.v7_secret_entry.get().strip() or "JBSWY3DPEHPK3PXP"
+        try:
+            res = self.universal_2fa.engine.generate_totp(secret)
+            self._v7_log(f"[Universal2FAEngine #26] Generated RFC 6238 TOTP: {res['code']} (Valid for {res['remaining_seconds']}s, Algo={res['algorithm']})")
+        except Exception as e:
+            self._v7_log(f"[Universal2FAEngine Error] {e}")
+
+    def on_v7_solve_2fa(self):
+        serial = self.v7_device_combo.get().strip()
+        secret = self.v7_secret_entry.get().strip() or "JBSWY3DPEHPK3PXP"
+        def _worker():
+            self._v7_log(f"[Universal2FASubagent #26] Scanning & solving 7-mode 2FA challenge on {serial}...")
+            res = self.universal_2fa.solve_2fa_challenge(serial, secret=secret)
+            self._v7_log(f"[Universal2FASubagent #26] Result: {res}")
+            self.log_agent_msg("Universal2FA", f"[{serial}] {res.get('status')} (Mode: {res.get('mode')}, Code: {res.get('code_used')})", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v7_capture_som(self):
+        serial = self.v7_device_combo.get().strip()
+        def _worker():
+            self._v7_log(f"[AutoScreenshotSubagent #21] Capturing Set-of-Mark (SoM) annotated screenshot on {serial}...")
+            res = self.auto_screenshot.capture_smart_screenshot(serial, tag="gui_som", annotate_som=True)
+            self._v7_log(f"[AutoScreenshotSubagent #21] Saved SoM image ({res.get('marks_count')} interactive badges): {res.get('annotated_screenshot_path')}")
+            if res.get("annotated_screenshot_path") and os.path.exists(res["annotated_screenshot_path"]) and os.name == "nt":
+                os.startfile(res["annotated_screenshot_path"])
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v7_solve_any_captcha(self):
+        serial = self.v7_device_combo.get().strip()
+        def _worker():
+            self._v7_log(f"[ComplexCaptchaSubagent #22] Inspecting {serial} for all 10 Simple & Complex CAPTCHA types...")
+            res = self.complex_captcha.solve_any_captcha_with_vision(serial)
+            self._v7_log(f"[ComplexCaptchaSubagent #22] Result: {res}")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v7_solve_rotation(self):
+        serial = self.v7_device_combo.get().strip()
+        def _worker():
+            self._v7_log(f"[WebAndAdvancedCaptchaSubagent #27] Solving Concentric Ring Rotation CAPTCHA (`xoay ảnh`) on {serial}...")
+            res = self.web_adv_captcha.solve_rotation_captcha_advanced(serial)
+            self._v7_log(f"[WebAndAdvancedCaptchaSubagent #27] Rotation Result: {res}")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v7_solve_grid(self):
+        serial = self.v7_device_combo.get().strip()
+        def _worker():
+            self._v7_log(f"[WebAndAdvancedCaptchaSubagent #27] Solving Multi-Image Grid CAPTCHA (`chọn nhiều ảnh`) on {serial}...")
+            res = self.web_adv_captcha.solve_multi_image_grid_captcha(serial, grid_size=3, rounds=2)
+            self._v7_log(f"[WebAndAdvancedCaptchaSubagent #27] Grid Result: {res}")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v7_solve_web_captcha(self):
+        serial = self.v7_device_combo.get().strip()
+        url = self.v7_url_entry.get().strip() or "https://example.com"
+        def _worker():
+            self._v7_log(f"[WebAndAdvancedCaptchaSubagent #27] Opening {url} on {serial}, forwarding WebView DevTools, and solving web CAPTCHA...")
+            res = self.web_adv_captcha.navigate_and_solve_web_captcha(serial, url=url)
+            self._v7_log(f"[WebAndAdvancedCaptchaSubagent #27] Web CAPTCHA Result: {res}")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v7_audit_wcag(self):
+        serial = self.v7_device_combo.get().strip()
+        def _worker():
+            self._v7_log(f"[AccessibilityAndWCAGContrastSubagent #28] Running WCAG 2.1 AA/AAA pixel contrast & TalkBack focus audit on {serial}...")
+            shot = self.auto_screenshot.capture_smart_screenshot(serial, tag="wcag_gui", annotate_som=False)
+            res = self.wcag_auditor.audit_wcag_and_talkback_tree(serial, screenshot_path=shot.get("screenshot_path"))
+            self._v7_log(f"[AccessibilityWCAG #28] Level: {res.get('wcag_level')} (Score: {res.get('wcag_score')}/100, Violations: {res.get('violations_count')}) -> {res.get('violations')[:5]}")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v7_analyze_crash(self):
+        serial = self.v7_device_combo.get().strip()
+        pkg = self.pkg_entry.get().strip() or None
+        def _worker():
+            self._v7_log(f"[CrashTombstoneAndANRSubagent #29] Demangling Java/Kotlin Fatal Exceptions, Native Tombstones & ANRs on {serial}...")
+            res = self.crash_analyzer.analyze_logcat_and_tombstones(serial, package_name=pkg)
+            self._v7_log(f"[CrashTombstoneANR #29] Total Faults: {res.get('total_faults')} (Unique SHA-256 Signatures: {res.get('unique_signatures')}) -> Recommendations: {res.get('root_cause_recommendations')}")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v7_audit_net_api(self):
+        serial = self.v7_device_combo.get().strip()
+        pkg = self.pkg_entry.get().strip() or "com.android.settings"
+        def _worker():
+            self._v7_log(f"[NetworkTrafficAndAPILatencySubagent #30] Inspecting /proc/net/dev RX/TX throughput & HTTP API latency on {serial}...")
+            res = self.net_api_profiler.run_network_api_telemetry_audit(serial, package_name=pkg)
+            tp = res.get("throughput", {})
+            api = res.get("api_telemetry", {})
+            self._v7_log(f"[NetworkAPILatency #30] Score: {res.get('api_health_score')}/100 | RX: {tp.get('total_rx_mb')} MB, TX: {tp.get('total_tx_mb')} MB | API Calls: {api.get('api_calls_detected')}, Cleartext Risks: {api.get('cleartext_urls_count')}")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v7_profile_perf(self):
+        serial = self.v7_device_combo.get().strip()
+        pkg = self.pkg_entry.get().strip() or "com.android.settings"
+        def _worker():
+            self._v7_log(f"[PerformanceAndMemLeakSubagent #25] Profiling FPS Jank & PSS/Heap memory leaks on {serial} ({pkg})...")
+            res = self.perf_profiler.run_comprehensive_performance_audit(serial, pkg)
+            self._v7_log(f"[PerformanceAndMemLeak #25] Grade: {res.get('performance_grade')} ({res.get('performance_score')}/100) | FPS: {res['graphics']['estimated_fps']} (Jank: {res['graphics']['jank_percent']}%) | Total PSS: {res['memory']['total_pss_mb']} MB")
+        threading.Thread(target=_worker, daemon=True).start()
 
     def on_trigger_fingerprint(self, serial: str):
         ok, msg = self.hardware.touch_fingerprint(serial)
@@ -809,7 +1036,6 @@ class FarmDashboardApp:
 
         threading.Thread(target=_worker, daemon=True).start()
 
-
     def on_abort_agents(self):
         self.orchestrator.stop_all_agents()
         self.log_agent_msg("Orchestrator", "Abort signal sent to all active agents.", "warn")
@@ -822,7 +1048,6 @@ class FarmDashboardApp:
             debloated_count = len(res.get("debloated_packages", []))
             self.log_agent_msg("Optimizer", f"[{serial}] Debloated {debloated_count} telemetry packages; animations & sync disabled.", "success")
         threading.Thread(target=_worker, daemon=True).start()
-
 
     def on_run_closed_loop(self):
         goal = self.goal_entry.get().strip()
@@ -849,7 +1074,6 @@ class FarmDashboardApp:
 
         threading.Thread(target=_worker, daemon=True).start()
 
-
     def on_run_matrix(self):
         def _worker():
             self.log_agent_msg("AgentsOrchestrator", "Launching 4-Device Parallel Persona Matrix across all devices...", "info")
@@ -864,7 +1088,6 @@ class FarmDashboardApp:
             self.root.after(0, self.refresh_memory_tab)
 
         threading.Thread(target=_worker, daemon=True).start()
-
 
     def on_run_pipeline(self):
         def _worker():
@@ -884,14 +1107,14 @@ class FarmDashboardApp:
         pkg = self.pkg_entry.get().strip() or "com.android.settings"
 
         def _worker():
-            self.log_agent_msg("SelfEvolutionEngine", "Launching 12-Subagent Autonomous Self-Evolution Loop...", "info")
+            self.log_agent_msg("SelfEvolutionEngine", "Launching 30-Subagent Autonomous Self-Evolution Loop (AMAF 7.0)...", "info")
             def _cb(agent, msg):
                 self.log_agent_msg(agent, msg, "info")
 
             res = self.evolution_engine.run_evolution_loop(iterations=1, package_name=pkg, callback=_cb)
             dur = res.get("total_duration_seconds", 0)
             rep = res.get("report_path", "")
-            self.log_agent_msg("SelfEvolutionEngine", f"Evolution Completed in {dur}s! Report: {rep}", "success")
+            self.log_agent_msg("SelfEvolutionEngine", f"30-Subagent Evolution Completed in {dur}s! Report: {rep}", "success")
             self.root.after(0, self.refresh_reports)
             self.root.after(0, self.refresh_memory_tab)
             self.root.after(0, self.refresh_real_devices_tab)
@@ -917,6 +1140,12 @@ class FarmDashboardApp:
                     self.real_mgr.apply_real_phone_health_guard(d["serial"])
 
             def _populate():
+                serials = self._get_all_known_serials()
+                if hasattr(self, "device_combo"):
+                    self.device_combo["values"] = serials
+                if hasattr(self, "v7_device_combo"):
+                    self.v7_device_combo["values"] = serials
+
                 for d in real_devs:
                     bat = d.get("battery", {})
                     health_str = "OVERHEATED!" if bat.get("overheated") else ("ONLINE (GUARDED)" if d.get("status") == "device" else d.get("status", "offline").upper())
@@ -1007,7 +1236,6 @@ class FarmDashboardApp:
             res = self.broadcaster.broadcast_launch_app(pkg, group_filter=gf)
             self.log_agent_msg("GroupBroadcast", f"Synced Launch '{pkg}' across {res['targets_count']} devices in {res.get('total_duration_ms', 0)}ms", "success")
         threading.Thread(target=_worker, daemon=True).start()
-
 
     def refresh_reports(self):
         for item in self.rep_tree.get_children():
