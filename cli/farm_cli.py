@@ -1,5 +1,5 @@
 """
-Android Multi-Agent Farm - Command Line Interface (CLI) (AMAF 4.0)
+Android Multi-Agent Farm - Command Line Interface (CLI) (AMAF 7.0)
 Automation interface for terminal workflows, CI/CD pipelines, and script runners.
 """
 
@@ -51,7 +51,7 @@ def print_status():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Android Multi-Agent Farm CLI (AMAF 4.0)")
+    parser = argparse.ArgumentParser(description="Android Multi-Agent Farm CLI (AMAF 7.0 - 30 Subagents)")
     subparsers = parser.add_subparsers(dest="command", help="Available sub-commands")
 
     # setup
@@ -149,8 +149,8 @@ def main():
     p_bcast.add_argument("--y", type=float, default=0.5, help="Tap/Swipe Y (normalized 0..1 or pixel)")
     p_bcast.add_argument("--text", default="HOME", help="Text, key name, package name, or shell command")
 
-    # evolve (16-Subagent Autonomous Self-Evolution Loop)
-    p_evo = subparsers.add_parser("evolve", help="Run 16-Subagent Autonomous Self-Evolution Loop")
+    # evolve (30-Subagent Autonomous Self-Evolution Loop)
+    p_evo = subparsers.add_parser("evolve", help="Run 30-Subagent Autonomous Self-Evolution Loop")
     p_evo.add_argument("--iterations", type=int, default=1, help="Number of evolution cycles")
     p_evo.add_argument("--package", default="com.android.settings", help="Target package name")
 
@@ -208,6 +208,33 @@ def main():
     p_perf = subparsers.add_parser("perf-audit", help="Profile rendering FPS jank and PSS/Java/Native Heap memory leaks")
     p_perf.add_argument("--serial", default="emulator-5554", help="Target device serial")
     p_perf.add_argument("--package", default="com.android.settings", help="Target package name")
+
+    # solve-2fa (Subagent #26 Universal 7-Mode 2FA / MFA Automation)
+    p_2fa = subparsers.add_parser("solve-2fa", help="Detect and solve all 7 2FA/MFA modes (TOTP/HOTP/Split-Digit/Push Number-Match/Passkey)")
+    p_2fa.add_argument("--serial", default="emulator-5554", help="Target device serial")
+    p_2fa.add_argument("--secret", default="JBSWY3DPEHPK3PXP", help="Base32 TOTP/HOTP secret")
+    p_2fa.add_argument("--register-uri", help="Optional otpauth:// URI to provision into vault")
+
+    # web-captcha (Subagent #27 Concentric Ring Rotation, 3x3/4x4 Multi-Image Grid & Web Browser CAPTCHA)
+    p_wcap = subparsers.add_parser("web-captcha", help="Solve Concentric Ring Rotation, 3x3/4x4 Multi-Image Grid, or navigate to a Web URL to solve CAPTCHA")
+    p_wcap.add_argument("--serial", default="emulator-5554", help="Target device serial")
+    p_wcap.add_argument("--mode", default="web", choices=["web", "rotation", "grid"], help="Advanced/Web CAPTCHA mode")
+    p_wcap.add_argument("--url", default="https://example.com", help="Target Web URL")
+    p_wcap.add_argument("--grid-size", type=int, default=3, help="Grid size (3 or 4)")
+
+    # wcag-audit (Subagent #28 WCAG 2.1 AA/AAA Contrast & TalkBack Focus Order)
+    p_wcag = subparsers.add_parser("wcag-audit", help="Audit WCAG 2.1 pixel contrast ratio (>= 4.5:1) and TalkBack focus order")
+    p_wcag.add_argument("--serial", default="emulator-5554", help="Target device serial")
+
+    # crash-anr (Subagent #29 Java/Kotlin Fatal Exception, Native Tombstone & ANR Demangler)
+    p_crash = subparsers.add_parser("crash-anr", help="Analyze logcat for Java/Kotlin Fatal Exceptions, Native Tombstones, and ANRs")
+    p_crash.add_argument("--serial", default="emulator-5554", help="Target device serial")
+    p_crash.add_argument("--package", help="Optional package filter")
+
+    # net-api (Subagent #30 Network RX/TX Throughput, HTTP API Latency & Cleartext Inspector)
+    p_net = subparsers.add_parser("net-api", help="Audit RX/TX network throughput, HTTP API latency, and cleartext risks")
+    p_net.add_argument("--serial", default="emulator-5554", help="Target device serial")
+    p_net.add_argument("--package", default="com.android.settings", help="Target package name")
 
     args = parser.parse_args()
 
@@ -494,6 +521,35 @@ def main():
         sub = PerformanceAndMemLeakSubagent()
         res = sub.run_comprehensive_performance_audit(args.serial, args.package)
         print(f"Performance Grade on {args.serial} ({args.package}): {res['performance_grade']} (Score: {res['performance_score']}/100, FPS: {res['graphics']['estimated_fps']}, PSS: {res['memory']['total_pss_mb']} MB)")
+    elif args.command == "solve-2fa":
+        from agents.universal_2fa_subagent import Universal2FASubagent
+        sub = Universal2FASubagent()
+        if args.register_uri:
+            print("Registered 2FA URI:", sub.engine.register_otpauth_uri(args.register_uri))
+        else:
+            res = sub.solve_2fa_challenge(args.serial, secret=args.secret)
+            print("Universal 2FA Result:", res)
+    elif args.command == "web-captcha":
+        from agents.web_and_advanced_captcha_subagent import WebAndAdvancedCaptchaSubagent
+        sub = WebAndAdvancedCaptchaSubagent()
+        if args.mode == "rotation":
+            print("Rotation CAPTCHA Result:", sub.solve_rotation_captcha_advanced(args.serial))
+        elif args.mode == "grid":
+            print("Multi-Image Grid CAPTCHA Result:", sub.solve_multi_image_grid_captcha(args.serial, grid_size=args.grid_size))
+        else:
+            print("Web CAPTCHA Result:", sub.navigate_and_solve_web_captcha(args.serial, url=args.url))
+    elif args.command == "wcag-audit":
+        from agents.accessibility_wcag_subagent import AccessibilityAndWCAGContrastSubagent
+        sub = AccessibilityAndWCAGContrastSubagent()
+        print("WCAG 2.1 Audit Result:", sub.audit_wcag_and_talkback_tree(args.serial))
+    elif args.command == "crash-anr":
+        from agents.crash_tombstone_anr_subagent import CrashTombstoneAndANRSubagent
+        sub = CrashTombstoneAndANRSubagent()
+        print("Crash/Tombstone/ANR Report:", sub.analyze_logcat_and_tombstones(args.serial, package_name=args.package))
+    elif args.command == "net-api":
+        from agents.network_api_latency_subagent import NetworkTrafficAndAPILatencySubagent
+        sub = NetworkTrafficAndAPILatencySubagent()
+        print("Network API Telemetry Report:", sub.run_network_api_telemetry_audit(args.serial, package_name=args.package))
 
 
 if __name__ == "__main__":

@@ -1,16 +1,16 @@
 """
-Self-Evolution Engine (AMAF 6.0 Master Autonomous Loop — 25 Subagents)
-Coordinates all 25 specialized Subagents in a continuous, self-improving cycle:
+Self-Evolution Engine (AMAF 7.0 Master Autonomous Loop — 30 Subagents)
+Coordinates all 30 specialized Subagents in a continuous, self-improving cycle:
 1. Worktree Topology & Fleet Audit (WorktreeCoordinatorSubagent #16 + RealDeviceScoutSubagent #10)
 2. OEM Popup & Vivo OriginOS USB Install Guard (OEMPopupGuardSubagent #18)
 3. Automated Screenshot & Set-of-Mark (SoM) Visual Perception (AutoScreenshotSubagent #21 + VisionPerceptionSubagent #3)
 4. Multi-App Package Discovery & Autonomous Backlog Ideation (MultiAppAutomationManager + PlannerSubagent #1)
 5. Plan & Macro Lookup (PlannerSubagent #1 + ExperienceMinerSubagent #12)
 6. Synchronized Group Broadcast & Declarative Multi-App Flow (GroupSyncSubagent #11 + OperatorSubagent #2 + CrossAppNotetakerSubagent #13)
-7. Human-Like Touch Gestures & Universal 10-Type Complex CAPTCHA CV Solving (HumanTouchSubagent #17 + CaptchaSolverSubagent #19 + ComplexCaptchaSubagent #22)
-8. DeepLink / QR Scanner & Clipboard / Biometric / Notification Hooks (DeepLinkAndQRScannerSubagent #23 + ClipboardAndBiometricHookSubagent #24)
+7. Human-Like Touch Gestures, Universal 10-Type Complex CAPTCHA CV & Concentric Rotation / Multi-Image / Web CAPTCHA Solving (HumanTouchSubagent #17 + CaptchaSolverSubagent #19 + ComplexCaptchaSubagent #22 + WebAndAdvancedCaptchaSubagent #27)
+8. Universal 7-Mode 2FA / MFA Automation (Universal2FASubagent #26) + DeepLink / QR Scanner (#23) + Clipboard / Biometric / Notification Hooks (#24)
 9. Post-Action Reflection & Self-Healing (ActionReflectorSubagent #14 + SelfHealingSubagent #4)
-10. UI State-Graph Crawling, 48dp Accessibility Audit, Network Chaos & FPS/MemLeak Profiling (MultiAppCrawlerSubagent #15 + NetworkAndVisualQASubagent #20 + PerformanceAndMemLeakSubagent #25 + AuditorSubagent #5 + SecurityAuditorSubagent #6)
+10. UI State-Graph Crawling, 48dp & WCAG 2.1 Contrast Accessibility Audit, Crash/Tombstone/ANR Demangling, Network API Latency & FPS/MemLeak Profiling (MultiAppCrawlerSubagent #15 + NetworkAndVisualQASubagent #20 + PerformanceAndMemLeakSubagent #25 + AccessibilityAndWCAGContrastSubagent #28 + CrashTombstoneAndANRSubagent #29 + NetworkTrafficAndAPILatencySubagent #30 + AuditorSubagent #5 + SecurityAuditorSubagent #6)
 11. Root-Cause Auto-Patching & Regression Proof (CodeImproverSubagent #8 + RegressionVerifierSubagent #9)
 12. Self-Prompting & Macro Distillation (PromptOptimizerSubagent #7 + ExperienceMinerSubagent #12)
 """
@@ -47,10 +47,15 @@ from agents.complex_captcha_subagent import ComplexCaptchaSubagent
 from agents.deeplink_qr_scanner_subagent import DeepLinkAndQRScannerSubagent
 from agents.clipboard_biometric_subagent import ClipboardAndBiometricHookSubagent
 from agents.performance_memleak_subagent import PerformanceAndMemLeakSubagent
+from agents.universal_2fa_subagent import Universal2FASubagent
+from agents.web_and_advanced_captcha_subagent import WebAndAdvancedCaptchaSubagent
+from agents.accessibility_wcag_subagent import AccessibilityAndWCAGContrastSubagent
+from agents.crash_tombstone_anr_subagent import CrashTombstoneAndANRSubagent
+from agents.network_api_latency_subagent import NetworkTrafficAndAPILatencySubagent
 
 
 class SelfEvolutionEngine:
-    """Autonomous 25-Subagent self-improvement, Set-of-Mark vision, 10-type complex CAPTCHA CV & multi-app orchestrator."""
+    """Autonomous 30-Subagent self-improvement, Universal 2FA, Web/Concentric Rotation/Multi-Image CAPTCHA CV & multi-app orchestrator."""
 
     def __init__(
         self,
@@ -66,7 +71,7 @@ class SelfEvolutionEngine:
         self.multi_app_mgr = MultiAppAutomationManager(self.adb, self.real_mgr, self.broadcaster)
         self.director = AutonomousPipelineDirector(self.adb, self.memory, self.kanban)
 
-        # 25-Subagent Evolution, Vision SoM, Complex CAPTCHA CV, OEM Guard, DeepLink/QR, Clipboard/Biometric & Perf/MemLeak Specialists
+        # 30-Subagent Evolution, Vision SoM, Universal 2FA, Web/Rotation/Grid CAPTCHA CV, WCAG, Crash/ANR & Network API Specialists
         self.scout = RealDeviceScoutSubagent(self.adb, self.real_mgr, self.memory)
         self.group_sync = GroupSyncSubagent(self.adb, self.broadcaster, self.memory)
         self.exp_miner = ExperienceMinerSubagent(self.memory)
@@ -85,29 +90,34 @@ class SelfEvolutionEngine:
         self.deeplink_qr = DeepLinkAndQRScannerSubagent(self.adb, self.memory)
         self.clipboard_bio = ClipboardAndBiometricHookSubagent(self.adb, self.memory)
         self.perf_profiler = PerformanceAndMemLeakSubagent(self.adb, self.memory)
+        self.universal_2fa = Universal2FASubagent(self.adb, self.memory)
+        self.web_adv_captcha = WebAndAdvancedCaptchaSubagent(self.adb, self.memory, solver=self.captcha_solver)
+        self.wcag_auditor = AccessibilityAndWCAGContrastSubagent(self.adb, self.memory)
+        self.crash_analyzer = CrashTombstoneAndANRSubagent(self.adb, self.memory)
+        self.net_api_profiler = NetworkTrafficAndAPILatencySubagent(self.adb, self.memory)
 
     def generate_autonomous_improvement_backlog(self, fleet_info: Dict[str, Any]) -> List[Dict[str, str]]:
         """
         Inspect memory state, open defects, and active fleet topology (Real + AVD)
-        to autonomously propose high-value multi-app, Set-of-Mark vision, complex CAPTCHA & performance tasks.
+        to autonomously propose high-value multi-app, Universal 2FA, Web/Rotation/Grid CAPTCHA, WCAG & Crash/Network tasks.
         """
         mem_summary = self.memory.get_summary()
         real_count = fleet_info.get("real_devices_found", 0)
         proposals = [
             {
-                "title": "Universal 10-Type Complex CAPTCHA CV & Human Bezier Kinematics",
-                "goal": "Capture Set-of-Mark screenshot, run Sobel/Polar/Blob CV analysis for complex CAPTCHAs, and execute human Cubic Bezier gestures",
-                "category": "complex_captcha_and_vision"
+                "title": "Universal 7-Mode 2FA Automation & Web/Concentric Rotation/Multi-Image CAPTCHA CV",
+                "goal": "Detect and solve RFC 6238 TOTP / Push Number-Match / Split-Digit 2FA, Concentric Ring Rotation, and 3x3/4x4 Multi-Image Grid CAPTCHAs",
+                "category": "universal_2fa_and_web_captcha"
             },
             {
-                "title": "Multi-App OTP, Clipboard Biometric & DeepLink/QR Flow",
-                "goal": "Launch target app, inject 0-VND Mock OTP & QR payload, extract clipboard/notification OTP, and verify deep link transition",
-                "category": "multi_app_deeplink_qr"
+                "title": "WCAG 2.1 AA/AAA Contrast, TalkBack Focus & Crash/Tombstone/ANR Demangling",
+                "goal": "Measure pixel relative luminance contrast ratios, audit TalkBack focus order, and demangle Java/Native/ANR stack traces",
+                "category": "wcag_and_crash_diagnostics"
             },
             {
-                "title": "UI State-Graph Crawling, 48dp Visual QA & FPS/MemLeak Profiling",
-                "goal": "Explore interactive UI state transitions, audit 48dp touch targets, and profile FPS jank & PSS heap memory leaks",
-                "category": "crawler_visual_and_perf"
+                "title": "UI State-Graph Crawling, Network API Latency & FPS/MemLeak Profiling",
+                "goal": "Explore interactive UI state transitions, audit RX/TX network API latency & cleartext HTTP, and profile FPS jank & PSS heap memory leaks",
+                "category": "crawler_network_and_perf"
             }
         ]
         if real_count > 0:
@@ -131,7 +141,7 @@ class SelfEvolutionEngine:
         callback: Optional[Callable[[str, str], None]] = None
     ) -> Dict[str, Any]:
         """
-        Execute `iterations` full cycles of the 25-Subagent Self-Evolution Loop.
+        Execute `iterations` full cycles of the 30-Subagent Self-Evolution Loop.
         Works seamlessly whether devices are online or in offline/dry-run diagnostic mode.
         """
         def _emit(agent: str, msg: str):
@@ -143,7 +153,7 @@ class SelfEvolutionEngine:
 
         for cycle_idx in range(1, max(1, iterations) + 1):
             cycle_start = time.time()
-            _emit("SelfEvolutionEngine", f"=== Starting 25-Subagent Evolution Cycle #{cycle_idx}/{iterations} ===")
+            _emit("SelfEvolutionEngine", f"=== Starting 30-Subagent Evolution Cycle #{cycle_idx}/{iterations} ===")
 
             # Phase 0: Audit Git Worktree Isolation Topology (#16 WorktreeCoordinatorSubagent)
             _emit("WorktreeCoordinator", "Auditing isolated Git worktrees for subagent feature engineering...")
@@ -178,10 +188,10 @@ class SelfEvolutionEngine:
             self.multi_app_mgr.grant_all_runtime_permissions(primary_serial, package_name)
 
             # Phase 5: Autonomous Ideation & Backlog Generation (#1 PlannerSubagent)
-            _emit("PlannerSubagent", "Synthesizing autonomous 25-subagent improvement backlog...")
+            _emit("PlannerSubagent", "Synthesizing autonomous 30-subagent improvement backlog...")
             proposals = self.generate_autonomous_improvement_backlog(scout_report)
 
-            # Phase 6: Human-Like Touch Gesture & Universal 10-Type Complex CAPTCHA CV Inspection (#17, #19, #22)
+            # Phase 6: Human-Like Touch Gesture, Universal 10-Type Complex CAPTCHA & Web/Rotation/Grid CAPTCHA CV (#17, #19, #22, #27)
             _emit("HumanTouchSubagent", f"Executing human-like Gaussian-jitter tap and Cubic Bezier swipe on {primary_serial}...")
             human_tap_res = self.human_touch.execute_human_action(
                 primary_serial,
@@ -193,8 +203,12 @@ class SelfEvolutionEngine:
                 screenshot_path=som_shot_res.get("screenshot_path"),
                 auto_screenshot=False
             )
+            _emit("WebAndAdvancedCaptcha", f"Checking WebView DevTools sockets on {primary_serial} for web/rotation/grid CAPTCHAs...")
+            cdp_sockets = self.web_adv_captcha.engine.discover_webview_devtools_sockets(self.adb, primary_serial)
 
-            # Phase 7: DeepLink/QR Scanner (#23) & Clipboard/Biometric/Notification Hooks (#24)
+            # Phase 7: Universal 7-Mode 2FA Automation (#26), DeepLink/QR Scanner (#23) & Clipboard/Biometric (#24)
+            _emit("Universal2FASubagent", f"Scanning for 7-mode 2FA/MFA challenges (TOTP/HOTP/Split-Digit/Push/Passkey) on {primary_serial}...")
+            tfa_res = self.universal_2fa.solve_2fa_challenge(primary_serial)
             _emit("DeepLinkAndQRScanner", f"Checking QR viewfinder state and generating synthetic verification QR on {primary_serial}...")
             qr_detect_res = self.deeplink_qr.detect_qr_scanner_screen(primary_serial)
             _emit("ClipboardAndBiometric", f"Inspecting clipboard & notification shade for OTP/verification tokens on {primary_serial}...")
@@ -236,7 +250,7 @@ class SelfEvolutionEngine:
                     serials=online_serials
                 )
 
-            # Phase 10: UI State-Graph Exploration (#15), 48dp Visual/Network QA (#20) & FPS/MemLeak Audit (#25)
+            # Phase 10: UI State-Graph (#15), 48dp (#20), WCAG Contrast (#28), Crash/ANR (#29), Network API (#30) & FPS/MemLeak (#25)
             _emit("MultiAppCrawler", f"Exploring UI state transition graph for {package_name} on {primary_serial}...")
             crawl_report = self.crawler.crawl_application(
                 serial=primary_serial,
@@ -246,6 +260,15 @@ class SelfEvolutionEngine:
             )
             _emit("NetworkAndVisualQA", f"Auditing 48dp touch-target accessibility and layout health on {primary_serial}...")
             layout_audit = self.net_visual_qa.audit_ui_accessibility_and_layout(primary_serial)
+            _emit("AccessibilityWCAG", f"Auditing WCAG 2.1 AA/AAA pixel luminance contrast and TalkBack focus order on {primary_serial}...")
+            wcag_audit = self.wcag_auditor.audit_wcag_and_talkback_tree(
+                primary_serial,
+                screenshot_path=som_shot_res.get("screenshot_path")
+            )
+            _emit("CrashTombstoneANR", f"Analyzing logcat for Java/Kotlin Fatal Exceptions, Native Tombstones, and ANRs on {primary_serial}...")
+            crash_audit = self.crash_analyzer.analyze_logcat_and_tombstones(primary_serial, package_name=package_name)
+            _emit("NetworkAPILatency", f"Auditing RX/TX network throughput, HTTP API latency, and cleartext risks on {primary_serial}...")
+            net_api_audit = self.net_api_profiler.run_network_api_telemetry_audit(primary_serial, package_name=package_name)
             _emit("PerformanceAndMemLeak", f"Profiling graphics FPS jank and PSS heap memory leaks for {package_name} on {primary_serial}...")
             perf_audit = self.perf_profiler.run_comprehensive_performance_audit(primary_serial, package_name)
 
@@ -268,17 +291,17 @@ class SelfEvolutionEngine:
             _emit("PromptOptimizer", "Evolving master Planner & Operator prompts from cycle telemetry...")
             evolved_planner_prompt = self.prompt_opt.analyze_and_optimize(
                 agent_type="planner",
-                current_prompt="Deconstruct multi-app mobile testing goals with Set-of-Mark visual grounding, 10-type complex CAPTCHA CV solving, Vivo/OriginOS popup guards, and FPS/MemLeak telemetry.",
+                current_prompt="Deconstruct multi-app mobile testing goals with Set-of-Mark visual grounding, Universal 7-Mode 2FA, Concentric Ring Rotation & Multi-Image Grid CAPTCHA CV, WCAG 2.1 contrast, Crash/ANR demangling, and Network/FPS telemetry.",
                 execution_feedback={
                     "scenario": f"evolution_cycle_{cycle_idx}",
                     "failures": [],
-                    "healings": [{"type": "fuzzy_text"}, {"type": "set_of_mark_grounding"}]
+                    "healings": [{"type": "fuzzy_text"}, {"type": "set_of_mark_grounding"}, {"type": "universal_2fa_and_web_captcha"}]
                 }
             )
 
             cycle_summary = {
                 "cycle_index": cycle_idx,
-                "subagents_active": 25,
+                "subagents_active": 30,
                 "duration_seconds": round(time.time() - cycle_start, 2),
                 "online_devices_count": len(online_serials),
                 "real_devices_count": scout_report.get("real_devices_found", 0),
@@ -289,9 +312,16 @@ class SelfEvolutionEngine:
                 "human_touch_status": human_tap_res.get("status"),
                 "captcha_check_status": captcha_res.get("status"),
                 "supported_captcha_types": len(self.complex_captcha.get_supported_captcha_types()),
+                "cdp_sockets_discovered": len(cdp_sockets),
+                "two_factor_status": tfa_res.get("status"),
+                "supported_2fa_modes": len(self.universal_2fa.SUPPORTED_2FA_MODES),
                 "qr_scanner_detected": qr_detect_res.get("scanner_detected", False),
                 "clipboard_status": clip_res.get("status"),
                 "layout_health_score": layout_audit.get("layout_health_score", 100),
+                "wcag_score": wcag_audit.get("wcag_score", 100),
+                "wcag_level": wcag_audit.get("wcag_level", "AAA"),
+                "crash_faults_count": crash_audit.get("total_faults", 0),
+                "api_health_score": net_api_audit.get("api_health_score", 100),
                 "performance_grade": perf_audit.get("performance_grade", "A+"),
                 "performance_score": perf_audit.get("performance_score", 98),
                 "multi_app_flow_status": flow_report.get("status"),
@@ -306,14 +336,14 @@ class SelfEvolutionEngine:
             }
             recorded = self.memory.record_evolution_cycle(cycle_summary)
             evolution_cycles.append(recorded)
-            _emit("SelfEvolutionEngine", f"Cycle #{cycle_idx} complete in {cycle_summary['duration_seconds']}s (Prompt {evolved_planner_prompt.get('version')}, Grade {cycle_summary['performance_grade']}).")
+            _emit("SelfEvolutionEngine", f"Cycle #{cycle_idx} complete in {cycle_summary['duration_seconds']}s (Prompt {evolved_planner_prompt.get('version')}, Grade {cycle_summary['performance_grade']}, WCAG {cycle_summary['wcag_level']}).")
 
         # Write Markdown Evolution Report
         report_path = self._write_evolution_markdown_report(evolution_cycles)
         total_dur = round(time.time() - start_time, 2)
         return {
             "status": "EVOLUTION_COMPLETED",
-            "subagents_count": 25,
+            "subagents_count": 30,
             "total_duration_seconds": total_dur,
             "cycles_executed": len(evolution_cycles),
             "cycles": evolution_cycles,
@@ -327,26 +357,28 @@ class SelfEvolutionEngine:
         report_file = REPORTS_DIR / f"EVOLUTION_REPORT_{ts}.md"
         mem = self.memory.get_summary()
         lines = [
-            "# 🧬 AMAF 6.0 Autonomous Self-Evolution Report (25 Subagents + 10-Type Complex CAPTCHA CV + Auto-Screenshot SoM + Perf/MemLeak)",
+            "# 🧬 AMAF 7.0 Autonomous Self-Evolution Report (30 Subagents + Universal 7-Mode 2FA + Web/Rotation/Grid CAPTCHA CV + WCAG + Crash/ANR + Network API)",
             f"- **Generated At**: `{time.strftime('%Y-%m-%d %H:%M:%S')}`",
-            f"- **Active Subagents**: `25`",
-            f"- **Supported CAPTCHA Categories**: `10` (`SLIDER_PUZZLE`, `ROTATION_PUZZLE`, `CLICK_ORDER_CAPTCHA`, `ICON_SHAPE_MATCH_CAPTCHA`, `SLIDE_PATH_TRAJECTORY_CAPTCHA`, `HOLD_PRESS_CHALLENGE`, `AUDIO_ACCESSIBILITY_CHALLENGE`, `CANVAS_WEBVIEW_OPAQUE_CAPTCHA`, `TEXT_MATH_OCR`, `CHECKBOX_CHALLENGE` / `IMAGE_GRID`)",
+            f"- **Active Subagents**: `30`",
+            f"- **Supported 2FA Modes**: `7` (`TOTP_RFC6238`, `HOTP_RFC4226`, `SPLIT_DIGIT_BOX_OTP`, `PUSH_NUMBER_MATCH`, `CROSS_APP_AUTHENTICATOR`, `PASSKEY_WEBAUTHN`, `BACKUP_RECOVERY_CODE`)",
+            f"- **Supported CAPTCHA Categories**: `10+` (`CONCENTRIC_ROTATION_PUZZLE`, `MULTI_IMAGE_GRID_3X3_4X4`, `WEB_BROWSER_CAPTCHA`, `SLIDER_PUZZLE`, `CLICK_ORDER_CAPTCHA`, `ICON_SHAPE_MATCH_CAPTCHA`, `SLIDE_PATH_TRAJECTORY_CAPTCHA`, `HOLD_PRESS_CHALLENGE`, `AUDIO_ACCESSIBILITY_CHALLENGE`, `CANVAS_WEBVIEW_OPAQUE_CAPTCHA`, `TEXT_MATH_OCR`, `CHECKBOX_CHALLENGE`)",
             f"- **Cycles Executed**: `{len(cycles)}`",
             f"- **Total Mined Macros**: `{mem.get('macros_count', 0)}`",
             f"- **Total Self-Optimized Prompts**: `{mem.get('prompts_count', 0)}`",
             f"- **Total Auto-Generated Patches**: `{mem.get('patches_count', 0)}`",
             "",
             "## Cycle Telemetry",
-            "| Cycle | Duration | Devs (Real) | Worktrees | SoM Marks | OEM Guard | CAPTCHA (10 Types) | Layout Score | Perf Grade | Prompt |",
-            "| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |"
+            "| Cycle | Duration | Devs (Real) | Worktrees | SoM Marks | 2FA Status | CAPTCHA | WCAG | Crashes | API Score | Perf Grade | Prompt |",
+            "| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |"
         ]
         for c in cycles:
             lines.append(
                 f"| #{c.get('cycle_index')} | {c.get('duration_seconds')}s | "
                 f"{c.get('online_devices_count')} ({c.get('real_devices_count')}) | "
                 f"{c.get('feature_worktrees_count')} | {c.get('som_marks_count')} | "
-                f"`{c.get('oem_popup_status')}` | `{c.get('captcha_check_status')}` | "
-                f"{c.get('layout_health_score')}/100 | **{c.get('performance_grade')}** ({c.get('performance_score')}) | "
+                f"`{c.get('two_factor_status')}` | `{c.get('captcha_check_status')}` | "
+                f"**{c.get('wcag_level')}** ({c.get('wcag_score')}) | `{c.get('crash_faults_count')}` | "
+                f"{c.get('api_health_score')}/100 | **{c.get('performance_grade')}** ({c.get('performance_score')}) | "
                 f"`{c.get('evolved_prompt_version')}` |"
             )
         report_file.write_text("\n".join(lines) + "\n", encoding="utf-8")
