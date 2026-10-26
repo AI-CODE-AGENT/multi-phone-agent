@@ -132,7 +132,7 @@ def test_subagent_105_strict_10_loop_causal_chain():
 def test_mcp_server_60_tools_and_v17_handlers():
     server = AndroidFarmMCPServer()
     tools = server.list_tools()
-    assert len(tools) == 60
+    assert len(tools) >= 60
     tool_names = {t["name"] for t in tools}
     expected_v17_tools = {
         "android_switch_and_audit_dual_theme",

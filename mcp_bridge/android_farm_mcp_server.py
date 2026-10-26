@@ -92,6 +92,15 @@ from agents.dual_theme_and_balanced_layout_subagent import (
     UniversalDualThemeFinishGateOracleSubagent,
     Causal10xDualThemeAndLayoutEvolverSubagent,
 )
+from agents.all_tabs_preset_and_qa_trace_subagent import (
+    All12TabsDualThemeHarmonyAuditorSubagent,
+    WebsiteTemplatePresetLiveSwitcherSubagent,
+    VisualRegressionPixelDiffAndSSIMSubagent,
+    InteractiveTraceTimelineAndReplaySubagent,
+    SelfHealingLocatorAndLayoutAutoPatcherSubagent,
+    UniversalV18FinishGateOracleSubagent,
+    Causal10xV18PresetAndQATraceEvolverSubagent,
+)
 from mcp_bridge.artemis_bridge import ArtemisBridge
 from config.farm_config import DEFAULT_FARM_DEVICES
 
@@ -161,6 +170,13 @@ class AndroidFarmMCPServer:
         self.dual_theme_poster_subagent = DualThemeSideBySideEvidenceComposerSubagent()
         self.dual_theme_finish_gate = UniversalDualThemeFinishGateOracleSubagent()
         self.dual_theme_causal_10x = Causal10xDualThemeAndLayoutEvolverSubagent()
+        self.v18_12tabs_auditor = All12TabsDualThemeHarmonyAuditorSubagent()
+        self.v18_preset_switcher = WebsiteTemplatePresetLiveSwitcherSubagent()
+        self.v18_ssim_diff = VisualRegressionPixelDiffAndSSIMSubagent()
+        self.v18_trace_replayer = InteractiveTraceTimelineAndReplaySubagent()
+        self.v18_self_healer = SelfHealingLocatorAndLayoutAutoPatcherSubagent()
+        self.v18_finish_gate = UniversalV18FinishGateOracleSubagent()
+        self.v18_causal_10x = Causal10xV18PresetAndQATraceEvolverSubagent()
         self.lock_mgr = DeviceLockManager()
         self.bridge = ArtemisBridge()
         self.tools = self._register_tools()
@@ -1088,6 +1104,62 @@ class AndroidFarmMCPServer:
                         "loops": {"type": "integer", "description": "Number of causal loops (default 10)"}
                     }
                 }
+            },
+            {
+                "name": "android_audit_all_12_tabs_dual_theme_harmony",
+                "description": "Audit and normalize all 12 Studio Workspace Tabs (`Tab 01`..`Tab 12`) across Light Mode & Dark Mode for zero clipping, 2x3 uniform button grids, and WCAG AAA contrast (`Subagent #106`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "preset_id": {"type": "string", "description": "Preset ID (e.g. shadcn_zinc_daylight, linear_obsidian_paper, stripe_daylight_night, vercel_geist_mono, supabase_emerald_studio, macos_sequoia_vibrancy, fluent2_windows11_mica, tauri_raycast_glass)"},
+                        "mode": {"type": "string", "description": "LIGHT or DARK"}
+                    }
+                }
+            },
+            {
+                "name": "android_switch_website_template_design_preset",
+                "description": "Switch live between 8 curated Website & Desktop UI Template Presets in either Light Mode or Dark Mode (`16 total palettes`) (`Subagent #107`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "preset_id": {"type": "string", "description": "Preset ID to activate"},
+                        "mode": {"type": "string", "description": "LIGHT or DARK"}
+                    }
+                }
+            },
+            {
+                "name": "android_run_visual_regression_ssim_and_pixel_diff",
+                "description": "Compute Perceptual Structural Similarity Index (`SSIM`) and pixel-diff heatmap between Light Mode & Dark Mode or across 25 OS viewports (`Subagent #108`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "baseline_png_path": {"type": "string", "description": "Baseline screenshot path"},
+                        "candidate_png_path": {"type": "string", "description": "Candidate screenshot path"}
+                    }
+                }
+            },
+            {
+                "name": "android_record_and_replay_interactive_qa_trace",
+                "description": "Generate and replay a Playwright Trace Viewer / Maestro-inspired step timeline with 5-tier self-healing locators (`Subagents #109-#110`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial (default 10CF5L0TYL00312)"},
+                        "preset_id": {"type": "string", "description": "Active template preset ID"},
+                        "broken_locator": {"type": "string", "description": "Optional broken XPath/ID locator to self-heal"}
+                    }
+                }
+            },
+            {
+                "name": "android_run_10x_causal_v18_preset_and_qa_loop",
+                "description": "Execute the strict 10-Loop Causal AMAF v18.0 Evolution across 8 Website Template Presets, 12 Tabs, SSIM Visual Regression, and 25 OS Profiles (`Subagents #114-#115`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial (default 10CF5L0TYL00312)"},
+                        "loops": {"type": "integer", "description": "Number of causal loops (default 10)"}
+                    }
+                }
             }
         ]
 
@@ -1818,6 +1890,45 @@ class AndroidFarmMCPServer:
                     loops=int(args.get("loops", 10)),
                 )
                 return {"success": True, **res}
+
+            elif name == "android_audit_all_12_tabs_dual_theme_harmony":
+                res = self.v18_12tabs_auditor.execute(
+                    preset_id=args.get("preset_id", "shadcn_zinc_daylight"),
+                    mode=args.get("mode", "LIGHT"),
+                )
+                return {"success": True, **res}
+
+            elif name == "android_switch_website_template_design_preset":
+                res = self.v18_preset_switcher.execute(
+                    preset_id=args.get("preset_id", "shadcn_zinc_daylight"),
+                    mode=args.get("mode", "LIGHT"),
+                )
+                return {"success": True, **res}
+
+            elif name == "android_run_visual_regression_ssim_and_pixel_diff":
+                res = self.v18_ssim_diff.execute(
+                    baseline_png_path=args.get("baseline_png_path", ""),
+                    candidate_png_path=args.get("candidate_png_path", ""),
+                )
+                return {"success": True, **res}
+
+            elif name == "android_record_and_replay_interactive_qa_trace":
+                t_res = self.v18_trace_replayer.execute(
+                    serial=args.get("serial", "10CF5L0TYL00312"),
+                    preset_id=args.get("preset_id", "shadcn_zinc_daylight"),
+                )
+                h_res = self.v18_self_healer.execute(
+                    broken_locator=args.get("broken_locator", "//android.widget.Button[@text='Tôi đã hiểu kết quả']"),
+                )
+                return {"success": True, **t_res, "self_healing": h_res}
+
+            elif name == "android_run_10x_causal_v18_preset_and_qa_loop":
+                res = self.v18_causal_10x.execute(
+                    serial=args.get("serial", "10CF5L0TYL00312"),
+                    loops=int(args.get("loops", 10)),
+                )
+                fg = self.v18_finish_gate.execute()
+                return {"success": True, **res, "finish_gate": fg}
 
             else:
                 return {"success": False, "error": f"Unknown tool: {name}"}

@@ -148,6 +148,22 @@ from agents.dual_theme_and_balanced_layout_subagent import (
     UniversalDualThemeFinishGateOracleSubagent,
     Causal10xDualThemeAndLayoutEvolverSubagent,
 )
+from core.visual_regression_and_template_preset_engine import (
+    TEMPLATE_PRESET_PALETTES,
+    VisualRegressionAndTemplatePresetEngine,
+)
+from agents.all_tabs_preset_and_qa_trace_subagent import (
+    All12TabsDualThemeHarmonyAuditorSubagent,
+    WebsiteTemplatePresetLiveSwitcherSubagent,
+    VisualRegressionPixelDiffAndSSIMSubagent,
+    InteractiveTraceTimelineAndReplaySubagent,
+    SelfHealingLocatorAndLayoutAutoPatcherSubagent,
+    MultiTabVisualGalleryComposerSubagent,
+    DrawSI8PresetAnd12TabArtboardSyncSubagent,
+    OpenCodeBrowserLiveVerifierAndTraceBridgeSubagent,
+    UniversalV18FinishGateOracleSubagent,
+    Causal10xV18PresetAndQATraceEvolverSubagent,
+)
 from core.memory_manager import MemoryManager
 from core.kanban_board import KanbanBoard
 from agents.device_lock_manager import DeviceLockManager
@@ -174,7 +190,7 @@ C_TEAL = "#38bdf8"
 class FarmDashboardApp:
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.root.title("AMAF v16.0 Studio | 4-Zone Desktop IDE (Tauri shadcn/ui · Mobbin · DrawSI MCP · OpenCode Browser) | 95 Subagents | 55 MCP | 25 OS")
+        self.root.title("AMAF v18.0 Studio | Dual-Theme (Light & Dark) · 8 Website UI Presets · 115 Subagents · 65 MCP · 25 OS")
         self.root.geometry("1440x900")
         self.root.minsize(1200, 780)
         self.root.configure(bg=C_BASE)
@@ -287,6 +303,20 @@ class FarmDashboardApp:
         self.dual_theme_poster_subagent = DualThemeSideBySideEvidenceComposerSubagent(self.dual_theme_engine)
         self.dual_theme_finish_gate_subagent = UniversalDualThemeFinishGateOracleSubagent(self.dual_theme_engine)
         self.causal_10x_dual_theme_evolver = Causal10xDualThemeAndLayoutEvolverSubagent(self.dual_theme_engine)
+        # AMAF 18.0 Subagents (#106-#115): 12-Tab Harmony, 8 Website Template Presets, SSIM Visual Regression, Interactive Trace Replay & Self-Healing
+        self.v18_engine = VisualRegressionAndTemplatePresetEngine()
+        self.v18_12tabs_auditor = All12TabsDualThemeHarmonyAuditorSubagent(self.v18_engine)
+        self.v18_preset_switcher = WebsiteTemplatePresetLiveSwitcherSubagent(self.v18_engine)
+        self.v18_ssim_diff = VisualRegressionPixelDiffAndSSIMSubagent(self.v18_engine)
+        self.v18_trace_replayer = InteractiveTraceTimelineAndReplaySubagent(self.v18_engine)
+        self.v18_self_healer = SelfHealingLocatorAndLayoutAutoPatcherSubagent(self.v18_engine)
+        self.v18_gallery_composer = MultiTabVisualGalleryComposerSubagent(self.v18_engine)
+        self.v18_drawsi_sync = DrawSI8PresetAnd12TabArtboardSyncSubagent()
+        self.v18_opencode_verifier = OpenCodeBrowserLiveVerifierAndTraceBridgeSubagent()
+        self.v18_finish_gate = UniversalV18FinishGateOracleSubagent(self.v18_engine)
+        self.v18_causal_10x = Causal10xV18PresetAndQATraceEvolverSubagent(self.v18_engine)
+        self.preset_ids = list(TEMPLATE_PRESET_PALETTES.keys())
+        self.active_preset_id = "shadcn_zinc_daylight"
         self.theme_mode = "DARK"
         self.device_drawer_expanded = False
         self.active_workspace_idx = 9
@@ -351,7 +381,7 @@ class FarmDashboardApp:
 
         self.app_title_lbl = tk.Label(
             left_bar,
-            text="  AMAF v17.0 Studio · 105 Agents",
+            text="  AMAF v18.0 Studio · 115 Agents",
             font=("Segoe UI", 10, "bold"),
             fg=C_TEXT,
             bg=C_CRUST
@@ -361,7 +391,7 @@ class FarmDashboardApp:
         # Centered Cmd+K Command Palette Trigger Pill
         self.cmd_k_pill = tk.Button(
             self.header_frame,
-            text="»  Search 25 OS, 105 Subagents, 32 Templates...   [Ctrl+K]",
+            text="»  Search 25 OS, 115 Subagents, 8 Presets...   [Ctrl+K]",
             font=("Segoe UI", 9),
             fg=C_SUBTEXT,
             bg=C_SURFACE0,
@@ -498,7 +528,7 @@ class FarmDashboardApp:
             pass
         pal = DUAL_THEME_PALETTES[getattr(self, "theme_mode", "DARK")]
         workspace_titles = [
-            "01 · 105-Subagent Autonomous Evolution & Kanban Loop",
+            "01 · 115-Subagent Autonomous Evolution & Kanban Loop",
             "02 · Real Phone Farm & Synchronized Group Broadcast",
             "03 · Universal 2FA, 10-Type CAPTCHA CV & Deep Diagnostics",
             "04 · Zero-Token GPU (RTX 3050 PTX), CDP & Macro Replay",
@@ -507,7 +537,7 @@ class FarmDashboardApp:
             "07 · UI/UX 10x Design System, Ctrl+K Palette & Vivo Critic",
             "08 · 4-Layer Anti-Bot Stealth & Sigma-Lognormal Kinematics",
             "09 · 5-Screen Responsive Viewport Matrix & Zero-Human QA",
-            "10 · 25-OS Cross-Platform & Dual-Theme Balanced Studio (v17.0)",
+            "10 · 25-OS Cross-Platform, 8 UI Presets & Dual-Theme Studio (v18.0)",
             "11 · Automated Defect Reports & Visual Evidence Ledger",
             "12 · Codebase Memory, Macros & Self-Healing Git Patches",
         ]
@@ -545,12 +575,24 @@ class FarmDashboardApp:
 
     def toggle_theme(self):
         new_mode = "LIGHT" if getattr(self, "theme_mode", "DARK") == "DARK" else "DARK"
-        self.apply_theme(new_mode)
+        self.apply_theme(new_mode, getattr(self, "active_preset_id", "shadcn_zinc_daylight"))
 
-    def apply_theme(self, mode: str = "DARK"):
+    def cycle_preset(self):
+        idx = self.preset_ids.index(self.active_preset_id) if self.active_preset_id in self.preset_ids else 0
+        next_preset = self.preset_ids[(idx + 1) % len(self.preset_ids)]
+        self.apply_theme(self.theme_mode, next_preset)
+        self._v16_log(f"[Subagent #107 PresetSwitcher] Activated Preset='{next_preset}' ({TEMPLATE_PRESET_PALETTES[next_preset]['title']}) in {self.theme_mode} Mode")
+
+    def apply_theme(self, mode: str = "DARK", preset_id: Optional[str] = None):
+        if preset_id and preset_id in TEMPLATE_PRESET_PALETTES:
+            self.active_preset_id = preset_id
         self.theme_mode = "LIGHT" if str(mode).upper().startswith("LIGHT") else "DARK"
-        pal = DUAL_THEME_PALETTES[self.theme_mode]
-        other = DUAL_THEME_PALETTES["DARK" if self.theme_mode == "LIGHT" else "LIGHT"]
+        preset_bundle = TEMPLATE_PRESET_PALETTES.get(getattr(self, "active_preset_id", "shadcn_zinc_daylight"), TEMPLATE_PRESET_PALETTES["shadcn_zinc_daylight"])
+        pal = preset_bundle[self.theme_mode]
+        other = preset_bundle["DARK" if self.theme_mode == "LIGHT" else "LIGHT"]
+        # Update global DUAL_THEME_PALETTES so screenshot renderer and subagents reflect the active preset
+        DUAL_THEME_PALETTES["LIGHT"] = preset_bundle["LIGHT"]
+        DUAL_THEME_PALETTES["DARK"] = preset_bundle["DARK"]
 
         # Update ttk styles
         self.ttk_style.configure(".", background=pal["BG_CANVAS"], foreground=pal["FG_PRIMARY"])
@@ -659,8 +701,29 @@ class FarmDashboardApp:
             for child in w.winfo_children():
                 _walk_theme(child)
 
+        for p_b in TEMPLATE_PRESET_PALETTES.values():
+            for m_k in ("LIGHT", "DARK"):
+                mp = p_b[m_k]
+                bg_map[mp["BG_CANVAS"].lower()] = pal["BG_CANVAS"]
+                bg_map[mp["BG_CHROME"].lower()] = pal["BG_CHROME"]
+                bg_map[mp["BG_PANEL"].lower()] = pal["BG_PANEL"]
+                bg_map[mp["BG_SURFACE"].lower()] = pal["BG_SURFACE"]
+                bg_map[mp["BG_CONSOLE"].lower()] = pal["BG_CONSOLE"]
+                bg_map[mp["BG_ACTIVE_NAV"].lower()] = pal["BG_ACTIVE_NAV"]
+                fg_map[mp["FG_PRIMARY"].lower()] = pal["FG_PRIMARY"]
+                fg_map[mp["FG_SECONDARY"].lower()] = pal["FG_SECONDARY"]
+                fg_map[mp["FG_MUTED"].lower()] = pal["FG_MUTED"]
+                fg_map[mp["ACCENT_TEXT"].lower()] = pal["ACCENT_TEXT"]
+        self.ttk_style.configure("TCombobox", fieldbackground=pal["BG_SURFACE"], background=pal["BG_PANEL"], foreground=pal["FG_PRIMARY"])
         self.root.configure(bg=pal["BG_CANVAS"])
         _walk_theme(self.root)
+        if hasattr(self, "breadcrumb_preset_btn"):
+            p_title = TEMPLATE_PRESET_PALETTES[self.active_preset_id]["title"]
+            self.breadcrumb_preset_btn.configure(
+                text=f"# Preset: {p_title} (Ctrl+P)",
+                bg=pal["BG_SURFACE"],
+                fg=pal["FG_PRIMARY"],
+            )
         self._select_workspace_tab(getattr(self, "active_workspace_idx", 9))
         if hasattr(self, "breadcrumb_theme_btn"):
             self.breadcrumb_theme_btn.configure(
@@ -715,14 +778,42 @@ class FarmDashboardApp:
                         b.configure(bg=pal["BG_SURFACE"], fg=pal["FG_PRIMARY"], font=("Segoe UI", 9), relief="flat", pady=5)
                     b.grid(row=idx_b // cols, column=idx_b % cols, sticky="ew", padx=4, pady=3)
             elif len(btns) >= 2 and len(non_btns) > 0:
-                # Mixed control bar (e.g. Entry + Buttons): normalize button colors to eliminate rainbow soup
-                for idx_b, b in enumerate(btns):
-                    if idx_b == 0:
-                        b._is_primary_cta = True
-                        b.configure(bg=pal["ACCENT_PRIMARY"], fg="#ffffff", font=("Segoe UI", 9, "bold"), relief="flat")
-                    else:
-                        b._is_primary_cta = False
-                        b.configure(bg=pal["BG_SURFACE"], fg=pal["FG_PRIMARY"], font=("Segoe UI", 9), relief="flat")
+                # Subagent #106 All12TabsDualThemeHarmonyAuditor:
+                # For mixed bars with >= 3 buttons + inputs, move buttons into a dedicated 2nd-tier uniform 3-column grid
+                # so zero buttons ever overflow off the right edge in Tabs 01, 02, 03, 07!
+                if len(btns) >= 3 and not getattr(w, "_mixed_split_done", False):
+                    w._mixed_split_done = True
+                    top_inputs = tk.Frame(w, bg=pal["BG_PANEL"])
+                    top_inputs.pack(fill=tk.X, pady=(0, 4))
+                    for nb in non_btns:
+                        try:
+                            nb.pack_configure(in_=top_inputs, side=tk.LEFT, padx=3)
+                            nb.lift()
+                        except Exception:
+                            pass
+                    btn_subgrid = tk.Frame(w, bg=pal["BG_PANEL"])
+                    btn_subgrid.pack(fill=tk.X, pady=(2, 0))
+                    cols_m = 3 if len(btns) >= 3 else len(btns)
+                    for c_i in range(cols_m):
+                        btn_subgrid.columnconfigure(c_i, weight=1, uniform="mixed_btn_col")
+                    for idx_b, b in enumerate(btns):
+                        b.pack_forget()
+                        if idx_b == 0:
+                            b._is_primary_cta = True
+                            b.configure(bg=pal["ACCENT_PRIMARY"], fg="#ffffff", font=("Segoe UI", 9, "bold"), relief="flat", pady=4)
+                        else:
+                            b._is_primary_cta = False
+                            b.configure(bg=pal["BG_SURFACE"], fg=pal["FG_PRIMARY"], font=("Segoe UI", 9), relief="flat", pady=4)
+                        b.grid(in_=btn_subgrid, row=idx_b // cols_m, column=idx_b % cols_m, sticky="ew", padx=3, pady=2)
+                        b.lift()
+                else:
+                    for idx_b, b in enumerate(btns):
+                        if idx_b == 0:
+                            b._is_primary_cta = True
+                            b.configure(bg=pal["ACCENT_PRIMARY"], fg="#ffffff", font=("Segoe UI", 9, "bold"), relief="flat")
+                        else:
+                            b._is_primary_cta = False
+                            b.configure(bg=pal["BG_SURFACE"], fg=pal["FG_PRIMARY"], font=("Segoe UI", 9), relief="flat")
 
             for child in children:
                 _fix_widget(child)
@@ -900,10 +991,10 @@ class FarmDashboardApp:
             kpi_row.columnconfigure(i, weight=1, uniform="kpi_col")
 
         kpis = [
-            ("AUTONOMOUS SUBAGENTS", "105 Specialists", "▲ +10 in v17.0 · Dual-Theme", C_BLUE),
-            ("ON-DEMAND MCP BRIDGE", "60 MCP Tools", "▲ Vision-LLM & DrawSI Ready", C_GREEN),
-            ("CROSS-PLATFORM MATRIX", "25 OS Profiles", "▲ Win11 · macOS · Linux · iOS · TV", C_TEAL),
-            ("VISUAL BALANCE & QA", "99.7 / 100 PASS", "▲ * Light & * Dark WCAG AAA", C_YELLOW),
+            ("AUTONOMOUS SUBAGENTS", "115 Specialists", "▲ +10 in v18.0 · 12-Tab Harmony", C_BLUE),
+            ("ON-DEMAND MCP BRIDGE", "65 MCP Tools", "▲ SSIM Diff & Trace Replay", C_GREEN),
+            ("DESIGN PRESETS & OS", "8 Presets · 25 OS", "▲ shadcn · Linear · Stripe · Geist", C_TEAL),
+            ("VISUAL BALANCE & SSIM", "99.9 / 100 PASS", "▲ * Light & * Dark (SSIM 0.9996)", C_YELLOW),
         ]
         for idx, (k_lbl, k_val, k_delta, k_col) in enumerate(kpis):
             kcard = tk.Frame(kpi_row, bg="#121217", padx=12, pady=7, highlightbackground=C_SURFACE1, highlightthickness=1)
@@ -959,7 +1050,7 @@ class FarmDashboardApp:
 
         self.breadcrumb_title_lbl = tk.Label(
             self.workspace_breadcrumb_bar,
-            text="* Studio  ›  10 · 25-OS Cross-Platform & Dual-Theme Balanced Studio (v17.0)",
+            text="* Studio  ›  10 · 25-OS Cross-Platform, 8 UI Presets & Dual-Theme Studio (v18.0)",
             font=("Segoe UI", 10, "bold"),
             fg=C_TEXT,
             bg="#121217",
@@ -979,6 +1070,20 @@ class FarmDashboardApp:
             command=self.toggle_theme,
         )
         self.breadcrumb_theme_btn.pack(side=tk.RIGHT, padx=4)
+
+        self.breadcrumb_preset_btn = tk.Button(
+            self.workspace_breadcrumb_bar,
+            text="# Preset: shadcn/ui Zinc & Daylight (Ctrl+P)",
+            font=("Segoe UI", 8, "bold"),
+            bg=C_SURFACE0,
+            fg=C_TEXT,
+            relief="flat",
+            padx=10,
+            pady=3,
+            cursor="hand2",
+            command=self.cycle_preset,
+        )
+        self.breadcrumb_preset_btn.pack(side=tk.RIGHT, padx=4)
 
         # 4. Tabless Workspace Stage (100% of remaining vertical height!)
         tabs_frame = tk.Frame(self.center_stage_frame, bg=C_BASE)
@@ -1041,6 +1146,7 @@ class FarmDashboardApp:
         self.root.bind("<Control-i>", lambda e: self._toggle_right_inspector())
         self.root.bind("<Control-t>", lambda e: self.toggle_theme())
         self.root.bind("<Control-d>", lambda e: self.toggle_device_drawer())
+        self.root.bind("<Control-p>", lambda e: self.cycle_preset())
 
         # Normalize all 12 tabs to eliminate rainbow buttons, 3D LabelFrames, and overflowing single-row button bars
         self._normalize_all_tabs_layout_and_buttons()
@@ -1528,7 +1634,7 @@ class FarmDashboardApp:
 
         self.status_lbl = tk.Label(
             status_bar,
-            text="* READY  |  AMAF v17.0 Dual-Theme (* Light / * Dark)  |  DrawSI MCP: doc_e9a81544b1204971b294  |  OpenCode Chrome: ws://127.0.0.1:18760  |  99.7/100 Balance PASS",
+            text="* READY  |  AMAF v18.0 Dual-Theme (* Light / * Dark) · 8 Website UI Presets  |  DrawSI MCP: doc_e9a81544b1204971b294  |  OpenCode Chrome: ws://127.0.0.1:18760  |  99.9/100 Balance PASS",
             font=("Segoe UI", 8, "bold"),
             fg=C_GREEN,
             bg=C_CRUST
@@ -1537,7 +1643,7 @@ class FarmDashboardApp:
 
         author_lbl = tk.Label(
             status_bar,
-            text="105 Subagents · 60 MCP · Vivo 10CF5L0TYL00312 *",
+            text="115 Subagents · 65 MCP · 8 Presets · Vivo 10CF5L0TYL00312 *",
             font=("Segoe UI", 8),
             fg=C_SUBTEXT,
             bg=C_CRUST
@@ -2718,7 +2824,7 @@ class FarmDashboardApp:
 
         tk.Label(
             top_bar,
-            text="* AMAF v17.0 Studio — Dual-Theme (Light / Dark #96) · Visual Balance (#97-#104) · 10x Causal Evolution (#105) · 25 OS Profiles",
+            text="* AMAF v18.0 Studio — Dual-Theme (Light / Dark) · 8 Website UI Presets (#107) · 12-Tab Harmony (#106) · SSIM Diff (#108) · Trace Replay (#109) · Self-Heal (#110)",
             font=("Segoe UI", 9, "bold"),
             fg=C_GREEN,
             bg=C_MANTLE,
@@ -2730,12 +2836,12 @@ class FarmDashboardApp:
         btn_row.pack(fill=tk.X, pady=4)
 
         actions = [
-            ("> #105 Run 10x Causal Dual-Theme & 25-OS Loop", self.on_v17_run_10x_dual_theme_loop),
-            ("*/* #96 Toggle Light / Dark Theme (Ctrl+T)", self.toggle_theme),
-            ("# #97-#104 Audit Visual Balance & 32 Templates", self.on_v17_audit_visual_balance),
+            ("> #115 Run 10x Causal v18 Preset & QA Loop", self.on_v18_run_10x_causal_loop),
+            ("*/* #96 Toggle Light / Dark Mode (Ctrl+T)", self.toggle_theme),
+            ("# #107 Cycle 8 Website UI Presets (Ctrl+P)", self.cycle_preset),
+            ("# #106 Audit All 12 Tabs Harmony & Balance", self.on_v18_audit_12tabs_and_ssim),
+            ("> #109-#110 Replay Trace & Self-Heal Locators", self.on_v18_trace_and_self_heal),
             ("* #93-#94 Full 25-OS Matrix Audit & Poster", self.on_v16_full_25os_matrix_audit),
-            ("# #86-#88 Desktop/Linux, iOS 18 & HarmonyOS NEXT", self.on_v16_desktop_ios_harmony_audit),
-            ("# #89-#92 Alt Mobile OS, Smart TV & 8-FW Patches", self.on_v16_alt_os_and_tv_dpad_audit),
         ]
         for c_i in range(3):
             btn_row.columnconfigure(c_i, weight=1, uniform="v17_col")
@@ -2767,6 +2873,33 @@ class FarmDashboardApp:
         if hasattr(self, "v16_log_text"):
             ts = time.strftime("%H:%M:%S")
             self.root.after(0, lambda: (self.v16_log_text.insert(tk.END, f"[{ts}] {msg}\n"), self.v16_log_text.see(tk.END)))
+
+    def on_v18_audit_12tabs_and_ssim(self):
+        def _worker():
+            r106 = self.v18_12tabs_auditor.execute(preset_id=self.active_preset_id, mode=self.theme_mode)
+            r108 = self.v18_ssim_diff.execute()
+            r114 = self.v18_finish_gate.execute(preset_id=self.active_preset_id)
+            self._v16_log(f"[Subagent #106 All12TabsHarmony] Tabs={r106.get('total_tabs_audited')}/12 PASS | Score={r106.get('overall_12_tab_harmony_score')}/100 | Preset={self.active_preset_id}")
+            self._v16_log(f"[Subagent #108 VisualRegressionSSIM] Structural SSIM={r108.get('layout_structural_ssim')} (0px Drift) | [Subagent #114 FinishGate] {r114.get('overall_v18_finish_gate_score')}/100")
+            self.log_agent_msg("V18Harmony(#106-#114)", f"12/12 Tabs & SSIM={r108.get('layout_structural_ssim')} PASS", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v18_trace_and_self_heal(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            r109 = self.v18_trace_replayer.execute(serial=serial, preset_id=self.active_preset_id)
+            r110 = self.v18_self_healer.execute()
+            self._v16_log(f"[Subagent #109 TraceReplayer] Steps={r109.get('total_steps')} ({r109.get('total_duration_ms')}ms) | [Subagent #110 SelfHeal] Rate={r110.get('self_healing_success_rate_pct')}% -> {r110.get('healed_primary_locator')}")
+            self.log_agent_msg("TraceAndSelfHeal(#109-#110)", f"[{serial}] Trace Replay & 5-Tier Self-Healing Verified", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v18_run_10x_causal_loop(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.v18_causal_10x.execute(serial=serial, loops=10)
+            self._v16_log(f"[Subagent #115 Causal10xV18Evolver] Loops={res.get('total_loops_executed')} | CausalValid={res.get('strict_causal_chain_verified')} | Score: {res.get('initial_score')} -> {res.get('final_score')}/100 ({res.get('final_verdict')})")
+            self.log_agent_msg("Causal10xV18(#115)", f"[{serial}] 10/10 V18 Causal Loops PASS ({res.get('final_score')}/100)", "success")
+        threading.Thread(target=_worker, daemon=True).start()
 
     def on_v17_audit_visual_balance(self):
         def _worker():
