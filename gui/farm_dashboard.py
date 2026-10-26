@@ -203,7 +203,7 @@ C_TEAL = "#38bdf8"
 class FarmDashboardApp:
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.root.title("AMAF v18.0 Studio | Dual-Theme (Light & Dark) · 8 Website UI Presets · 115 Subagents · 65 MCP · 25 OS")
+        self.root.title("AMAF v19.0 Studio | Dual-Theme (Light & Dark) · 8 UI Presets · 125 Subagents · 70 MCP · 25 OS")
         self.root.geometry("1440x900")
         self.root.minsize(1200, 780)
         self.root.configure(bg=C_BASE)
@@ -368,7 +368,8 @@ class FarmDashboardApp:
         self.ttk_style.theme_use("clam")
 
         self.ttk_style.configure(".", background=C_BASE, foreground=C_TEXT, font=("Segoe UI", 10))
-        self.ttk_style.configure("TNotebook", background=C_BASE, borderwidth=0, tabmargins=[0, 0, 0, 0])
+        self.ttk_style.configure("TNotebook", background=C_BASE, borderwidth=0, tabmargins=[0, 0, 0, 0],
+                                 lightcolor=C_BASE, darkcolor=C_BASE, bordercolor=C_BASE)
         # ACL-01: Hide redundant horizontal ttk.Notebook tab bar completely (Sidebar + Breadcrumb drives navigation)
         self.ttk_style.layout("TNotebook.Tab", [])
 
@@ -377,8 +378,18 @@ class FarmDashboardApp:
                         foreground=C_TEXT,
                         fieldbackground=C_MANTLE,
                         rowheight=28,
-                        bordercolor=C_SURFACE0,
+                        lightcolor=C_SURFACE1,
+                        darkcolor=C_SURFACE1,
+                        bordercolor=C_SURFACE1,
                         borderwidth=1)
+        style.configure("TCombobox", fieldbackground=C_SURFACE0, background=C_SURFACE0, foreground=C_TEXT,
+                        arrowcolor=C_TEXT, bordercolor=C_SURFACE1, lightcolor=C_SURFACE1, darkcolor=C_SURFACE1)
+        style.map("TCombobox",
+                  fieldbackground=[("readonly", C_SURFACE0)],
+                  selectbackground=[("readonly", C_SURFACE0)],
+                  selectforeground=[("readonly", C_TEXT)],
+                  foreground=[("readonly", C_TEXT)],
+                  background=[("readonly", C_SURFACE0)])
         style.map("Treeview", background=[("selected", C_SURFACE0)], foreground=[("selected", C_BLUE)])
         style.configure("Treeview.Heading", background=C_SURFACE0, foreground=C_TEXT, font=("Segoe UI", 9, "bold"), relief="flat")
 
@@ -406,7 +417,7 @@ class FarmDashboardApp:
 
         self.app_title_lbl = tk.Label(
             left_bar,
-            text="  AMAF v18.0 Studio · 115 Agents",
+            text="  AMAF v19.0 Studio",
             font=("Segoe UI", 10, "bold"),
             fg=C_TEXT,
             bg=C_CRUST
@@ -416,7 +427,7 @@ class FarmDashboardApp:
         # Centered Cmd+K Command Palette Trigger Pill
         self.cmd_k_pill = tk.Button(
             self.header_frame,
-            text="»  Search 25 OS, 115 Subagents, 8 Presets...   [Ctrl+K]",
+            text="Search 125 Subagents, 70 MCP Tools, 25 OS, 8 Presets...   [Ctrl+K]",
             font=("Segoe UI", 9),
             fg=C_SUBTEXT,
             bg=C_SURFACE0,
@@ -436,7 +447,7 @@ class FarmDashboardApp:
         # Single Primary CTA (#6366F1 Dark / #4F46E5 Light)
         self.btn_primary_cta = tk.Button(
             right_bar,
-            text="> Run 10x Causal Loop",
+            text="▸ Run 10x Loop",
             font=("Segoe UI", 9, "bold"),
             bg=C_PRIMARY,
             fg="#ffffff",
@@ -446,7 +457,7 @@ class FarmDashboardApp:
             padx=12,
             pady=4,
             cursor="hand2",
-            command=self.on_v17_run_10x_dual_theme_loop
+            command=self.on_v19_run_10x_causal_loop
         )
         self.btn_primary_cta.pack(side=tk.RIGHT, padx=(6, 0))
         self.btn_primary_cta._is_primary_cta = True
@@ -454,7 +465,7 @@ class FarmDashboardApp:
         # Instant Light / Dark Theme Switcher Button (Ctrl+T)
         self.btn_theme_toggle = tk.Button(
             right_bar,
-            text="* Light Mode",
+            text="◐ Light Mode",
             font=("Segoe UI", 8, "bold"),
             bg=C_SURFACE0,
             fg=C_YELLOW,
@@ -468,17 +479,22 @@ class FarmDashboardApp:
         self.btn_theme_toggle._is_theme_btn = True
 
         tk.Button(
-            right_bar, text="+ APK", font=("Segoe UI", 8, "bold"), bg=C_SURFACE0, fg=C_TEXT,
+            right_bar, text="Inspector", font=("Segoe UI", 8), bg=C_SURFACE0, fg=C_SUBTEXT,
+            relief="flat", padx=8, pady=4, cursor="hand2", command=self._toggle_right_inspector
+        ).pack(side=tk.RIGHT, padx=2)
+
+        tk.Button(
+            right_bar, text="Install APK", font=("Segoe UI", 8, "bold"), bg=C_SURFACE0, fg=C_TEXT,
             relief="flat", padx=8, pady=4, cursor="hand2", command=self.on_install_apk_all
         ).pack(side=tk.RIGHT, padx=2)
 
         tk.Button(
-            right_bar, text="[] Stop", font=("Segoe UI", 8, "bold"), bg=C_SURFACE0, fg=C_SUBTEXT,
+            right_bar, text="■ Stop", font=("Segoe UI", 8, "bold"), bg=C_SURFACE0, fg=C_SUBTEXT,
             relief="flat", padx=8, pady=4, cursor="hand2", command=self.on_stop_all
         ).pack(side=tk.RIGHT, padx=2)
 
         tk.Button(
-            right_bar, text="> Start AVDs", font=("Segoe UI", 8, "bold"), bg=C_SURFACE0, fg=C_GREEN,
+            right_bar, text="▸ Start AVDs", font=("Segoe UI", 8, "bold"), bg=C_SURFACE0, fg=C_GREEN,
             relief="flat", padx=8, pady=4, cursor="hand2", command=self.on_start_all
         ).pack(side=tk.RIGHT, padx=2)
 
@@ -511,16 +527,16 @@ class FarmDashboardApp:
         lst.pack(fill=tk.BOTH, expand=True, padx=12, pady=10)
 
         items = [
-            ("*/* [Dual-Theme #96] Toggle Light Mode * <-> Dark Mode * (Ctrl+T)", lambda: self.toggle_theme()),
+            ("◐ [Dual-Theme #96] Toggle Light Mode <-> Dark Mode (Ctrl+T)", lambda: self.toggle_theme()),
             ("» [Causal 10x #105] Run 10-Loop Strict Causal Dual-Theme & Layout Evolution", lambda: self.on_v17_run_10x_dual_theme_loop()),
-            ("# [Visual Balance #97] Audit Widget Geometry, Whitespace & Zero Clipping", lambda: self.on_v17_audit_visual_balance()),
-            ("* [Device Drawer #99] Expand / Collapse 4 Hybrid Device Cards Drawer (Ctrl+D)", lambda: self.toggle_device_drawer()),
-            ("* [25-OS Matrix #94] Audit All 25 OS Profiles (Win11, macOS, Linux, iOS, HarmonyOS NEXT, KaiOS, TV)", lambda: self.on_v16_full_25os_matrix_audit()),
-            ("# [Desktop/Apple/Harmony #86-#88] Audit Windows 11, macOS Sequoia, 6 Linux Distros, iOS 18 & HarmonyOS NEXT", lambda: self.on_v16_desktop_ios_harmony_audit()),
-            ("# [Alt-OS & Smart TV #89-#90] Audit GrapheneOS, LineageOS, Ubuntu Touch, Sailfish, KaiOS & webOS/VIDAA", lambda: self.on_v16_alt_os_and_tv_dpad_audit()),
-            ("+ [8-Framework Auto-Fix #92] Synthesize Tauri shadcn/ui, Electron, SwiftUI, ArkTS, Compose & QML Patches", lambda: self.on_v16_safe_area_and_6framework_patches()),
-            ("+ [Anti-Bot v14.0] Switch to 4-Layer Anti-Bot Stealth & Sigma-Lognormal Kinematics", lambda: self._select_workspace_tab(7)),
-            ("* [2FA & CAPTCHA v8.0] Switch to Universal 2FA & 10-Type CAPTCHA CV Lab", lambda: self._select_workspace_tab(2)),
+            ("[Visual Balance #97] Audit Widget Geometry, Whitespace & Zero Clipping", lambda: self.on_v17_audit_visual_balance()),
+            ("[Device Drawer #99] Expand / Collapse 4 Hybrid Device Cards Drawer (Ctrl+D)", lambda: self.toggle_device_drawer()),
+            ("[25-OS Matrix #94] Audit All 25 OS Profiles (Win11, macOS, Linux, iOS, HarmonyOS NEXT, KaiOS, TV)", lambda: self.on_v16_full_25os_matrix_audit()),
+            ("[Desktop/Apple/Harmony #86-#88] Audit Windows 11, macOS Sequoia, 6 Linux Distros, iOS 18 & HarmonyOS NEXT", lambda: self.on_v16_desktop_ios_harmony_audit()),
+            ("[Alt-OS & Smart TV #89-#90] Audit GrapheneOS, LineageOS, Ubuntu Touch, Sailfish, KaiOS & webOS/VIDAA", lambda: self.on_v16_alt_os_and_tv_dpad_audit()),
+            ("[8-Framework Auto-Fix #92] Synthesize Tauri shadcn/ui, Electron, SwiftUI, ArkTS, Compose & QML Patches", lambda: self.on_v16_safe_area_and_6framework_patches()),
+            ("[Anti-Bot v14.0] Switch to 4-Layer Anti-Bot Stealth & Sigma-Lognormal Kinematics", lambda: self._select_workspace_tab(7)),
+            ("[2FA & CAPTCHA v8.0] Switch to Universal 2FA & 10-Type CAPTCHA CV Lab", lambda: self._select_workspace_tab(2)),
         ]
 
         def _populate(filter_txt: str = ""):
@@ -553,7 +569,7 @@ class FarmDashboardApp:
             pass
         pal = DUAL_THEME_PALETTES[getattr(self, "theme_mode", "DARK")]
         workspace_titles = [
-            "01 · 115-Subagent Autonomous Evolution & Kanban Loop",
+            "01 · 125-Subagent Autonomous Evolution & Kanban Loop",
             "02 · Real Phone Farm & Synchronized Group Broadcast",
             "03 · Universal 2FA, 10-Type CAPTCHA CV & Deep Diagnostics",
             "04 · Zero-Token GPU (RTX 3050 PTX), CDP & Macro Replay",
@@ -562,13 +578,13 @@ class FarmDashboardApp:
             "07 · UI/UX 10x Design System, Ctrl+K Palette & Vivo Critic",
             "08 · 4-Layer Anti-Bot Stealth & Sigma-Lognormal Kinematics",
             "09 · 5-Screen Responsive Viewport Matrix & Zero-Human QA",
-            "10 · 25-OS Cross-Platform, 8 UI Presets & Dual-Theme Studio (v18.0)",
+            "10 · 25-OS Cross-Platform, 7-FW Codegen & Dual-Theme Studio (v19.0)",
             "11 · Automated Defect Reports & Visual Evidence Ledger",
             "12 · Codebase Memory, Macros & Self-Healing Git Patches",
         ]
         if hasattr(self, "breadcrumb_title_lbl") and 0 <= tab_idx < len(workspace_titles):
             self.breadcrumb_title_lbl.configure(
-                text=f"* Studio  ›  {workspace_titles[tab_idx]}"
+                text=f"Studio  /  {workspace_titles[tab_idx]}"
             )
         if hasattr(self, "sidebar_tab_buttons"):
             for i, btn in enumerate(self.sidebar_tab_buttons):
@@ -581,10 +597,10 @@ class FarmDashboardApp:
         self.device_drawer_expanded = not getattr(self, "device_drawer_expanded", False)
         if self.device_drawer_expanded:
             self.devices_drawer_frame.pack(fill=tk.X, pady=(0, 8), after=self.compact_device_bar)
-            self.btn_drawer_toggle.configure(text="^ Hide 4 Device Cards")
+            self.btn_drawer_toggle.configure(text="▴ Hide Devices (Ctrl+D)")
         else:
             self.devices_drawer_frame.pack_forget()
-            self.btn_drawer_toggle.configure(text="v Expand 4 Device Cards")
+            self.btn_drawer_toggle.configure(text="▾ 4 Devices (Ctrl+D)")
 
     def _toggle_left_sidebar(self):
         if self.left_sidebar_frame.winfo_ismapped():
@@ -621,13 +637,16 @@ class FarmDashboardApp:
 
         # Update ttk styles
         self.ttk_style.configure(".", background=pal["BG_CANVAS"], foreground=pal["FG_PRIMARY"])
-        self.ttk_style.configure("TNotebook", background=pal["BG_CANVAS"], borderwidth=0)
+        self.ttk_style.configure("TNotebook", background=pal["BG_CANVAS"], borderwidth=0,
+                                 lightcolor=pal["BG_CANVAS"], darkcolor=pal["BG_CANVAS"], bordercolor=pal["BG_CANVAS"])
         self.ttk_style.layout("TNotebook.Tab", [])
         self.ttk_style.configure(
             "Treeview",
             background=pal["BG_PANEL"],
             foreground=pal["FG_PRIMARY"],
             fieldbackground=pal["BG_PANEL"],
+            lightcolor=pal["BORDER"],
+            darkcolor=pal["BORDER"],
             bordercolor=pal["BORDER"],
             rowheight=28,
         )
@@ -691,7 +710,7 @@ class FarmDashboardApp:
                     w.configure(bg=pal["ACCENT_PRIMARY"], fg="#ffffff", activebackground=pal["ACCENT_HOVER"], activeforeground="#ffffff")
                 elif getattr(w, "_is_theme_btn", False):
                     w.configure(
-                        text="* Dark Mode" if self.theme_mode == "LIGHT" else "* Light Mode",
+                        text="◐ Dark Mode" if self.theme_mode == "LIGHT" else "◐ Light Mode",
                         bg=pal["BG_SURFACE"],
                         fg=pal["ACCENT_TEXT"] if self.theme_mode == "LIGHT" else pal["STATUS_WARNING"],
                     )
@@ -717,10 +736,12 @@ class FarmDashboardApp:
                             w.configure(highlightbackground=pal["BORDER"])
                     except Exception:
                         pass
-                    if cls == "Text":
+                    if cls == "Labelframe":
+                        w.configure(bg=pal["BG_PANEL"], fg=pal["FG_SECONDARY"], highlightbackground=pal["BORDER"])
+                    elif cls == "Text":
                         w.configure(bg=pal["BG_CONSOLE"], fg=pal["FG_PRIMARY"], insertbackground=pal["FG_PRIMARY"])
                     elif cls in ("Entry", "Spinbox"):
-                        w.configure(bg=pal["BG_SURFACE"], fg=pal["FG_PRIMARY"], insertbackground=pal["FG_PRIMARY"])
+                        w.configure(bg=pal["BG_SURFACE"], fg=pal["FG_PRIMARY"], insertbackground=pal["FG_PRIMARY"], highlightbackground=pal["BORDER"])
             except Exception:
                 pass
             for child in w.winfo_children():
@@ -739,20 +760,28 @@ class FarmDashboardApp:
                 fg_map[mp["FG_SECONDARY"].lower()] = pal["FG_SECONDARY"]
                 fg_map[mp["FG_MUTED"].lower()] = pal["FG_MUTED"]
                 fg_map[mp["ACCENT_TEXT"].lower()] = pal["ACCENT_TEXT"]
-        self.ttk_style.configure("TCombobox", fieldbackground=pal["BG_SURFACE"], background=pal["BG_PANEL"], foreground=pal["FG_PRIMARY"])
+        self.ttk_style.configure("TCombobox", fieldbackground=pal["BG_SURFACE"], background=pal["BG_SURFACE"],
+                                 foreground=pal["FG_PRIMARY"], arrowcolor=pal["FG_PRIMARY"],
+                                 bordercolor=pal["BORDER"], lightcolor=pal["BORDER"], darkcolor=pal["BORDER"])
+        self.ttk_style.map("TCombobox",
+                           fieldbackground=[("readonly", pal["BG_SURFACE"])],
+                           selectbackground=[("readonly", pal["BG_SURFACE"])],
+                           selectforeground=[("readonly", pal["FG_PRIMARY"])],
+                           foreground=[("readonly", pal["FG_PRIMARY"])],
+                           background=[("readonly", pal["BG_SURFACE"])])
         self.root.configure(bg=pal["BG_CANVAS"])
         _walk_theme(self.root)
         if hasattr(self, "breadcrumb_preset_btn"):
             p_title = TEMPLATE_PRESET_PALETTES[self.active_preset_id]["title"]
             self.breadcrumb_preset_btn.configure(
-                text=f"# Preset: {p_title} (Ctrl+P)",
+                text=f"Preset: {p_title} (Ctrl+P)",
                 bg=pal["BG_SURFACE"],
                 fg=pal["FG_PRIMARY"],
             )
         self._select_workspace_tab(getattr(self, "active_workspace_idx", 9))
         if hasattr(self, "breadcrumb_theme_btn"):
             self.breadcrumb_theme_btn.configure(
-                text="* Switch to Dark Mode (Ctrl+T)" if self.theme_mode == "LIGHT" else "* Switch to Light Mode (Ctrl+T)",
+                text="◐ Dark Mode (Ctrl+T)" if self.theme_mode == "LIGHT" else "◐ Light Mode (Ctrl+T)",
                 bg=pal["BG_SURFACE"],
                 fg=pal["ACCENT_TEXT"],
             )
@@ -769,10 +798,17 @@ class FarmDashboardApp:
         pal = DUAL_THEME_PALETTES[self.theme_mode]
 
         def _fix_widget(w):
+            if getattr(w, "_skip_grid_norm", False):
+                return
             cls = w.winfo_class()
             if cls == "Labelframe":
                 try:
-                    w.configure(relief="solid", bd=1, fg=pal["ACCENT_TEXT"], bg=pal["BG_PANEL"])
+                    w.configure(relief="flat", bd=1, highlightbackground=pal["BORDER"], highlightthickness=1, fg=pal["FG_SECONDARY"], bg=pal["BG_PANEL"], font=("Segoe UI", 8, "bold"), padx=10, pady=8)
+                except Exception:
+                    pass
+            elif cls in ("Entry", "Spinbox"):
+                try:
+                    w.configure(highlightbackground=pal["BORDER"], highlightthickness=1)
                 except Exception:
                     pass
             elif cls == "Label":
@@ -864,53 +900,8 @@ class FarmDashboardApp:
         self.shell_body = tk.Frame(self.root, bg=C_BASE)
         self.shell_body.pack(fill=tk.BOTH, expand=True)
 
-        # =====================================================================
-        # ZONE 1: 48px Left Activity Rail
-        # =====================================================================
-        self.activity_rail = tk.Frame(self.shell_body, bg=C_CRUST, width=48, highlightbackground=C_SURFACE1, highlightthickness=1)
-        self.activity_rail.pack(side=tk.LEFT, fill=tk.Y)
-        self.activity_rail.pack_propagate(False)
-
-        rail_actions = [
-            ("*", 9, True),
-            ("*", 1, False),
-            ("*", 2, False),
-            ("+", 7, False),
-            ("+", 6, False),
-            ("*", -2, False),
-            ("Ctrl+", -1, False),
-        ]
-        for icon_txt, target_tab, is_prim in rail_actions:
-            if target_tab == -1:
-                cmd = self.open_cmd_k_modal
-            elif target_tab == -2:
-                cmd = self.toggle_theme
-            else:
-                cmd = lambda idx=target_tab: self._select_workspace_tab(idx)
-            b_rail = tk.Button(
-                self.activity_rail,
-                text=icon_txt,
-                font=("Segoe UI", 11, "bold"),
-                bg=C_PRIMARY if is_prim else C_SURFACE0,
-                fg="#ffffff" if is_prim else C_TEXT,
-                relief="flat",
-                width=3,
-                pady=5,
-                cursor="hand2",
-                command=cmd
-            )
-            if is_prim:
-                b_rail._is_primary_cta = True
-            b_rail.pack(pady=(8, 2), padx=5)
-
-        tk.Button(
-            self.activity_rail, text="◨", font=("Segoe UI", 10), bg=C_SURFACE0, fg=C_SUBTEXT,
-            relief="flat", width=3, pady=4, cursor="hand2", command=self._toggle_right_inspector
-        ).pack(side=tk.BOTTOM, pady=8, padx=5)
-        tk.Button(
-            self.activity_rail, text="◧", font=("Segoe UI", 10), bg=C_SURFACE0, fg=C_SUBTEXT,
-            relief="flat", width=3, pady=4, cursor="hand2", command=self._toggle_left_sidebar
-        ).pack(side=tk.BOTTOM, pady=2, padx=5)
+        # Clean 2-Zone/3-Zone Linear & shadcn Studio Shell (No redundant 48px broken-icon rail)
+        self.activity_rail = None
 
         # =====================================================================
         # ZONE 2: 206px Collapsible Left Sidebar Tree (Hardware + 12 Workspaces)
@@ -925,9 +916,9 @@ class FarmDashboardApp:
         ).pack(anchor="w", pady=(0, 4))
 
         hw_items = [
-            ("* Vivo V2417A (OriginOS 5)", C_GREEN, "#1e1b4b"),
-            ("* Pixel_Farm_1 (port 5554)", C_GREEN, "#121217"),
-            ("* Pixel_Farm_2 (port 5556)", C_GREEN, "#121217"),
+            ("● Vivo V2417A (OriginOS 5)", C_GREEN, "#1e1b4b"),
+            ("● Pixel_Farm_1 (port 5554)", C_GREEN, "#121217"),
+            ("● Pixel_Farm_2 (port 5556)", C_GREEN, "#121217"),
             ("○ Pixel_Farm_3 (port 5558)", C_SUBTEXT, "#121217"),
             ("○ Pixel_Farm_4 (port 5560)", C_SUBTEXT, "#121217"),
         ]
@@ -942,7 +933,7 @@ class FarmDashboardApp:
         ).pack(anchor="w", pady=(10, 4))
 
         workspace_labels = [
-            "01 · 105-Subagent Evolution",
+            "01 · 125-Subagent Evolution",
             "02 · Real Phone Farm & Sync",
             "03 · 2FA & CAPTCHA CV Lab",
             "04 · Zero-Token GPU RTX 3050",
@@ -979,8 +970,8 @@ class FarmDashboardApp:
         # =====================================================================
         # ZONE 4: 236px Collapsible Right Inspector & Dual-Theme Handoff
         # =====================================================================
-        self.right_inspector_frame = tk.Frame(self.shell_body, bg=C_MANTLE, width=236, padx=8, pady=8, highlightbackground=C_SURFACE1, highlightthickness=1)
-        self.right_inspector_frame.pack(side=tk.RIGHT, fill=tk.Y)
+        self.right_inspector_frame = tk.Frame(self.shell_body, bg=C_MANTLE, width=228, padx=8, pady=8, highlightbackground=C_SURFACE1, highlightthickness=1)
+        # Collapsed by default per Linear / Raycast Progressive Disclosure (toggle via Ctrl+I or Header Inspector button)
         self.right_inspector_frame.pack_propagate(False)
 
         tk.Label(
@@ -989,7 +980,7 @@ class FarmDashboardApp:
         ).pack(anchor="w", pady=(0, 6))
 
         inspector_cards = [
-            ("Dual-Theme * Light / * Dark", "shadcn/ui + Linear + Geist", "WCAG AAA 17.8:1 & 18.4:1 · Ctrl+T", C_YELLOW),
+            ("Dual-Theme Light & Dark", "shadcn/ui + Linear + Geist", "WCAG AAA 17.8:1 & 18.4:1 · Ctrl+T", C_YELLOW),
             ("Visual Balance Score (#97)", "PASS · 99.7 / 100 (Zero Clutter)", "Tabless Stage · 2x3 Button Grids", C_GREEN),
             ("DrawSI MCP Live Sync (#102)", "doc_e9a81544b1204971b294", "Light & Dark Artboards Synced", C_BLUE),
             ("OpenCode Browser Control", "ws://127.0.0.1:18760 · Active", "Chrome Live DOM & Screenshot OK", C_TEAL),
@@ -1016,10 +1007,10 @@ class FarmDashboardApp:
             kpi_row.columnconfigure(i, weight=1, uniform="kpi_col")
 
         kpis = [
-            ("AUTONOMOUS SUBAGENTS", "115 Specialists", "▲ +10 in v18.0 · 12-Tab Harmony", C_BLUE),
-            ("ON-DEMAND MCP BRIDGE", "65 MCP Tools", "▲ SSIM Diff & Trace Replay", C_GREEN),
+            ("AUTONOMOUS SUBAGENTS", "125 Specialists", "▲ +10 in v19.0 · 7-FW Codegen", C_BLUE),
+            ("ON-DEMAND MCP BRIDGE", "70 MCP Tools", "▲ APK MASVS · HAR · CI/CD", C_GREEN),
             ("DESIGN PRESETS & OS", "8 Presets · 25 OS", "▲ shadcn · Linear · Stripe · Geist", C_TEAL),
-            ("VISUAL BALANCE & SSIM", "99.9 / 100 PASS", "▲ * Light & * Dark (SSIM 0.9996)", C_YELLOW),
+            ("VISUAL BALANCE & SSIM", "99.9 / 100 PASS", "▲ Light & Dark Mode (SSIM 0.9996)", C_YELLOW),
         ]
         for idx, (k_lbl, k_val, k_delta, k_col) in enumerate(kpis):
             kcard = tk.Frame(kpi_row, bg="#121217", padx=12, pady=7, highlightbackground=C_SURFACE1, highlightthickness=1)
@@ -1036,7 +1027,7 @@ class FarmDashboardApp:
 
         tk.Label(
             self.compact_device_bar,
-            text="* Hybrid Farm:   * Vivo V2417A (10CF5L0TYL00312 · OriginOS 5)   |   * Pixel_Farm_1 (ONLINE)   |   * Pixel_Farm_2 (ONLINE)   |   ○ Pixel_3..4 (IDLE)",
+            text="Hybrid Farm:   ● Vivo V2417A (10CF5L0TYL00312 · OriginOS 5)   ·   ● Pixel_Farm_1 (ONLINE)   ·   ● Pixel_Farm_2 (ONLINE)   ·   ○ Pixel_3..4 (IDLE)",
             font=("Segoe UI", 8, "bold"),
             fg=C_GREEN,
             bg="#121217",
@@ -1044,7 +1035,7 @@ class FarmDashboardApp:
 
         self.btn_drawer_toggle = tk.Button(
             self.compact_device_bar,
-            text="v Expand 4 Device Cards",
+            text="▾ 4 Devices (Ctrl+D)",
             font=("Segoe UI", 8, "bold"),
             bg=C_SURFACE0,
             fg=C_TEXT,
@@ -1075,30 +1066,16 @@ class FarmDashboardApp:
 
         self.breadcrumb_title_lbl = tk.Label(
             self.workspace_breadcrumb_bar,
-            text="* Studio  ›  10 · 25-OS Cross-Platform, 8 UI Presets & Dual-Theme Studio (v18.0)",
+            text="Studio  /  10 · 25-OS Cross-Platform, 7-FW Codegen & Dual-Theme Studio",
             font=("Segoe UI", 10, "bold"),
             fg=C_TEXT,
             bg="#121217",
         )
         self.breadcrumb_title_lbl.pack(side=tk.LEFT)
 
-        self.breadcrumb_theme_btn = tk.Button(
-            self.workspace_breadcrumb_bar,
-            text="* Switch to Light Mode (Ctrl+T)",
-            font=("Segoe UI", 8, "bold"),
-            bg=C_SURFACE0,
-            fg=C_BLUE,
-            relief="flat",
-            padx=10,
-            pady=3,
-            cursor="hand2",
-            command=self.toggle_theme,
-        )
-        self.breadcrumb_theme_btn.pack(side=tk.RIGHT, padx=4)
-
         self.breadcrumb_preset_btn = tk.Button(
             self.workspace_breadcrumb_bar,
-            text="# Preset: shadcn/ui Zinc & Daylight (Ctrl+P)",
+            text="Preset: shadcn/ui Zinc & Daylight (Ctrl+P)",
             font=("Segoe UI", 8, "bold"),
             bg=C_SURFACE0,
             fg=C_TEXT,
@@ -1213,12 +1190,12 @@ class FarmDashboardApp:
         btn_row1 = tk.Frame(card, bg=C_MANTLE)
         btn_row1.pack(fill=tk.X, pady=(4, 2))
 
-        btn_toggle = tk.Button(btn_row1, text="> Start", font=("Segoe UI", 8, "bold"), bg=C_PRIMARY, fg="#ffffff",
+        btn_toggle = tk.Button(btn_row1, text="▸ Start", font=("Segoe UI", 8, "bold"), bg=C_PRIMARY, fg="#ffffff",
                                relief="flat", cursor="hand2", command=lambda s=serial, d=dev: self.on_toggle_device(s, d))
         btn_toggle._is_primary_cta = True
         btn_toggle.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 2))
 
-        btn_view = tk.Button(btn_row1, text="* View", font=("Segoe UI", 8, "bold"), bg=C_SURFACE0, fg=C_TEXT,
+        btn_view = tk.Button(btn_row1, text="View", font=("Segoe UI", 8, "bold"), bg=C_SURFACE0, fg=C_TEXT,
                              relief="flat", cursor="hand2", command=lambda s=serial: self.on_view_screen(s))
         btn_view.pack(side=tk.RIGHT, fill=tk.X, expand=True, padx=(2, 0))
 
@@ -1228,13 +1205,13 @@ class FarmDashboardApp:
         hw_grid.columnconfigure(0, weight=1, uniform="hw_c")
         hw_grid.columnconfigure(1, weight=1, uniform="hw_c")
 
-        tk.Button(hw_grid, text="+ Finger", font=("Segoe UI", 8), bg=C_SURFACE0, fg=C_TEXT,
+        tk.Button(hw_grid, text="Touch ID", font=("Segoe UI", 8), bg=C_SURFACE0, fg=C_TEXT,
                   relief="flat", cursor="hand2", command=lambda s=serial: self.on_trigger_fingerprint(s)).grid(row=0, column=0, sticky="ew", padx=1, pady=1)
-        tk.Button(hw_grid, text="* OTP", font=("Segoe UI", 8), bg=C_SURFACE0, fg=C_TEXT,
+        tk.Button(hw_grid, text="SMS OTP", font=("Segoe UI", 8), bg=C_SURFACE0, fg=C_TEXT,
                   relief="flat", cursor="hand2", command=lambda s=serial: self.on_popup_sms_otp(s)).grid(row=0, column=1, sticky="ew", padx=1, pady=1)
-        tk.Button(hw_grid, text="* GPS", font=("Segoe UI", 8), bg=C_SURFACE0, fg=C_TEXT,
+        tk.Button(hw_grid, text="GPS", font=("Segoe UI", 8), bg=C_SURFACE0, fg=C_TEXT,
                   relief="flat", cursor="hand2", command=lambda s=serial: self.on_popup_gps(s)).grid(row=1, column=0, sticky="ew", padx=1, pady=1)
-        tk.Button(hw_grid, text="⚡ Debloat", font=("Segoe UI", 8), bg=C_SURFACE0, fg=C_TEXT,
+        tk.Button(hw_grid, text="Debloat", font=("Segoe UI", 8), bg=C_SURFACE0, fg=C_TEXT,
                   relief="flat", cursor="hand2", command=lambda s=serial: self.on_optimize_device(s)).grid(row=1, column=1, sticky="ew", padx=1, pady=1)
 
         self.device_cards[serial] = {
@@ -1262,11 +1239,11 @@ class FarmDashboardApp:
         self.steps_spin.insert(0, "15")
         self.steps_spin.pack(side=tk.LEFT, padx=(0, 10))
 
-        btn_run_parallel = tk.Button(ctl, text="> Parallel Test", font=("Segoe UI", 9, "bold"), bg=C_MAUVE, fg=C_CRUST,
+        btn_run_parallel = tk.Button(ctl, text="Parallel Test", font=("Segoe UI", 9, "bold"), bg=C_MAUVE, fg=C_CRUST,
                                      relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_run_parallel_test)
         btn_run_parallel.pack(side=tk.LEFT, padx=3)
 
-        btn_stop_agents = tk.Button(ctl, text="[] Abort", font=("Segoe UI", 9, "bold"), bg=C_RED, fg=C_CRUST,
+        btn_stop_agents = tk.Button(ctl, text="■ Abort", font=("Segoe UI", 9, "bold"), bg=C_RED, fg=C_CRUST,
                                     relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_abort_agents)
         btn_stop_agents.pack(side=tk.LEFT, padx=3)
 
@@ -1283,19 +1260,19 @@ class FarmDashboardApp:
         self.device_combo.current(0)
         self.device_combo.pack(side=tk.LEFT, padx=(0, 8))
 
-        btn_run_loop = tk.Button(ctl2, text="* 4-Subagent Loop", font=("Segoe UI", 9, "bold"), bg=C_GREEN, fg=C_CRUST,
+        btn_run_loop = tk.Button(ctl2, text="4-Subagent Loop", font=("Segoe UI", 9, "bold"), bg=C_GREEN, fg=C_CRUST,
                                  relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_run_closed_loop)
         btn_run_loop.pack(side=tk.LEFT, padx=2)
 
-        btn_matrix = tk.Button(ctl2, text="⚡ 4-Device Matrix", font=("Segoe UI", 9, "bold"), bg=C_PEACH, fg=C_CRUST,
+        btn_matrix = tk.Button(ctl2, text="▸ 4-Device Matrix", font=("Segoe UI", 9, "bold"), bg=C_PEACH, fg=C_CRUST,
                                relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_run_matrix)
         btn_matrix.pack(side=tk.LEFT, padx=2)
 
-        btn_pipeline = tk.Button(ctl2, text="> Agile Kanban Pipeline", font=("Segoe UI", 9, "bold"), bg=C_MAUVE, fg=C_CRUST,
+        btn_pipeline = tk.Button(ctl2, text="Agile Kanban Pipeline", font=("Segoe UI", 9, "bold"), bg=C_MAUVE, fg=C_CRUST,
                                  relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_run_pipeline)
         btn_pipeline.pack(side=tk.LEFT, padx=2)
 
-        btn_evo = tk.Button(ctl2, text="+ Run 55-Subagent 10x Evolution (v12.0)", font=("Segoe UI", 9, "bold"), bg=C_TEAL, fg=C_CRUST,
+        btn_evo = tk.Button(ctl2, text="Run 55-Subagent 10x Evolution (v12.0)", font=("Segoe UI", 9, "bold"), bg=C_TEAL, fg=C_CRUST,
                             relief="flat", padx=12, pady=3, cursor="hand2", command=self.on_run_self_evolution)
         btn_evo.pack(side=tk.LEFT, padx=3)
 
@@ -1318,73 +1295,82 @@ class FarmDashboardApp:
         self.log_agent_msg("AMAF 7.0", "30-Subagent Orchestrator & 40-Tool MCP Server Ready (Universal 2FA + Web/Rotation/Grid CAPTCHA CV + WCAG + Crash/ANR).", "success")
 
     def _build_real_farm_tab(self):
-        bar1 = tk.Frame(self.tab_real_farm, bg=C_BASE)
-        bar1.pack(fill=tk.X, pady=(0, 8))
+        # Toolbar 1: Sleek 1-Line Hardware Discovery & Wireless ADB Bar (shadcn/ui & Linear Toolbar Pattern)
+        bar1 = tk.Frame(self.tab_real_farm, bg=C_MANTLE, padx=10, pady=6, highlightbackground=C_SURFACE1, highlightthickness=1)
+        bar1._skip_grid_norm = True
+        bar1.pack(fill=tk.X, pady=(0, 6))
 
-        tk.Label(bar1, text="Farm Mode:", font=("Segoe UI", 9, "bold"), fg=C_BLUE, bg=C_BASE).pack(side=tk.LEFT, padx=(0, 4))
-        self.farm_mode_combo = ttk.Combobox(bar1, values=["HYBRID", "AVD_ONLY", "REAL_ONLY"], width=12, state="readonly")
+        tk.Label(bar1, text="FARM MODE", font=("Segoe UI", 8, "bold"), fg=C_SUBTEXT, bg=C_MANTLE).pack(side=tk.LEFT, padx=(0, 6))
+        self.farm_mode_combo = ttk.Combobox(bar1, values=["HYBRID", "AVD_ONLY", "REAL_ONLY"], width=10, state="readonly")
         self.farm_mode_combo.set(self.real_mgr.get_farm_mode().get("farm_mode", "HYBRID"))
-        self.farm_mode_combo.pack(side=tk.LEFT, padx=(0, 6))
+        self.farm_mode_combo.pack(side=tk.LEFT, padx=(0, 8))
         self.farm_mode_combo.bind("<<ComboboxSelected>>", self.on_change_farm_mode)
 
-        btn_scan_real = tk.Button(bar1, text="» Scan Real Phones & Thermal Guard", font=("Segoe UI", 9, "bold"),
-                                  bg=C_GREEN, fg=C_CRUST, relief="flat", padx=10, pady=3, cursor="hand2", command=self.refresh_real_devices_tab)
-        btn_scan_real.pack(side=tk.LEFT, padx=4)
+        btn_scan_real = tk.Button(bar1, text="▸ Scan Devices", font=("Segoe UI", 9, "bold"),
+                                  bg=C_PRIMARY, fg="#ffffff", relief="flat", padx=10, pady=3, cursor="hand2", command=self.refresh_real_devices_tab)
+        btn_scan_real._is_primary_cta = True
+        btn_scan_real.pack(side=tk.LEFT, padx=3)
 
-        btn_vivo_guard = tk.Button(bar1, text="+ Dismiss Vivo/OriginOS USB Popup", font=("Segoe UI", 9, "bold"),
-                                   bg=C_YELLOW, fg=C_CRUST, relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_dismiss_oem_popup)
-        btn_vivo_guard.pack(side=tk.LEFT, padx=4)
+        btn_vivo_guard = tk.Button(bar1, text="Vivo USB Guard", font=("Segoe UI", 9),
+                                   bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_dismiss_oem_popup)
+        btn_vivo_guard.pack(side=tk.LEFT, padx=3)
 
-        tk.Label(bar1, text="Wireless IP:Port:", font=("Segoe UI", 9, "bold"), fg=C_TEXT, bg=C_BASE).pack(side=tk.LEFT, padx=(10, 4))
-        self.wireless_ip_entry = tk.Entry(bar1, font=("Segoe UI", 9), bg=C_MANTLE, fg=C_TEXT, insertbackground=C_TEXT, relief="flat", width=16)
+        btn_wall = tk.Button(bar1, text="Multi-Screen Wall", font=("Segoe UI", 9),
+                             bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_open_scrcpy_wall)
+        btn_wall.pack(side=tk.LEFT, padx=3)
+
+        btn_usb2wifi = tk.Button(bar1, text="USB → Wi-Fi", font=("Segoe UI", 9),
+                                 bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=9, pady=3, cursor="hand2", command=self.on_usb_to_wireless)
+        btn_usb2wifi.pack(side=tk.RIGHT, padx=(3, 0))
+
+        btn_wifi_conn = tk.Button(bar1, text="Connect", font=("Segoe UI", 9, "bold"),
+                                  bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=9, pady=3, cursor="hand2", command=self.on_connect_wireless_adb)
+        btn_wifi_conn.pack(side=tk.RIGHT, padx=3)
+
+        self.wireless_ip_entry = tk.Entry(bar1, font=("Segoe UI", 9), bg=C_SURFACE0, fg=C_TEXT, insertbackground=C_TEXT,
+                                          relief="flat", width=16, highlightbackground=C_SURFACE1, highlightthickness=1)
         self.wireless_ip_entry.insert(0, "192.168.1.50:5555")
-        self.wireless_ip_entry.pack(side=tk.LEFT, padx=(0, 4))
+        self.wireless_ip_entry.pack(side=tk.RIGHT, padx=4)
+        tk.Label(bar1, text="Wi-Fi ADB:", font=("Segoe UI", 8, "bold"), fg=C_SUBTEXT, bg=C_MANTLE).pack(side=tk.RIGHT, padx=(8, 2))
 
-        btn_wifi_conn = tk.Button(bar1, text="* Connect Wi-Fi", font=("Segoe UI", 9, "bold"),
-                                  bg=C_BLUE, fg=C_CRUST, relief="flat", padx=8, pady=3, cursor="hand2", command=self.on_connect_wireless_adb)
-        btn_wifi_conn.pack(side=tk.LEFT, padx=2)
-
-        btn_usb2wifi = tk.Button(bar1, text="*➔* USB to Wi-Fi", font=("Segoe UI", 9, "bold"),
-                                 bg=C_MAUVE, fg=C_CRUST, relief="flat", padx=8, pady=3, cursor="hand2", command=self.on_usb_to_wireless)
-        btn_usb2wifi.pack(side=tk.LEFT, padx=2)
-
-        btn_wall = tk.Button(bar1, text="* Open Multi-Scrcpy Wall", font=("Segoe UI", 9, "bold"),
-                             bg=C_PEACH, fg=C_CRUST, relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_open_scrcpy_wall)
-        btn_wall.pack(side=tk.RIGHT, padx=3)
-
-        bar2 = tk.LabelFrame(self.tab_real_farm, text=" ⚡ Group Control Synchronized Broadcast (Normalized Cross-Resolution) ",
-                             font=("Segoe UI", 9, "bold"), fg=C_TEAL, bg=C_BASE, padx=8, pady=6)
+        # Toolbar 2: Sleek 1-Line Synchronized Group Broadcast Bar (Zero 3D LabelFrame clutter)
+        bar2 = tk.Frame(self.tab_real_farm, bg=C_MANTLE, padx=10, pady=6, highlightbackground=C_SURFACE1, highlightthickness=1)
+        bar2._skip_grid_norm = True
         bar2.pack(fill=tk.X, pady=(0, 8))
 
-        tk.Label(bar2, text="Target Group:", font=("Segoe UI", 9), fg=C_TEXT, bg=C_BASE).pack(side=tk.LEFT, padx=(0, 4))
+        tk.Label(bar2, text="GROUP SYNC", font=("Segoe UI", 8, "bold"), fg=C_BLUE, bg=C_MANTLE).pack(side=tk.LEFT, padx=(0, 6))
         self.bcast_group_combo = ttk.Combobox(bar2, values=["ALL", "REAL_ONLY", "AVD_ONLY"], width=10, state="readonly")
         self.bcast_group_combo.current(0)
         self.bcast_group_combo.pack(side=tk.LEFT, padx=(0, 8))
 
-        tk.Label(bar2, text="Norm/Ref X,Y:", font=("Segoe UI", 9), fg=C_TEXT, bg=C_BASE).pack(side=tk.LEFT, padx=(0, 4))
-        self.bcast_xy_entry = tk.Entry(bar2, font=("Segoe UI", 9), bg=C_MANTLE, fg=C_TEXT, relief="flat", width=10)
+        tk.Label(bar2, text="X,Y:", font=("Segoe UI", 8, "bold"), fg=C_SUBTEXT, bg=C_MANTLE).pack(side=tk.LEFT, padx=(2, 4))
+        self.bcast_xy_entry = tk.Entry(bar2, font=("Segoe UI", 9), bg=C_SURFACE0, fg=C_TEXT, relief="flat", width=8,
+                                       highlightbackground=C_SURFACE1, highlightthickness=1)
         self.bcast_xy_entry.insert(0, "0.5,0.5")
-        self.bcast_xy_entry.pack(side=tk.LEFT, padx=(0, 4))
+        self.bcast_xy_entry.pack(side=tk.LEFT, padx=(0, 6))
 
-        tk.Button(bar2, text="* Sync Tap", font=("Segoe UI", 9, "bold"), bg=C_BLUE, fg=C_CRUST, relief="flat",
-                  padx=8, cursor="hand2", command=self.on_broadcast_tap).pack(side=tk.LEFT, padx=3)
+        btn_sync_tap = tk.Button(bar2, text="▸ Sync Tap", font=("Segoe UI", 9, "bold"), bg=C_PRIMARY, fg="#ffffff", relief="flat",
+                                 padx=9, pady=3, cursor="hand2", command=self.on_broadcast_tap)
+        btn_sync_tap._is_primary_cta = True
+        btn_sync_tap.pack(side=tk.LEFT, padx=2)
 
-        tk.Button(bar2, text="* Sync HOME", font=("Segoe UI", 9), bg=C_SURFACE0, fg=C_TEXT, relief="flat",
-                  padx=8, cursor="hand2", command=lambda: self.on_broadcast_key("HOME")).pack(side=tk.LEFT, padx=2)
+        tk.Button(bar2, text="Home", font=("Segoe UI", 9), bg=C_SURFACE0, fg=C_TEXT, relief="flat",
+                  padx=8, pady=3, cursor="hand2", command=lambda: self.on_broadcast_key("HOME")).pack(side=tk.LEFT, padx=2)
 
-        tk.Button(bar2, text="* Sync BACK", font=("Segoe UI", 9), bg=C_SURFACE0, fg=C_TEXT, relief="flat",
-                  padx=8, cursor="hand2", command=lambda: self.on_broadcast_key("BACK")).pack(side=tk.LEFT, padx=2)
+        tk.Button(bar2, text="Back", font=("Segoe UI", 9), bg=C_SURFACE0, fg=C_TEXT, relief="flat",
+                  padx=8, pady=3, cursor="hand2", command=lambda: self.on_broadcast_key("BACK")).pack(side=tk.LEFT, padx=2)
 
-        tk.Label(bar2, text="Text/App:", font=("Segoe UI", 9), fg=C_TEXT, bg=C_BASE).pack(side=tk.LEFT, padx=(8, 4))
-        self.bcast_text_entry = tk.Entry(bar2, font=("Segoe UI", 9), bg=C_MANTLE, fg=C_TEXT, relief="flat", width=20)
+        tk.Button(bar2, text="Launch App", font=("Segoe UI", 9), bg=C_SURFACE0, fg=C_TEXT, relief="flat",
+                  padx=9, pady=3, cursor="hand2", command=self.on_broadcast_launch).pack(side=tk.RIGHT, padx=(2, 0))
+
+        tk.Button(bar2, text="Send Text", font=("Segoe UI", 9), bg=C_SURFACE0, fg=C_TEXT, relief="flat",
+                  padx=9, pady=3, cursor="hand2", command=self.on_broadcast_text).pack(side=tk.RIGHT, padx=2)
+
+        self.bcast_text_entry = tk.Entry(bar2, font=("Segoe UI", 9), bg=C_SURFACE0, fg=C_TEXT, relief="flat", width=20,
+                                         highlightbackground=C_SURFACE1, highlightthickness=1)
         self.bcast_text_entry.insert(0, "com.android.settings")
-        self.bcast_text_entry.pack(side=tk.LEFT, padx=(0, 4))
-
-        tk.Button(bar2, text="⌨ Sync Type", font=("Segoe UI", 9, "bold"), bg=C_GREEN, fg=C_CRUST, relief="flat",
-                  padx=8, cursor="hand2", command=self.on_broadcast_text).pack(side=tk.LEFT, padx=2)
-
-        tk.Button(bar2, text="> Sync Launch App", font=("Segoe UI", 9, "bold"), bg=C_MAUVE, fg=C_CRUST, relief="flat",
-                  padx=8, cursor="hand2", command=self.on_broadcast_launch).pack(side=tk.LEFT, padx=2)
+        self.bcast_text_entry.pack(side=tk.RIGHT, padx=4)
+        tk.Label(bar2, text="Package / Text:", font=("Segoe UI", 8, "bold"), fg=C_SUBTEXT, bg=C_MANTLE).pack(side=tk.RIGHT, padx=(8, 2))
 
         cols = ("serial", "name", "conn_type", "android", "resolution", "battery", "temp_c", "wifi_ip", "status")
         self.real_tree = ttk.Treeview(self.tab_real_farm, columns=cols, show="headings", selectmode="browse")
@@ -1423,19 +1409,19 @@ class FarmDashboardApp:
         self.v7_secret_entry.insert(0, "JBSWY3DPEHPK3PXP")
         self.v7_secret_entry.pack(side=tk.LEFT, padx=(0, 8))
 
-        tk.Button(top_sel, text="+ Generate TOTP", font=("Segoe UI", 9, "bold"), bg=C_GREEN, fg=C_CRUST,
+        tk.Button(top_sel, text="Generate TOTP", font=("Segoe UI", 9, "bold"), bg=C_GREEN, fg=C_CRUST,
                   relief="flat", padx=8, cursor="hand2", command=self.on_v7_generate_totp).pack(side=tk.LEFT, padx=3)
 
-        tk.Button(top_sel, text="* Auto-Solve 2FA (7 Modes)", font=("Segoe UI", 9, "bold"), bg=C_TEAL, fg=C_CRUST,
+        tk.Button(top_sel, text="Auto-Solve 2FA (7 Modes)", font=("Segoe UI", 9, "bold"), bg=C_TEAL, fg=C_CRUST,
                   relief="flat", padx=10, cursor="hand2", command=self.on_v7_solve_2fa).pack(side=tk.LEFT, padx=3)
 
-        tk.Button(top_sel, text="* Capture SoM Screenshot", font=("Segoe UI", 9, "bold"), bg=C_PEACH, fg=C_CRUST,
+        tk.Button(top_sel, text="Capture SoM Screenshot", font=("Segoe UI", 9, "bold"), bg=C_PEACH, fg=C_CRUST,
                   relief="flat", padx=10, cursor="hand2", command=self.on_v7_capture_som).pack(side=tk.LEFT, padx=3)
 
         # Row 2: Universal Complex CAPTCHA, Rotation, Grid & Web Browser CAPTCHA
         cap_bar = tk.LabelFrame(
             self.tab_v7_lab,
-            text=" + Universal 10-Type CAPTCHA CV · Rotation Ring · 3x3/4x4 Grid · Web Solver ",
+            text=" Universal 10-Type CAPTCHA CV · Rotation Ring · 3x3/4x4 Grid · Web Solver ",
             font=("Segoe UI", 9, "bold"),
             fg=C_MAUVE,
             bg=C_BASE,
@@ -1444,13 +1430,13 @@ class FarmDashboardApp:
         )
         cap_bar.pack(fill=tk.X, pady=(0, 6))
 
-        tk.Button(cap_bar, text="+ Solve Any CAPTCHA", font=("Segoe UI", 9, "bold"), bg=C_MAUVE, fg=C_CRUST,
+        tk.Button(cap_bar, text="Solve Any CAPTCHA", font=("Segoe UI", 9, "bold"), bg=C_MAUVE, fg=C_CRUST,
                   relief="flat", padx=8, cursor="hand2", command=self.on_v7_solve_any_captcha).pack(side=tk.LEFT, padx=3)
 
-        tk.Button(cap_bar, text="» Rotation Ring", font=("Segoe UI", 9, "bold"), bg=C_BLUE, fg=C_CRUST,
+        tk.Button(cap_bar, text="Rotation Ring", font=("Segoe UI", 9, "bold"), bg=C_BLUE, fg=C_CRUST,
                   relief="flat", padx=8, cursor="hand2", command=self.on_v7_solve_rotation).pack(side=tk.LEFT, padx=3)
 
-        tk.Button(cap_bar, text="# 3x3/4x4 Grid", font=("Segoe UI", 9, "bold"), bg=C_GREEN, fg=C_CRUST,
+        tk.Button(cap_bar, text="3x3/4x4 Grid", font=("Segoe UI", 9, "bold"), bg=C_GREEN, fg=C_CRUST,
                   relief="flat", padx=8, cursor="hand2", command=self.on_v7_solve_grid).pack(side=tk.LEFT, padx=3)
 
         tk.Label(cap_bar, text="Web URL:", font=("Segoe UI", 9), fg=C_TEXT, bg=C_BASE).pack(side=tk.LEFT, padx=(8, 4))
@@ -1458,32 +1444,32 @@ class FarmDashboardApp:
         self.v7_url_entry.insert(0, "https://example.com")
         self.v7_url_entry.pack(side=tk.LEFT, padx=(0, 4))
 
-        tk.Button(cap_bar, text="* Open Web & Solve", font=("Segoe UI", 9, "bold"), bg=C_YELLOW, fg=C_CRUST,
+        tk.Button(cap_bar, text="Open Web & Solve", font=("Segoe UI", 9, "bold"), bg=C_YELLOW, fg=C_CRUST,
                   relief="flat", padx=8, cursor="hand2", command=self.on_v7_solve_web_captcha).pack(side=tk.LEFT, padx=3)
 
         # Row 3: Deep Diagnostics (#25, #28, #29, #30)
         diag_bar = tk.Frame(self.tab_v7_lab, bg=C_BASE)
         diag_bar.pack(fill=tk.X, pady=(0, 6))
 
-        tk.Button(diag_bar, text="+ Audit WCAG 2.1 Contrast & TalkBack (#28)", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_TEAL,
+        tk.Button(diag_bar, text="Audit WCAG 2.1 Contrast & TalkBack (#28)", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_TEAL,
                   relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_v7_audit_wcag).pack(side=tk.LEFT, padx=3)
 
-        tk.Button(diag_bar, text="* Analyze Crash / Tombstone / ANR (#29)", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_RED,
+        tk.Button(diag_bar, text="Analyze Crash / Tombstone / ANR (#29)", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_RED,
                   relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_v7_analyze_crash).pack(side=tk.LEFT, padx=3)
 
-        tk.Button(diag_bar, text="* Audit Network RX/TX & API Latency (#30)", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_BLUE,
+        tk.Button(diag_bar, text="Audit Network RX/TX & API Latency (#30)", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_BLUE,
                   relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_v7_audit_net_api).pack(side=tk.LEFT, padx=3)
 
-        tk.Button(diag_bar, text="> Profile FPS Jank & Memory Leak (#25)", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_GREEN,
+        tk.Button(diag_bar, text="Profile FPS Jank & Memory Leak (#25)", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_GREEN,
                   relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_v7_profile_perf).pack(side=tk.LEFT, padx=3)
 
-        tk.Button(diag_bar, text="* Audit Human UX & Logic", font=("Segoe UI", 9, "bold"), bg=C_PEACH, fg=C_CRUST,
+        tk.Button(diag_bar, text="Audit Human UX & Logic", font=("Segoe UI", 9, "bold"), bg=C_PEACH, fg=C_CRUST,
                   relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_v8_audit_human_ux).pack(side=tk.LEFT, padx=3)
 
         # Row 4: AMAF 8.0 Real-Device Live Web Testbench, Vivo OriginOS 6, Audio/Behavior CAPTCHA, SSO & 8-Stage E2E (#31-#35)
         v8_bar = tk.LabelFrame(
             self.tab_v7_lab,
-            text=" > AMAF 8.0 Real-Device Live Web Testbench (#31), Vivo OriginOS 6 (#32), Audio/Behavior (#33), SSO (#34) & E2E Benchmark (#35) ",
+            text=" AMAF 8.0 Real-Device Live Web Testbench (#31), Vivo OriginOS 6 (#32), Audio/Behavior (#33), SSO (#34) & E2E Benchmark (#35) ",
             font=("Segoe UI", 9, "bold"),
             fg=C_GREEN,
             bg=C_BASE,
@@ -1492,19 +1478,19 @@ class FarmDashboardApp:
         )
         v8_bar.pack(fill=tk.X, pady=(0, 6))
 
-        tk.Button(v8_bar, text="* Live Web Testbench E2E (#31)", font=("Segoe UI", 9, "bold"), bg=C_GREEN, fg=C_CRUST,
+        tk.Button(v8_bar, text="Live Web Testbench E2E (#31)", font=("Segoe UI", 9, "bold"), bg=C_GREEN, fg=C_CRUST,
                   relief="flat", padx=8, cursor="hand2", command=self.on_v8_live_testbench).pack(side=tk.LEFT, padx=3)
 
-        tk.Button(v8_bar, text="* Optimize Vivo OriginOS 6 (#32)", font=("Segoe UI", 9, "bold"), bg=C_YELLOW, fg=C_CRUST,
+        tk.Button(v8_bar, text="Optimize Vivo OriginOS 6 (#32)", font=("Segoe UI", 9, "bold"), bg=C_YELLOW, fg=C_CRUST,
                   relief="flat", padx=8, cursor="hand2", command=self.on_v8_vivo_optimize).pack(side=tk.LEFT, padx=3)
 
-        tk.Button(v8_bar, text="* Audio/Dice/Behavior CAPTCHA (#33)", font=("Segoe UI", 9, "bold"), bg=C_MAUVE, fg=C_CRUST,
+        tk.Button(v8_bar, text="Audio/Dice/Behavior CAPTCHA (#33)", font=("Segoe UI", 9, "bold"), bg=C_MAUVE, fg=C_CRUST,
                   relief="flat", padx=8, cursor="hand2", command=self.on_v8_audio_behavior_captcha).pack(side=tk.LEFT, padx=3)
 
-        tk.Button(v8_bar, text="+ SSO & Session Guard (#34)", font=("Segoe UI", 9, "bold"), bg=C_BLUE, fg=C_CRUST,
+        tk.Button(v8_bar, text="SSO & Session Guard (#34)", font=("Segoe UI", 9, "bold"), bg=C_BLUE, fg=C_CRUST,
                   relief="flat", padx=8, cursor="hand2", command=self.on_v8_session_guard).pack(side=tk.LEFT, padx=3)
 
-        tk.Button(v8_bar, text="* 8-Stage Real-Device E2E (#35)", font=("Segoe UI", 9, "bold"), bg=C_TEAL, fg=C_CRUST,
+        tk.Button(v8_bar, text="8-Stage Real-Device E2E (#35)", font=("Segoe UI", 9, "bold"), bg=C_TEAL, fg=C_CRUST,
                   relief="flat", padx=8, cursor="hand2", command=self.on_v8_e2e_benchmark).pack(side=tk.LEFT, padx=3)
 
         # Output Console for AMAF 7.0 Lab
@@ -1524,11 +1510,11 @@ class FarmDashboardApp:
         top_bar = tk.Frame(self.tab_reports, bg=C_BASE)
         top_bar.pack(fill=tk.X, pady=(0, 8))
 
-        btn_refresh_rep = tk.Button(top_bar, text="» Refresh Reports", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_TEXT,
+        btn_refresh_rep = tk.Button(top_bar, text="Refresh Reports", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_TEXT,
                                     relief="flat", padx=10, pady=4, cursor="hand2", command=self.refresh_reports)
         btn_refresh_rep.pack(side=tk.LEFT, padx=4)
 
-        btn_open_folder = tk.Button(top_bar, text="* Open Reports Folder", font=("Segoe UI", 9), bg=C_SURFACE0, fg=C_TEXT,
+        btn_open_folder = tk.Button(top_bar, text="Open Reports Folder", font=("Segoe UI", 9), bg=C_SURFACE0, fg=C_TEXT,
                                     relief="flat", padx=10, pady=4, cursor="hand2", command=self.on_open_reports_folder)
         btn_open_folder.pack(side=tk.LEFT, padx=4)
 
@@ -1562,11 +1548,11 @@ class FarmDashboardApp:
         top_bar = tk.Frame(self.tab_memory, bg=C_BASE)
         top_bar.pack(fill=tk.X, pady=(0, 8))
 
-        btn_refresh_mem = tk.Button(top_bar, text="» Refresh Memory & Patches", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_TEXT,
+        btn_refresh_mem = tk.Button(top_bar, text="Refresh Memory & Patches", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_TEXT,
                                     relief="flat", padx=10, pady=4, cursor="hand2", command=self.refresh_memory_tab)
         btn_refresh_mem.pack(side=tk.LEFT, padx=4)
 
-        btn_open_patches = tk.Button(top_bar, text="* Open Patches Folder", font=("Segoe UI", 9), bg=C_SURFACE0, fg=C_TEXT,
+        btn_open_patches = tk.Button(top_bar, text="Open Patches Folder", font=("Segoe UI", 9), bg=C_SURFACE0, fg=C_TEXT,
                                      relief="flat", padx=10, pady=4, cursor="hand2", command=self.on_open_patches_folder)
         btn_open_patches.pack(side=tk.LEFT, padx=4)
 
@@ -1659,7 +1645,7 @@ class FarmDashboardApp:
 
         self.status_lbl = tk.Label(
             status_bar,
-            text="* READY  |  AMAF v18.0 Dual-Theme (* Light / * Dark) · 8 Website UI Presets  |  DrawSI MCP: doc_e9a81544b1204971b294  |  OpenCode Chrome: ws://127.0.0.1:18760  |  99.9/100 Balance PASS",
+            text="● READY  ·  AMAF v19.0 Studio (Light & Dark Mode)  ·  8 Website UI Presets  ·  7-Framework Codegen  ·  DrawSI MCP Synced",
             font=("Segoe UI", 8, "bold"),
             fg=C_GREEN,
             bg=C_CRUST
@@ -1668,7 +1654,7 @@ class FarmDashboardApp:
 
         author_lbl = tk.Label(
             status_bar,
-            text="115 Subagents · 65 MCP · 8 Presets · Vivo 10CF5L0TYL00312 *",
+            text="125 Subagents · 70 MCP Tools · 25 OS · Vivo 10CF5L0TYL00312 ●",
             font=("Segoe UI", 8),
             fg=C_SUBTEXT,
             bg=C_CRUST
@@ -1713,15 +1699,15 @@ class FarmDashboardApp:
 
             if s["is_running"]:
                 if s["boot_completed"]:
-                    badge.config(text="ONLINE", bg=C_GREEN, fg=C_CRUST)
+                    badge.config(text="ONLINE", bg="#10b981", fg="#ffffff")
                 else:
-                    badge.config(text="BOOTING", bg=C_YELLOW, fg=C_CRUST)
-                btn_toggle.config(text="[] Stop", bg=C_RED, fg=C_CRUST)
+                    badge.config(text="BOOTING", bg="#f59e0b", fg="#ffffff")
+                btn_toggle.config(text="■ Stop", bg=C_RED, fg=C_CRUST)
                 ram_lbl.config(text=f"RAM: {s['ram_mb']} MB (PID: {s['pid'] or '--'})")
                 cpu_lbl.config(text=f"CPU: {s['cpu_pct']}%")
             else:
-                badge.config(text="OFFLINE", bg=C_SURFACE0, fg=C_SUBTEXT)
-                btn_toggle.config(text="> Start", bg=C_GREEN, fg=C_CRUST)
+                badge.config(text="OFFLINE", bg="#64748b", fg="#ffffff")
+                btn_toggle.config(text="▸ Start", bg=C_GREEN, fg=C_CRUST)
                 ram_lbl.config(text="RAM: -- MB")
                 cpu_lbl.config(text="CPU: --%")
 
@@ -1934,7 +1920,7 @@ class FarmDashboardApp:
             self.log_agent_msg("HardwareSim", f"[{serial}] Sent SMS OTP '{o}' from {p} -> {msg}", "success" if ok else "error")
             dialog.destroy()
 
-        btn_send = tk.Button(dialog, text="> Send SMS", font=("Segoe UI", 9, "bold"), bg=C_BLUE, fg=C_CRUST, relief="flat", command=_send)
+        btn_send = tk.Button(dialog, text="Send SMS", font=("Segoe UI", 9, "bold"), bg=C_BLUE, fg=C_CRUST, relief="flat", command=_send)
         btn_send.pack(fill=tk.X, padx=16)
 
     def on_popup_gps(self, serial: str):
@@ -1958,7 +1944,7 @@ class FarmDashboardApp:
             self.log_agent_msg("HardwareSim", f"[{serial}] GPS updated to {loc['name']} ({loc['lat']}, {loc['lng']})", "success" if ok else "error")
             dialog.destroy()
 
-        btn_apply = tk.Button(dialog, text="* Apply Location", font=("Segoe UI", 9, "bold"), bg=C_TEAL, fg=C_CRUST, relief="flat", command=_apply)
+        btn_apply = tk.Button(dialog, text="Apply Location", font=("Segoe UI", 9, "bold"), bg=C_TEAL, fg=C_CRUST, relief="flat", command=_apply)
         btn_apply.pack(fill=tk.X, padx=16, pady=8)
 
     def on_run_parallel_test(self):
@@ -2118,7 +2104,10 @@ class FarmDashboardApp:
                             health_str
                         )
                     )
-            self.root.after(0, _populate)
+            try:
+                self.root.after(0, _populate)
+            except Exception:
+                pass
 
         threading.Thread(target=_worker, daemon=True).start()
 
@@ -2307,7 +2296,7 @@ class FarmDashboardApp:
 
         tk.Label(
             top_bar,
-            text="> Zero-Token GPU (RTX 3050 PTX sm_86) + Macro Replay + Android CDP + TikTok Workflows (#36-#40)",
+            text="Zero-Token GPU (RTX 3050 PTX sm_86) + Macro Replay + Android CDP + TikTok Workflows (#36-#40)",
             font=("Segoe UI", 11, "bold"),
             fg=C_GREEN,
             bg=C_MANTLE
@@ -2317,27 +2306,27 @@ class FarmDashboardApp:
         btn_row.pack(fill=tk.X, pady=4)
 
         tk.Button(
-            btn_row, text="⚡ #36 Audit RTX 3050 PTX & Neural OCR", font=("Segoe UI", 9, "bold"),
+            btn_row, text="▸ #36 Audit RTX 3050 PTX & Neural OCR", font=("Segoe UI", 9, "bold"),
             bg=C_GREEN, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v9_gpu_audit
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="* #37 Replay Airtest/Poco Macro (0 Token)", font=("Segoe UI", 9, "bold"),
+            btn_row, text="#37 Replay Airtest/Poco Macro (0 Token)", font=("Segoe UI", 9, "bold"),
             bg=C_BLUE, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v9_macro_replay
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="* #38 Attach Android CDP (@chrome_devtools)", font=("Segoe UI", 9, "bold"),
+            btn_row, text="#38 Attach Android CDP (@chrome_devtools)", font=("Segoe UI", 9, "bold"),
             bg=C_TEAL, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v9_cdp_attach
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="* #39 Run TikTok Switch & Comment Workflow", font=("Segoe UI", 9, "bold"),
+            btn_row, text="#39 Run TikTok Switch & Comment Workflow", font=("Segoe UI", 9, "bold"),
             bg=C_PEACH, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v9_tiktok_workflow
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="+ #40 Run 3-Tier Hybrid CAPTCHA Defense", font=("Segoe UI", 9, "bold"),
+            btn_row, text="#40 Run 3-Tier Hybrid CAPTCHA Defense", font=("Segoe UI", 9, "bold"),
             bg=C_MAUVE, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v9_hybrid_3tier
         ).pack(side=tk.LEFT, padx=4)
 
@@ -2396,7 +2385,7 @@ class FarmDashboardApp:
 
         tk.Label(
             top_bar,
-            text="⚡ AMAF v10.0: Persistent ADB Stream (#41) + IME/Viewport Guard (#42) + Semantic GPU (#43) + Account Vault (#44) + Visual DAG (#45)",
+            text="AMAF v10.0: Persistent ADB Stream (#41) + IME/Viewport Guard (#42) + Semantic GPU (#43) + Account Vault (#44) + Visual DAG (#45)",
             font=("Segoe UI", 11, "bold"),
             fg=C_BLUE,
             bg=C_MANTLE
@@ -2406,27 +2395,27 @@ class FarmDashboardApp:
         btn_row.pack(fill=tk.X, pady=4)
 
         tk.Button(
-            btn_row, text="> #41 Benchmark Persistent ADB Stream", font=("Segoe UI", 9, "bold"),
+            btn_row, text="▸ #41 Benchmark Persistent ADB Stream", font=("Segoe UI", 9, "bold"),
             bg=C_GREEN, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v10_stream_benchmark
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="⌨ #42 Guard Soft Keyboard & Viewport", font=("Segoe UI", 9, "bold"),
+            btn_row, text="#42 Guard Soft Keyboard & Viewport", font=("Segoe UI", 9, "bold"),
             bg=C_BLUE, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v10_kbd_viewport_guard
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="* #43 GPU Contour & Orientation Matcher", font=("Segoe UI", 9, "bold"),
+            btn_row, text="#43 GPU Contour & Orientation Matcher", font=("Segoe UI", 9, "bold"),
             bg=C_TEAL, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v10_semantic_matcher
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="* #44 Audit Multi-Account Vault & Proxy", font=("Segoe UI", 9, "bold"),
+            btn_row, text="#44 Audit Multi-Account Vault & Proxy", font=("Segoe UI", 9, "bold"),
             bg=C_PEACH, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v10_account_vault
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="* #45 Execute Visual Flow DAG & Live Preview", font=("Segoe UI", 9, "bold"),
+            btn_row, text="#45 Execute Visual Flow DAG & Live Preview", font=("Segoe UI", 9, "bold"),
             bg=C_MAUVE, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v10_visual_dag
         ).pack(side=tk.LEFT, padx=4)
 
@@ -2491,7 +2480,7 @@ class FarmDashboardApp:
 
         tk.Label(
             top_bar,
-            text="+ AMAF v12.0: Universal APK Installer (#46) + Sideload Guard (#47) + SecIME Vault (#48) + AXML Parser (#49) + Daemon (#50) + 10x Evolution (#51-#55)",
+            text="AMAF v12.0: Universal APK Installer (#46) + Sideload Guard (#47) + SecIME Vault (#48) + AXML Parser (#49) + Daemon (#50) + 10x Evolution (#51-#55)",
             font=("Segoe UI", 10, "bold"),
             fg=C_GREEN,
             bg=C_MANTLE
@@ -2501,27 +2490,27 @@ class FarmDashboardApp:
         btn_row.pack(fill=tk.X, pady=4)
 
         tk.Button(
-            btn_row, text="+ #46-#50 Universal Install APK", font=("Segoe UI", 9, "bold"),
+            btn_row, text="#46-#50 Universal Install APK", font=("Segoe UI", 9, "bold"),
             bg=C_GREEN, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_install_apk_all
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="+ #47 Pre-Authorize Sideload Sources", font=("Segoe UI", 9, "bold"),
+            btn_row, text="#47 Pre-Authorize Sideload Sources", font=("Segoe UI", 9, "bold"),
             bg=C_BLUE, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v12_sideload_guard
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="» #49 Inspect APK AXML & --user 0", font=("Segoe UI", 9, "bold"),
+            btn_row, text="▸ #49 Inspect APK AXML & --user 0", font=("Segoe UI", 9, "bold"),
             bg=C_TEAL, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v12_inspect_axml
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="* #50 Start Always-On Install Daemon", font=("Segoe UI", 9, "bold"),
+            btn_row, text="#50 Start Always-On Install Daemon", font=("Segoe UI", 9, "bold"),
             bg=C_PEACH, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v12_toggle_daemon
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="+ #51-#55 Run 10x Recursive Evolution", font=("Segoe UI", 9, "bold"),
+            btn_row, text="#51-#55 Run 10x Recursive Evolution", font=("Segoe UI", 9, "bold"),
             bg=C_MAUVE, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v12_run_10x_evolution
         ).pack(side=tk.LEFT, padx=4)
 
@@ -2574,7 +2563,7 @@ class FarmDashboardApp:
 
         tk.Label(
             top_bar,
-            text="+ AMAF v13.0: Screenshot Critic (#56) + 8pt Tokens (#57) + Sidebar IA (#58) + Ctrl+K Palette (#59) + Bento Sparkline (#60) + Anti-Rainbow CTA (#61) + Finish Gate (#64) + 10x UI/UX Loop (#65)",
+            text="AMAF v13.0: Screenshot Critic (#56) + 8pt Tokens (#57) + Sidebar IA (#58) + Ctrl+K Palette (#59) + Bento Sparkline (#60) + Anti-Rainbow CTA (#61) + Finish Gate (#64) + 10x UI/UX Loop (#65)",
             font=("Segoe UI", 9, "bold"),
             fg=C_BLUE,
             bg=C_MANTLE
@@ -2590,7 +2579,7 @@ class FarmDashboardApp:
 
         # Primary CTA (#6366f1 Indigo) + Neutral Secondary buttons (#313244) following Subagent #61 Anti-Rainbow Hierarchy
         tk.Button(
-            search_row, text="> #65 Run 10x Sequential UI/UX Evolution", font=("Segoe UI", 9, "bold"),
+            search_row, text="▸ #65 Run 10x Sequential UI/UX Evolution", font=("Segoe UI", 9, "bold"),
             bg="#6366f1", fg="#f8fafc", relief="flat", padx=12, pady=6, command=self.on_v13_run_10x_ui_ux_evolution
         ).pack(side=tk.LEFT, padx=4)
 
@@ -2600,17 +2589,17 @@ class FarmDashboardApp:
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            search_row, text="* #56 Live Vivo Screenshot Critique", font=("Segoe UI", 9),
+            search_row, text="#56 Live Vivo Screenshot Critique", font=("Segoe UI", 9),
             bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v13_screenshot_critique
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            search_row, text="# #60 Bento Card & Sparkline", font=("Segoe UI", 9),
+            search_row, text="#60 Bento Card & Sparkline", font=("Segoe UI", 9),
             bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v13_bento_sparkline
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            search_row, text="✅ #64 UI Finish-Gate Review", font=("Segoe UI", 9),
+            search_row, text="✓ #64 UI Finish-Gate Review", font=("Segoe UI", 9),
             bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v13_finish_gate_audit
         ).pack(side=tk.LEFT, padx=4)
 
@@ -2669,7 +2658,7 @@ class FarmDashboardApp:
 
         tk.Label(
             top_bar,
-            text="+ AMAF v14.0 (75 Subagents): Sigma-Lognormal Touch (#66) + Patchright CDP Stealth (#67) + Sensor Recoil (#68) + Turnstile Pre-Warm (#69) + Radar UI (#70) + Vivo Filter Refiner (#71) + Weibull Pacer (#72) + 10x Causal Chain (#75)",
+            text="AMAF v14.0 (75 Subagents): Sigma-Lognormal Touch (#66) + Patchright CDP Stealth (#67) + Sensor Recoil (#68) + Turnstile Pre-Warm (#69) + Radar UI (#70) + Vivo Filter Refiner (#71) + Weibull Pacer (#72) + 10x Causal Chain (#75)",
             font=("Segoe UI", 9, "bold"),
             fg=C_GREEN,
             bg=C_MANTLE
@@ -2680,27 +2669,27 @@ class FarmDashboardApp:
 
         # Primary CTA (#6366f1 Indigo) + Neutral Secondary buttons (#313244)
         tk.Button(
-            btn_row, text="> #75 Run 10x Causal Anti-Bot & UI/UX Loop", font=("Segoe UI", 9, "bold"),
+            btn_row, text="▸ #75 Run 10x Causal Anti-Bot & UI/UX Loop", font=("Segoe UI", 9, "bold"),
             bg="#6366f1", fg="#f8fafc", relief="flat", padx=12, pady=6, command=self.on_v14_run_10x_causal_evolution
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="* #66 Sigma-Lognormal Touch & Fitts Audit", font=("Segoe UI", 9),
+            btn_row, text="#66 Sigma-Lognormal Touch & Fitts Audit", font=("Segoe UI", 9),
             bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v14_sigma_lognormal_swipe
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="* #67 Patchright Zero-Runtime.enable CDP", font=("Segoe UI", 9),
+            btn_row, text="#67 Patchright Zero-Runtime.enable CDP", font=("Segoe UI", 9),
             bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v14_stealth_cdp_audit
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="* #68-#69 Sensor Recoil & Pre-Warm Entropy", font=("Segoe UI", 9),
+            btn_row, text="#68-#69 Sensor Recoil & Pre-Warm Entropy", font=("Segoe UI", 9),
             bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v14_sensor_recoil_audit
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="✅ #71-#74 Unified 10-Point Finish Gate", font=("Segoe UI", 9),
+            btn_row, text="✓ #71-#74 Unified 10-Point Finish Gate", font=("Segoe UI", 9),
             bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v14_unified_finish_gate
         ).pack(side=tk.LEFT, padx=4)
 
@@ -2759,7 +2748,7 @@ class FarmDashboardApp:
 
         tk.Label(
             top_bar,
-            text="* AMAF v15.0 (85 Subagents | 50 MCP Tools): 5-Screen Responsive Matrix (#76) + XML/DOM Critic (#77) + Sync Mirror (#78) + Auto Test Gen (#79) + Fuzz (#80) + Grid Composer (#81) + Auto-Fix (#82) + Zero-Human QA Oracle (#83) + MCP Vision (#84) + 10x Causal Loop (#85)",
+            text="AMAF v15.0 (85 Subagents | 50 MCP Tools): 5-Screen Responsive Matrix (#76) + XML/DOM Critic (#77) + Sync Mirror (#78) + Auto Test Gen (#79) + Fuzz (#80) + Grid Composer (#81) + Auto-Fix (#82) + Zero-Human QA Oracle (#83) + MCP Vision (#84) + 10x Causal Loop (#85)",
             font=("Segoe UI", 9, "bold"),
             fg=C_TEAL,
             bg=C_MANTLE
@@ -2769,27 +2758,27 @@ class FarmDashboardApp:
         btn_row.pack(fill=tk.X, pady=4)
 
         tk.Button(
-            btn_row, text="> #85 Run 10x Causal Responsive & QA Loop", font=("Segoe UI", 9, "bold"),
+            btn_row, text="▸ #85 Run 10x Causal Responsive & QA Loop", font=("Segoe UI", 9, "bold"),
             bg="#6366f1", fg="#f8fafc", relief="flat", padx=12, pady=6, command=self.on_v15_run_10x_responsive_qa_loop
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="* #76-#77 5-Screen Responsive Matrix Audit", font=("Segoe UI", 9),
+            btn_row, text="#76-#77 5-Screen Responsive Matrix Audit", font=("Segoe UI", 9),
             bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v15_responsive_5screen_audit
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="* #79-#83 Zero-Human Autonomous QA Tester", font=("Segoe UI", 9),
+            btn_row, text="#79-#83 Zero-Human Autonomous QA Tester", font=("Segoe UI", 9),
             bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v15_zero_human_qa_tester
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="» #78 Sync Normalized Multi-Screen Tap", font=("Segoe UI", 9),
+            btn_row, text="▸ #78 Sync Normalized Multi-Screen Tap", font=("Segoe UI", 9),
             bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v15_sync_multi_screen_tap
         ).pack(side=tk.LEFT, padx=4)
 
         tk.Button(
-            btn_row, text="+ #81-#84 Auto-Fix & MCP Vision Payload", font=("Segoe UI", 9),
+            btn_row, text="#81-#84 Auto-Fix & MCP Vision Payload", font=("Segoe UI", 9),
             bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v15_autofix_and_mcp_vision
         ).pack(side=tk.LEFT, padx=4)
 
@@ -2849,7 +2838,7 @@ class FarmDashboardApp:
 
         tk.Label(
             top_bar,
-            text="* AMAF v18.0 Studio — Dual-Theme (Light / Dark) · 8 Website UI Presets (#107) · 12-Tab Harmony (#106) · SSIM Diff (#108) · Trace Replay (#109) · Self-Heal (#110)",
+            text="AMAF v19.0 Studio — Dual-Theme (Light / Dark) · 8 UI Presets (#107) · 7-FW Codegen (#116) · APK MASVS (#117) · HAR Contract (#118) · CI/CD Gates (#120)",
             font=("Segoe UI", 9, "bold"),
             fg=C_GREEN,
             bg=C_MANTLE,
@@ -2861,12 +2850,12 @@ class FarmDashboardApp:
         btn_row.pack(fill=tk.X, pady=4)
 
         actions = [
-            ("> #125 Run 10x Causal v19 Codegen & CI/CD Loop", self.on_v19_run_10x_causal_loop),
-            ("*/* #96 Toggle Light / Dark Mode (Ctrl+T)", self.toggle_theme),
-            ("# #107 Cycle 8 Website UI Presets (Ctrl+P)", self.cycle_preset),
-            ("+ #116-#120 7-FW Codegen, APK MASVS & CI/CD Gate", self.on_v19_codegen_apk_and_cicd_audit),
-            ("# #106-#110 12-Tab Harmony, SSIM & Self-Heal", self.on_v18_audit_12tabs_and_ssim),
-            ("* #93-#94 Full 25-OS Matrix Audit & Poster", self.on_v16_full_25os_matrix_audit),
+            ("▸ #125 Run 10x Causal v19 Codegen & CI/CD Loop", self.on_v19_run_10x_causal_loop),
+            ("◐ #96 Toggle Light / Dark Mode (Ctrl+T)", self.toggle_theme),
+            ("#107 Cycle 8 Website UI Presets (Ctrl+P)", self.cycle_preset),
+            ("#116-#120 7-FW Codegen, APK MASVS & CI/CD Gate", self.on_v19_codegen_apk_and_cicd_audit),
+            ("#106-#110 12-Tab Harmony, SSIM & Self-Heal", self.on_v18_audit_12tabs_and_ssim),
+            ("#93-#94 Full 25-OS Matrix Audit & Poster", self.on_v16_full_25os_matrix_audit),
         ]
         for c_i in range(3):
             btn_row.columnconfigure(c_i, weight=1, uniform="v17_col")
@@ -2891,7 +2880,7 @@ class FarmDashboardApp:
         self.v16_log_text.pack(fill=tk.BOTH, expand=True, pady=(6, 0))
         self.v16_log_text.insert(
             tk.END,
-            "[AMAF 17.0] Subagents #1-#105 Ready | 60 On-Demand MCP Tools | Dual-Theme (* Light Mode #F8FAFC/#FFFFFF/#4F46E5 & * Dark Mode #09090B/#121217/#6366F1) | Tabless Sidebar Navigation | 36px Compact Device Bar (+45% Vertical Stage) | 2x3 Uniform Button Grids | 25 OS Profiles Verified.\n"
+            "[AMAF 19.0] Subagents #1-#125 Ready | 70 On-Demand MCP Tools | 7-Framework Codegen | APK MASVS & CI/CD Gates | Dual-Theme (Light Mode #F8FAFC/#FFFFFF/#4F46E5 & Dark Mode #09090B/#121217/#6366F1) | Tabless Sidebar Navigation | 36px Compact Device Bar (+45% Vertical Stage) | 2x3 Uniform Button Grids | 25 OS Profiles Verified.\n"
         )
 
     def _v16_log(self, msg: str):
