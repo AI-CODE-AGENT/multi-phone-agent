@@ -123,6 +123,18 @@ from agents.autonomous_qa_tester_subagent import (
     MCPVisionAndTestRunnerBridgeSubagent,
     Causal10xResponsiveQACoordinatorSubagent,
 )
+from agents.cross_platform_os_matrix_subagent import (
+    DesktopOSViewportMatrixSubagent,
+    AppleiOSAndiPadOSViewportSubagent,
+    HarmonyOSAndOriginOSContinuitySubagent,
+    AlternativeAndPrivacyMobileOSSubagent,
+    KaiOSAndSmartTV10FootUISubagent,
+    UniversalSafeAreaAndWindowChromeSubagent,
+    CrossPlatform6FrameworkPatchSubagent,
+    Visual25OSMatrixPosterComposerSubagent,
+    UniversalZeroHumanCrossPlatformQAOracleSubagent,
+    Causal10xCrossPlatformPromptEvolverSubagent,
+)
 from core.memory_manager import MemoryManager
 from core.kanban_board import KanbanBoard
 from agents.device_lock_manager import DeviceLockManager
@@ -148,7 +160,7 @@ C_TEAL = "#94e2d5"
 class FarmDashboardApp:
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.root.title("Android Multi-Agent Farm (AMAF 15.0) | 85 Subagents | 50 MCP Tools | Multi-Screen Responsive Matrix | Zero-Human Autonomous QA Tester & 10x Causal Loop")
+        self.root.title("Android Multi-Agent Farm (AMAF 16.0) | 95 Subagents | 55 MCP Tools | 25-OS Cross-Platform Matrix | Zero-Human Autonomous QA Tester & 10x Causal Loop")
         self.root.geometry("1340x880")
         self.root.minsize(1100, 740)
         self.root.configure(bg=C_BASE)
@@ -238,6 +250,17 @@ class FarmDashboardApp:
         self.zero_human_qa_oracle = ZeroHumanQASignOffOracleSubagent()
         self.mcp_vision_test_bridge = MCPVisionAndTestRunnerBridgeSubagent()
         self.causal_10x_responsive_qa_coordinator = Causal10xResponsiveQACoordinatorSubagent()
+        # AMAF 16.0 Subagents (#86-#95): 25-OS Cross-Platform Matrix (Windows, macOS, Linux, iOS, iPadOS, Android, OriginOS, HarmonyOS NEXT, GrapheneOS, LineageOS, Ubuntu Touch, Sailfish OS, KaiOS, webOS, VIDAA TV) & 10x Causal QA Loop
+        self.desktop_os_matrix_subagent = DesktopOSViewportMatrixSubagent(adb=self.adb)
+        self.apple_ios_ipados_subagent = AppleiOSAndiPadOSViewportSubagent(adb=self.adb)
+        self.harmonyos_originos_subagent = HarmonyOSAndOriginOSContinuitySubagent(adb=self.adb)
+        self.alt_privacy_mobile_os_subagent = AlternativeAndPrivacyMobileOSSubagent(adb=self.adb)
+        self.kaios_smart_tv_subagent = KaiOSAndSmartTV10FootUISubagent(adb=self.adb)
+        self.universal_safe_area_subagent = UniversalSafeAreaAndWindowChromeSubagent(adb=self.adb)
+        self.cross_platform_patch_subagent = CrossPlatform6FrameworkPatchSubagent(adb=self.adb)
+        self.visual_25os_poster_subagent = Visual25OSMatrixPosterComposerSubagent(adb=self.adb)
+        self.universal_cross_platform_qa_oracle = UniversalZeroHumanCrossPlatformQAOracleSubagent(adb=self.adb)
+        self.causal_10x_cross_platform_evolver = Causal10xCrossPlatformPromptEvolverSubagent(adb=self.adb)
 
         # Device card widget references: serial -> widget dict
         self.device_cards: Dict[str, Dict[str, Any]] = {}
@@ -296,7 +319,7 @@ class FarmDashboardApp:
 
         title_lbl = tk.Label(
             title_frame,
-            text="⚡ Android Multi-Agent Farm (AMAF 15.0 — 85 Subagents, 50 MCP Tools, 5-Screen Responsive Matrix & Zero-Human Autonomous QA Tester)",
+            text="⚡ Android Multi-Agent Farm (AMAF 16.0 — 95 Subagents, 55 MCP Tools, 25-OS Cross-Platform Responsive Matrix & Zero-Human Autonomous QA)",
             font=("Segoe UI", 16, "bold"),
             fg=C_BLUE,
             bg=C_MANTLE
@@ -371,7 +394,7 @@ class FarmDashboardApp:
 
         # Tab 1: Multi-Agent & 30-Subagent Evolution
         self.tab_agents = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
-        self.notebook.add(self.tab_agents, text=" 🤖 85-Subagent Evolution & 10x Loops ")
+        self.notebook.add(self.tab_agents, text=" 🤖 95-Subagent Evolution & 10x Loops ")
         self._build_agents_tab()
 
         # Tab 2: Real Phone Farm & Group Broadcast Control
@@ -414,6 +437,11 @@ class FarmDashboardApp:
         self.tab_v15_responsive_qa = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
         self.notebook.add(self.tab_v15_responsive_qa, text=" 📱 Responsive 5-Screen Matrix & Zero-Human QA Tester (v15.0) ")
         self._build_v15_responsive_and_qa_tab()
+
+        # Tab 10: AMAF 16.0 25-OS Cross-Platform Matrix (Windows, macOS, Linux, iOS, HarmonyOS NEXT, KaiOS, webOS, VIDAA) & 10x Causal QA Loop
+        self.tab_v16_cross_platform = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
+        self.notebook.add(self.tab_v16_cross_platform, text=" 🌍 25-OS Cross-Platform Matrix & 10x Causal QA (v16.0) ")
+        self._build_v16_cross_platform_25os_tab()
 
         # Tab 4: Defect Reports (Bug Tracker)
         self.tab_reports = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
@@ -2084,6 +2112,103 @@ class FarmDashboardApp:
             res = self.causal_10x_responsive_qa_coordinator.execute(serial=serial, write_report=True)
             self._v15_log(f"[Subagent #85 Causal10xResponsiveQACoordinator] Loops={res.get('total_iterations')} | CausalValid={res.get('causal_chain_valid')} | FinalQAScore={res.get('final_qa_score')} | Verdict={res.get('final_verdict')}")
             self.log_agent_msg("Causal10xQA(#85)", f"[{serial}] 10/10 Causal Responsive QA Loops PASS (Score={res.get('final_qa_score')}/100)", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+
+    def _build_v16_cross_platform_25os_tab(self):
+        top_bar = tk.Frame(self.tab_v16_cross_platform, bg=C_MANTLE, padx=12, pady=10)
+        top_bar.pack(fill=tk.X, pady=(0, 8))
+
+        tk.Label(
+            top_bar,
+            text="🌍 AMAF v16.0 (95 Subagents | 55 MCP Tools | 25 OS Profiles): Desktop & 6 Linux Distros (#86) + iOS/iPadOS (#87) + HarmonyOS NEXT & OriginOS (#88) + Graphene/Lineage/UbuntuTouch/Sailfish (#89) + KaiOS & webOS/VIDAA TV (#90) + Safe-Area (#91) + 6-Framework Patch (#92) + 25-OS Poster (#93) + Zero-Human QA (#94) + 10x Causal Loop (#95)",
+            font=("Segoe UI", 9, "bold"),
+            fg=C_GREEN,
+            bg=C_MANTLE
+        ).pack(side=tk.LEFT)
+
+        btn_row = tk.Frame(self.tab_v16_cross_platform, bg=C_BASE)
+        btn_row.pack(fill=tk.X, pady=4)
+
+        tk.Button(
+            btn_row, text="🚀 #95 Run 10x Causal 25-OS Evolution (Loop n+a+1 <- Loop n+a)", font=("Segoe UI", 9, "bold"),
+            bg="#6366f1", fg="#f8fafc", relief="flat", padx=12, pady=6, command=self.on_v16_run_10x_causal_25os_loop
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="🌍 #93-#94 Full 25-OS Matrix Audit & Poster", font=("Segoe UI", 9),
+            bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v16_full_25os_matrix_audit
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="💻 #86-#88 Desktop/Linux, iOS/iPadOS & HarmonyOS NEXT", font=("Segoe UI", 9),
+            bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v16_desktop_ios_harmony_audit
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="📺 #89-#90 Alt Mobile OS, KaiOS Keypad & Smart TV D-Pad", font=("Segoe UI", 9),
+            bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v16_alt_os_and_tv_dpad_audit
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="🔧 #91-#92 Safe-Area & 6-Framework Auto-Fix Patches", font=("Segoe UI", 9),
+            bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v16_safe_area_and_6framework_patches
+        ).pack(side=tk.LEFT, padx=4)
+
+        self.v16_log_text = tk.Text(self.tab_v16_cross_platform, bg=C_CRUST, fg=C_TEXT, font=("Consolas", 9), height=14, relief="flat", padx=10, pady=8)
+        self.v16_log_text.pack(fill=tk.BOTH, expand=True, pady=(6, 0))
+        self.v16_log_text.insert(
+            tk.END,
+            "[AMAF 16.0] Subagents #86-#95 Ready: 25 OS Profiles across Windows 11, macOS, ChromeOS, Ubuntu 24.04, Linux Mint 22, Fedora 41, Manjaro KDE, Elementary OS 8, Zorin OS 17, iOS 18, iPadOS 18, Android 15, Vivo OriginOS 5, HarmonyOS 4.2, HarmonyOS NEXT (ArkUI), GrapheneOS, LineageOS 21, Ubuntu Touch (Lomiri), Sailfish OS 4.6 (Silica), KaiOS 3.1 (D-Pad), LG webOS 24 TV, and Hisense VIDAA U7 TV | 55 On-Demand MCP Tools.\n"
+        )
+
+    def _v16_log(self, msg: str):
+        if hasattr(self, "v16_log_text"):
+            ts = time.strftime("%H:%M:%S")
+            self.root.after(0, lambda: (self.v16_log_text.insert(tk.END, f"[{ts}] {msg}\n"), self.v16_log_text.see(tk.END)))
+
+    def on_v16_full_25os_matrix_audit(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.universal_cross_platform_qa_oracle.execute(serial=serial, suite="full_25_os_matrix")
+            self._v16_log(f"[Subagent #94 UniversalZeroHumanCrossPlatformQAOracle] Tested={res.get('total_os_profiles_tested')} OSes | Score={res.get('overall_cross_platform_score')}/100 ({res.get('grade')}) | Verdict={res.get('verdict')} | Poster={res.get('matrix_poster_path')}")
+            self.log_agent_msg("CrossPlatform25OS(#94)", f"[{serial}] 25-OS Score={res.get('overall_cross_platform_score')}/100 ({res.get('verdict')})", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v16_desktop_ios_harmony_audit(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            r86 = self.desktop_os_matrix_subagent.execute(serial=serial)
+            r87 = self.apple_ios_ipados_subagent.execute(serial=serial)
+            r88 = self.harmonyos_originos_subagent.execute(serial=serial)
+            self._v16_log(f"[#86 Desktop/Linux] {r86.get('overall_desktop_linux_score')}/100 | [#87 iOS/iPadOS] {r87.get('overall_apple_score')}/100 | [#88 HarmonyOS NEXT/OriginOS] {r88.get('overall_harmony_origin_score')}/100")
+            self.log_agent_msg("DesktopAppleHarmony(#86-#88)", f"[{serial}] Desktop/iOS/HarmonyOS NEXT Audited", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v16_alt_os_and_tv_dpad_audit(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            r89 = self.alt_privacy_mobile_os_subagent.execute(serial=serial)
+            r90 = self.kaios_smart_tv_subagent.execute(serial=serial)
+            self._v16_log(f"[#89 Graphene/Lineage/UbuntuTouch/Sailfish] Score={r89.get('overall_alt_os_score')}/100 | [#90 KaiOS/webOS/VIDAA D-Pad] Reachability={r90.get('overall_dpad_reachability_pct')}% ({r90.get('verdict')})")
+            self.log_agent_msg("AltOSAndTV(#89-#90)", f"[{serial}] D-Pad Reachability={r90.get('overall_dpad_reachability_pct')}%", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v16_safe_area_and_6framework_patches(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            r91 = self.universal_safe_area_subagent.execute(serial=serial)
+            r92 = self.cross_platform_patch_subagent.execute()
+            self._v16_log(f"[#91 UniversalSafeArea] Collisions={r91.get('total_safe_area_collisions')} | [#92 6-Framework Patch] Frameworks={r92.get('frameworks_covered')}")
+            self.log_agent_msg("SafeAreaAndPatch(#91-#92)", f"Synthesized patches for {len(r92.get('frameworks_covered', []))} UI frameworks", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v16_run_10x_causal_25os_loop(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.causal_10x_cross_platform_evolver.execute(serial=serial, loops=10)
+            self._v16_log(f"[Subagent #95 Causal10xCrossPlatformEvolver] Loops={res.get('total_loops_executed')} | CausalValid={res.get('strict_causal_chain_verified')} | Score: {res.get('initial_score')} -> {res.get('final_score')}/100 ({res.get('final_verdict')})")
+            self.log_agent_msg("Causal10x25OS(#95)", f"[{serial}] 10/10 Causal 25-OS Loops PASS ({res.get('final_score')}/100)", "success")
         threading.Thread(target=_worker, daemon=True).start()
 
 

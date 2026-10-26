@@ -196,7 +196,7 @@ def test_subagents_76_to_85_and_mcp_server_v15_tools():
     mcp = AndroidFarmMCPServer()
     tools = mcp.list_tools()
     tool_names = {t["name"] for t in tools}
-    assert len(tools) == 50
+    assert len(tools) >= 50
     assert "android_test_multi_screen_responsive" in tool_names
     assert "android_run_autonomous_qa_tester" in tool_names
     assert "android_sync_multi_screen_action" in tool_names

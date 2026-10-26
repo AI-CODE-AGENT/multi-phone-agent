@@ -72,6 +72,18 @@ from agents.autonomous_qa_tester_subagent import (
     MCPVisionAndTestRunnerBridgeSubagent,
     Causal10xResponsiveQACoordinatorSubagent,
 )
+from agents.cross_platform_os_matrix_subagent import (
+    DesktopOSViewportMatrixSubagent,
+    AppleiOSAndiPadOSViewportSubagent,
+    HarmonyOSAndOriginOSContinuitySubagent,
+    AlternativeAndPrivacyMobileOSSubagent,
+    KaiOSAndSmartTV10FootUISubagent,
+    UniversalSafeAreaAndWindowChromeSubagent,
+    CrossPlatform6FrameworkPatchSubagent,
+    Visual25OSMatrixPosterComposerSubagent,
+    UniversalZeroHumanCrossPlatformQAOracleSubagent,
+    Causal10xCrossPlatformPromptEvolverSubagent,
+)
 from mcp_bridge.artemis_bridge import ArtemisBridge
 from config.farm_config import DEFAULT_FARM_DEVICES
 
@@ -80,7 +92,7 @@ logger = logging.getLogger("AndroidFarmMCP")
 
 
 class AndroidFarmMCPServer:
-    """Standard Model Context Protocol Server 2.0 (50 Tools) for Hybrid Real & Virtual Multi-App Farm (AMAF 15.0)."""
+    """Standard Model Context Protocol Server 2.0 (55 Tools) for Hybrid Real & Virtual Multi-OS & Multi-App Farm (AMAF 16.0)."""
 
     def __init__(self):
         self.adb = ADBWrapper()
@@ -125,6 +137,16 @@ class AndroidFarmMCPServer:
         self.qa_fuzzer = BoundaryAndMonkeyFuzzTesterSubagent(self.adb, self.memory)
         self.qa_oracle = ZeroHumanQASignOffOracleSubagent(self.adb, self.memory)
         self.qa_10x_evolver = Causal10xResponsiveQACoordinatorSubagent(self.adb, self.memory)
+        self.desktop_os_matrix = DesktopOSViewportMatrixSubagent(self.adb, self.memory)
+        self.ios_ipados_matrix = AppleiOSAndiPadOSViewportSubagent(self.adb, self.memory)
+        self.harmony_origin_matrix = HarmonyOSAndOriginOSContinuitySubagent(self.adb, self.memory)
+        self.alt_mobile_matrix = AlternativeAndPrivacyMobileOSSubagent(self.adb, self.memory)
+        self.kaios_tv_matrix = KaiOSAndSmartTV10FootUISubagent(self.adb, self.memory)
+        self.safe_area_chrome = UniversalSafeAreaAndWindowChromeSubagent(self.adb, self.memory)
+        self.six_framework_patcher = CrossPlatform6FrameworkPatchSubagent(self.adb, self.memory)
+        self.os25_poster_composer = Visual25OSMatrixPosterComposerSubagent(self.adb, self.memory)
+        self.os25_qa_oracle = UniversalZeroHumanCrossPlatformQAOracleSubagent(self.adb, self.memory)
+        self.os25_causal_10x = Causal10xCrossPlatformPromptEvolverSubagent(self.adb, self.memory)
         self.lock_mgr = DeviceLockManager()
         self.bridge = ArtemisBridge()
         self.tools = self._register_tools()
@@ -942,6 +964,66 @@ class AndroidFarmMCPServer:
                         "package_name": {"type": "string", "description": "Target package name (default com.android.settings)"}
                     }
                 }
+            },
+            {
+                "name": "android_list_cross_platform_os_profiles",
+                "description": "List all 25 supported Cross-Platform Operating System & Form-Factor profiles across Desktop (Windows 11, macOS, ChromeOS, Ubuntu, Linux Mint, Fedora, Manjaro, Elementary OS, Zorin OS), Mobile (iOS 18 iPhone, iPadOS 18, Android 15, Vivo OriginOS, HarmonyOS & HarmonyOS NEXT, GrapheneOS, LineageOS, Ubuntu Touch, Sailfish OS, KaiOS), and Smart TV (LG webOS, Hisense VIDAA OS).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {}
+                }
+            },
+            {
+                "name": "android_test_cross_platform_25os_matrix",
+                "description": "Run Universal Zero-Human Cross-Platform Responsive & OS Safe-Area QA across up to 25 Operating Systems (Windows, macOS, ChromeOS, 6 Linux Distros, iOS, iPadOS, Android, OriginOS, HarmonyOS NEXT, GrapheneOS, LineageOS, Ubuntu Touch, Sailfish OS, KaiOS, LG webOS TV, Hisense VIDAA OS TV) and generate visual comparison poster + MCP Vision-LLM base64 image blocks.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Source device serial (default 10CF5L0TYL00312)"},
+                        "suite": {
+                            "type": "string",
+                            "enum": ["full_25_os_matrix", "desktop_and_linux_11", "mobile_and_alt_os_12", "smart_tv_and_keypad_3", "representative_12_matrix"],
+                            "description": "Cross-platform OS suite preset (default full_25_os_matrix)"
+                        },
+                        "profiles": {
+                            "type": "array",
+                            "items": {"type": "string"},
+                            "description": "Optional explicit list of OS profile IDs or aliases"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "android_audit_tv_and_kaios_spatial_navigation",
+                "description": "Audit 10-Foot Smart TV (LG webOS, Hisense VIDAA OS) and Non-Touch Keypad (KaiOS 3.1) interfaces for SMPTE 5% title-safe overscan margins, >=24px 10-foot typography, KaiOS 36px 3-softkey bar collisions, and 100% LRUD (Left/Right/Up/Down) D-Pad Spatial Navigation focus graph reachability.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Source device serial (default 10CF5L0TYL00312)"}
+                    }
+                }
+            },
+            {
+                "name": "android_generate_cross_platform_autofix_patches",
+                "description": "Synthesize cross-platform auto-fix patches across 6 UI frameworks (Android XML, Jetpack Compose Multiplatform, Apple SwiftUI, Huawei HarmonyOS NEXT ArkTS, Desktop/Web CSS3, and Smart TV / KaiOS Spatial D-Pad Navigation).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "defect_code": {"type": "string", "description": "Defect code (e.g. SAFE_AREA_INSET_COLLISION, OFFSCREEN_CLIPPED_VIEW, DPAD_SPATIAL_FOCUS_UNREACHABLE)"},
+                        "os_profile": {"type": "string", "description": "Target OS profile ID or alias (e.g. ios_iphone_16_pro_max, linux_ubuntu_gnome, harmonyos_next, webos, kaios)"},
+                        "target_element": {"type": "string", "description": "Target UI element identifier"}
+                    }
+                }
+            },
+            {
+                "name": "android_run_10x_cross_platform_causal_evolution",
+                "description": "Execute the strict 10-Loop Causal Multi-OS Evolution (`Loop 1` -> `Loop 10`) across all 25 Operating Systems where for any loop n and constant a >= 0, Loop (n+a+1) strictly starts and rewrites its prompt only after Loop (n+a) completes and produces empirical telemetry (`started_at(n+a+1) > completed_at(n+a)` and `input_hash(n+a+1) == output_hash(n+a)`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial (default 10CF5L0TYL00312)"}
+                    }
+                }
             }
         ]
 
@@ -1608,6 +1690,44 @@ class AndroidFarmMCPServer:
                 )
                 return {"success": True, **res}
 
+            elif name == "android_list_cross_platform_os_profiles":
+                res = self.os25_poster_composer.list_all_25_os_profiles()
+                return {"success": True, **res}
+
+            elif name == "android_test_cross_platform_25os_matrix":
+                serial = args.get("serial") or "10CF5L0TYL00312"
+                res = self.os25_qa_oracle.execute(
+                    serial=serial,
+                    suite=args.get("suite", "full_25_os_matrix"),
+                    profiles=args.get("profiles"),
+                    xml_override=args.get("xml_override"),
+                )
+                return {"success": True, **res}
+
+            elif name == "android_audit_tv_and_kaios_spatial_navigation":
+                serial = args.get("serial") or "10CF5L0TYL00312"
+                res = self.kaios_tv_matrix.execute(
+                    serial=serial,
+                    xml_override=args.get("xml_override"),
+                )
+                return {"success": True, **res}
+
+            elif name == "android_generate_cross_platform_autofix_patches":
+                res = self.six_framework_patcher.execute(
+                    defect_code=args.get("defect_code", "SAFE_AREA_INSET_COLLISION"),
+                    os_profile=args.get("os_profile", "ios_iphone_16_pro_max"),
+                    target_element=args.get("target_element", "header_toolbar"),
+                )
+                return {"success": True, **res}
+
+            elif name == "android_run_10x_cross_platform_causal_evolution":
+                serial = args.get("serial") or "10CF5L0TYL00312"
+                res = self.os25_causal_10x.execute(
+                    serial=serial,
+                    xml_override=args.get("xml_override"),
+                )
+                return {"success": True, **res}
+
             else:
                 return {"success": False, "error": f"Unknown tool: {name}"}
 
@@ -1617,7 +1737,7 @@ class AndroidFarmMCPServer:
 
     def run_stdio(self):
         """Standard JSON-RPC 2.0 I/O loop."""
-        logger.info("Android Multi-Agent Farm MCP Server 2.0 (AMAF 15.0 - 50 Tools) started on stdio.")
+        logger.info("Android Multi-Agent Farm MCP Server 2.0 (AMAF 16.0 - 55 Tools) started on stdio.")
         for line in sys.stdin:
             line = line.strip()
             if not line:
@@ -1637,7 +1757,7 @@ class AndroidFarmMCPServer:
                             "capabilities": {"tools": {}},
                             "serverInfo": {
                                 "name": "android-multi-agent-farm",
-                                "version": "15.0.0"
+                                "version": "16.0.0"
                             }
                         }
                     }
