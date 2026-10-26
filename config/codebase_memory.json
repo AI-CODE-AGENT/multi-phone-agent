@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-10-26 07:05:20",
+  "last_updated": "2026-10-26 08:40:08",
   "locators": {
     "Screen_Login": [
       {
@@ -629,6 +629,48 @@
         "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Classify cross-app auth states, measure pixel luminance contrast ratios, and demangle Java/Native/ANR stack traces'.",
         "success_rate": 0.95,
         "created_at": "2026-10-26 07:05:19"
+      },
+      {
+        "version": "v56.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Serve interactive Web Testbench over adb reverse and solve Rotation, 3x3 Grid, Slider, RFC 6238 TOTP, Push 84, and Audio PCM CAPTCHAs\n# Base Instructions:\nGoal: Serve interactive Web Testbench over adb reverse and solve Rotation, 3x3 Grid, Slider, RFC 6238 TOTP, Push 84, and Audio PCM CAPTCHAs\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Serve interactive Web Testbench over adb reverse and solve Rotation, 3x3 Grid, Slider, RFC 6238 TOTP, Push 84, and Audio PCM CAPTCHAs'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 08:33:24"
+      },
+      {
+        "version": "v57.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Classify cross-app auth states, measure pixel luminance contrast ratios, and demangle Java/Native/ANR stack traces\n# Base Instructions:\nGoal: Classify cross-app auth states, measure pixel luminance contrast ratios, and demangle Java/Native/ANR stack traces\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Classify cross-app auth states, measure pixel luminance contrast ratios, and demangle Java/Native/ANR stack traces'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 08:33:30"
+      },
+      {
+        "version": "v58.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Explore interactive UI state transitions, audit RX/TX network API latency & cleartext HTTP, and profile FPS jank & PSS heap memory leaks\n# Base Instructions:\nGoal: Explore interactive UI state transitions, audit RX/TX network API latency & cleartext HTTP, and profile FPS jank & PSS heap memory leaks\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Explore interactive UI state transitions, audit RX/TX network API latency & cleartext HTTP, and profile FPS jank & PSS heap memory leaks'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 08:33:35"
+      },
+      {
+        "version": "v59.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Serve interactive Web Testbench over adb reverse and solve Rotation, 3x3 Grid, Slider, RFC 6238 TOTP, Push 84, and Audio PCM CAPTCHAs\n# Base Instructions:\nGoal: Serve interactive Web Testbench over adb reverse and solve Rotation, 3x3 Grid, Slider, RFC 6238 TOTP, Push 84, and Audio PCM CAPTCHAs\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Serve interactive Web Testbench over adb reverse and solve Rotation, 3x3 Grid, Slider, RFC 6238 TOTP, Push 84, and Audio PCM CAPTCHAs'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 08:36:52"
+      },
+      {
+        "version": "v60.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Classify cross-app auth states, measure pixel luminance contrast ratios, and demangle Java/Native/ANR stack traces\n# Base Instructions:\nGoal: Classify cross-app auth states, measure pixel luminance contrast ratios, and demangle Java/Native/ANR stack traces\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Classify cross-app auth states, measure pixel luminance contrast ratios, and demangle Java/Native/ANR stack traces'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 08:36:56"
+      },
+      {
+        "version": "v61.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Explore interactive UI state transitions, audit RX/TX network API latency & cleartext HTTP, and profile FPS jank & PSS heap memory leaks\n# Base Instructions:\nGoal: Explore interactive UI state transitions, audit RX/TX network API latency & cleartext HTTP, and profile FPS jank & PSS heap memory leaks\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Explore interactive UI state transitions, audit RX/TX network API latency & cleartext HTTP, and profile FPS jank & PSS heap memory leaks'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 08:37:02"
       }
     ],
     "planner": [
@@ -729,6 +771,20 @@
         "rationale": "Optimized for 3 healing events and 0 failures in scenario 'evolution_cycle_1'.",
         "success_rate": 0.95,
         "created_at": "2026-10-26 07:05:20"
+      },
+      {
+        "version": "v15.0",
+        "prompt": "# Role: Highly Robust Planner\n# Scenario: evolution_cycle_1\n# Base Instructions:\nDeconstruct multi-app mobile testing goals with Set-of-Mark visual grounding, Live Web Testbench E2E, Vivo OriginOS 6 calibration, Universal 7-Mode 2FA, Concentric Ring Rotation, Multi-Image Grid & Audio/Dice CAPTCHA CV, WCAG 2.1 contrast, Crash/ANR demangling, and Network/FPS telemetry.\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 3 healing events and 0 failures in scenario 'evolution_cycle_1'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 08:33:36"
+      },
+      {
+        "version": "v16.0",
+        "prompt": "# Role: Highly Robust Planner\n# Scenario: evolution_cycle_1\n# Base Instructions:\nDeconstruct multi-app mobile testing goals with Set-of-Mark visual grounding, Live Web Testbench E2E, Vivo OriginOS 6 calibration, Universal 7-Mode 2FA, Concentric Ring Rotation, Multi-Image Grid & Audio/Dice CAPTCHA CV, WCAG 2.1 contrast, Crash/ANR demangling, and Network/FPS telemetry.\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 3 healing events and 0 failures in scenario 'evolution_cycle_1'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 08:37:02"
       }
     ]
   },
@@ -2045,27 +2101,6 @@
       "timestamp": "2026-10-26 02:22:14"
     },
     {
-      "id": "mem_1792958602597",
-      "key": "smart_screenshot_emulator-5554_evo_cycle_1",
-      "value": {
-        "screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\screen_emulator-5554_evo_cycle_1_1792958597634.png",
-        "annotated_screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\som_emulator-5554_1792958602529.png",
-        "marks_count": 37,
-        "mean_brightness": 207.355,
-        "edge_density": 0.02613,
-        "is_blank": false
-      },
-      "category": "visual_perception",
-      "tags": [
-        "screenshot",
-        "perception",
-        "som",
-        "emulator-5554"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 03:03:22"
-    },
-    {
       "id": "mem_1792958606843",
       "key": "human_touch_emulator-5554_1792958606842",
       "value": {
@@ -2094,26 +2129,6 @@
       "timestamp": "2026-10-26 03:03:26"
     },
     {
-      "id": "mem_1792958660617",
-      "key": "crawl_emulator-5554_com.android.settings",
-      "value": {
-        "serial": "emulator-5554",
-        "package": "com.android.settings",
-        "unique_states_discovered": 3,
-        "transitions_recorded": 2,
-        "crashes_detected": 0
-      },
-      "category": "crawler",
-      "tags": [
-        "crawler",
-        "state_graph",
-        "emulator-5554",
-        "com.android.settings"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 03:04:20"
-    },
-    {
       "id": "mem_1792958670820",
       "key": "crash_analysis_emulator-5554_com.android.settings",
       "value": {
@@ -2135,62 +2150,6 @@
       "timestamp": "2026-10-26 03:04:30"
     },
     {
-      "id": "mem_1792958671173",
-      "key": "net_api_audit_emulator-5554_com.android.settings",
-      "value": {
-        "score": 100,
-        "rx_mb": 445.91,
-        "tx_mb": 11.33,
-        "api_calls": 0,
-        "cleartext_count": 0
-      },
-      "category": "general",
-      "tags": [
-        "network_api",
-        "emulator-5554",
-        "com.android.settings"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 03:04:31"
-    },
-    {
-      "id": "mem_1792958672426",
-      "key": "perf_audit_emulator-5554_com.android.settings",
-      "value": {
-        "score": 45,
-        "grade": "D",
-        "fps": 15.0,
-        "pss_mb": 51.53,
-        "leak_suspected": false
-      },
-      "category": "general",
-      "tags": [
-        "performance",
-        "memleak",
-        "emulator-5554",
-        "com.android.settings"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 03:04:32"
-    },
-    {
-      "id": "mem_1792958756232",
-      "key": "screen_state_emulator-5554",
-      "value": {
-        "keyboard": true,
-        "dialog": false,
-        "dimensions": "720x1600"
-      },
-      "category": "general",
-      "tags": [
-        "vision",
-        "emulator-5554",
-        "screen_state"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 03:05:56"
-    },
-    {
       "id": "mem_1792958759969",
       "key": "SEC_com_android_settings_1792958759",
       "value": {
@@ -2206,26 +2165,6 @@
       ],
       "metadata": {},
       "timestamp": "2026-10-26 03:05:59"
-    },
-    {
-      "id": "mem_1792961810546",
-      "key": "perf_audit_10CF5L0TYL00312_com.android.settings",
-      "value": {
-        "score": 99,
-        "grade": "A+",
-        "fps": 59.6,
-        "pss_mb": 82.52,
-        "leak_suspected": false
-      },
-      "category": "general",
-      "tags": [
-        "performance",
-        "memleak",
-        "10CF5L0TYL00312",
-        "com.android.settings"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 03:56:50"
     },
     {
       "id": "mem_1792962119340",
@@ -2552,31 +2491,6 @@
       "timestamp": "2026-10-26 07:03:30"
     },
     {
-      "id": "mem_1792973022530",
-      "key": "real_device_10CF5L0TYL00312",
-      "value": {
-        "name": "Vivo V2417A",
-        "resolution": "1260x2800",
-        "android_version": "16",
-        "battery": {
-          "level": 100,
-          "temperature_c": 33.2,
-          "voltage_mv": 4428,
-          "status": "charging",
-          "plugged": "usb",
-          "overheated": false,
-          "low_battery": false
-        }
-      },
-      "category": "fleet_topology",
-      "tags": [
-        "real_device",
-        "hardware_profile"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 07:03:42"
-    },
-    {
       "id": "mem_1792973032064",
       "key": "vivo_originos_opt_emulator-5556_1792973032054",
       "value": {
@@ -2811,6 +2725,3337 @@
       ],
       "metadata": {},
       "timestamp": "2026-10-26 07:05:19"
+    },
+    {
+      "id": "mem_1792977596297",
+      "key": "tiktok_workflow_10CF5L0TYL00312_1792977596295",
+      "value": {
+        "status": "TIKTOK_WORKFLOW_COMPLETED",
+        "serial": "10CF5L0TYL00312",
+        "target_account": "nht.tn472",
+        "search_query": "tra dang",
+        "comment_text": "dinh quaa",
+        "steps_completed": 6,
+        "tokens_used": 0
+      },
+      "category": "social_workflow_engine",
+      "tags": [
+        "social_workflow",
+        "subagent_39",
+        "tiktok",
+        "10CF5L0TYL00312",
+        "nht.tn472"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:19:56"
+    },
+    {
+      "id": "mem_1792977596312",
+      "key": "captcha_patrol_10CF5L0TYL00312_1792977596302",
+      "value": {
+        "status": "CAPTCHA_PATROL_COMPLETED",
+        "serial": "10CF5L0TYL00312",
+        "websites_total": 13,
+        "websites_solved": 13,
+        "tokens_used": 0
+      },
+      "category": "social_workflow_engine",
+      "tags": [
+        "social_workflow",
+        "subagent_39",
+        "captcha_patrol",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:19:56"
+    },
+    {
+      "id": "mem_1792977596690",
+      "key": "captcha_patrol_emulator-5554_1792977596680",
+      "value": {
+        "status": "CAPTCHA_PATROL_COMPLETED",
+        "serial": "emulator-5554",
+        "websites_total": 2,
+        "websites_solved": 2,
+        "tokens_used": 0
+      },
+      "category": "social_workflow_engine",
+      "tags": [
+        "social_workflow",
+        "subagent_39",
+        "captcha_patrol",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:19:56"
+    },
+    {
+      "id": "mem_1792977619621",
+      "key": "tiktok_workflow_10CF5L0TYL00312_1792977619607",
+      "value": {
+        "status": "TIKTOK_WORKFLOW_COMPLETED",
+        "serial": "10CF5L0TYL00312",
+        "target_account": "nht.tn472",
+        "search_query": "tra dang",
+        "comment_text": "dinh quaa",
+        "steps_completed": 6,
+        "tokens_used": 0
+      },
+      "category": "social_workflow_engine",
+      "tags": [
+        "social_workflow",
+        "subagent_39",
+        "tiktok",
+        "10CF5L0TYL00312",
+        "nht.tn472"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:20:19"
+    },
+    {
+      "id": "mem_1792977619692",
+      "key": "captcha_patrol_10CF5L0TYL00312_1792977619630",
+      "value": {
+        "status": "CAPTCHA_PATROL_COMPLETED",
+        "serial": "10CF5L0TYL00312",
+        "websites_total": 13,
+        "websites_solved": 13,
+        "tokens_used": 0
+      },
+      "category": "social_workflow_engine",
+      "tags": [
+        "social_workflow",
+        "subagent_39",
+        "captcha_patrol",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:20:19"
+    },
+    {
+      "id": "mem_1792977620041",
+      "key": "captcha_patrol_emulator-5554_1792977620025",
+      "value": {
+        "status": "CAPTCHA_PATROL_COMPLETED",
+        "serial": "emulator-5554",
+        "websites_total": 2,
+        "websites_solved": 2,
+        "tokens_used": 0
+      },
+      "category": "social_workflow_engine",
+      "tags": [
+        "social_workflow",
+        "subagent_39",
+        "captcha_patrol",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:20:20"
+    },
+    {
+      "id": "mem_1792977737607",
+      "key": "macro_replay_tiktok_switch_and_interact_emulator-5554_1792977737590",
+      "value": {
+        "status": "MACRO_REPLAY_OK",
+        "macro_name": "tiktok_switch_and_interact",
+        "serial": "emulator-5554",
+        "dry_run": true,
+        "target_resolution": [
+          1080,
+          2400
+        ],
+        "steps_executed": 4,
+        "steps": [
+          {
+            "step_id": 1,
+            "action_type": "swipe",
+            "x": 540,
+            "y": 1872,
+            "end_x": 540,
+            "end_y": 528,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 2,
+            "action_type": "wait",
+            "x": 540,
+            "y": 1200,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 3,
+            "action_type": "double_tap",
+            "x": 562,
+            "y": 1152,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 4,
+            "action_type": "tap",
+            "x": 983,
+            "y": 1536,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          }
+        ],
+        "tokens_used": 0,
+        "elapsed_ms": 0.05,
+        "subagent": "MacroReplaySubagent#37",
+        "subagent_id": 37
+      },
+      "category": "macro_telemetry",
+      "tags": [
+        "macro_replay",
+        "tiktok_switch_and_interact",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:22:17"
+    },
+    {
+      "id": "mem_1792977738135",
+      "key": "macro_replay_vivo_dismiss_usb_install_10AC9C1285000CS_1792977738125",
+      "value": {
+        "status": "MACRO_REPLAY_OK",
+        "macro_name": "vivo_dismiss_usb_install",
+        "serial": "10AC9C1285000CS",
+        "dry_run": false,
+        "target_resolution": [
+          1260,
+          2800
+        ],
+        "steps_executed": 2,
+        "steps": [
+          {
+            "step_id": 1,
+            "action_type": "tap",
+            "x": 630,
+            "y": 2460,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "poco_xml",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "HUMAN_TAP_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 2,
+            "action_type": "tap",
+            "x": 907,
+            "y": 2520,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "HUMAN_TAP_OK"
+            },
+            "tokens_used": 0
+          }
+        ],
+        "tokens_used": 0,
+        "elapsed_ms": 503.07,
+        "subagent": "MacroReplaySubagent#37",
+        "subagent_id": 37
+      },
+      "category": "macro_telemetry",
+      "tags": [
+        "macro_replay",
+        "vivo_dismiss_usb_install",
+        "10AC9C1285000CS"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:22:18"
+    },
+    {
+      "id": "mem_1792977949164",
+      "key": "macro_replay_tiktok_switch_and_interact_emulator-5554_1792977949155",
+      "value": {
+        "status": "MACRO_REPLAY_OK",
+        "macro_name": "tiktok_switch_and_interact",
+        "serial": "emulator-5554",
+        "dry_run": true,
+        "target_resolution": [
+          1080,
+          2400
+        ],
+        "steps_executed": 4,
+        "steps": [
+          {
+            "step_id": 1,
+            "action_type": "swipe",
+            "x": 540,
+            "y": 1872,
+            "end_x": 540,
+            "end_y": 528,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 2,
+            "action_type": "wait",
+            "x": 540,
+            "y": 1200,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 3,
+            "action_type": "double_tap",
+            "x": 562,
+            "y": 1152,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 4,
+            "action_type": "tap",
+            "x": 983,
+            "y": 1536,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          }
+        ],
+        "tokens_used": 0,
+        "elapsed_ms": 0.04,
+        "subagent": "MacroReplaySubagent#37",
+        "subagent_id": 37
+      },
+      "category": "macro_telemetry",
+      "tags": [
+        "macro_replay",
+        "tiktok_switch_and_interact",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:25:49"
+    },
+    {
+      "id": "mem_1792977949694",
+      "key": "macro_replay_vivo_dismiss_usb_install_10AC9C1285000CS_1792977949675",
+      "value": {
+        "status": "MACRO_REPLAY_OK",
+        "macro_name": "vivo_dismiss_usb_install",
+        "serial": "10AC9C1285000CS",
+        "dry_run": false,
+        "target_resolution": [
+          1260,
+          2800
+        ],
+        "steps_executed": 2,
+        "steps": [
+          {
+            "step_id": 1,
+            "action_type": "tap",
+            "x": 630,
+            "y": 2460,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "poco_xml",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "HUMAN_TAP_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 2,
+            "action_type": "tap",
+            "x": 907,
+            "y": 2520,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "HUMAN_TAP_OK"
+            },
+            "tokens_used": 0
+          }
+        ],
+        "tokens_used": 0,
+        "elapsed_ms": 505.32,
+        "subagent": "MacroReplaySubagent#37",
+        "subagent_id": 37
+      },
+      "category": "macro_telemetry",
+      "tags": [
+        "macro_replay",
+        "vivo_dismiss_usb_install",
+        "10AC9C1285000CS"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:25:49"
+    },
+    {
+      "id": "mem_1792977973868",
+      "key": "macro_replay_tiktok_switch_and_interact_emulator-5554_1792977973859",
+      "value": {
+        "status": "MACRO_REPLAY_OK",
+        "macro_name": "tiktok_switch_and_interact",
+        "serial": "emulator-5554",
+        "dry_run": true,
+        "target_resolution": [
+          1080,
+          2400
+        ],
+        "steps_executed": 4,
+        "steps": [
+          {
+            "step_id": 1,
+            "action_type": "swipe",
+            "x": 540,
+            "y": 1872,
+            "end_x": 540,
+            "end_y": 528,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 2,
+            "action_type": "wait",
+            "x": 540,
+            "y": 1200,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 3,
+            "action_type": "double_tap",
+            "x": 562,
+            "y": 1152,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 4,
+            "action_type": "tap",
+            "x": 983,
+            "y": 1536,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          }
+        ],
+        "tokens_used": 0,
+        "elapsed_ms": 0.05,
+        "subagent": "MacroReplaySubagent#37",
+        "subagent_id": 37
+      },
+      "category": "macro_telemetry",
+      "tags": [
+        "macro_replay",
+        "tiktok_switch_and_interact",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:26:13"
+    },
+    {
+      "id": "mem_1792977974389",
+      "key": "macro_replay_vivo_dismiss_usb_install_10AC9C1285000CS_1792977974376",
+      "value": {
+        "status": "MACRO_REPLAY_OK",
+        "macro_name": "vivo_dismiss_usb_install",
+        "serial": "10AC9C1285000CS",
+        "dry_run": false,
+        "target_resolution": [
+          1260,
+          2800
+        ],
+        "steps_executed": 2,
+        "steps": [
+          {
+            "step_id": 1,
+            "action_type": "tap",
+            "x": 630,
+            "y": 2460,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "poco_xml",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "HUMAN_TAP_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 2,
+            "action_type": "tap",
+            "x": 907,
+            "y": 2520,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "HUMAN_TAP_OK"
+            },
+            "tokens_used": 0
+          }
+        ],
+        "tokens_used": 0,
+        "elapsed_ms": 501.46,
+        "subagent": "MacroReplaySubagent#37",
+        "subagent_id": 37
+      },
+      "category": "macro_telemetry",
+      "tags": [
+        "macro_replay",
+        "vivo_dismiss_usb_install",
+        "10AC9C1285000CS"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:26:14"
+    },
+    {
+      "id": "mem_1792977989618",
+      "key": "macro_replay_tiktok_switch_and_interact_emulator-5554_1792977989608",
+      "value": {
+        "status": "MACRO_REPLAY_OK",
+        "macro_name": "tiktok_switch_and_interact",
+        "serial": "emulator-5554",
+        "dry_run": true,
+        "target_resolution": [
+          1080,
+          2400
+        ],
+        "steps_executed": 4,
+        "steps": [
+          {
+            "step_id": 1,
+            "action_type": "swipe",
+            "x": 540,
+            "y": 1872,
+            "end_x": 540,
+            "end_y": 528,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 2,
+            "action_type": "wait",
+            "x": 540,
+            "y": 1200,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 3,
+            "action_type": "double_tap",
+            "x": 562,
+            "y": 1152,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 4,
+            "action_type": "tap",
+            "x": 983,
+            "y": 1536,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          }
+        ],
+        "tokens_used": 0,
+        "elapsed_ms": 0.05,
+        "subagent": "MacroReplaySubagent#37",
+        "subagent_id": 37
+      },
+      "category": "macro_telemetry",
+      "tags": [
+        "macro_replay",
+        "tiktok_switch_and_interact",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:26:29"
+    },
+    {
+      "id": "mem_1792977990137",
+      "key": "macro_replay_vivo_dismiss_usb_install_10AC9C1285000CS_1792977990125",
+      "value": {
+        "status": "MACRO_REPLAY_OK",
+        "macro_name": "vivo_dismiss_usb_install",
+        "serial": "10AC9C1285000CS",
+        "dry_run": false,
+        "target_resolution": [
+          1260,
+          2800
+        ],
+        "steps_executed": 2,
+        "steps": [
+          {
+            "step_id": 1,
+            "action_type": "tap",
+            "x": 630,
+            "y": 2460,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "poco_xml",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "HUMAN_TAP_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 2,
+            "action_type": "tap",
+            "x": 907,
+            "y": 2520,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "HUMAN_TAP_OK"
+            },
+            "tokens_used": 0
+          }
+        ],
+        "tokens_used": 0,
+        "elapsed_ms": 501.3,
+        "subagent": "MacroReplaySubagent#37",
+        "subagent_id": 37
+      },
+      "category": "macro_telemetry",
+      "tags": [
+        "macro_replay",
+        "vivo_dismiss_usb_install",
+        "10AC9C1285000CS"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:26:30"
+    },
+    {
+      "id": "mem_1792977991956",
+      "key": "tiktok_workflow_10CF5L0TYL00312_1792977991943",
+      "value": {
+        "status": "TIKTOK_WORKFLOW_COMPLETED",
+        "serial": "10CF5L0TYL00312",
+        "target_account": "nht.tn472",
+        "search_query": "tra dang",
+        "comment_text": "dinh quaa",
+        "steps_completed": 6,
+        "tokens_used": 0
+      },
+      "category": "social_workflow_engine",
+      "tags": [
+        "social_workflow",
+        "subagent_39",
+        "tiktok",
+        "10CF5L0TYL00312",
+        "nht.tn472"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:26:31"
+    },
+    {
+      "id": "mem_1792977991976",
+      "key": "captcha_patrol_10CF5L0TYL00312_1792977991963",
+      "value": {
+        "status": "CAPTCHA_PATROL_COMPLETED",
+        "serial": "10CF5L0TYL00312",
+        "websites_total": 13,
+        "websites_solved": 13,
+        "tokens_used": 0
+      },
+      "category": "social_workflow_engine",
+      "tags": [
+        "social_workflow",
+        "subagent_39",
+        "captcha_patrol",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:26:31"
+    },
+    {
+      "id": "mem_1792977992334",
+      "key": "captcha_patrol_emulator-5554_1792977992325",
+      "value": {
+        "status": "CAPTCHA_PATROL_COMPLETED",
+        "serial": "emulator-5554",
+        "websites_total": 2,
+        "websites_solved": 2,
+        "tokens_used": 0
+      },
+      "category": "social_workflow_engine",
+      "tags": [
+        "social_workflow",
+        "subagent_39",
+        "captcha_patrol",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:26:32"
+    },
+    {
+      "id": "mem_1792978243820",
+      "key": "vivo_originos_opt_emulator-5554_1792978243809",
+      "value": {
+        "status": "VIVO_ORIGINOS_OPTIMIZED",
+        "serial": "emulator-5554",
+        "telemetry": {
+          "is_vivo_originos": true,
+          "model": "sdk_gphone64_x86_64",
+          "device_code": "emu64xa",
+          "os_display_id": "OriginOS 6",
+          "width": 1080,
+          "height": 1920,
+          "density": 420,
+          "safe_touch_bounds": {
+            "x_min": 16,
+            "y_min": 80,
+            "x_max": 1064,
+            "y_max": 1848,
+            "top_inset_px": 80,
+            "bottom_inset_px": 72,
+            "side_inset_px": 16
+          },
+          "aspect_ratio": 1.7778,
+          "focused_package": "com.google.android.apps.nexuslauncher",
+          "focused_activity": "com.google.android.apps.nexuslauncher.NexusLauncherActivity"
+        },
+        "interception_check": {
+          "interception_detected": false,
+          "matched_label": null,
+          "bounds": null,
+          "center": null,
+          "fallback_coords": {
+            "cx": 630,
+            "cy": 2550
+          }
+        },
+        "optimizations_applied": [
+          "svc power stayon usb",
+          "input keyevent 224",
+          "wm dismiss-keyguard"
+        ]
+      },
+      "category": "vivo_originos_optimizer",
+      "tags": [
+        "vivo",
+        "originos",
+        "optimizer",
+        "emulator-5554"
+      ],
+      "metadata": {
+        "serial": "emulator-5554",
+        "model": "sdk_gphone64_x86_64",
+        "os_display_id": "OriginOS 6",
+        "interception_detected": false
+      },
+      "timestamp": "2026-10-26 08:30:43"
+    },
+    {
+      "id": "mem_1792978248278",
+      "key": "human_touch_emulator-5554_1792978248276",
+      "value": {
+        "status": "HUMAN_TAP_OK",
+        "serial": "emulator-5554",
+        "target": [
+          540,
+          768
+        ],
+        "actual_point": [
+          549,
+          766
+        ],
+        "dwell_ms": 108,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "tap",
+        "elapsed_ms": 298.6
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "tap",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:30:48"
+    },
+    {
+      "id": "mem_1792978262366",
+      "key": "macro_replay_vivo_dismiss_usb_install_emulator-5554_1792978262358",
+      "value": {
+        "status": "MACRO_REPLAY_OK",
+        "macro_name": "vivo_dismiss_usb_install",
+        "serial": "emulator-5554",
+        "dry_run": true,
+        "target_resolution": [
+          1260,
+          2800
+        ],
+        "steps_executed": 2,
+        "steps": [
+          {
+            "step_id": 1,
+            "action_type": "tap",
+            "x": 630,
+            "y": 2464,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 2,
+            "action_type": "tap",
+            "x": 907,
+            "y": 2520,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          }
+        ],
+        "tokens_used": 0,
+        "elapsed_ms": 0.04,
+        "subagent": "MacroReplaySubagent#37",
+        "subagent_id": 37
+      },
+      "category": "macro_telemetry",
+      "tags": [
+        "macro_replay",
+        "vivo_dismiss_usb_install",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:31:02"
+    },
+    {
+      "id": "mem_1792978262593",
+      "key": "cdp_emulator-5554_1792978262585",
+      "value": {
+        "status": "CDP_SOCKETS_INSPECTED",
+        "subagent_id": 38,
+        "subagent_name": "AndroidCDPSubagent",
+        "serial": "emulator-5554",
+        "discovered_sockets": [],
+        "primary_socket": "chrome_devtools_remote",
+        "forwarded": false,
+        "local_port": 9229,
+        "open_tabs": [
+          {
+            "id": "341",
+            "title": "Bản demo CAPTCHA thích ứng",
+            "url": "https://www.geetest.com/en/adaptive-captcha-demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/341",
+            "type": "page"
+          },
+          {
+            "id": "340",
+            "title": "Capsolver: Fastest AI Captcha Solver, Auto Captcha Solving Service",
+            "url": "https://www.capsolver.com/",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/340",
+            "type": "page"
+          },
+          {
+            "id": "339",
+            "title": "Anti Captcha Tutorials Demo",
+            "url": "https://anti-captcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/339",
+            "type": "page"
+          },
+          {
+            "id": "338",
+            "title": "CreepJS",
+            "url": "https://abrahamjuliot.github.io/creepjs/",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/338",
+            "type": "page"
+          },
+          {
+            "id": "337",
+            "title": "Browserleaks - Check your browser for privacy leaks",
+            "url": "https://browserleaks.com/",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/337",
+            "type": "page"
+          },
+          {
+            "id": "336",
+            "title": "Bản trình diễn ReCAPTCHA",
+            "url": "https://www.google.com/recaptcha/api2/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/336",
+            "type": "page"
+          },
+          {
+            "id": "335",
+            "title": "Bản trình diễn Rotate captcha: Biểu mẫu mẫu có Rotate captcha",
+            "url": "https://2captcha.com/demo/rotatecaptcha",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/335",
+            "type": "page"
+          },
+          {
+            "id": "334",
+            "title": "Không tìm thấy trang",
+            "url": "https://2captcha.com/demo/funcaptcha",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/334",
+            "type": "page"
+          },
+          {
+            "id": "333",
+            "title": "Bản trình diễn Cloudflare Turnstile: Biểu mẫu mẫu có Cloudflare Turnstile",
+            "url": "https://2captcha.com/demo/cloudflare-turnstile",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/333",
+            "type": "page"
+          },
+          {
+            "id": "332",
+            "title": "BotDetect CAPTCHA Demo - Features",
+            "url": "https://captcha.com/demos/features/captcha-demo.aspx",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/332",
+            "type": "page"
+          },
+          {
+            "id": "331",
+            "title": "BotDetect CAPTCHA Demo - Features",
+            "url": "https://captcha.com/demos/features/captcha-demo.aspx",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/331",
+            "type": "page"
+          },
+          {
+            "id": "330",
+            "title": "Bản trình diễn GeeTest captcha: Biểu mẫu mẫu có GeeTest captcha",
+            "url": "https://2captcha.com/demo/geetest",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/330",
+            "type": "page"
+          },
+          {
+            "id": "329",
+            "title": "Không tìm thấy trang",
+            "url": "https://2captcha.com/demo/rotate",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/329",
+            "type": "page"
+          },
+          {
+            "id": "328",
+            "title": "Bản trình diễn hCAPTCHA",
+            "url": "https://accounts.hcaptcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/328",
+            "type": "page"
+          },
+          {
+            "id": "327",
+            "title": "Bản trình diễn Google reCAPTCHA v2: Biểu mẫu mẫu có Google reCAPTCHA v2",
+            "url": "https://2captcha.com/demo/recaptcha-v2",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/327",
+            "type": "page"
+          },
+          {
+            "id": "325",
+            "title": "Anti Captcha Tutorials Demo",
+            "url": "https://anti-captcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/325",
+            "type": "page"
+          },
+          {
+            "id": "142",
+            "title": "Đăng ký khoản vay không thành công",
+            "url": "https://www.homecredit.vn/vay-tien-online-nhanh/tu-choi",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/142",
+            "type": "page"
+          },
+          {
+            "id": "3F35FC3BBA33D3F4084568EA7D2298A7",
+            "title": "",
+            "url": "",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/3F35FC3BBA33D3F4084568EA7D2298A7",
+            "type": "worker"
+          },
+          {
+            "id": "229",
+            "title": "Jungkook (BTS) lập kỷ lục mới sau màn trình diễn ở World Cup 2022",
+            "url": "https://laodong.vn/giai-tri/jungkook-bts-lap-ky-luc-moi-sau-man-trinh-dien-o-world-cup-2022-1122188.ldo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/229",
+            "type": "page"
+          },
+          {
+            "id": "232",
+            "title": "lệnh terimal chuyển sang thư mục D - Tìm trên Google",
+            "url": "https://www.google.com/search?q=l%E1%BB%87nh+terimal+chuy%E1%BB%83n+sang+th%C6%B0+m%E1%BB%A5c+D&oq=l%E1%BB%87nh+terimal+chuy%E1%BB%83n+sang+th%C6%B0+m%E1%BB%A5c+D&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKABMgkIAhAhGAoYoAEyCQgDECEYChigATIJCAQQIRgKGKABMgkIBRAhGAoYoAHSAQg3OTI1ajBqN6gCFLACAfEFYLAaG-CrbE3xBWCwGhvgq2xN8QVgsBob4KtsTQ&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/232",
+            "type": "page"
+          },
+          {
+            "id": "234",
+            "title": "Mua Google Gemini Ultra dùng được Antigravity, CHÍNH CHỦ",
+            "url": "https://muabanquyen.com/gemini-ultra",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/234",
+            "type": "page"
+          },
+          {
+            "id": "237",
+            "title": "mở bảng nhớ tạm trên máy tính - Tìm trên Google",
+            "url": "https://www.google.com/search?q=m%E1%BB%9F+b%E1%BA%A3ng+nh%E1%BB%9B+t%E1%BA%A1m+tr%C3%AAn+m%C3%A1y+t%C3%ADnh&oq=m%E1%BB%9F+bangt+nh%E1%BB%9B+t%E1%BA%A1m+&gs_lcrp=EgZjaHJvbWUqCQgBEAAYDRiABDIGCAAQRRg5MgkIARAAGA0YgAQyCAgCEAAYFhgeMggIAxAAGBYYHjIICAQQABgWGB4yCAgFEAAYFhgeMggIBhAAGBYYHjIICAcQABgWGB4yCAgIEAAYFhgeMggICRAAGBYYHjIICAoQABgWGB4yCAgLEAAYFhgeMggIDBAAGBYYHjIICA0QABgWGB4yCAgOEAAYFhge0gEINDYyMGowajmoAg6wAgHxBQq8J9uftaVO8QUKvCfbn7WlTg&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/237",
+            "type": "page"
+          },
+          {
+            "id": "242",
+            "title": "Google Antigravity",
+            "url": "https://antigravity.google.com/u/6/r/8bbec1a7-f69a-409f-9ba7-49d954a1c3fd-v2?p=c%2F5648a973-dd1f-4d7a-bce6-91b249dbc369",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/242",
+            "type": "page"
+          },
+          {
+            "id": "248",
+            "title": "maching learning là gì - Tìm trên Google",
+            "url": "https://www.google.com/search?q=maching+learning+l%C3%A0+g%C3%AC&oq=maching+learning+l%C3%A0+g%C3%AC&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDY4ODJqMGo3qAIUsAIB8QXGhUe3HoUAVPEFxoVHtx6FAFQ&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/248",
+            "type": "page"
+          },
+          {
+            "id": "250",
+            "title": "xây dựng chat gpt thì nên học ml hay dl nhỉ - Tìm trên Google",
+            "url": "https://www.google.com/search?q=x%C3%A2y+d%E1%BB%B1ng+chat+gpt+th%C3%AC+n%C3%AAn+h%E1%BB%8Dc+ml+hay+dl+nh%E1%BB%89&oq=x%C3%A2y+d%E1%BB%B1ng+chat+gpt+th%C3%AC+n%C3%AAn+h%E1%BB%8Dc+ml+hay+dl+nh%E1%BB%89&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKAB0gEIOTY3N2owajeoAhSwAgHxBcaFR7cehQBU8QXGhUe3HoUAVA&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/250",
+            "type": "page"
+          },
+          {
+            "id": "253",
+            "title": "Google Antigravity",
+            "url": "https://antigravity.google.com/r/8bbec1a7-f69a-409f-9ba7-49d954a1c3fd-v2?p=c%2F5648a973-dd1f-4d7a-bce6-91b249dbc369",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/253",
+            "type": "page"
+          },
+          {
+            "id": "256",
+            "title": "npx ccusage theo tháng thì như nào - Tìm trên Google",
+            "url": "https://www.google.com/search?q=npx+ccusage+theo+th%C3%A1ng+th%C3%AC+nh%C6%B0+n%C3%A0o&oq=npx+ccusage+theo+th%C3%A1ng+th%C3%AC+nh%C6%B0+n%C3%A0o+&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigATIHCAMQIRigAdIBCDg1OTNqMGo5qAIOsAIB8QUFe5t1VqdQtPEFBXubdVanULTxBQGENG1qAHaR&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/256",
+            "type": "page"
+          },
+          {
+            "id": "259",
+            "title": "Hoa Kỳ: 07:29",
+            "url": "https://time.is/vi/United_States",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/259",
+            "type": "page"
+          },
+          {
+            "id": "263",
+            "title": "repo điều khiển điện thoại bằng llm của google - Tìm trên Google",
+            "url": "https://www.google.com/search?q=repo+%C4%91i%E1%BB%81u+khi%E1%BB%83n+%C4%91i%E1%BB%87n+tho%E1%BA%A1i+b%E1%BA%B1ng+llm+c%E1%BB%A7a+google&sca_esv=a3c6ed50d1eb053c&sxsrf=APpeQnv5EoLZrblxRN5_SlB_TRJj06QluQ%3A1792840402643&ei=0pLcavDRJpvO2roPocSDsAo&biw=360&bih=704&oq=repo+%C4%91i%E1%BB%81u+khi%E1%BB%83n+%C4%91i%E1%BB%87n+tho%E1%BA%A1i+b%E1%BA%B1ng+llm+c%E1%BB%A7a+google&gs_lp=EhNtb2JpbGUtZ3dzLXdpei1zZXJwIjxyZXBvIMSRaeG7gXUga2hp4buDbiDEkWnhu4duIHRob-G6oWkgYuG6sW5nIGxsbSBj4bunYSBnb29nbGUyCBAAGIkFGKIEMgUQABjvBTIIEAAYgAQYogQyBRAAGO8FMgUQABjvBUjwPFCiC1iWOnAHeAGQAQOYAYkCoAHLIKoBBjQuMzAuMbgBA8gBAPgBAZgCHaACuRTCAgoQABhHGNYEGLADwgIXEC4Y3AYYuAYY2gYY2AIYyAMYsAPYAQHCAgcQIxiwAhgnwgIIECEYoAEYwwTCAgoQIRgKGKABGMMEwgIEECEYCpgDAIgGAZAGDroGBAgBGBmSBwQ3LjIyoAfYzQGyBwQwLjIyuAejFMIHCTAuMTQuMTMuMsgHdIAIAQ&sclient=mobile-gws-wiz-serp#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/263",
+            "type": "page"
+          },
+          {
+            "id": "275",
+            "title": "git hub edu - Tìm trên Google",
+            "url": "https://www.google.com/search?q=git+hub+edu&oq=&gs_lcrp=EgZjaHJvbWUqDAgDECMYJxjqAhiLBDIGCAAQRRg6MgcIARBFGLABMgkIAhAFGEIYwwMyDAgDECMYJxjqAhiLBDIMCAQQIxgnGOoCGIsEMgwIBRAjGCcY6gIYiwQyDAgGECMYJxjqAhiLBDIMCAcQIxgnGOoCGIsEMgwICBAjGCcY6gIYiwQyDAgJECMYJxjqAhiLBDIMCAoQIxgnGOoCGIsEMgwICxAjGCcY6gIYiwQyDAgMECMYJxjqAhiLBDIMCA0QIxgnGOoCGIsEMgwIDhAjGCcY6gIYiwTSAQYtMWowajSoAg6wAgHxBf82kVMW-9fO8QX_NpFTFvvXzg&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/275",
+            "type": "page"
+          },
+          {
+            "id": "277",
+            "title": "Google Dịch",
+            "url": "https://translate.google.com.vn/?sl=en&tl=vi&text=Enter%20the%20code%20from%20your%20two-factor%20authentication%20app%20or%20browser%20extension%20below%20to&op=translate",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/277",
+            "type": "page"
+          },
+          {
+            "id": "280",
+            "title": "thêm repo private vào tổ chức trên git - Tìm trên Google",
+            "url": "https://www.google.com/search?q=th%C3%AAm+repo+private+v%C3%A0o+t%E1%BB%95+ch%E1%BB%A9c+tr%C3%AAn+git&oq=th%C3%AAm+repo+private+v%C3%A0o+t%E1%BB%95+ch%E1%BB%A9c+tr%C3%AAn+git&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigAdIBCDg0MjZqMGo5qAIOsAIB8QXdeeriie6uEfEF3Xnq4onurhE&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/280",
+            "type": "page"
+          },
+          {
+            "id": "286",
+            "title": "Two-factor recovery",
+            "url": "https://github.com/sessions/two-factor/recovery",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/286",
+            "type": "page"
+          },
+          {
+            "id": "302",
+            "title": "huce tiêngas anh - Tìm trên Google",
+            "url": "https://www.google.com/search?q=huce+ti%C3%AAngas+anh&oq=huce+ti%C3%AAngas+anh&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQABgNGIAEMgkIAhAAGA0YgAQyCQgDEAAYDRiABDIICAQQABgWGB4yCAgFEAAYFhgeMggIBhAAGBYYHjIICAcQABgWGB4yCAgIEAAYFhgeMggICRAAGBYYHjIICAoQABgWGB4yCggLEAAYCBgNGB4yCggMEAAYCBgNGB4yCggNEAAYCBgNGB4yCggOEAAYCBgNGB7SAQg0NTc1ajBqN6gCFLACAfEFKFjPQ41DymnxBShYz0ONQ8pp8QUoWM9DjUPKaQ&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#ebo=0",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/302",
+            "type": "page"
+          },
+          {
+            "id": "305",
+            "title": "cách test thuật toán giải capcha test - Tìm trên Google",
+            "url": "https://www.google.com/search?q=c%C3%A1ch+test+thu%E1%BA%ADt+to%C3%A1n+gi%E1%BA%A3i+capcha+test&sca_esv=a5e9361146d2feed&sxsrf=APpeQnthao41O7QCsK38K73Jp2P--wCVxA%3A1792950147096&ei=gz_eapGeBZ-Ovr0PgPWD6Q4&biw=360&bih=704&oq=c%C3%A1ch+test+thu%E1%BA%ADt+to%C3%A1n+gi%E1%BA%A3i+capcha+test&gs_lp=EhNtb2JpbGUtZ3dzLXdpei1zZXJwIitjw6FjaCB0ZXN0IHRodeG6rXQgdG_DoW4gZ2nhuqNpIGNhcGNoYSB0ZXN0MgUQABjvBTIFEAAY7wUyBRAAGO8FMggQABiABBiiBDIFEAAY7wVI2TpQ-wtYkzRwCHgBkAEDmAGEAaABtRuqAQQ0LjI4uAEDyAEA-AEBmAIdoALZEsICChAAGEcY1gQYsAPCAg0QABiABBiKBRhDGLADwgIXEC4Y3AYYuAYY2gYY2AIYyAMYsAPYAQHCAgcQIxiwAhgnwgIHEAAYgAQYDcICBhAAGB4YDcICBBAhGAqYAwDiAwUSATEgQIgGAZAGDroGBAgBGBmSBwQ4LjIxoAfpgQGyBwQwLjIxuAe3EsIHCTAuMTIuMTQuM8gHfIAIAQ&sclient=mobile-gws-wiz-serp",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/305",
+            "type": "page"
+          },
+          {
+            "id": "310",
+            "title": "web giải captcha để test - Tìm trên Google",
+            "url": "https://www.google.com/search?q=web+gi%E1%BA%A3i+capcha+%C4%91%E1%BB%83+test&oq=web+gi%E1%BA%A3i+capcha+%C4%91%E1%BB%83+test&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKABMgkIAhAhGAoYoAEyCQgDECEYChigAdIBCDc2MjRqMGo5qAIOsAIB8QUD3omDZl6-q_EFA96Jg2Zevqs&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/310",
+            "type": "page"
+          },
+          {
+            "id": "315",
+            "title": "AMAF v8.0 Live CAPTCHA &amp; 2FA Testbench",
+            "url": "http://127.0.0.1:61161/amaf-testbench",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/315",
+            "type": "page"
+          },
+          {
+            "id": "316",
+            "title": "Bản trình diễn ReCAPTCHA",
+            "url": "https://www.google.com/recaptcha/api2/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/316",
+            "type": "page"
+          },
+          {
+            "id": "317",
+            "title": "challenges.cloudflare.com",
+            "url": "https://challenges.cloudflare.com/turnstile/v0/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/317",
+            "type": "page"
+          },
+          {
+            "id": "318",
+            "title": "Bản trình diễn hCAPTCHA",
+            "url": "https://accounts.hcaptcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/318",
+            "type": "page"
+          },
+          {
+            "id": "319",
+            "title": "Cách giải mã captcha trên PHP, Java, Python",
+            "url": "https://2captcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/319",
+            "type": "page"
+          },
+          {
+            "id": "320",
+            "title": "Anti Captcha Tutorials Demo",
+            "url": "https://anti-captcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/320",
+            "type": "page"
+          },
+          {
+            "id": "321",
+            "title": "Capsolver: Fastest AI Captcha Solver, Auto Captcha Solving Service",
+            "url": "https://www.capsolver.com/",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/321",
+            "type": "page"
+          },
+          {
+            "id": "322",
+            "title": "Bản demo CAPTCHA thích ứng",
+            "url": "https://www.geetest.com/en/adaptive-captcha-demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/322",
+            "type": "page"
+          },
+          {
+            "id": "323",
+            "title": "BotDetect CAPTCHA Demo - Features",
+            "url": "https://captcha.com/demos/features/captcha-demo.aspx",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/323",
+            "type": "page"
+          },
+          {
+            "id": "324",
+            "title": "Antibot",
+            "url": "https://bot.sannysoft.com/",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/324",
+            "type": "page"
+          },
+          {
+            "id": "227",
+            "title": "Các phát cầu lông hiệu quả giúp làm chủ trận đấu – Li-Ning Việt Nam",
+            "url": "https://liningvietnam.com.vn/blogs/news/cac-phat-cau-long-hieu-qua-giup-lam-chu-tran-dau",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/227",
+            "type": "page"
+          },
+          {
+            "id": "218",
+            "title": "Tùy chọn nhà phát triển trên Android là gì? Hướng dẫn cách bật và tắt - Thegioididong.com",
+            "url": "https://www.thegioididong.com/hoi-dap/tuy-chon-nha-phat-trien-tren-android-la-gi-huong-dan-cach-585140",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/218",
+            "type": "page"
+          },
+          {
+            "id": "202",
+            "title": "Đăng nhập vào trang | HUCE LMS",
+            "url": "https://lms.huce.edu.vn/login/index.php",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/202",
+            "type": "page"
+          },
+          {
+            "id": "183",
+            "title": "- DELL G3 3590: I7-9750H /16/ 512g/15.6F/Gtx1650 - 4g - Tìm trên Google",
+            "url": "https://www.google.com/search?q=-+DELL+G3+3590%3A+I7-9750H+%2F16%2F+512g%2F15.6F%2FGtx1650+-+4g&oq=-+DELL+G3+3590%3A+I7-9750H+%2F16%2F+512g%2F15.6F%2FGtx1650+-+4g&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBBzg2MmowajeoAhSwAgHxBZPDfajW0N078QWTw32o1tDdO_EFk8N9qNbQ3Ts&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/183",
+            "type": "page"
+          },
+          {
+            "id": "176",
+            "title": "triệu chứng sốt xuất huyết nhẹ - Tìm trên Google",
+            "url": "https://www.google.com/search?sca_esv=a18c2e858462cb7d&sxsrf=APpeQnsjLf188antdvaxrGppqUwYcJv1-w:1791715653562&udm=imgs&fbs=ABfTbFW4UnGvBVgqDYjq_ksvF_WzL0qSsUjsQCJMDr-_PEHsElEq-XkTNsyVCf0qvOFQ8LkEK8R9Bfx6Jxj77aEhQus1h78CuHEJp8EPDnH34SkslafE3niGlBqFDl-Xv0xXHErfP8l3sJhHSN-KlKEIom7A_Ev0eib5O5bozZkaoKSwN1krv2L97FY3HJd4VaQKKuoiEBo2qNmizXzTI9rGpWtjqC7C9Njx1REFk2eHNLFHN9ApAJ1PtYVYt2G7R1OkhF12gtC4&q=tri%E1%BB%87u+ch%E1%BB%A9ng+s%E1%BB%91t+xu%E1%BA%A5t+huy%E1%BA%BFt+nh%E1%BA%B9&sa=X&sqi=2&ved=2ahUKEwi3nsb45LGXAxXMdvUHHWPZKTUQtKgLegQIGhAB&biw=360&bih=704&dpr=3.5",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/176",
+            "type": "page"
+          },
+          {
+            "id": "174",
+            "title": "Bù nước oresol có tác dụng gì? Những lưu ý khi sử dụng oresol",
+            "url": "https://nhathuoclongchau.com.vn/bai-viet/bu-nuoc-oresol-co-tac-dung-gi-khi-bi-mat-nuoc-56663.html",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/174",
+            "type": "page"
+          },
+          {
+            "id": "161",
+            "title": "ấn độ châu lục nào - Tìm trên Google",
+            "url": "https://www.google.com/search?q=%E1%BA%A5n+%C4%91%E1%BB%99+ch%C3%A2u+l%E1%BB%A5c+n%C3%A0o&oq=%E1%BA%A5n+%C4%91%E1%BB%99+ch%C3%A2u&gs_lcrp=EgZjaHJvbWUqBwgCEAAYgAQyBggAEEUYOTIHCAEQLhiABDIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIICAUQABgWGB4yCAgGEAAYFhgeMggIBxAAGBYYHjIICAgQABgWGB4yCAgJEAAYFhgeMggIChAAGBYYHjIKCAsQABiABBiiBDIHCAwQABjvBTIHCA0QABjvBdIBCDgwOTdqMGo5qAIOsAIB&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/161",
+            "type": "page"
+          },
+          {
+            "id": "160",
+            "title": "cách tải python bằng win powershell - Tìm trên Google",
+            "url": "https://www.google.com/search?q=c%C3%A1ch+t%E1%BA%A3i+pyhto+b%E1%BA%B1ng+winpowershell&oq=c%C3%A1ch+t%E1%BA%A3i+pyhto+b%E1%BA%B1ng+winpowershell&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKABMgYIAhAhGArSAQkxNDU1MGowajeoAhSwAgHxBfzjKbhFsTJ78QX84ym4RbEye_EF_OMpuEWxMns&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/160",
+            "type": "page"
+          },
+          {
+            "id": "154",
+            "title": "secret key trong supabase ở đâu - Tìm trên Google",
+            "url": "https://www.google.com/search?q=secret+key+trong+supabase+%E1%BB%9F+%C4%91%C3%A2u&oq=secret+key+trong+supabase+%E1%BB%9F+%C4%91%C3%A2u&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQABjvBTIHCAIQABjvBTIHCAMQABjvBTIHCAQQABjvBTIHCAUQABjvBdIBCTI5NzYwajBqOagCALACAA&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/154",
+            "type": "page"
+          },
+          {
+            "id": "150",
+            "title": "bluestacks - Tìm trên Google",
+            "url": "https://www.google.com/search?q=blue+stakes&oq=blue+stakes&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQABgTGIAEMgsIAhAAGAoYExiABDIJCAMQABgTGIAEMgkIBBAAGBMYgAQyCQgFEAAYExiABDIJCAYQABgTGIAEMgkIBxAAGBMYgAQyCQgIEAAYExiABDIJCAkQABgTGIAEMgkIChAAGBMYgAQyCQgLEAAYExiABDIJCAwQABgTGIAEMgkIDRAAGBMYgAQyCQgOEAAYExiABNIBCDQ5NDNqMGo5qAIOsAIB8QVouG2X91O-h_EFaLhtl_dTvoc&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/150",
+            "type": "page"
+          },
+          {
+            "id": "149",
+            "title": "Máy In 3D FDM: Nguyên Lý Hoạt Động Và Các Dòng Máy Tốt Nhất",
+            "url": "https://www.meme3d.com/danh-muc-san-pham/may-in-3d/may-in-3d-fdm/?orderby=price",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/149",
+            "type": "page"
+          },
+          {
+            "id": "147",
+            "title": "Lãi suất gửi tiết kiệm của 30+ ngân hàng hôm nay 05/10/2026 | Techcombank",
+            "url": "https://techcombank.com/thong-tin/blog/lai-suat-tiet-kiem",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/147",
+            "type": "page"
+          },
+          {
+            "id": "146",
+            "title": "Không tìm thấy thông tin khách hàng",
+            "url": "https://www.homecredit.vn/vay-tien-online-nhanh/khach-hang-moi",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/146",
+            "type": "page"
+          },
+          {
+            "id": "145",
+            "title": "SOB page | Home Credit Vietnam",
+            "url": "https://sob.homecredit.vn/v3/pos/a938480a-2d05-4ad3-8c09-168c8d2f1d92?zarsrc=30&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/145",
+            "type": "page"
+          },
+          {
+            "id": "144",
+            "title": "Kiểm tra số tiền được vay - Home Credit Việt Nam",
+            "url": "https://www.homecredit.vn/vay-tien-online-nhanh/dang-ky-2?zarsrc=30&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/144",
+            "type": "page"
+          },
+          {
+            "id": "143",
+            "title": "Kiểm tra số tiền được vay - Home Credit Việt Nam",
+            "url": "https://www.homecredit.vn/vay-tien-online-nhanh/dang-ky?tm=tt&ap=gads&aaid=adaY69ccjrA1J&utm_source=google&utm_medium=cp_&utm_campaign=CLX_WEB_MKT_GGL_B0A_SP4_PM_BAU_NON_BMC_VAI_MNA_A&S_NST_TestingKV-PhoneHandUSP&utm_term=&utm_content=BAU_BAU-MMC-2026-Testing-KV-USP-BV_Revise-Search-Themes+Without-Interests_Audience19_SP4&gad_source=1&gad_campaignid=24109679177&gbraid=0AAAABABzKAX3erNwi81s8z4QPZCal9ZRF&gclid=Cj0KCQjw8ofWBhCHARIsANBj4Lulx2GKPvIqP0N_aiI8a5U3gsfsnLjVDIirJGGMVK_O8wwuCK9SlxcaAlP3EALw_wcB",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/143",
+            "type": "page"
+          },
+          {
+            "id": "228",
+            "title": "crm là gì - Tìm trên Google",
+            "url": "https://www.google.com/search?q=crm+l%C3%A0+g%C3%AC&oq=crm+l&gs_lcrp=EgZjaHJvbWUqCggAEAAYsQMYgAQyCggAEAAYsQMYgAQyBggBEEUYOTIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIHCAUQABiABDIHCAYQABiABDIHCAcQABiABDIHCAgQABiABDIHCAkQABiABDIHCAoQABiABDIHCAsQABiABDIHCAwQABiABDIHCA0QABiABDIHCA4QABiABNIBCDIyNTdqMGo3qAIUsAIB&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/228",
+            "type": "page"
+          }
+        ],
+        "tab_count": 63,
+        "tokens_used": 0,
+        "timestamp": 1792978262.5855243
+      },
+      "category": "android_cdp_bridge",
+      "tags": [
+        "android_cdp_subagent",
+        "cdp",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:31:02"
+    },
+    {
+      "id": "mem_1792978306796",
+      "key": "vivo_originos_opt_emulator-5554_1792978306788",
+      "value": {
+        "status": "VIVO_ORIGINOS_OPTIMIZED",
+        "serial": "emulator-5554",
+        "telemetry": {
+          "is_vivo_originos": true,
+          "model": "sdk_gphone64_x86_64",
+          "device_code": "emu64xa",
+          "os_display_id": "OriginOS 6",
+          "width": 1080,
+          "height": 1920,
+          "density": 420,
+          "safe_touch_bounds": {
+            "x_min": 16,
+            "y_min": 80,
+            "x_max": 1064,
+            "y_max": 1848,
+            "top_inset_px": 80,
+            "bottom_inset_px": 72,
+            "side_inset_px": 16
+          },
+          "aspect_ratio": 1.7778,
+          "focused_package": "com.google.android.apps.nexuslauncher",
+          "focused_activity": "com.google.android.apps.nexuslauncher.NexusLauncherActivity"
+        },
+        "interception_check": {
+          "interception_detected": false,
+          "matched_label": null,
+          "bounds": null,
+          "center": null,
+          "fallback_coords": {
+            "cx": 630,
+            "cy": 2550
+          }
+        },
+        "optimizations_applied": [
+          "svc power stayon usb",
+          "input keyevent 224",
+          "wm dismiss-keyguard"
+        ]
+      },
+      "category": "vivo_originos_optimizer",
+      "tags": [
+        "vivo",
+        "originos",
+        "optimizer",
+        "emulator-5554"
+      ],
+      "metadata": {
+        "serial": "emulator-5554",
+        "model": "sdk_gphone64_x86_64",
+        "os_display_id": "OriginOS 6",
+        "interception_detected": false
+      },
+      "timestamp": "2026-10-26 08:31:46"
+    },
+    {
+      "id": "mem_1792978309697",
+      "key": "smart_screenshot_emulator-5554_evo_cycle_1",
+      "value": {
+        "screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\screen_emulator-5554_evo_cycle_1_1792978306801.png",
+        "annotated_screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\som_emulator-5554_1792978309653.png",
+        "marks_count": 18,
+        "mean_brightness": 244.101,
+        "edge_density": 0.00999,
+        "is_blank": false
+      },
+      "category": "visual_perception",
+      "tags": [
+        "screenshot",
+        "perception",
+        "som",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:31:49"
+    },
+    {
+      "id": "mem_1792978310603",
+      "key": "human_touch_emulator-5554_1792978310600",
+      "value": {
+        "status": "HUMAN_TAP_OK",
+        "serial": "emulator-5554",
+        "target": [
+          540,
+          768
+        ],
+        "actual_point": [
+          544,
+          777
+        ],
+        "dwell_ms": 83,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "tap",
+        "elapsed_ms": 301.9
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "tap",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:31:50"
+    },
+    {
+      "id": "mem_1792978321113",
+      "key": "live_web_testbench_e2e_emulator-5554",
+      "value": {
+        "status": "LIVE_WEB_TESTBENCH_E2E_PASSED",
+        "serial": "emulator-5554",
+        "url": "http://127.0.0.1:55014/amaf-testbench",
+        "solved_count": 5,
+        "all_solved": true
+      },
+      "category": "e2e_verification",
+      "tags": [
+        "live_web_testbench",
+        "captcha_2fa_e2e",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:32:01"
+    },
+    {
+      "id": "mem_1792978321126",
+      "key": "macro_replay_vivo_dismiss_usb_install_emulator-5554_1792978321119",
+      "value": {
+        "status": "MACRO_REPLAY_OK",
+        "macro_name": "vivo_dismiss_usb_install",
+        "serial": "emulator-5554",
+        "dry_run": true,
+        "target_resolution": [
+          1260,
+          2800
+        ],
+        "steps_executed": 2,
+        "steps": [
+          {
+            "step_id": 1,
+            "action_type": "tap",
+            "x": 630,
+            "y": 2464,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 2,
+            "action_type": "tap",
+            "x": 907,
+            "y": 2520,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          }
+        ],
+        "tokens_used": 0,
+        "elapsed_ms": 0.04,
+        "subagent": "MacroReplaySubagent#37",
+        "subagent_id": 37
+      },
+      "category": "macro_telemetry",
+      "tags": [
+        "macro_replay",
+        "vivo_dismiss_usb_install",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:32:01"
+    },
+    {
+      "id": "mem_1792978321383",
+      "key": "cdp_emulator-5554_1792978321374",
+      "value": {
+        "status": "CDP_SOCKETS_INSPECTED",
+        "subagent_id": 38,
+        "subagent_name": "AndroidCDPSubagent",
+        "serial": "emulator-5554",
+        "discovered_sockets": [],
+        "primary_socket": "chrome_devtools_remote",
+        "forwarded": false,
+        "local_port": 9229,
+        "open_tabs": [
+          {
+            "id": "341",
+            "title": "Bản demo CAPTCHA thích ứng",
+            "url": "https://www.geetest.com/en/adaptive-captcha-demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/341",
+            "type": "page"
+          },
+          {
+            "id": "340",
+            "title": "Capsolver: Fastest AI Captcha Solver, Auto Captcha Solving Service",
+            "url": "https://www.capsolver.com/",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/340",
+            "type": "page"
+          },
+          {
+            "id": "339",
+            "title": "Anti Captcha Tutorials Demo",
+            "url": "https://anti-captcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/339",
+            "type": "page"
+          },
+          {
+            "id": "338",
+            "title": "CreepJS",
+            "url": "https://abrahamjuliot.github.io/creepjs/",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/338",
+            "type": "page"
+          },
+          {
+            "id": "337",
+            "title": "Browserleaks - Check your browser for privacy leaks",
+            "url": "https://browserleaks.com/",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/337",
+            "type": "page"
+          },
+          {
+            "id": "336",
+            "title": "Bản trình diễn ReCAPTCHA",
+            "url": "https://www.google.com/recaptcha/api2/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/336",
+            "type": "page"
+          },
+          {
+            "id": "335",
+            "title": "Bản trình diễn Rotate captcha: Biểu mẫu mẫu có Rotate captcha",
+            "url": "https://2captcha.com/demo/rotatecaptcha",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/335",
+            "type": "page"
+          },
+          {
+            "id": "334",
+            "title": "Không tìm thấy trang",
+            "url": "https://2captcha.com/demo/funcaptcha",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/334",
+            "type": "page"
+          },
+          {
+            "id": "333",
+            "title": "Bản trình diễn Cloudflare Turnstile: Biểu mẫu mẫu có Cloudflare Turnstile",
+            "url": "https://2captcha.com/demo/cloudflare-turnstile",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/333",
+            "type": "page"
+          },
+          {
+            "id": "332",
+            "title": "BotDetect CAPTCHA Demo - Features",
+            "url": "https://captcha.com/demos/features/captcha-demo.aspx",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/332",
+            "type": "page"
+          },
+          {
+            "id": "331",
+            "title": "BotDetect CAPTCHA Demo - Features",
+            "url": "https://captcha.com/demos/features/captcha-demo.aspx",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/331",
+            "type": "page"
+          },
+          {
+            "id": "330",
+            "title": "Bản trình diễn GeeTest captcha: Biểu mẫu mẫu có GeeTest captcha",
+            "url": "https://2captcha.com/demo/geetest",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/330",
+            "type": "page"
+          },
+          {
+            "id": "329",
+            "title": "Không tìm thấy trang",
+            "url": "https://2captcha.com/demo/rotate",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/329",
+            "type": "page"
+          },
+          {
+            "id": "328",
+            "title": "Bản trình diễn hCAPTCHA",
+            "url": "https://accounts.hcaptcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/328",
+            "type": "page"
+          },
+          {
+            "id": "327",
+            "title": "Bản trình diễn Google reCAPTCHA v2: Biểu mẫu mẫu có Google reCAPTCHA v2",
+            "url": "https://2captcha.com/demo/recaptcha-v2",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/327",
+            "type": "page"
+          },
+          {
+            "id": "325",
+            "title": "Anti Captcha Tutorials Demo",
+            "url": "https://anti-captcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/325",
+            "type": "page"
+          },
+          {
+            "id": "142",
+            "title": "Đăng ký khoản vay không thành công",
+            "url": "https://www.homecredit.vn/vay-tien-online-nhanh/tu-choi",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/142",
+            "type": "page"
+          },
+          {
+            "id": "3F35FC3BBA33D3F4084568EA7D2298A7",
+            "title": "",
+            "url": "",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/3F35FC3BBA33D3F4084568EA7D2298A7",
+            "type": "worker"
+          },
+          {
+            "id": "229",
+            "title": "Jungkook (BTS) lập kỷ lục mới sau màn trình diễn ở World Cup 2022",
+            "url": "https://laodong.vn/giai-tri/jungkook-bts-lap-ky-luc-moi-sau-man-trinh-dien-o-world-cup-2022-1122188.ldo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/229",
+            "type": "page"
+          },
+          {
+            "id": "232",
+            "title": "lệnh terimal chuyển sang thư mục D - Tìm trên Google",
+            "url": "https://www.google.com/search?q=l%E1%BB%87nh+terimal+chuy%E1%BB%83n+sang+th%C6%B0+m%E1%BB%A5c+D&oq=l%E1%BB%87nh+terimal+chuy%E1%BB%83n+sang+th%C6%B0+m%E1%BB%A5c+D&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKABMgkIAhAhGAoYoAEyCQgDECEYChigATIJCAQQIRgKGKABMgkIBRAhGAoYoAHSAQg3OTI1ajBqN6gCFLACAfEFYLAaG-CrbE3xBWCwGhvgq2xN8QVgsBob4KtsTQ&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/232",
+            "type": "page"
+          },
+          {
+            "id": "234",
+            "title": "Mua Google Gemini Ultra dùng được Antigravity, CHÍNH CHỦ",
+            "url": "https://muabanquyen.com/gemini-ultra",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/234",
+            "type": "page"
+          },
+          {
+            "id": "237",
+            "title": "mở bảng nhớ tạm trên máy tính - Tìm trên Google",
+            "url": "https://www.google.com/search?q=m%E1%BB%9F+b%E1%BA%A3ng+nh%E1%BB%9B+t%E1%BA%A1m+tr%C3%AAn+m%C3%A1y+t%C3%ADnh&oq=m%E1%BB%9F+bangt+nh%E1%BB%9B+t%E1%BA%A1m+&gs_lcrp=EgZjaHJvbWUqCQgBEAAYDRiABDIGCAAQRRg5MgkIARAAGA0YgAQyCAgCEAAYFhgeMggIAxAAGBYYHjIICAQQABgWGB4yCAgFEAAYFhgeMggIBhAAGBYYHjIICAcQABgWGB4yCAgIEAAYFhgeMggICRAAGBYYHjIICAoQABgWGB4yCAgLEAAYFhgeMggIDBAAGBYYHjIICA0QABgWGB4yCAgOEAAYFhge0gEINDYyMGowajmoAg6wAgHxBQq8J9uftaVO8QUKvCfbn7WlTg&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/237",
+            "type": "page"
+          },
+          {
+            "id": "242",
+            "title": "Google Antigravity",
+            "url": "https://antigravity.google.com/u/6/r/8bbec1a7-f69a-409f-9ba7-49d954a1c3fd-v2?p=c%2F5648a973-dd1f-4d7a-bce6-91b249dbc369",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/242",
+            "type": "page"
+          },
+          {
+            "id": "248",
+            "title": "maching learning là gì - Tìm trên Google",
+            "url": "https://www.google.com/search?q=maching+learning+l%C3%A0+g%C3%AC&oq=maching+learning+l%C3%A0+g%C3%AC&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDY4ODJqMGo3qAIUsAIB8QXGhUe3HoUAVPEFxoVHtx6FAFQ&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/248",
+            "type": "page"
+          },
+          {
+            "id": "250",
+            "title": "xây dựng chat gpt thì nên học ml hay dl nhỉ - Tìm trên Google",
+            "url": "https://www.google.com/search?q=x%C3%A2y+d%E1%BB%B1ng+chat+gpt+th%C3%AC+n%C3%AAn+h%E1%BB%8Dc+ml+hay+dl+nh%E1%BB%89&oq=x%C3%A2y+d%E1%BB%B1ng+chat+gpt+th%C3%AC+n%C3%AAn+h%E1%BB%8Dc+ml+hay+dl+nh%E1%BB%89&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKAB0gEIOTY3N2owajeoAhSwAgHxBcaFR7cehQBU8QXGhUe3HoUAVA&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/250",
+            "type": "page"
+          },
+          {
+            "id": "253",
+            "title": "Google Antigravity",
+            "url": "https://antigravity.google.com/r/8bbec1a7-f69a-409f-9ba7-49d954a1c3fd-v2?p=c%2F5648a973-dd1f-4d7a-bce6-91b249dbc369",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/253",
+            "type": "page"
+          },
+          {
+            "id": "256",
+            "title": "npx ccusage theo tháng thì như nào - Tìm trên Google",
+            "url": "https://www.google.com/search?q=npx+ccusage+theo+th%C3%A1ng+th%C3%AC+nh%C6%B0+n%C3%A0o&oq=npx+ccusage+theo+th%C3%A1ng+th%C3%AC+nh%C6%B0+n%C3%A0o+&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigATIHCAMQIRigAdIBCDg1OTNqMGo5qAIOsAIB8QUFe5t1VqdQtPEFBXubdVanULTxBQGENG1qAHaR&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/256",
+            "type": "page"
+          },
+          {
+            "id": "259",
+            "title": "Hoa Kỳ: 07:29",
+            "url": "https://time.is/vi/United_States",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/259",
+            "type": "page"
+          },
+          {
+            "id": "263",
+            "title": "repo điều khiển điện thoại bằng llm của google - Tìm trên Google",
+            "url": "https://www.google.com/search?q=repo+%C4%91i%E1%BB%81u+khi%E1%BB%83n+%C4%91i%E1%BB%87n+tho%E1%BA%A1i+b%E1%BA%B1ng+llm+c%E1%BB%A7a+google&sca_esv=a3c6ed50d1eb053c&sxsrf=APpeQnv5EoLZrblxRN5_SlB_TRJj06QluQ%3A1792840402643&ei=0pLcavDRJpvO2roPocSDsAo&biw=360&bih=704&oq=repo+%C4%91i%E1%BB%81u+khi%E1%BB%83n+%C4%91i%E1%BB%87n+tho%E1%BA%A1i+b%E1%BA%B1ng+llm+c%E1%BB%A7a+google&gs_lp=EhNtb2JpbGUtZ3dzLXdpei1zZXJwIjxyZXBvIMSRaeG7gXUga2hp4buDbiDEkWnhu4duIHRob-G6oWkgYuG6sW5nIGxsbSBj4bunYSBnb29nbGUyCBAAGIkFGKIEMgUQABjvBTIIEAAYgAQYogQyBRAAGO8FMgUQABjvBUjwPFCiC1iWOnAHeAGQAQOYAYkCoAHLIKoBBjQuMzAuMbgBA8gBAPgBAZgCHaACuRTCAgoQABhHGNYEGLADwgIXEC4Y3AYYuAYY2gYY2AIYyAMYsAPYAQHCAgcQIxiwAhgnwgIIECEYoAEYwwTCAgoQIRgKGKABGMMEwgIEECEYCpgDAIgGAZAGDroGBAgBGBmSBwQ3LjIyoAfYzQGyBwQwLjIyuAejFMIHCTAuMTQuMTMuMsgHdIAIAQ&sclient=mobile-gws-wiz-serp#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/263",
+            "type": "page"
+          },
+          {
+            "id": "275",
+            "title": "git hub edu - Tìm trên Google",
+            "url": "https://www.google.com/search?q=git+hub+edu&oq=&gs_lcrp=EgZjaHJvbWUqDAgDECMYJxjqAhiLBDIGCAAQRRg6MgcIARBFGLABMgkIAhAFGEIYwwMyDAgDECMYJxjqAhiLBDIMCAQQIxgnGOoCGIsEMgwIBRAjGCcY6gIYiwQyDAgGECMYJxjqAhiLBDIMCAcQIxgnGOoCGIsEMgwICBAjGCcY6gIYiwQyDAgJECMYJxjqAhiLBDIMCAoQIxgnGOoCGIsEMgwICxAjGCcY6gIYiwQyDAgMECMYJxjqAhiLBDIMCA0QIxgnGOoCGIsEMgwIDhAjGCcY6gIYiwTSAQYtMWowajSoAg6wAgHxBf82kVMW-9fO8QX_NpFTFvvXzg&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/275",
+            "type": "page"
+          },
+          {
+            "id": "277",
+            "title": "Google Dịch",
+            "url": "https://translate.google.com.vn/?sl=en&tl=vi&text=Enter%20the%20code%20from%20your%20two-factor%20authentication%20app%20or%20browser%20extension%20below%20to&op=translate",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/277",
+            "type": "page"
+          },
+          {
+            "id": "280",
+            "title": "thêm repo private vào tổ chức trên git - Tìm trên Google",
+            "url": "https://www.google.com/search?q=th%C3%AAm+repo+private+v%C3%A0o+t%E1%BB%95+ch%E1%BB%A9c+tr%C3%AAn+git&oq=th%C3%AAm+repo+private+v%C3%A0o+t%E1%BB%95+ch%E1%BB%A9c+tr%C3%AAn+git&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigAdIBCDg0MjZqMGo5qAIOsAIB8QXdeeriie6uEfEF3Xnq4onurhE&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/280",
+            "type": "page"
+          },
+          {
+            "id": "286",
+            "title": "Two-factor recovery",
+            "url": "https://github.com/sessions/two-factor/recovery",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/286",
+            "type": "page"
+          },
+          {
+            "id": "302",
+            "title": "huce tiêngas anh - Tìm trên Google",
+            "url": "https://www.google.com/search?q=huce+ti%C3%AAngas+anh&oq=huce+ti%C3%AAngas+anh&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQABgNGIAEMgkIAhAAGA0YgAQyCQgDEAAYDRiABDIICAQQABgWGB4yCAgFEAAYFhgeMggIBhAAGBYYHjIICAcQABgWGB4yCAgIEAAYFhgeMggICRAAGBYYHjIICAoQABgWGB4yCggLEAAYCBgNGB4yCggMEAAYCBgNGB4yCggNEAAYCBgNGB4yCggOEAAYCBgNGB7SAQg0NTc1ajBqN6gCFLACAfEFKFjPQ41DymnxBShYz0ONQ8pp8QUoWM9DjUPKaQ&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#ebo=0",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/302",
+            "type": "page"
+          },
+          {
+            "id": "305",
+            "title": "cách test thuật toán giải capcha test - Tìm trên Google",
+            "url": "https://www.google.com/search?q=c%C3%A1ch+test+thu%E1%BA%ADt+to%C3%A1n+gi%E1%BA%A3i+capcha+test&sca_esv=a5e9361146d2feed&sxsrf=APpeQnthao41O7QCsK38K73Jp2P--wCVxA%3A1792950147096&ei=gz_eapGeBZ-Ovr0PgPWD6Q4&biw=360&bih=704&oq=c%C3%A1ch+test+thu%E1%BA%ADt+to%C3%A1n+gi%E1%BA%A3i+capcha+test&gs_lp=EhNtb2JpbGUtZ3dzLXdpei1zZXJwIitjw6FjaCB0ZXN0IHRodeG6rXQgdG_DoW4gZ2nhuqNpIGNhcGNoYSB0ZXN0MgUQABjvBTIFEAAY7wUyBRAAGO8FMggQABiABBiiBDIFEAAY7wVI2TpQ-wtYkzRwCHgBkAEDmAGEAaABtRuqAQQ0LjI4uAEDyAEA-AEBmAIdoALZEsICChAAGEcY1gQYsAPCAg0QABiABBiKBRhDGLADwgIXEC4Y3AYYuAYY2gYY2AIYyAMYsAPYAQHCAgcQIxiwAhgnwgIHEAAYgAQYDcICBhAAGB4YDcICBBAhGAqYAwDiAwUSATEgQIgGAZAGDroGBAgBGBmSBwQ4LjIxoAfpgQGyBwQwLjIxuAe3EsIHCTAuMTIuMTQuM8gHfIAIAQ&sclient=mobile-gws-wiz-serp",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/305",
+            "type": "page"
+          },
+          {
+            "id": "310",
+            "title": "web giải captcha để test - Tìm trên Google",
+            "url": "https://www.google.com/search?q=web+gi%E1%BA%A3i+capcha+%C4%91%E1%BB%83+test&oq=web+gi%E1%BA%A3i+capcha+%C4%91%E1%BB%83+test&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKABMgkIAhAhGAoYoAEyCQgDECEYChigAdIBCDc2MjRqMGo5qAIOsAIB8QUD3omDZl6-q_EFA96Jg2Zevqs&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/310",
+            "type": "page"
+          },
+          {
+            "id": "315",
+            "title": "AMAF v8.0 Live CAPTCHA &amp; 2FA Testbench",
+            "url": "http://127.0.0.1:61161/amaf-testbench",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/315",
+            "type": "page"
+          },
+          {
+            "id": "316",
+            "title": "Bản trình diễn ReCAPTCHA",
+            "url": "https://www.google.com/recaptcha/api2/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/316",
+            "type": "page"
+          },
+          {
+            "id": "317",
+            "title": "challenges.cloudflare.com",
+            "url": "https://challenges.cloudflare.com/turnstile/v0/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/317",
+            "type": "page"
+          },
+          {
+            "id": "318",
+            "title": "Bản trình diễn hCAPTCHA",
+            "url": "https://accounts.hcaptcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/318",
+            "type": "page"
+          },
+          {
+            "id": "319",
+            "title": "Cách giải mã captcha trên PHP, Java, Python",
+            "url": "https://2captcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/319",
+            "type": "page"
+          },
+          {
+            "id": "320",
+            "title": "Anti Captcha Tutorials Demo",
+            "url": "https://anti-captcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/320",
+            "type": "page"
+          },
+          {
+            "id": "321",
+            "title": "Capsolver: Fastest AI Captcha Solver, Auto Captcha Solving Service",
+            "url": "https://www.capsolver.com/",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/321",
+            "type": "page"
+          },
+          {
+            "id": "322",
+            "title": "Bản demo CAPTCHA thích ứng",
+            "url": "https://www.geetest.com/en/adaptive-captcha-demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/322",
+            "type": "page"
+          },
+          {
+            "id": "323",
+            "title": "BotDetect CAPTCHA Demo - Features",
+            "url": "https://captcha.com/demos/features/captcha-demo.aspx",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/323",
+            "type": "page"
+          },
+          {
+            "id": "324",
+            "title": "Antibot",
+            "url": "https://bot.sannysoft.com/",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/324",
+            "type": "page"
+          },
+          {
+            "id": "227",
+            "title": "Các phát cầu lông hiệu quả giúp làm chủ trận đấu – Li-Ning Việt Nam",
+            "url": "https://liningvietnam.com.vn/blogs/news/cac-phat-cau-long-hieu-qua-giup-lam-chu-tran-dau",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/227",
+            "type": "page"
+          },
+          {
+            "id": "218",
+            "title": "Tùy chọn nhà phát triển trên Android là gì? Hướng dẫn cách bật và tắt - Thegioididong.com",
+            "url": "https://www.thegioididong.com/hoi-dap/tuy-chon-nha-phat-trien-tren-android-la-gi-huong-dan-cach-585140",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/218",
+            "type": "page"
+          },
+          {
+            "id": "202",
+            "title": "Đăng nhập vào trang | HUCE LMS",
+            "url": "https://lms.huce.edu.vn/login/index.php",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/202",
+            "type": "page"
+          },
+          {
+            "id": "183",
+            "title": "- DELL G3 3590: I7-9750H /16/ 512g/15.6F/Gtx1650 - 4g - Tìm trên Google",
+            "url": "https://www.google.com/search?q=-+DELL+G3+3590%3A+I7-9750H+%2F16%2F+512g%2F15.6F%2FGtx1650+-+4g&oq=-+DELL+G3+3590%3A+I7-9750H+%2F16%2F+512g%2F15.6F%2FGtx1650+-+4g&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBBzg2MmowajeoAhSwAgHxBZPDfajW0N078QWTw32o1tDdO_EFk8N9qNbQ3Ts&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/183",
+            "type": "page"
+          },
+          {
+            "id": "176",
+            "title": "triệu chứng sốt xuất huyết nhẹ - Tìm trên Google",
+            "url": "https://www.google.com/search?sca_esv=a18c2e858462cb7d&sxsrf=APpeQnsjLf188antdvaxrGppqUwYcJv1-w:1791715653562&udm=imgs&fbs=ABfTbFW4UnGvBVgqDYjq_ksvF_WzL0qSsUjsQCJMDr-_PEHsElEq-XkTNsyVCf0qvOFQ8LkEK8R9Bfx6Jxj77aEhQus1h78CuHEJp8EPDnH34SkslafE3niGlBqFDl-Xv0xXHErfP8l3sJhHSN-KlKEIom7A_Ev0eib5O5bozZkaoKSwN1krv2L97FY3HJd4VaQKKuoiEBo2qNmizXzTI9rGpWtjqC7C9Njx1REFk2eHNLFHN9ApAJ1PtYVYt2G7R1OkhF12gtC4&q=tri%E1%BB%87u+ch%E1%BB%A9ng+s%E1%BB%91t+xu%E1%BA%A5t+huy%E1%BA%BFt+nh%E1%BA%B9&sa=X&sqi=2&ved=2ahUKEwi3nsb45LGXAxXMdvUHHWPZKTUQtKgLegQIGhAB&biw=360&bih=704&dpr=3.5",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/176",
+            "type": "page"
+          },
+          {
+            "id": "174",
+            "title": "Bù nước oresol có tác dụng gì? Những lưu ý khi sử dụng oresol",
+            "url": "https://nhathuoclongchau.com.vn/bai-viet/bu-nuoc-oresol-co-tac-dung-gi-khi-bi-mat-nuoc-56663.html",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/174",
+            "type": "page"
+          },
+          {
+            "id": "161",
+            "title": "ấn độ châu lục nào - Tìm trên Google",
+            "url": "https://www.google.com/search?q=%E1%BA%A5n+%C4%91%E1%BB%99+ch%C3%A2u+l%E1%BB%A5c+n%C3%A0o&oq=%E1%BA%A5n+%C4%91%E1%BB%99+ch%C3%A2u&gs_lcrp=EgZjaHJvbWUqBwgCEAAYgAQyBggAEEUYOTIHCAEQLhiABDIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIICAUQABgWGB4yCAgGEAAYFhgeMggIBxAAGBYYHjIICAgQABgWGB4yCAgJEAAYFhgeMggIChAAGBYYHjIKCAsQABiABBiiBDIHCAwQABjvBTIHCA0QABjvBdIBCDgwOTdqMGo5qAIOsAIB&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/161",
+            "type": "page"
+          },
+          {
+            "id": "160",
+            "title": "cách tải python bằng win powershell - Tìm trên Google",
+            "url": "https://www.google.com/search?q=c%C3%A1ch+t%E1%BA%A3i+pyhto+b%E1%BA%B1ng+winpowershell&oq=c%C3%A1ch+t%E1%BA%A3i+pyhto+b%E1%BA%B1ng+winpowershell&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKABMgYIAhAhGArSAQkxNDU1MGowajeoAhSwAgHxBfzjKbhFsTJ78QX84ym4RbEye_EF_OMpuEWxMns&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/160",
+            "type": "page"
+          },
+          {
+            "id": "154",
+            "title": "secret key trong supabase ở đâu - Tìm trên Google",
+            "url": "https://www.google.com/search?q=secret+key+trong+supabase+%E1%BB%9F+%C4%91%C3%A2u&oq=secret+key+trong+supabase+%E1%BB%9F+%C4%91%C3%A2u&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQABjvBTIHCAIQABjvBTIHCAMQABjvBTIHCAQQABjvBTIHCAUQABjvBdIBCTI5NzYwajBqOagCALACAA&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/154",
+            "type": "page"
+          },
+          {
+            "id": "150",
+            "title": "bluestacks - Tìm trên Google",
+            "url": "https://www.google.com/search?q=blue+stakes&oq=blue+stakes&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQABgTGIAEMgsIAhAAGAoYExiABDIJCAMQABgTGIAEMgkIBBAAGBMYgAQyCQgFEAAYExiABDIJCAYQABgTGIAEMgkIBxAAGBMYgAQyCQgIEAAYExiABDIJCAkQABgTGIAEMgkIChAAGBMYgAQyCQgLEAAYExiABDIJCAwQABgTGIAEMgkIDRAAGBMYgAQyCQgOEAAYExiABNIBCDQ5NDNqMGo5qAIOsAIB8QVouG2X91O-h_EFaLhtl_dTvoc&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/150",
+            "type": "page"
+          },
+          {
+            "id": "149",
+            "title": "Máy In 3D FDM: Nguyên Lý Hoạt Động Và Các Dòng Máy Tốt Nhất",
+            "url": "https://www.meme3d.com/danh-muc-san-pham/may-in-3d/may-in-3d-fdm/?orderby=price",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/149",
+            "type": "page"
+          },
+          {
+            "id": "147",
+            "title": "Lãi suất gửi tiết kiệm của 30+ ngân hàng hôm nay 05/10/2026 | Techcombank",
+            "url": "https://techcombank.com/thong-tin/blog/lai-suat-tiet-kiem",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/147",
+            "type": "page"
+          },
+          {
+            "id": "146",
+            "title": "Không tìm thấy thông tin khách hàng",
+            "url": "https://www.homecredit.vn/vay-tien-online-nhanh/khach-hang-moi",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/146",
+            "type": "page"
+          },
+          {
+            "id": "145",
+            "title": "SOB page | Home Credit Vietnam",
+            "url": "https://sob.homecredit.vn/v3/pos/a938480a-2d05-4ad3-8c09-168c8d2f1d92?zarsrc=30&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/145",
+            "type": "page"
+          },
+          {
+            "id": "144",
+            "title": "Kiểm tra số tiền được vay - Home Credit Việt Nam",
+            "url": "https://www.homecredit.vn/vay-tien-online-nhanh/dang-ky-2?zarsrc=30&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/144",
+            "type": "page"
+          },
+          {
+            "id": "143",
+            "title": "Kiểm tra số tiền được vay - Home Credit Việt Nam",
+            "url": "https://www.homecredit.vn/vay-tien-online-nhanh/dang-ky?tm=tt&ap=gads&aaid=adaY69ccjrA1J&utm_source=google&utm_medium=cp_&utm_campaign=CLX_WEB_MKT_GGL_B0A_SP4_PM_BAU_NON_BMC_VAI_MNA_A&S_NST_TestingKV-PhoneHandUSP&utm_term=&utm_content=BAU_BAU-MMC-2026-Testing-KV-USP-BV_Revise-Search-Themes+Without-Interests_Audience19_SP4&gad_source=1&gad_campaignid=24109679177&gbraid=0AAAABABzKAX3erNwi81s8z4QPZCal9ZRF&gclid=Cj0KCQjw8ofWBhCHARIsANBj4Lulx2GKPvIqP0N_aiI8a5U3gsfsnLjVDIirJGGMVK_O8wwuCK9SlxcaAlP3EALw_wcB",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/143",
+            "type": "page"
+          },
+          {
+            "id": "228",
+            "title": "crm là gì - Tìm trên Google",
+            "url": "https://www.google.com/search?q=crm+l%C3%A0+g%C3%AC&oq=crm+l&gs_lcrp=EgZjaHJvbWUqCggAEAAYsQMYgAQyCggAEAAYsQMYgAQyBggBEEUYOTIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIHCAUQABiABDIHCAYQABiABDIHCAcQABiABDIHCAgQABiABDIHCAkQABiABDIHCAoQABiABDIHCAsQABiABDIHCAwQABiABDIHCA0QABiABDIHCA4QABiABNIBCDIyNTdqMGo3qAIUsAIB&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/228",
+            "type": "page"
+          }
+        ],
+        "tab_count": 63,
+        "tokens_used": 0,
+        "timestamp": 1792978321.3749807
+      },
+      "category": "android_cdp_bridge",
+      "tags": [
+        "android_cdp_subagent",
+        "cdp",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:32:01"
+    },
+    {
+      "id": "mem_1792978321397",
+      "key": "tiktok_workflow_emulator-5554_1792978321389",
+      "value": {
+        "status": "TIKTOK_WORKFLOW_COMPLETED",
+        "serial": "emulator-5554",
+        "target_account": "nht.tn472",
+        "search_query": "tra dang",
+        "comment_text": "dinh quaa",
+        "steps_completed": 6,
+        "tokens_used": 0
+      },
+      "category": "social_workflow_engine",
+      "tags": [
+        "social_workflow",
+        "subagent_39",
+        "tiktok",
+        "emulator-5554",
+        "nht.tn472"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:32:01"
+    },
+    {
+      "id": "mem_1792978358725",
+      "key": "crawl_emulator-5554_com.android.settings",
+      "value": {
+        "serial": "emulator-5554",
+        "package": "com.android.settings",
+        "unique_states_discovered": 3,
+        "transitions_recorded": 2,
+        "crashes_detected": 0
+      },
+      "category": "crawler",
+      "tags": [
+        "crawler",
+        "state_graph",
+        "emulator-5554",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:32:38"
+    },
+    {
+      "id": "mem_1792978363721",
+      "key": "net_api_audit_emulator-5554_com.android.settings",
+      "value": {
+        "score": 100,
+        "rx_mb": 1.37,
+        "tx_mb": 0.75,
+        "api_calls": 0,
+        "cleartext_count": 0
+      },
+      "category": "general",
+      "tags": [
+        "network_api",
+        "emulator-5554",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:32:43"
+    },
+    {
+      "id": "mem_1792978364426",
+      "key": "perf_audit_emulator-5554_com.android.settings",
+      "value": {
+        "score": 45,
+        "grade": "D",
+        "fps": 15.0,
+        "pss_mb": 68.6,
+        "leak_suspected": false
+      },
+      "category": "general",
+      "tags": [
+        "performance",
+        "memleak",
+        "emulator-5554",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:32:44"
+    },
+    {
+      "id": "mem_1792978404964",
+      "key": "SEC_com_android_settings_1792978404",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 2,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792978404.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:33:24"
+    },
+    {
+      "id": "mem_1792978410129",
+      "key": "SEC_com_android_settings_1792978410",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 2,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792978410.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "emulator-5556"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:33:30"
+    },
+    {
+      "id": "mem_1792978415817",
+      "key": "SEC_com_android_settings_1792978415",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 1,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792978415.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:33:35"
+    },
+    {
+      "id": "mem_1792978521154",
+      "key": "real_device_10CF5L0TYL00312",
+      "value": {
+        "name": "Vivo V2417A",
+        "resolution": "1260x2800",
+        "android_version": "16",
+        "battery": {
+          "level": 100,
+          "temperature_c": 33.4,
+          "voltage_mv": 4438,
+          "status": "charging",
+          "plugged": "usb",
+          "overheated": false,
+          "low_battery": false
+        }
+      },
+      "category": "fleet_topology",
+      "tags": [
+        "real_device",
+        "hardware_profile"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:35:21"
+    },
+    {
+      "id": "mem_1792978524701",
+      "key": "oem_popup_10CF5L0TYL00312_1792978524689",
+      "value": {
+        "status": "POPUP_DISMISSED",
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Cài đặt",
+        "tapped_coords": [
+          627,
+          238
+        ],
+        "method": "ui_xml_match",
+        "foreground_window": "mCurrentFocus=Window{31fa84a u0 com.android.settings/com.android.settings.Settings type=1 }",
+        "timestamp": "2026-10-26 08:35:24"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "security_dialog",
+        "10CF5L0TYL00312",
+        "ui_xml_match"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Cài đặt",
+        "tapped_coords": [
+          627,
+          238
+        ]
+      },
+      "timestamp": "2026-10-26 08:35:24"
+    },
+    {
+      "id": "mem_1792978528693",
+      "key": "vivo_originos_opt_10CF5L0TYL00312_1792978528685",
+      "value": {
+        "status": "VIVO_ORIGINOS_OPTIMIZED",
+        "serial": "10CF5L0TYL00312",
+        "telemetry": {
+          "is_vivo_originos": true,
+          "model": "V2417A",
+          "device_code": "PD2417",
+          "os_display_id": "OriginOS 6",
+          "width": 1260,
+          "height": 2800,
+          "density": 560,
+          "safe_touch_bounds": {
+            "x_min": 18,
+            "y_min": 117,
+            "x_max": 1242,
+            "y_max": 2694,
+            "top_inset_px": 117,
+            "bottom_inset_px": 106,
+            "side_inset_px": 18
+          },
+          "aspect_ratio": 2.2222,
+          "focused_package": "cmp=com.android.chrome",
+          "focused_activity": "com.google.android.apps.chrome.Main"
+        },
+        "interception_check": {
+          "interception_detected": true,
+          "matched_label": "Cài đặt",
+          "node_text": "Cài đặt",
+          "resource_id": "com.android.settings:id/originui_vtoolbar_vtoolbarinternal_container_rom14_0",
+          "bounds": {
+            "x1": 21,
+            "y1": 224,
+            "x2": 1238,
+            "y2": 409,
+            "cx": 629,
+            "cy": 316
+          },
+          "center": [
+            629,
+            316
+          ],
+          "fallback_coords": {
+            "cx": 630,
+            "cy": 2550
+          }
+        },
+        "optimizations_applied": [
+          "svc power stayon usb",
+          "input keyevent 224",
+          "wm dismiss-keyguard"
+        ]
+      },
+      "category": "vivo_originos_optimizer",
+      "tags": [
+        "vivo",
+        "originos",
+        "optimizer",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "model": "V2417A",
+        "os_display_id": "OriginOS 6",
+        "interception_detected": true
+      },
+      "timestamp": "2026-10-26 08:35:28"
+    },
+    {
+      "id": "mem_1792978531947",
+      "key": "smart_screenshot_10CF5L0TYL00312_evo_cycle_1",
+      "value": {
+        "screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\screen_10CF5L0TYL00312_evo_cycle_1_1792978528700.png",
+        "annotated_screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\som_10CF5L0TYL00312_1792978531881.png",
+        "marks_count": 67,
+        "mean_brightness": 242.545,
+        "edge_density": 0.01247,
+        "is_blank": false
+      },
+      "category": "visual_perception",
+      "tags": [
+        "screenshot",
+        "perception",
+        "som",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:35:31"
+    },
+    {
+      "id": "mem_1792978532824",
+      "key": "human_touch_10CF5L0TYL00312_1792978532822",
+      "value": {
+        "status": "HUMAN_TAP_OK",
+        "serial": "10CF5L0TYL00312",
+        "target": [
+          630,
+          1120
+        ],
+        "actual_point": [
+          628,
+          1116
+        ],
+        "dwell_ms": 78,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "tap",
+        "elapsed_ms": 223.8
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "tap",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:35:32"
+    },
+    {
+      "id": "mem_1792978543066",
+      "key": "live_web_testbench_e2e_10CF5L0TYL00312",
+      "value": {
+        "status": "LIVE_WEB_TESTBENCH_E2E_PASSED",
+        "serial": "10CF5L0TYL00312",
+        "url": "http://127.0.0.1:51556/amaf-testbench",
+        "solved_count": 5,
+        "all_solved": true
+      },
+      "category": "e2e_verification",
+      "tags": [
+        "live_web_testbench",
+        "captcha_2fa_e2e",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:35:43"
+    },
+    {
+      "id": "mem_1792978543089",
+      "key": "macro_replay_vivo_dismiss_usb_install_10CF5L0TYL00312_1792978543077",
+      "value": {
+        "status": "MACRO_REPLAY_OK",
+        "macro_name": "vivo_dismiss_usb_install",
+        "serial": "10CF5L0TYL00312",
+        "dry_run": true,
+        "target_resolution": [
+          1260,
+          2800
+        ],
+        "steps_executed": 2,
+        "steps": [
+          {
+            "step_id": 1,
+            "action_type": "tap",
+            "x": 630,
+            "y": 2464,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 2,
+            "action_type": "tap",
+            "x": 907,
+            "y": 2520,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          }
+        ],
+        "tokens_used": 0,
+        "elapsed_ms": 0.05,
+        "subagent": "MacroReplaySubagent#37",
+        "subagent_id": 37
+      },
+      "category": "macro_telemetry",
+      "tags": [
+        "macro_replay",
+        "vivo_dismiss_usb_install",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:35:43"
+    },
+    {
+      "id": "mem_1792978543383",
+      "key": "cdp_10CF5L0TYL00312_1792978543375",
+      "value": {
+        "status": "CDP_BRIDGE_ATTACHED",
+        "subagent_id": 38,
+        "subagent_name": "AndroidCDPSubagent",
+        "serial": "10CF5L0TYL00312",
+        "discovered_sockets": [
+          "chrome_devtools_remote",
+          "JsEngine_com.ss.android.ugc.trill_devtools_remote"
+        ],
+        "primary_socket": "chrome_devtools_remote",
+        "forwarded": true,
+        "local_port": 9229,
+        "open_tabs": [
+          {
+            "id": "341",
+            "title": "Bản demo CAPTCHA thích ứng",
+            "url": "https://www.geetest.com/en/adaptive-captcha-demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/341",
+            "type": "page"
+          },
+          {
+            "id": "340",
+            "title": "Capsolver: Fastest AI Captcha Solver, Auto Captcha Solving Service",
+            "url": "https://www.capsolver.com/",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/340",
+            "type": "page"
+          },
+          {
+            "id": "339",
+            "title": "Anti Captcha Tutorials Demo",
+            "url": "https://anti-captcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/339",
+            "type": "page"
+          },
+          {
+            "id": "338",
+            "title": "CreepJS",
+            "url": "https://abrahamjuliot.github.io/creepjs/",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/338",
+            "type": "page"
+          },
+          {
+            "id": "337",
+            "title": "Browserleaks - Check your browser for privacy leaks",
+            "url": "https://browserleaks.com/",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/337",
+            "type": "page"
+          },
+          {
+            "id": "336",
+            "title": "Bản trình diễn ReCAPTCHA",
+            "url": "https://www.google.com/recaptcha/api2/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/336",
+            "type": "page"
+          },
+          {
+            "id": "335",
+            "title": "Bản trình diễn Rotate captcha: Biểu mẫu mẫu có Rotate captcha",
+            "url": "https://2captcha.com/demo/rotatecaptcha",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/335",
+            "type": "page"
+          },
+          {
+            "id": "334",
+            "title": "Không tìm thấy trang",
+            "url": "https://2captcha.com/demo/funcaptcha",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/334",
+            "type": "page"
+          },
+          {
+            "id": "333",
+            "title": "Bản trình diễn Cloudflare Turnstile: Biểu mẫu mẫu có Cloudflare Turnstile",
+            "url": "https://2captcha.com/demo/cloudflare-turnstile",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/333",
+            "type": "page"
+          },
+          {
+            "id": "332",
+            "title": "BotDetect CAPTCHA Demo - Features",
+            "url": "https://captcha.com/demos/features/captcha-demo.aspx",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/332",
+            "type": "page"
+          },
+          {
+            "id": "331",
+            "title": "BotDetect CAPTCHA Demo - Features",
+            "url": "https://captcha.com/demos/features/captcha-demo.aspx",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/331",
+            "type": "page"
+          },
+          {
+            "id": "330",
+            "title": "Bản trình diễn GeeTest captcha: Biểu mẫu mẫu có GeeTest captcha",
+            "url": "https://2captcha.com/demo/geetest",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/330",
+            "type": "page"
+          },
+          {
+            "id": "329",
+            "title": "Không tìm thấy trang",
+            "url": "https://2captcha.com/demo/rotate",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/329",
+            "type": "page"
+          },
+          {
+            "id": "328",
+            "title": "Bản trình diễn hCAPTCHA",
+            "url": "https://accounts.hcaptcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/328",
+            "type": "page"
+          },
+          {
+            "id": "327",
+            "title": "Bản trình diễn Google reCAPTCHA v2: Biểu mẫu mẫu có Google reCAPTCHA v2",
+            "url": "https://2captcha.com/demo/recaptcha-v2",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/327",
+            "type": "page"
+          },
+          {
+            "id": "325",
+            "title": "Anti Captcha Tutorials Demo",
+            "url": "https://anti-captcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/325",
+            "type": "page"
+          },
+          {
+            "id": "142",
+            "title": "Đăng ký khoản vay không thành công",
+            "url": "https://www.homecredit.vn/vay-tien-online-nhanh/tu-choi",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/142",
+            "type": "page"
+          },
+          {
+            "id": "3F35FC3BBA33D3F4084568EA7D2298A7",
+            "title": "",
+            "url": "",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/3F35FC3BBA33D3F4084568EA7D2298A7",
+            "type": "worker"
+          },
+          {
+            "id": "229",
+            "title": "Jungkook (BTS) lập kỷ lục mới sau màn trình diễn ở World Cup 2022",
+            "url": "https://laodong.vn/giai-tri/jungkook-bts-lap-ky-luc-moi-sau-man-trinh-dien-o-world-cup-2022-1122188.ldo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/229",
+            "type": "page"
+          },
+          {
+            "id": "232",
+            "title": "lệnh terimal chuyển sang thư mục D - Tìm trên Google",
+            "url": "https://www.google.com/search?q=l%E1%BB%87nh+terimal+chuy%E1%BB%83n+sang+th%C6%B0+m%E1%BB%A5c+D&oq=l%E1%BB%87nh+terimal+chuy%E1%BB%83n+sang+th%C6%B0+m%E1%BB%A5c+D&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKABMgkIAhAhGAoYoAEyCQgDECEYChigATIJCAQQIRgKGKABMgkIBRAhGAoYoAHSAQg3OTI1ajBqN6gCFLACAfEFYLAaG-CrbE3xBWCwGhvgq2xN8QVgsBob4KtsTQ&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/232",
+            "type": "page"
+          },
+          {
+            "id": "234",
+            "title": "Mua Google Gemini Ultra dùng được Antigravity, CHÍNH CHỦ",
+            "url": "https://muabanquyen.com/gemini-ultra",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/234",
+            "type": "page"
+          },
+          {
+            "id": "237",
+            "title": "mở bảng nhớ tạm trên máy tính - Tìm trên Google",
+            "url": "https://www.google.com/search?q=m%E1%BB%9F+b%E1%BA%A3ng+nh%E1%BB%9B+t%E1%BA%A1m+tr%C3%AAn+m%C3%A1y+t%C3%ADnh&oq=m%E1%BB%9F+bangt+nh%E1%BB%9B+t%E1%BA%A1m+&gs_lcrp=EgZjaHJvbWUqCQgBEAAYDRiABDIGCAAQRRg5MgkIARAAGA0YgAQyCAgCEAAYFhgeMggIAxAAGBYYHjIICAQQABgWGB4yCAgFEAAYFhgeMggIBhAAGBYYHjIICAcQABgWGB4yCAgIEAAYFhgeMggICRAAGBYYHjIICAoQABgWGB4yCAgLEAAYFhgeMggIDBAAGBYYHjIICA0QABgWGB4yCAgOEAAYFhge0gEINDYyMGowajmoAg6wAgHxBQq8J9uftaVO8QUKvCfbn7WlTg&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/237",
+            "type": "page"
+          },
+          {
+            "id": "242",
+            "title": "Google Antigravity",
+            "url": "https://antigravity.google.com/u/6/r/8bbec1a7-f69a-409f-9ba7-49d954a1c3fd-v2?p=c%2F5648a973-dd1f-4d7a-bce6-91b249dbc369",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/242",
+            "type": "page"
+          },
+          {
+            "id": "248",
+            "title": "maching learning là gì - Tìm trên Google",
+            "url": "https://www.google.com/search?q=maching+learning+l%C3%A0+g%C3%AC&oq=maching+learning+l%C3%A0+g%C3%AC&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDY4ODJqMGo3qAIUsAIB8QXGhUe3HoUAVPEFxoVHtx6FAFQ&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/248",
+            "type": "page"
+          },
+          {
+            "id": "250",
+            "title": "xây dựng chat gpt thì nên học ml hay dl nhỉ - Tìm trên Google",
+            "url": "https://www.google.com/search?q=x%C3%A2y+d%E1%BB%B1ng+chat+gpt+th%C3%AC+n%C3%AAn+h%E1%BB%8Dc+ml+hay+dl+nh%E1%BB%89&oq=x%C3%A2y+d%E1%BB%B1ng+chat+gpt+th%C3%AC+n%C3%AAn+h%E1%BB%8Dc+ml+hay+dl+nh%E1%BB%89&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKAB0gEIOTY3N2owajeoAhSwAgHxBcaFR7cehQBU8QXGhUe3HoUAVA&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/250",
+            "type": "page"
+          },
+          {
+            "id": "253",
+            "title": "Google Antigravity",
+            "url": "https://antigravity.google.com/r/8bbec1a7-f69a-409f-9ba7-49d954a1c3fd-v2?p=c%2F5648a973-dd1f-4d7a-bce6-91b249dbc369",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/253",
+            "type": "page"
+          },
+          {
+            "id": "256",
+            "title": "npx ccusage theo tháng thì như nào - Tìm trên Google",
+            "url": "https://www.google.com/search?q=npx+ccusage+theo+th%C3%A1ng+th%C3%AC+nh%C6%B0+n%C3%A0o&oq=npx+ccusage+theo+th%C3%A1ng+th%C3%AC+nh%C6%B0+n%C3%A0o+&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigATIHCAMQIRigAdIBCDg1OTNqMGo5qAIOsAIB8QUFe5t1VqdQtPEFBXubdVanULTxBQGENG1qAHaR&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/256",
+            "type": "page"
+          },
+          {
+            "id": "259",
+            "title": "Hoa Kỳ: 07:29",
+            "url": "https://time.is/vi/United_States",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/259",
+            "type": "page"
+          },
+          {
+            "id": "263",
+            "title": "repo điều khiển điện thoại bằng llm của google - Tìm trên Google",
+            "url": "https://www.google.com/search?q=repo+%C4%91i%E1%BB%81u+khi%E1%BB%83n+%C4%91i%E1%BB%87n+tho%E1%BA%A1i+b%E1%BA%B1ng+llm+c%E1%BB%A7a+google&sca_esv=a3c6ed50d1eb053c&sxsrf=APpeQnv5EoLZrblxRN5_SlB_TRJj06QluQ%3A1792840402643&ei=0pLcavDRJpvO2roPocSDsAo&biw=360&bih=704&oq=repo+%C4%91i%E1%BB%81u+khi%E1%BB%83n+%C4%91i%E1%BB%87n+tho%E1%BA%A1i+b%E1%BA%B1ng+llm+c%E1%BB%A7a+google&gs_lp=EhNtb2JpbGUtZ3dzLXdpei1zZXJwIjxyZXBvIMSRaeG7gXUga2hp4buDbiDEkWnhu4duIHRob-G6oWkgYuG6sW5nIGxsbSBj4bunYSBnb29nbGUyCBAAGIkFGKIEMgUQABjvBTIIEAAYgAQYogQyBRAAGO8FMgUQABjvBUjwPFCiC1iWOnAHeAGQAQOYAYkCoAHLIKoBBjQuMzAuMbgBA8gBAPgBAZgCHaACuRTCAgoQABhHGNYEGLADwgIXEC4Y3AYYuAYY2gYY2AIYyAMYsAPYAQHCAgcQIxiwAhgnwgIIECEYoAEYwwTCAgoQIRgKGKABGMMEwgIEECEYCpgDAIgGAZAGDroGBAgBGBmSBwQ3LjIyoAfYzQGyBwQwLjIyuAejFMIHCTAuMTQuMTMuMsgHdIAIAQ&sclient=mobile-gws-wiz-serp#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/263",
+            "type": "page"
+          },
+          {
+            "id": "275",
+            "title": "git hub edu - Tìm trên Google",
+            "url": "https://www.google.com/search?q=git+hub+edu&oq=&gs_lcrp=EgZjaHJvbWUqDAgDECMYJxjqAhiLBDIGCAAQRRg6MgcIARBFGLABMgkIAhAFGEIYwwMyDAgDECMYJxjqAhiLBDIMCAQQIxgnGOoCGIsEMgwIBRAjGCcY6gIYiwQyDAgGECMYJxjqAhiLBDIMCAcQIxgnGOoCGIsEMgwICBAjGCcY6gIYiwQyDAgJECMYJxjqAhiLBDIMCAoQIxgnGOoCGIsEMgwICxAjGCcY6gIYiwQyDAgMECMYJxjqAhiLBDIMCA0QIxgnGOoCGIsEMgwIDhAjGCcY6gIYiwTSAQYtMWowajSoAg6wAgHxBf82kVMW-9fO8QX_NpFTFvvXzg&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/275",
+            "type": "page"
+          },
+          {
+            "id": "277",
+            "title": "Google Dịch",
+            "url": "https://translate.google.com.vn/?sl=en&tl=vi&text=Enter%20the%20code%20from%20your%20two-factor%20authentication%20app%20or%20browser%20extension%20below%20to&op=translate",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/277",
+            "type": "page"
+          },
+          {
+            "id": "280",
+            "title": "thêm repo private vào tổ chức trên git - Tìm trên Google",
+            "url": "https://www.google.com/search?q=th%C3%AAm+repo+private+v%C3%A0o+t%E1%BB%95+ch%E1%BB%A9c+tr%C3%AAn+git&oq=th%C3%AAm+repo+private+v%C3%A0o+t%E1%BB%95+ch%E1%BB%A9c+tr%C3%AAn+git&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigAdIBCDg0MjZqMGo5qAIOsAIB8QXdeeriie6uEfEF3Xnq4onurhE&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/280",
+            "type": "page"
+          },
+          {
+            "id": "286",
+            "title": "Two-factor recovery",
+            "url": "https://github.com/sessions/two-factor/recovery",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/286",
+            "type": "page"
+          },
+          {
+            "id": "302",
+            "title": "huce tiêngas anh - Tìm trên Google",
+            "url": "https://www.google.com/search?q=huce+ti%C3%AAngas+anh&oq=huce+ti%C3%AAngas+anh&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQABgNGIAEMgkIAhAAGA0YgAQyCQgDEAAYDRiABDIICAQQABgWGB4yCAgFEAAYFhgeMggIBhAAGBYYHjIICAcQABgWGB4yCAgIEAAYFhgeMggICRAAGBYYHjIICAoQABgWGB4yCggLEAAYCBgNGB4yCggMEAAYCBgNGB4yCggNEAAYCBgNGB4yCggOEAAYCBgNGB7SAQg0NTc1ajBqN6gCFLACAfEFKFjPQ41DymnxBShYz0ONQ8pp8QUoWM9DjUPKaQ&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#ebo=0",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/302",
+            "type": "page"
+          },
+          {
+            "id": "305",
+            "title": "cách test thuật toán giải capcha test - Tìm trên Google",
+            "url": "https://www.google.com/search?q=c%C3%A1ch+test+thu%E1%BA%ADt+to%C3%A1n+gi%E1%BA%A3i+capcha+test&sca_esv=a5e9361146d2feed&sxsrf=APpeQnthao41O7QCsK38K73Jp2P--wCVxA%3A1792950147096&ei=gz_eapGeBZ-Ovr0PgPWD6Q4&biw=360&bih=704&oq=c%C3%A1ch+test+thu%E1%BA%ADt+to%C3%A1n+gi%E1%BA%A3i+capcha+test&gs_lp=EhNtb2JpbGUtZ3dzLXdpei1zZXJwIitjw6FjaCB0ZXN0IHRodeG6rXQgdG_DoW4gZ2nhuqNpIGNhcGNoYSB0ZXN0MgUQABjvBTIFEAAY7wUyBRAAGO8FMggQABiABBiiBDIFEAAY7wVI2TpQ-wtYkzRwCHgBkAEDmAGEAaABtRuqAQQ0LjI4uAEDyAEA-AEBmAIdoALZEsICChAAGEcY1gQYsAPCAg0QABiABBiKBRhDGLADwgIXEC4Y3AYYuAYY2gYY2AIYyAMYsAPYAQHCAgcQIxiwAhgnwgIHEAAYgAQYDcICBhAAGB4YDcICBBAhGAqYAwDiAwUSATEgQIgGAZAGDroGBAgBGBmSBwQ4LjIxoAfpgQGyBwQwLjIxuAe3EsIHCTAuMTIuMTQuM8gHfIAIAQ&sclient=mobile-gws-wiz-serp",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/305",
+            "type": "page"
+          },
+          {
+            "id": "310",
+            "title": "web giải captcha để test - Tìm trên Google",
+            "url": "https://www.google.com/search?q=web+gi%E1%BA%A3i+capcha+%C4%91%E1%BB%83+test&oq=web+gi%E1%BA%A3i+capcha+%C4%91%E1%BB%83+test&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKABMgkIAhAhGAoYoAEyCQgDECEYChigAdIBCDc2MjRqMGo5qAIOsAIB8QUD3omDZl6-q_EFA96Jg2Zevqs&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/310",
+            "type": "page"
+          },
+          {
+            "id": "315",
+            "title": "AMAF v8.0 Live CAPTCHA &amp; 2FA Testbench",
+            "url": "http://127.0.0.1:61161/amaf-testbench",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/315",
+            "type": "page"
+          },
+          {
+            "id": "316",
+            "title": "Bản trình diễn ReCAPTCHA",
+            "url": "https://www.google.com/recaptcha/api2/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/316",
+            "type": "page"
+          },
+          {
+            "id": "317",
+            "title": "challenges.cloudflare.com",
+            "url": "https://challenges.cloudflare.com/turnstile/v0/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/317",
+            "type": "page"
+          },
+          {
+            "id": "318",
+            "title": "Bản trình diễn hCAPTCHA",
+            "url": "https://accounts.hcaptcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/318",
+            "type": "page"
+          },
+          {
+            "id": "319",
+            "title": "Cách giải mã captcha trên PHP, Java, Python",
+            "url": "https://2captcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/319",
+            "type": "page"
+          },
+          {
+            "id": "320",
+            "title": "Anti Captcha Tutorials Demo",
+            "url": "https://anti-captcha.com/demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/320",
+            "type": "page"
+          },
+          {
+            "id": "321",
+            "title": "Capsolver: Fastest AI Captcha Solver, Auto Captcha Solving Service",
+            "url": "https://www.capsolver.com/",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/321",
+            "type": "page"
+          },
+          {
+            "id": "322",
+            "title": "Bản demo CAPTCHA thích ứng",
+            "url": "https://www.geetest.com/en/adaptive-captcha-demo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/322",
+            "type": "page"
+          },
+          {
+            "id": "323",
+            "title": "BotDetect CAPTCHA Demo - Features",
+            "url": "https://captcha.com/demos/features/captcha-demo.aspx",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/323",
+            "type": "page"
+          },
+          {
+            "id": "324",
+            "title": "Antibot",
+            "url": "https://bot.sannysoft.com/",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/324",
+            "type": "page"
+          },
+          {
+            "id": "227",
+            "title": "Các phát cầu lông hiệu quả giúp làm chủ trận đấu – Li-Ning Việt Nam",
+            "url": "https://liningvietnam.com.vn/blogs/news/cac-phat-cau-long-hieu-qua-giup-lam-chu-tran-dau",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/227",
+            "type": "page"
+          },
+          {
+            "id": "218",
+            "title": "Tùy chọn nhà phát triển trên Android là gì? Hướng dẫn cách bật và tắt - Thegioididong.com",
+            "url": "https://www.thegioididong.com/hoi-dap/tuy-chon-nha-phat-trien-tren-android-la-gi-huong-dan-cach-585140",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/218",
+            "type": "page"
+          },
+          {
+            "id": "202",
+            "title": "Đăng nhập vào trang | HUCE LMS",
+            "url": "https://lms.huce.edu.vn/login/index.php",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/202",
+            "type": "page"
+          },
+          {
+            "id": "183",
+            "title": "- DELL G3 3590: I7-9750H /16/ 512g/15.6F/Gtx1650 - 4g - Tìm trên Google",
+            "url": "https://www.google.com/search?q=-+DELL+G3+3590%3A+I7-9750H+%2F16%2F+512g%2F15.6F%2FGtx1650+-+4g&oq=-+DELL+G3+3590%3A+I7-9750H+%2F16%2F+512g%2F15.6F%2FGtx1650+-+4g&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBBzg2MmowajeoAhSwAgHxBZPDfajW0N078QWTw32o1tDdO_EFk8N9qNbQ3Ts&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/183",
+            "type": "page"
+          },
+          {
+            "id": "176",
+            "title": "triệu chứng sốt xuất huyết nhẹ - Tìm trên Google",
+            "url": "https://www.google.com/search?sca_esv=a18c2e858462cb7d&sxsrf=APpeQnsjLf188antdvaxrGppqUwYcJv1-w:1791715653562&udm=imgs&fbs=ABfTbFW4UnGvBVgqDYjq_ksvF_WzL0qSsUjsQCJMDr-_PEHsElEq-XkTNsyVCf0qvOFQ8LkEK8R9Bfx6Jxj77aEhQus1h78CuHEJp8EPDnH34SkslafE3niGlBqFDl-Xv0xXHErfP8l3sJhHSN-KlKEIom7A_Ev0eib5O5bozZkaoKSwN1krv2L97FY3HJd4VaQKKuoiEBo2qNmizXzTI9rGpWtjqC7C9Njx1REFk2eHNLFHN9ApAJ1PtYVYt2G7R1OkhF12gtC4&q=tri%E1%BB%87u+ch%E1%BB%A9ng+s%E1%BB%91t+xu%E1%BA%A5t+huy%E1%BA%BFt+nh%E1%BA%B9&sa=X&sqi=2&ved=2ahUKEwi3nsb45LGXAxXMdvUHHWPZKTUQtKgLegQIGhAB&biw=360&bih=704&dpr=3.5",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/176",
+            "type": "page"
+          },
+          {
+            "id": "174",
+            "title": "Bù nước oresol có tác dụng gì? Những lưu ý khi sử dụng oresol",
+            "url": "https://nhathuoclongchau.com.vn/bai-viet/bu-nuoc-oresol-co-tac-dung-gi-khi-bi-mat-nuoc-56663.html",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/174",
+            "type": "page"
+          },
+          {
+            "id": "161",
+            "title": "ấn độ châu lục nào - Tìm trên Google",
+            "url": "https://www.google.com/search?q=%E1%BA%A5n+%C4%91%E1%BB%99+ch%C3%A2u+l%E1%BB%A5c+n%C3%A0o&oq=%E1%BA%A5n+%C4%91%E1%BB%99+ch%C3%A2u&gs_lcrp=EgZjaHJvbWUqBwgCEAAYgAQyBggAEEUYOTIHCAEQLhiABDIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIICAUQABgWGB4yCAgGEAAYFhgeMggIBxAAGBYYHjIICAgQABgWGB4yCAgJEAAYFhgeMggIChAAGBYYHjIKCAsQABiABBiiBDIHCAwQABjvBTIHCA0QABjvBdIBCDgwOTdqMGo5qAIOsAIB&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/161",
+            "type": "page"
+          },
+          {
+            "id": "160",
+            "title": "cách tải python bằng win powershell - Tìm trên Google",
+            "url": "https://www.google.com/search?q=c%C3%A1ch+t%E1%BA%A3i+pyhto+b%E1%BA%B1ng+winpowershell&oq=c%C3%A1ch+t%E1%BA%A3i+pyhto+b%E1%BA%B1ng+winpowershell&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKABMgYIAhAhGArSAQkxNDU1MGowajeoAhSwAgHxBfzjKbhFsTJ78QX84ym4RbEye_EF_OMpuEWxMns&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/160",
+            "type": "page"
+          },
+          {
+            "id": "154",
+            "title": "secret key trong supabase ở đâu - Tìm trên Google",
+            "url": "https://www.google.com/search?q=secret+key+trong+supabase+%E1%BB%9F+%C4%91%C3%A2u&oq=secret+key+trong+supabase+%E1%BB%9F+%C4%91%C3%A2u&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQABjvBTIHCAIQABjvBTIHCAMQABjvBTIHCAQQABjvBTIHCAUQABjvBdIBCTI5NzYwajBqOagCALACAA&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8#lfId=ChxjMe",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/154",
+            "type": "page"
+          },
+          {
+            "id": "150",
+            "title": "bluestacks - Tìm trên Google",
+            "url": "https://www.google.com/search?q=blue+stakes&oq=blue+stakes&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQABgTGIAEMgsIAhAAGAoYExiABDIJCAMQABgTGIAEMgkIBBAAGBMYgAQyCQgFEAAYExiABDIJCAYQABgTGIAEMgkIBxAAGBMYgAQyCQgIEAAYExiABDIJCAkQABgTGIAEMgkIChAAGBMYgAQyCQgLEAAYExiABDIJCAwQABgTGIAEMgkIDRAAGBMYgAQyCQgOEAAYExiABNIBCDQ5NDNqMGo5qAIOsAIB8QVouG2X91O-h_EFaLhtl_dTvoc&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/150",
+            "type": "page"
+          },
+          {
+            "id": "149",
+            "title": "Máy In 3D FDM: Nguyên Lý Hoạt Động Và Các Dòng Máy Tốt Nhất",
+            "url": "https://www.meme3d.com/danh-muc-san-pham/may-in-3d/may-in-3d-fdm/?orderby=price",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/149",
+            "type": "page"
+          },
+          {
+            "id": "147",
+            "title": "Lãi suất gửi tiết kiệm của 30+ ngân hàng hôm nay 05/10/2026 | Techcombank",
+            "url": "https://techcombank.com/thong-tin/blog/lai-suat-tiet-kiem",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/147",
+            "type": "page"
+          },
+          {
+            "id": "146",
+            "title": "Không tìm thấy thông tin khách hàng",
+            "url": "https://www.homecredit.vn/vay-tien-online-nhanh/khach-hang-moi",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/146",
+            "type": "page"
+          },
+          {
+            "id": "145",
+            "title": "SOB page | Home Credit Vietnam",
+            "url": "https://sob.homecredit.vn/v3/pos/a938480a-2d05-4ad3-8c09-168c8d2f1d92?zarsrc=30&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/145",
+            "type": "page"
+          },
+          {
+            "id": "144",
+            "title": "Kiểm tra số tiền được vay - Home Credit Việt Nam",
+            "url": "https://www.homecredit.vn/vay-tien-online-nhanh/dang-ky-2?zarsrc=30&utm_source=zalo&utm_medium=zalo&utm_campaign=zalo",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/144",
+            "type": "page"
+          },
+          {
+            "id": "143",
+            "title": "Kiểm tra số tiền được vay - Home Credit Việt Nam",
+            "url": "https://www.homecredit.vn/vay-tien-online-nhanh/dang-ky?tm=tt&ap=gads&aaid=adaY69ccjrA1J&utm_source=google&utm_medium=cp_&utm_campaign=CLX_WEB_MKT_GGL_B0A_SP4_PM_BAU_NON_BMC_VAI_MNA_A&S_NST_TestingKV-PhoneHandUSP&utm_term=&utm_content=BAU_BAU-MMC-2026-Testing-KV-USP-BV_Revise-Search-Themes+Without-Interests_Audience19_SP4&gad_source=1&gad_campaignid=24109679177&gbraid=0AAAABABzKAX3erNwi81s8z4QPZCal9ZRF&gclid=Cj0KCQjw8ofWBhCHARIsANBj4Lulx2GKPvIqP0N_aiI8a5U3gsfsnLjVDIirJGGMVK_O8wwuCK9SlxcaAlP3EALw_wcB",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/143",
+            "type": "page"
+          },
+          {
+            "id": "228",
+            "title": "crm là gì - Tìm trên Google",
+            "url": "https://www.google.com/search?q=crm+l%C3%A0+g%C3%AC&oq=crm+l&gs_lcrp=EgZjaHJvbWUqCggAEAAYsQMYgAQyCggAEAAYsQMYgAQyBggBEEUYOTIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIHCAUQABiABDIHCAYQABiABDIHCAcQABiABDIHCAgQABiABDIHCAkQABiABDIHCAoQABiABDIHCAsQABiABDIHCAwQABiABDIHCA0QABiABDIHCA4QABiABNIBCDIyNTdqMGo3qAIUsAIB&sourceid=chrome-mobile&source=chrome.ob&ie=UTF-8",
+            "webSocketDebuggerUrl": "ws://127.0.0.1:9229/devtools/page/228",
+            "type": "page"
+          }
+        ],
+        "tab_count": 63,
+        "tokens_used": 0,
+        "timestamp": 1792978543.3753178
+      },
+      "category": "android_cdp_bridge",
+      "tags": [
+        "android_cdp_subagent",
+        "cdp",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:35:43"
+    },
+    {
+      "id": "mem_1792978543399",
+      "key": "tiktok_workflow_10CF5L0TYL00312_1792978543390",
+      "value": {
+        "status": "TIKTOK_WORKFLOW_COMPLETED",
+        "serial": "10CF5L0TYL00312",
+        "target_account": "nht.tn472",
+        "search_query": "tra dang",
+        "comment_text": "dinh quaa",
+        "steps_completed": 6,
+        "tokens_used": 0
+      },
+      "category": "social_workflow_engine",
+      "tags": [
+        "social_workflow",
+        "subagent_39",
+        "tiktok",
+        "10CF5L0TYL00312",
+        "nht.tn472"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:35:43"
+    },
+    {
+      "id": "mem_1792978563717",
+      "key": "crawl_10CF5L0TYL00312_com.android.settings",
+      "value": {
+        "serial": "10CF5L0TYL00312",
+        "package": "com.android.settings",
+        "unique_states_discovered": 2,
+        "transitions_recorded": 2,
+        "crashes_detected": 0
+      },
+      "category": "crawler",
+      "tags": [
+        "crawler",
+        "state_graph",
+        "10CF5L0TYL00312",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:36:03"
+    },
+    {
+      "id": "mem_1792978569280",
+      "key": "crash_analysis_10CF5L0TYL00312_com.android.settings",
+      "value": {
+        "total_faults": 4,
+        "unique_signatures": 1,
+        "categories": [
+          "JAVA_FATAL_EXCEPTION"
+        ]
+      },
+      "category": "general",
+      "tags": [
+        "crash",
+        "tombstone",
+        "anr",
+        "10CF5L0TYL00312",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:36:09"
+    },
+    {
+      "id": "mem_1792978570011",
+      "key": "net_api_audit_10CF5L0TYL00312_com.android.settings",
+      "value": {
+        "score": 100,
+        "rx_mb": 1416.6,
+        "tx_mb": 104.1,
+        "api_calls": 0,
+        "cleartext_count": 0
+      },
+      "category": "general",
+      "tags": [
+        "network_api",
+        "10CF5L0TYL00312",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:36:10"
+    },
+    {
+      "id": "mem_1792978573436",
+      "key": "perf_audit_10CF5L0TYL00312_com.android.settings",
+      "value": {
+        "score": 98,
+        "grade": "A+",
+        "fps": 59.3,
+        "pss_mb": 82.52,
+        "leak_suspected": false
+      },
+      "category": "general",
+      "tags": [
+        "performance",
+        "memleak",
+        "10CF5L0TYL00312",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:36:13"
+    },
+    {
+      "id": "mem_1792978611481",
+      "key": "screen_state_emulator-5554",
+      "value": {
+        "keyboard": true,
+        "dialog": true,
+        "dimensions": "1080x1920"
+      },
+      "category": "general",
+      "tags": [
+        "vision",
+        "emulator-5554",
+        "screen_state"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:36:51"
+    },
+    {
+      "id": "mem_1792978612382",
+      "key": "SEC_com_android_settings_1792978612",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 2,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792978612.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:36:52"
+    },
+    {
+      "id": "mem_1792978616732",
+      "key": "SEC_com_android_settings_1792978616",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 2,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792978616.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "emulator-5556"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:36:56"
+    },
+    {
+      "id": "mem_1792978622377",
+      "key": "SEC_com_android_settings_1792978622",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 1,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792978622.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:37:02"
+    },
+    {
+      "id": "mem_1792978724258",
+      "key": "macro_replay_tiktok_switch_and_interact_emulator-5554_1792978724256",
+      "value": {
+        "status": "MACRO_REPLAY_OK",
+        "macro_name": "tiktok_switch_and_interact",
+        "serial": "emulator-5554",
+        "dry_run": true,
+        "target_resolution": [
+          1080,
+          2400
+        ],
+        "steps_executed": 4,
+        "steps": [
+          {
+            "step_id": 1,
+            "action_type": "swipe",
+            "x": 540,
+            "y": 1872,
+            "end_x": 540,
+            "end_y": 528,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 2,
+            "action_type": "wait",
+            "x": 540,
+            "y": 1200,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 3,
+            "action_type": "double_tap",
+            "x": 562,
+            "y": 1152,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 4,
+            "action_type": "tap",
+            "x": 983,
+            "y": 1536,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          }
+        ],
+        "tokens_used": 0,
+        "elapsed_ms": 0.04,
+        "subagent": "MacroReplaySubagent#37",
+        "subagent_id": 37
+      },
+      "category": "macro_telemetry",
+      "tags": [
+        "macro_replay",
+        "tiktok_switch_and_interact",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:38:44"
+    },
+    {
+      "id": "mem_1792978724780",
+      "key": "macro_replay_vivo_dismiss_usb_install_10AC9C1285000CS_1792978724767",
+      "value": {
+        "status": "MACRO_REPLAY_OK",
+        "macro_name": "vivo_dismiss_usb_install",
+        "serial": "10AC9C1285000CS",
+        "dry_run": false,
+        "target_resolution": [
+          1260,
+          2800
+        ],
+        "steps_executed": 2,
+        "steps": [
+          {
+            "step_id": 1,
+            "action_type": "tap",
+            "x": 630,
+            "y": 2460,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "poco_xml",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "HUMAN_TAP_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 2,
+            "action_type": "tap",
+            "x": 907,
+            "y": 2520,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "HUMAN_TAP_OK"
+            },
+            "tokens_used": 0
+          }
+        ],
+        "tokens_used": 0,
+        "elapsed_ms": 500.84,
+        "subagent": "MacroReplaySubagent#37",
+        "subagent_id": 37
+      },
+      "category": "macro_telemetry",
+      "tags": [
+        "macro_replay",
+        "vivo_dismiss_usb_install",
+        "10AC9C1285000CS"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:38:44"
+    },
+    {
+      "id": "mem_1792978726579",
+      "key": "tiktok_workflow_10CF5L0TYL00312_1792978726566",
+      "value": {
+        "status": "TIKTOK_WORKFLOW_COMPLETED",
+        "serial": "10CF5L0TYL00312",
+        "target_account": "nht.tn472",
+        "search_query": "tra dang",
+        "comment_text": "dinh quaa",
+        "steps_completed": 6,
+        "tokens_used": 0
+      },
+      "category": "social_workflow_engine",
+      "tags": [
+        "social_workflow",
+        "subagent_39",
+        "tiktok",
+        "10CF5L0TYL00312",
+        "nht.tn472"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:38:46"
+    },
+    {
+      "id": "mem_1792978726606",
+      "key": "captcha_patrol_10CF5L0TYL00312_1792978726593",
+      "value": {
+        "status": "CAPTCHA_PATROL_COMPLETED",
+        "serial": "10CF5L0TYL00312",
+        "websites_total": 13,
+        "websites_solved": 13,
+        "tokens_used": 0
+      },
+      "category": "social_workflow_engine",
+      "tags": [
+        "social_workflow",
+        "subagent_39",
+        "captcha_patrol",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:38:46"
+    },
+    {
+      "id": "mem_1792978726951",
+      "key": "captcha_patrol_emulator-5554_1792978726943",
+      "value": {
+        "status": "CAPTCHA_PATROL_COMPLETED",
+        "serial": "emulator-5554",
+        "websites_total": 2,
+        "websites_solved": 2,
+        "tokens_used": 0
+      },
+      "category": "social_workflow_engine",
+      "tags": [
+        "social_workflow",
+        "subagent_39",
+        "captcha_patrol",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:38:46"
+    },
+    {
+      "id": "mem_1792978808687",
+      "key": "macro_replay_vivo_dismiss_usb_install_10CF5L0TYL00312_1792978808675",
+      "value": {
+        "status": "MACRO_REPLAY_OK",
+        "macro_name": "vivo_dismiss_usb_install",
+        "serial": "10CF5L0TYL00312",
+        "dry_run": true,
+        "target_resolution": [
+          1260,
+          2800
+        ],
+        "steps_executed": 2,
+        "steps": [
+          {
+            "step_id": 1,
+            "action_type": "tap",
+            "x": 630,
+            "y": 2464,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 2,
+            "action_type": "tap",
+            "x": 907,
+            "y": 2520,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          }
+        ],
+        "tokens_used": 0,
+        "elapsed_ms": 0.05,
+        "subagent": "MacroReplaySubagent#37",
+        "subagent_id": 37
+      },
+      "category": "macro_telemetry",
+      "tags": [
+        "macro_replay",
+        "vivo_dismiss_usb_install",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:40:08"
+    },
+    {
+      "id": "mem_1792978808710",
+      "key": "tiktok_workflow_10CF5L0TYL00312_1792978808697",
+      "value": {
+        "status": "TIKTOK_WORKFLOW_COMPLETED",
+        "serial": "10CF5L0TYL00312",
+        "target_account": "nht.tn472",
+        "search_query": "tra dang",
+        "comment_text": "dinh quaa",
+        "steps_completed": 6,
+        "tokens_used": 0
+      },
+      "category": "social_workflow_engine",
+      "tags": [
+        "social_workflow",
+        "subagent_39",
+        "tiktok",
+        "10CF5L0TYL00312",
+        "nht.tn472"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 08:40:08"
     }
   ],
   "macros": {
@@ -3417,6 +6662,117 @@
       "avg_duration_s": 5.72,
       "success_count": 1,
       "updated_at": "2026-10-26 07:05:20"
+    },
+    "com.android.settings::serve_interactive_web_testbench_over_adb_reverse_and": {
+      "goal_signature": "com.android.settings::serve_interactive_web_testbench_over_adb_reverse_and",
+      "package_name": "com.android.settings",
+      "steps": [
+        {
+          "milestone": "Launch_App",
+          "action": "launch",
+          "package": "com.android.settings",
+          "description": "Launch target app com.android.settings"
+        },
+        {
+          "milestone": "Enter_Phone_Number",
+          "action": "input",
+          "locator": "phone",
+          "text": "0941189263",
+          "description": "Enter phone number 0941189263"
+        },
+        {
+          "milestone": "Request_OTP",
+          "action": "tap",
+          "locator": "gửi mã|tiếp tục|login|sign in|xác nhận",
+          "description": "Tap request OTP / submit phone",
+          "verified_coords": [
+            540,
+            960
+          ],
+          "normalized_coords": [
+            0.5,
+            0.5
+          ]
+        },
+        {
+          "milestone": "Auto_Deliver_Mock_OTP",
+          "action": "mock_otp_flow",
+          "phone": "0941189263",
+          "description": "Intercept and autofill OTP locally with 0 VND carrier cost"
+        },
+        {
+          "milestone": "Submit_Verification",
+          "action": "tap",
+          "locator": "xác thực|hoàn tất|verify|submit",
+          "description": "Submit verification and verify dashboard entry",
+          "verified_coords": [
+            540,
+            1632
+          ],
+          "normalized_coords": [
+            0.5,
+            0.85
+          ]
+        }
+      ],
+      "steps_count": 5,
+      "avg_duration_s": 39.04,
+      "success_count": 2,
+      "updated_at": "2026-10-26 08:36:52"
+    },
+    "com.android.settings::classify_cross_app_auth_states_measure_pixel_luminance": {
+      "goal_signature": "com.android.settings::classify_cross_app_auth_states_measure_pixel_luminance",
+      "package_name": "com.android.settings",
+      "steps": [
+        {
+          "milestone": "Launch_App",
+          "action": "launch",
+          "package": "com.android.settings",
+          "description": "Launch app com.android.settings"
+        },
+        {
+          "milestone": "Dismiss_Dialogs",
+          "action": "dismiss_dialogs",
+          "description": "Handle system permission and greeting modals"
+        },
+        {
+          "milestone": "Explore_Core_Flows",
+          "action": "explore",
+          "max_steps": 15,
+          "description": "Autonomously navigate UI buttons and forms according to goal: Classify cross-app auth states, measure pixel luminance contrast ratios, and demangle Java/Native/ANR stack traces"
+        }
+      ],
+      "steps_count": 3,
+      "avg_duration_s": 4.29,
+      "success_count": 2,
+      "updated_at": "2026-10-26 08:36:56"
+    },
+    "com.android.settings::explore_interactive_ui_state_transitions_audit_rx_tx": {
+      "goal_signature": "com.android.settings::explore_interactive_ui_state_transitions_audit_rx_tx",
+      "package_name": "com.android.settings",
+      "steps": [
+        {
+          "milestone": "Launch_App",
+          "action": "launch",
+          "package": "com.android.settings",
+          "description": "Launch app com.android.settings"
+        },
+        {
+          "milestone": "Dismiss_Dialogs",
+          "action": "dismiss_dialogs",
+          "description": "Handle system permission and greeting modals"
+        },
+        {
+          "milestone": "Explore_Core_Flows",
+          "action": "explore",
+          "max_steps": 15,
+          "description": "Autonomously navigate UI buttons and forms according to goal: Explore interactive UI state transitions, audit RX/TX network API latency & cleartext HTTP, and profile FPS jank & PSS heap memory leaks"
+        }
+      ],
+      "steps_count": 3,
+      "avg_duration_s": 5.58,
+      "success_count": 2,
+      "updated_at": "2026-10-26 08:37:02"
     }
   },
   "evolution_history": [
@@ -3754,6 +7110,104 @@
       "group_sync_status": "SYNC_COMPLETED",
       "evolved_prompt_version": "v14.0",
       "macros_total": 17
+    },
+    {
+      "cycle_id": "EVO_1792978416056",
+      "timestamp": "2026-10-26 08:33:36",
+      "cycle_index": 1,
+      "subagents_active": 40,
+      "primary_serial": "emulator-5554",
+      "duration_seconds": 128.52,
+      "online_devices_count": 3,
+      "real_devices_count": 1,
+      "feature_worktrees_count": 29,
+      "installed_apps_discovered": 3,
+      "oem_popup_status": "NO_POPUP_DETECTED",
+      "vivo_originos_status": "VIVO_ORIGINOS_OPTIMIZED",
+      "som_marks_count": 18,
+      "human_touch_status": "HUMAN_TAP_OK",
+      "captcha_check_status": "NO_CAPTCHA_PRESENT",
+      "audio_behavior_status": "solved",
+      "live_testbench_solved": 5,
+      "gpu_name": "NVIDIA GeForce RTX 3050",
+      "gpu_vram_total_mb": 6143,
+      "zero_token_mode": true,
+      "macro_replay_status": "MACRO_REPLAY_OK",
+      "cdp_bridge_sockets": [],
+      "social_workflow_status": "TIKTOK_WORKFLOW_COMPLETED",
+      "hybrid_3tier_status": "HYBRID_3TIER_READY",
+      "supported_captcha_types": 13,
+      "cdp_sockets_discovered": 0,
+      "two_factor_status": "NO_2FA_PRESENT",
+      "auth_state": "AUTHENTICATED_OR_GENERAL",
+      "supported_2fa_modes": 7,
+      "qr_scanner_detected": false,
+      "clipboard_status": "CLIPBOARD_READ",
+      "layout_health_score": 100,
+      "wcag_score": 80,
+      "wcag_level": "A",
+      "crash_faults_count": 0,
+      "api_health_score": 100,
+      "performance_grade": "D",
+      "performance_score": 45,
+      "multi_app_flow_status": "FLOW_COMPLETED",
+      "action_reflection_outcome": "PROGRESS_VERIFIED",
+      "crawler_states_discovered": 3,
+      "cross_app_notes_count": 6,
+      "proposals_generated": 5,
+      "tasks_completed": 3,
+      "group_sync_status": "SYNC_COMPLETED",
+      "evolved_prompt_version": "v15.0",
+      "macros_total": 20
+    },
+    {
+      "cycle_id": "EVO_1792978622564",
+      "timestamp": "2026-10-26 08:37:02",
+      "cycle_index": 1,
+      "subagents_active": 40,
+      "primary_serial": "10CF5L0TYL00312",
+      "duration_seconds": 113.64,
+      "online_devices_count": 3,
+      "real_devices_count": 1,
+      "feature_worktrees_count": 29,
+      "installed_apps_discovered": 130,
+      "oem_popup_status": "POPUP_DISMISSED",
+      "vivo_originos_status": "VIVO_ORIGINOS_OPTIMIZED",
+      "som_marks_count": 67,
+      "human_touch_status": "HUMAN_TAP_OK",
+      "captcha_check_status": "NO_CAPTCHA_PRESENT",
+      "audio_behavior_status": "solved",
+      "live_testbench_solved": 5,
+      "gpu_name": "NVIDIA GeForce RTX 3050",
+      "gpu_vram_total_mb": 6143,
+      "zero_token_mode": true,
+      "macro_replay_status": "MACRO_REPLAY_OK",
+      "cdp_bridge_sockets": [],
+      "social_workflow_status": "TIKTOK_WORKFLOW_COMPLETED",
+      "hybrid_3tier_status": "HYBRID_3TIER_READY",
+      "supported_captcha_types": 13,
+      "cdp_sockets_discovered": 2,
+      "two_factor_status": "NO_2FA_PRESENT",
+      "auth_state": "AUTHENTICATED_OR_GENERAL",
+      "supported_2fa_modes": 7,
+      "qr_scanner_detected": false,
+      "clipboard_status": "CLIPBOARD_READ",
+      "layout_health_score": 85,
+      "wcag_score": 0,
+      "wcag_level": "FAIL",
+      "crash_faults_count": 4,
+      "api_health_score": 100,
+      "performance_grade": "A+",
+      "performance_score": 98,
+      "multi_app_flow_status": "FLOW_COMPLETED",
+      "action_reflection_outcome": "NO_CHANGE_STUCK",
+      "crawler_states_discovered": 2,
+      "cross_app_notes_count": 6,
+      "proposals_generated": 5,
+      "tasks_completed": 3,
+      "group_sync_status": "SYNC_COMPLETED",
+      "evolved_prompt_version": "v16.0",
+      "macros_total": 20
     }
   ]
 }

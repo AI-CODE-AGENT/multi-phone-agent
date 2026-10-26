@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-26 07:04:12",
+  "updated_at": "2026-10-26 08:35:49",
   "count": 6,
   "notes": {
     "otp_code": {
@@ -48,18 +48,18 @@
     },
     "last_otp": {
       "key": "last_otp",
-      "value": "916898",
-      "source_app": "com.android.chrome",
-      "serial": "emulator-5556",
-      "timestamp": "2026-10-26 07:04:12",
+      "value": "237154",
+      "source_app": "com.android.settings",
+      "serial": "10CF5L0TYL00312",
+      "timestamp": "2026-10-26 08:35:49",
       "metadata": {}
     },
     "active_package": {
       "key": "active_package",
-      "value": "com.android.chrome",
-      "source_app": "com.android.chrome",
-      "serial": "emulator-5556",
-      "timestamp": "2026-10-26 07:04:12",
+      "value": "com.android.settings",
+      "source_app": "com.android.settings",
+      "serial": "10CF5L0TYL00312",
+      "timestamp": "2026-10-26 08:35:49",
       "metadata": {}
     }
   }

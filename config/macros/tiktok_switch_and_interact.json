@@ -1,0 +1,94 @@
+{
+  "macro_name": "tiktok_switch_and_interact",
+  "recorded_resolution": [
+    1260,
+    2800
+  ],
+  "tokens_used": 0,
+  "description": "Zero-token TikTok/Douyin feed swipe, watch pause, double-tap heart like, and follow/profile check.",
+  "steps": [
+    {
+      "step_id": 1,
+      "action_type": "swipe",
+      "poco_selector": {
+        "resource_id": "com.ss.android.ugc.trill:id/viewpager",
+        "class_name": "androidx.viewpager.widget.ViewPager"
+      },
+      "visual_template": null,
+      "relative_coords": [
+        0.5,
+        0.78,
+        0.5,
+        0.22
+      ],
+      "recorded_resolution": [
+        1260,
+        2800
+      ],
+      "text_payload": "",
+      "keycode": null,
+      "wait_after_sec": 0.35,
+      "description": "Bezier swipe up to next video in feed"
+    },
+    {
+      "step_id": 2,
+      "action_type": "wait",
+      "poco_selector": {},
+      "visual_template": null,
+      "relative_coords": [
+        0.5,
+        0.5
+      ],
+      "recorded_resolution": [
+        1260,
+        2800
+      ],
+      "text_payload": "",
+      "keycode": null,
+      "wait_after_sec": 0.5,
+      "description": "Natural viewing dwell on video content"
+    },
+    {
+      "step_id": 3,
+      "action_type": "double_tap",
+      "poco_selector": {
+        "resource_id": "com.ss.android.ugc.trill:id/like_button",
+        "content_desc": "Like video"
+      },
+      "visual_template": null,
+      "relative_coords": [
+        0.52,
+        0.48
+      ],
+      "recorded_resolution": [
+        1260,
+        2800
+      ],
+      "text_payload": "",
+      "keycode": null,
+      "wait_after_sec": 0.25,
+      "description": "Double-tap center-right to trigger heart animation"
+    },
+    {
+      "step_id": 4,
+      "action_type": "tap",
+      "poco_selector": {
+        "resource_id": "com.ss.android.ugc.trill:id/comment_button",
+        "content_desc": "Read or add comments"
+      },
+      "visual_template": null,
+      "relative_coords": [
+        0.91,
+        0.64
+      ],
+      "recorded_resolution": [
+        1260,
+        2800
+      ],
+      "text_payload": "",
+      "keycode": null,
+      "wait_after_sec": 0.2,
+      "description": "Tap right-rail interaction icon"
+    }
+  ]
+}

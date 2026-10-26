@@ -55,6 +55,11 @@ from agents.vivo_originos_optimizer_subagent import VivoOriginOSDeepOptimizerSub
 from agents.audio_behavior_captcha_subagent import InteractiveAudioAndBehaviorCaptchaSubagent
 from agents.session_credential_guard_subagent import CrossAppSessionAndCredentialGuardSubagent
 from agents.real_device_e2e_benchmark_subagent import RealDeviceE2EBenchmarkAndSelfHealerSubagent
+from agents.local_gpu_vision_subagent import LocalGPUVisionSubagent
+from agents.macro_replay_subagent import MacroReplaySubagent
+from agents.android_cdp_subagent import AndroidCDPSubagent
+from agents.social_workflow_subagent import SocialWorkflowSubagent
+from agents.hybrid_captcha_fallback_subagent import HybridCaptchaFallbackSubagent
 from core.memory_manager import MemoryManager
 from core.kanban_board import KanbanBoard
 from agents.device_lock_manager import DeviceLockManager
@@ -80,7 +85,7 @@ C_TEAL = "#94e2d5"
 class FarmDashboardApp:
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.root.title("Android Multi-Agent Farm (AMAF 8.0) | 35 Subagents | 45 MCP Tools | Real Vivo V2417A & Live Web Testbench")
+        self.root.title("Android Multi-Agent Farm (AMAF 9.0) | 40 Subagents | RTX 3050 Zero-Token GPU | 45 MCP Tools | Real Vivo V2417A & Live Web Testbench")
         self.root.geometry("1340x880")
         self.root.minsize(1100, 740)
         self.root.configure(bg=C_BASE)
@@ -117,6 +122,11 @@ class FarmDashboardApp:
         self.audio_behavior_captcha = InteractiveAudioAndBehaviorCaptchaSubagent(self.adb, self.memory)
         self.session_guard = CrossAppSessionAndCredentialGuardSubagent(self.adb, self.memory)
         self.e2e_benchmark = RealDeviceE2EBenchmarkAndSelfHealerSubagent(self.adb, self.memory)
+        self.local_gpu_vision = LocalGPUVisionSubagent(self.adb, self.memory)
+        self.macro_replay = MacroReplaySubagent(adb=self.adb, memory=self.memory)
+        self.android_cdp = AndroidCDPSubagent(self.adb, self.memory)
+        self.social_workflow = SocialWorkflowSubagent(self.adb, self.memory)
+        self.hybrid_captcha_3tier = HybridCaptchaFallbackSubagent(self.adb, self.memory)
 
         # Device card widget references: serial -> widget dict
         self.device_cards: Dict[str, Dict[str, Any]] = {}
@@ -175,7 +185,7 @@ class FarmDashboardApp:
 
         title_lbl = tk.Label(
             title_frame,
-            text="⚡ Android Multi-Agent Farm (AMAF 8.0)",
+            text="⚡ Android Multi-Agent Farm (AMAF 9.0 — Zero-Token GPU)",
             font=("Segoe UI", 16, "bold"),
             fg=C_BLUE,
             bg=C_MANTLE
@@ -250,7 +260,7 @@ class FarmDashboardApp:
 
         # Tab 1: Multi-Agent & 30-Subagent Evolution
         self.tab_agents = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
-        self.notebook.add(self.tab_agents, text=" 🤖 35-Subagent Evolution & Loops ")
+        self.notebook.add(self.tab_agents, text=" 🤖 40-Subagent Evolution & Loops ")
         self._build_agents_tab()
 
         # Tab 2: Real Phone Farm & Group Broadcast Control
@@ -262,6 +272,11 @@ class FarmDashboardApp:
         self.tab_v7_lab = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
         self.notebook.add(self.tab_v7_lab, text=" 🔐 2FA, CAPTCHA CV, Live Web Testbench & Vivo Lab (v8.0) ")
         self._build_v7_lab_tab()
+
+        # Tab 4: AMAF 9.0 Zero-Token GPU RTX 3050, CDP Bridge, Macro & TikTok Workflows
+        self.tab_v9_gpu = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
+        self.notebook.add(self.tab_v9_gpu, text=" 🚀 Zero-Token GPU RTX 3050, CDP, Macro & TikTok (v9.0) ")
+        self._build_v9_zero_token_gpu_tab()
 
         # Tab 4: Defect Reports (Bug Tracker)
         self.tab_reports = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
@@ -1390,6 +1405,95 @@ class FarmDashboardApp:
             res = self.e2e_benchmark.run_full_device_e2e_benchmark(serial, package_name=pkg)
             self._v7_log(f"[RealDeviceE2EBenchmark #35] Grade={res.get('overall_grade')} ({res.get('overall_score')}/100) | Report: {res.get('report_path')}")
             self.log_agent_msg("E2EBenchmark(#35)", f"[{serial}] Grade={res.get('overall_grade')} ({res.get('overall_score')}/100)", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+
+    def _build_v9_zero_token_gpu_tab(self):
+        top_bar = tk.Frame(self.tab_v9_gpu, bg=C_MANTLE, padx=12, pady=10)
+        top_bar.pack(fill=tk.X, pady=(0, 8))
+
+        tk.Label(
+            top_bar,
+            text="🚀 Zero-Token GPU (RTX 3050 PTX sm_86) + Macro Replay + Android CDP + TikTok Workflows (#36-#40)",
+            font=("Segoe UI", 11, "bold"),
+            fg=C_GREEN,
+            bg=C_MANTLE
+        ).pack(side=tk.LEFT)
+
+        btn_row = tk.Frame(self.tab_v9_gpu, bg=C_BASE)
+        btn_row.pack(fill=tk.X, pady=4)
+
+        tk.Button(
+            btn_row, text="⚡ #36 Audit RTX 3050 PTX & Neural OCR", font=("Segoe UI", 9, "bold"),
+            bg=C_GREEN, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v9_gpu_audit
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="📼 #37 Replay Airtest/Poco Macro (0 Token)", font=("Segoe UI", 9, "bold"),
+            bg=C_BLUE, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v9_macro_replay
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="🌐 #38 Attach Android CDP (@chrome_devtools)", font=("Segoe UI", 9, "bold"),
+            bg=C_TEAL, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v9_cdp_attach
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="🎵 #39 Run TikTok Switch & Comment Workflow", font=("Segoe UI", 9, "bold"),
+            bg=C_PEACH, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v9_tiktok_workflow
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="🛡️ #40 Run 3-Tier Hybrid CAPTCHA Defense", font=("Segoe UI", 9, "bold"),
+            bg=C_MAUVE, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v9_hybrid_3tier
+        ).pack(side=tk.LEFT, padx=4)
+
+        self.v9_log_text = tk.Text(self.tab_v9_gpu, bg=C_CRUST, fg=C_TEXT, font=("Consolas", 9), height=14, relief="flat", padx=10, pady=8)
+        self.v9_log_text.pack(fill=tk.BOTH, expand=True, pady=(6, 0))
+        self.v9_log_text.insert(tk.END, "[AMAF 9.0] Zero-Token GPU Engine (NVIDIA GeForce RTX 3050 PTX sm_86) & Subagents #36-#40 Ready.\n")
+
+    def _v9_log(self, msg: str):
+        if hasattr(self, "v9_log_text"):
+            ts = time.strftime("%H:%M:%S")
+            self.root.after(0, lambda: (self.v9_log_text.insert(tk.END, f"[{ts}] {msg}\n"), self.v9_log_text.see(tk.END)))
+
+    def on_v9_gpu_audit(self):
+        def _worker():
+            res = self.local_gpu_vision.run_self_diagnostics()
+            self._v9_log(f"[Subagent #36 LocalGPUVision] {res}")
+            self.log_agent_msg("LocalGPUVision(#36)", f"GPU={res.get('gpu_telemetry', {}).get('gpu_name')} | Zero-Token OCR Verified", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v9_macro_replay(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.macro_replay.replay_macro("tiktok_switch_and_interact", serial=serial, dry_run=True)
+            self._v9_log(f"[Subagent #37 MacroReplay] {res}")
+            self.log_agent_msg("MacroReplay(#37)", f"[{serial}] Status={res.get('status')} | Tokens={res.get('tokens_used')}", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v9_cdp_attach(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.android_cdp.discover_and_attach(serial)
+            self._v9_log(f"[Subagent #38 AndroidCDP] {res}")
+            self.log_agent_msg("AndroidCDP(#38)", f"[{serial}] Sockets={res.get('sockets_discovered')} | Tabs={res.get('open_tabs_count', 0)}", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v9_tiktok_workflow(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.social_workflow.run_tiktok_workflow(serial, target_account="nht.tn472", search_query="tra dang", comment_text="dinh quaa", dry_run=True)
+            self._v9_log(f"[Subagent #39 SocialWorkflow] {res}")
+            self.log_agent_msg("SocialWorkflow(#39)", f"[{serial}] TikTok Workflow Status={res.get('status')} | Tokens=0", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v9_hybrid_3tier(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.hybrid_captcha_3tier.run_3tier_self_audit(serial)
+            self._v9_log(f"[Subagent #40 HybridCaptcha3Tier] {res}")
+            self.log_agent_msg("Hybrid3Tier(#40)", f"[{serial}] Status={res.get('status')} | Audio={res.get('tier2_audio_decoded')}", "success")
         threading.Thread(target=_worker, daemon=True).start()
 
 

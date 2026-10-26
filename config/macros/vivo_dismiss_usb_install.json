@@ -1,0 +1,57 @@
+{
+  "macro_name": "vivo_dismiss_usb_install",
+  "recorded_resolution": [
+    1260,
+    2800
+  ],
+  "tokens_used": 0,
+  "description": "Zero-token Vivo OriginOS / FuntouchOS USB APK installation consent bottom-sheet dismissal.",
+  "steps": [
+    {
+      "step_id": 1,
+      "action_type": "tap",
+      "poco_selector": {
+        "resource_id": "vivo:id/continue_button",
+        "text": "Tiếp tục cài đặt",
+        "content_desc": "Cho phép cài đặt qua USB",
+        "class_name": "android.widget.Button"
+      },
+      "visual_template": null,
+      "relative_coords": [
+        0.5,
+        0.88
+      ],
+      "recorded_resolution": [
+        1260,
+        2800
+      ],
+      "text_payload": "",
+      "keycode": null,
+      "wait_after_sec": 0.3,
+      "description": "Tap Vivo OriginOS 'Tiếp tục cài đặt' / 'Continue installing' bottom-sheet button"
+    },
+    {
+      "step_id": 2,
+      "action_type": "tap",
+      "poco_selector": {
+        "resource_id": "com.android.packageinstaller:id/ok_button",
+        "text": "Cài đặt",
+        "content_desc": "Install",
+        "class_name": "android.widget.Button"
+      },
+      "visual_template": null,
+      "relative_coords": [
+        0.72,
+        0.9
+      ],
+      "recorded_resolution": [
+        1260,
+        2800
+      ],
+      "text_payload": "",
+      "keycode": null,
+      "wait_after_sec": 0.2,
+      "description": "Tap secondary confirm install button if present"
+    }
+  ]
+}
