@@ -1,0 +1,35 @@
+{
+  "version": "1.0",
+  "updated_at": 1792982006.3812637,
+  "tokens_used": 0,
+  "accounts": [
+    {
+      "account_id": "tiktok:nht.tn472",
+      "platform": "tiktok",
+      "username": "nht.tn472",
+      "Assigned_serial": "10CF5L0TYL00312",
+      "assigned_serial": "10CF5L0TYL00312",
+      "totp_secret": "",
+      "proxy_endpoint": "DIRECT",
+      "daily_actions_count": 0,
+      "daily_limit": 150,
+      "cooldown_until_ts": 0.0,
+      "trust_score": 98.0,
+      "last_action": "seed_init"
+    },
+    {
+      "account_id": "tiktok:wh0_am_i2342",
+      "platform": "tiktok",
+      "username": "wh0_am_i2342",
+      "Assigned_serial": "10CF5L0TYL00312",
+      "assigned_serial": "10CF5L0TYL00312",
+      "totp_secret": "",
+      "proxy_endpoint": "DIRECT",
+      "daily_actions_count": 0,
+      "daily_limit": 150,
+      "cooldown_until_ts": 0.0,
+      "trust_score": 96.0,
+      "last_action": "seed_init"
+    }
+  ]
+}

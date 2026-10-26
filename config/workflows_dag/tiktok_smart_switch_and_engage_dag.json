@@ -1,0 +1,128 @@
+{
+  "dag_name": "tiktok_smart_switch_and_engage_dag",
+  "title": "TikTok Smart Account Switch & Creator Engagement DAG",
+  "start_node": "start_launch",
+  "version": "1.0.0",
+  "nodes": [
+    {
+      "node_id": "start_launch",
+      "title": "Launch TikTok Package & Wait For Main Feed",
+      "node_type": "action",
+      "params": {
+        "package": "com.ss.android.ugc.trill",
+        "action": "launch_app",
+        "wait_ms": 1500
+      },
+      "on_success": "check_ime_or_popup",
+      "on_failure": "recover_back_and_retry",
+      "max_retries": 2
+    },
+    {
+      "node_id": "check_ime_or_popup",
+      "title": "Guard Against Rogue IME Keyboard or Modal Popup (Subagent #18/#42)",
+      "node_type": "subagent_call",
+      "params": {
+        "subagent_ids": [
+          18,
+          42
+        ],
+        "subagent_names": [
+          "PopupGuardSubagent",
+          "IMEFocusGuardSubagent"
+        ],
+        "check": "dismiss_ime_and_popups"
+      },
+      "on_success": "switch_account_nht",
+      "on_failure": "recover_back_and_retry",
+      "max_retries": 2
+    },
+    {
+      "node_id": "switch_account_nht",
+      "title": "Switch Active Profile to Account NHT",
+      "node_type": "action",
+      "params": {
+        "target_account": "nht",
+        "action": "switch_profile",
+        "coords": [
+          1140,
+          2680
+        ]
+      },
+      "on_success": "search_tra_dang",
+      "on_failure": "recover_back_and_retry",
+      "max_retries": 2
+    },
+    {
+      "node_id": "search_tra_dang",
+      "title": "Search Creator 'tra.dang.904' via Top Search Bar",
+      "node_type": "action",
+      "params": {
+        "query": "tra.dang.904",
+        "action": "search_creator",
+        "coords": [
+          1180,
+          145
+        ]
+      },
+      "on_success": "open_video_and_like",
+      "on_failure": "recover_back_and_retry",
+      "max_retries": 2
+    },
+    {
+      "node_id": "open_video_and_like",
+      "title": "Open Latest Video & Trigger Heart Like Gesture",
+      "node_type": "action",
+      "params": {
+        "action": "open_and_like_video",
+        "coords": [
+          630,
+          1400
+        ]
+      },
+      "on_success": "post_comment_and_verify",
+      "on_failure": "recover_back_and_retry",
+      "max_retries": 2
+    },
+    {
+      "node_id": "post_comment_and_verify",
+      "title": "Post Engagement Comment & Verify Delivery",
+      "node_type": "condition",
+      "params": {
+        "condition": "screen_contains_comment_posted",
+        "comment_text": "Tuyet voi qua!",
+        "coords": [
+          1160,
+          1820
+        ]
+      },
+      "on_success": "exit_home_done",
+      "on_failure": "recover_back_and_retry",
+      "max_retries": 2
+    },
+    {
+      "node_id": "recover_back_and_retry",
+      "title": "Fallback Recovery: Navigate Back, Clear Overlay & Complete",
+      "node_type": "action",
+      "params": {
+        "action": "navigate_back_and_recover",
+        "keyevent": "KEYCODE_BACK",
+        "recovery_mode": "graceful_resume"
+      },
+      "on_success": "exit_home_done",
+      "on_failure": "exit_home_done",
+      "max_retries": 2
+    },
+    {
+      "node_id": "exit_home_done",
+      "title": "Return to Android Home Screen & Complete TikTok DAG",
+      "node_type": "terminal",
+      "params": {
+        "action": "navigate_home",
+        "status": "DAG_COMPLETED"
+      },
+      "on_success": null,
+      "on_failure": null,
+      "max_retries": 0
+    }
+  ]
+}

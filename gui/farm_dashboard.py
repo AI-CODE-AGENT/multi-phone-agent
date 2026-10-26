@@ -60,6 +60,11 @@ from agents.macro_replay_subagent import MacroReplaySubagent
 from agents.android_cdp_subagent import AndroidCDPSubagent
 from agents.social_workflow_subagent import SocialWorkflowSubagent
 from agents.hybrid_captcha_fallback_subagent import HybridCaptchaFallbackSubagent
+from agents.persistent_adb_stream_subagent import PersistentADBStreamSubagent
+from agents.keyboard_viewport_guard_subagent import KeyboardAndViewportGuardSubagent
+from agents.semantic_object_matcher_subagent import ZeroTokenSemanticMatcherSubagent
+from agents.account_vault_proxy_subagent import MultiAccountVaultAndProxySubagent
+from agents.visual_flow_dag_subagent import VisualFlowBuilderAndLiveMonitorSubagent
 from core.memory_manager import MemoryManager
 from core.kanban_board import KanbanBoard
 from agents.device_lock_manager import DeviceLockManager
@@ -85,7 +90,7 @@ C_TEAL = "#94e2d5"
 class FarmDashboardApp:
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.root.title("Android Multi-Agent Farm (AMAF 9.0) | 40 Subagents | RTX 3050 Zero-Token GPU | 45 MCP Tools | Real Vivo V2417A & Live Web Testbench")
+        self.root.title("Android Multi-Agent Farm (AMAF 10.0) | 45 Subagents | RTX 3050 Zero-Token GPU | Persistent ADB Stream | IME Guard | Semantic GPU | Account Vault & Visual DAG")
         self.root.geometry("1340x880")
         self.root.minsize(1100, 740)
         self.root.configure(bg=C_BASE)
@@ -127,6 +132,11 @@ class FarmDashboardApp:
         self.android_cdp = AndroidCDPSubagent(self.adb, self.memory)
         self.social_workflow = SocialWorkflowSubagent(self.adb, self.memory)
         self.hybrid_captcha_3tier = HybridCaptchaFallbackSubagent(self.adb, self.memory)
+        self.persistent_stream = PersistentADBStreamSubagent(adb_path=self.adb.adb_path)
+        self.kbd_viewport_guard = KeyboardAndViewportGuardSubagent(self.adb, self.memory, cdp_bridge=self.android_cdp.bridge)
+        self.semantic_matcher = ZeroTokenSemanticMatcherSubagent(self.adb, self.memory)
+        self.account_vault = MultiAccountVaultAndProxySubagent(adb=self.adb, memory=self.memory)
+        self.visual_flow_dag = VisualFlowBuilderAndLiveMonitorSubagent(adb=self.adb, memory=self.memory)
 
         # Device card widget references: serial -> widget dict
         self.device_cards: Dict[str, Dict[str, Any]] = {}
@@ -185,7 +195,7 @@ class FarmDashboardApp:
 
         title_lbl = tk.Label(
             title_frame,
-            text="⚡ Android Multi-Agent Farm (AMAF 9.0 — Zero-Token GPU)",
+            text="⚡ Android Multi-Agent Farm (AMAF 10.0 — 45 Subagents & Zero-Token GPU)",
             font=("Segoe UI", 16, "bold"),
             fg=C_BLUE,
             bg=C_MANTLE
@@ -194,7 +204,7 @@ class FarmDashboardApp:
 
         sub_lbl = tk.Label(
             title_frame,
-            text="35 Subagents | 45 MCP Tools | Vivo V2417A Real-Phone E2E | Live Web Testbench (#31) | Audio/Behavior CAPTCHA (#33)",
+            text="45 Subagents | RTX 3050 PTX | Persistent ADB Pipe (#41) | IME/Viewport Guard (#42) | Semantic GPU (#43) | Account Vault (#44) | Visual DAG (#45)",
             font=("Segoe UI", 9),
             fg=C_SUBTEXT,
             bg=C_MANTLE
@@ -260,7 +270,7 @@ class FarmDashboardApp:
 
         # Tab 1: Multi-Agent & 30-Subagent Evolution
         self.tab_agents = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
-        self.notebook.add(self.tab_agents, text=" 🤖 40-Subagent Evolution & Loops ")
+        self.notebook.add(self.tab_agents, text=" 🤖 45-Subagent Evolution & Loops ")
         self._build_agents_tab()
 
         # Tab 2: Real Phone Farm & Group Broadcast Control
@@ -277,6 +287,11 @@ class FarmDashboardApp:
         self.tab_v9_gpu = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
         self.notebook.add(self.tab_v9_gpu, text=" 🚀 Zero-Token GPU RTX 3050, CDP, Macro & TikTok (v9.0) ")
         self._build_v9_zero_token_gpu_tab()
+
+        # Tab 5: AMAF 10.0 Live Stream, IME Guard, Semantic GPU, Account Vault & Visual DAG
+        self.tab_v10_dag = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
+        self.notebook.add(self.tab_v10_dag, text=" ⚡ Live Stream, IME Guard, Semantic GPU, Vault & DAG (v10.0) ")
+        self._build_v10_stream_vault_dag_tab()
 
         # Tab 4: Defect Reports (Bug Tracker)
         self.tab_reports = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
@@ -1494,6 +1509,100 @@ class FarmDashboardApp:
             res = self.hybrid_captcha_3tier.run_3tier_self_audit(serial)
             self._v9_log(f"[Subagent #40 HybridCaptcha3Tier] {res}")
             self.log_agent_msg("Hybrid3Tier(#40)", f"[{serial}] Status={res.get('status')} | Audio={res.get('tier2_audio_decoded')}", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+
+    def _build_v10_stream_vault_dag_tab(self):
+        top_bar = tk.Frame(self.tab_v10_dag, bg=C_MANTLE, padx=12, pady=10)
+        top_bar.pack(fill=tk.X, pady=(0, 8))
+
+        tk.Label(
+            top_bar,
+            text="⚡ AMAF v10.0: Persistent ADB Stream (#41) + IME/Viewport Guard (#42) + Semantic GPU (#43) + Account Vault (#44) + Visual DAG (#45)",
+            font=("Segoe UI", 11, "bold"),
+            fg=C_BLUE,
+            bg=C_MANTLE
+        ).pack(side=tk.LEFT)
+
+        btn_row = tk.Frame(self.tab_v10_dag, bg=C_BASE)
+        btn_row.pack(fill=tk.X, pady=4)
+
+        tk.Button(
+            btn_row, text="🚀 #41 Benchmark Persistent ADB Stream", font=("Segoe UI", 9, "bold"),
+            bg=C_GREEN, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v10_stream_benchmark
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="⌨️ #42 Guard Soft Keyboard & Viewport", font=("Segoe UI", 9, "bold"),
+            bg=C_BLUE, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v10_kbd_viewport_guard
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="🎯 #43 GPU Contour & Orientation Matcher", font=("Segoe UI", 9, "bold"),
+            bg=C_TEAL, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v10_semantic_matcher
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="🔐 #44 Audit Multi-Account Vault & Proxy", font=("Segoe UI", 9, "bold"),
+            bg=C_PEACH, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v10_account_vault
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="🔀 #45 Execute Visual Flow DAG & Live Preview", font=("Segoe UI", 9, "bold"),
+            bg=C_MAUVE, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v10_visual_dag
+        ).pack(side=tk.LEFT, padx=4)
+
+        self.v10_log_text = tk.Text(self.tab_v10_dag, bg=C_CRUST, fg=C_TEXT, font=("Consolas", 9), height=14, relief="flat", padx=10, pady=8)
+        self.v10_log_text.pack(fill=tk.BOTH, expand=True, pady=(6, 0))
+        self.v10_log_text.insert(tk.END, "[AMAF 10.0] Subagents #41-#45 (Persistent ADB Pipe, IME/Viewport Guard, Semantic GPU Matcher, Account Vault & Visual DAG) Ready.\n")
+
+    def _v10_log(self, msg: str):
+        if hasattr(self, "v10_log_text"):
+            ts = time.strftime("%H:%M:%S")
+            self.root.after(0, lambda: (self.v10_log_text.insert(tk.END, f"[{ts}] {msg}\n"), self.v10_log_text.see(tk.END)))
+
+    def on_v10_stream_benchmark(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.persistent_stream.run_stream_benchmark(serial)
+            self._v10_log(f"[Subagent #41 PersistentADBStream] {res}")
+            self.log_agent_msg("PersistentStream(#41)", f"[{serial}] FlashWrites={res.get('flash_writes')} | ShellLatency={res.get('shell_latency_ms')}ms", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v10_kbd_viewport_guard(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.kbd_viewport_guard.guard_input_and_viewport(serial, target_x=400, target_y=2200, dry_run=True)
+            self._v10_log(f"[Subagent #42 KeyboardViewportGuard] {res}")
+            self.log_agent_msg("KbdViewportGuard(#42)", f"[{serial}] Status={res.get('status')} | Tokens=0", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v10_semantic_matcher(self):
+        def _worker():
+            res = self.semantic_matcher.run_self_diagnostics()
+            self._v10_log(f"[Subagent #43 ZeroTokenSemanticMatcher] {res}")
+            self.log_agent_msg("SemanticMatcher(#43)", f"Status={res.get('status')} | Passed={res.get('passed')}", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v10_account_vault(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.account_vault.run_vault_and_proxy_audit(serial, dry_run=True)
+            self._v10_log(f"[Subagent #44 MultiAccountVaultAndProxy] {res}")
+            self.log_agent_msg("AccountVault(#44)", f"[{serial}] Accounts={res.get('accounts_count')} | Status={res.get('status')}", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v10_visual_dag(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.visual_flow_dag.execute_dag("tiktok_smart_switch_and_engage_dag", serial=serial, dry_run=True)
+            preview_img = self.visual_flow_dag.render_annotated_preview_frame(
+                touch_points=[(630, 1400), (1166, 1550)],
+                boxes=[{"bbox": (200, 300, 900, 600), "label": "DAG_TARGET_LOCKED"}],
+                preview_size=(320, 700)
+            )
+            self._v10_log(f"[Subagent #45 VisualFlowDAG] {res} | PreviewFrame={preview_img.size}")
+            self.log_agent_msg("VisualFlowDAG(#45)", f"[{serial}] DAG={res.get('status')} | Visited={len(res.get('visited_nodes', []))}", "success")
         threading.Thread(target=_worker, daemon=True).start()
 
 

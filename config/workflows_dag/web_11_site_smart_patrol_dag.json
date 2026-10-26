@@ -1,0 +1,90 @@
+{
+  "dag_name": "web_11_site_smart_patrol_dag",
+  "title": "11-Site Web Smart Patrol & 3-Tier Local GPU Verification DAG",
+  "start_node": "open_chrome_tab",
+  "version": "1.0.0",
+  "nodes": [
+    {
+      "node_id": "open_chrome_tab",
+      "title": "Open Target URL in Android Chrome Browser Tab",
+      "node_type": "action",
+      "params": {
+        "package": "com.android.chrome",
+        "action": "open_url_tab",
+        "sites_count": 11
+      },
+      "on_success": "attach_cdp_socket",
+      "on_failure": "done",
+      "max_retries": 2
+    },
+    {
+      "node_id": "attach_cdp_socket",
+      "title": "Attach Localhost Chrome DevTools Protocol (CDP) Socket (Subagent #43)",
+      "node_type": "subagent_call",
+      "params": {
+        "subagent_id": 43,
+        "subagent_name": "AndroidChromeCDPBridgeSubagent",
+        "action": "forward_and_attach_cdp"
+      },
+      "on_success": "detect_challenge_type",
+      "on_failure": "done",
+      "max_retries": 2
+    },
+    {
+      "node_id": "detect_challenge_type",
+      "title": "Inspect DOM & Viewport to Classify Challenge / Form Type",
+      "node_type": "condition",
+      "params": {
+        "condition": "classify_web_challenge",
+        "supported_types": [
+          "slider",
+          "checkbox",
+          "form_quiz",
+          "clean_page"
+        ]
+      },
+      "on_success": "solve_3tier_gpu",
+      "on_failure": "done",
+      "max_retries": 2
+    },
+    {
+      "node_id": "solve_3tier_gpu",
+      "title": "Execute 3-Tier Local RTX 3050 GPU Vision & Biomechanical Solver",
+      "node_type": "subagent_call",
+      "params": {
+        "subagent_ids": [
+          35,
+          36,
+          44
+        ],
+        "engine": "nvcuda_sm86_3tier",
+        "tokens_used": 0
+      },
+      "on_success": "verify_submission",
+      "on_failure": "done",
+      "max_retries": 2
+    },
+    {
+      "node_id": "verify_submission",
+      "title": "Verify HTTP 200 / DOM Success Banner Post-Submission",
+      "node_type": "condition",
+      "params": {
+        "condition": "verify_dom_submission_success"
+      },
+      "on_success": "done",
+      "on_failure": "done",
+      "max_retries": 2
+    },
+    {
+      "node_id": "done",
+      "title": "11-Site Web Patrol Cycle Completed",
+      "node_type": "terminal",
+      "params": {
+        "status": "DAG_COMPLETED"
+      },
+      "on_success": null,
+      "on_failure": null,
+      "max_retries": 0
+    }
+  ]
+}

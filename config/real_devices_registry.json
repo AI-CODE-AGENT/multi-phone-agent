@@ -26,12 +26,12 @@
       "model": "V2417A",
       "android_version": "16",
       "resolution": "1260x2800",
-      "wifi_ip": "192.168.1.124",
-      "last_seen": "2026-10-26 08:35:21"
+      "wifi_ip": "192.168.1.207",
+      "last_seen": "2026-10-26 09:42:15"
     }
   },
   "wireless_endpoints": [
     "192.168.1.77:5555"
   ],
-  "last_updated": "2026-10-26 08:35:21"
+  "last_updated": "2026-10-26 09:42:15"
 }
