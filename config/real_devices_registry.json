@@ -21,17 +21,17 @@
       "last_seen": "2026-10-26 07:01:00"
     },
     "10CF5L0TYL00312": {
-      "name": "Vivo V2417A",
-      "manufacturer": "vivo",
-      "model": "V2417A",
-      "android_version": "16",
-      "resolution": "1260x2800",
-      "wifi_ip": "192.168.1.207",
-      "last_seen": "2026-10-26 09:42:15"
+      "name": "Ok OK",
+      "manufacturer": "OK",
+      "model": "OK",
+      "android_version": "OK",
+      "resolution": "1080x2400",
+      "wifi_ip": null,
+      "last_seen": "2026-10-26 13:45:34"
     }
   },
   "wireless_endpoints": [
     "192.168.1.77:5555"
   ],
-  "last_updated": "2026-10-26 09:42:15"
+  "last_updated": "2026-10-26 13:45:34"
 }

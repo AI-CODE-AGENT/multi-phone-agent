@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-10-26 09:44:08",
+  "last_updated": "2026-10-26 14:08:41",
   "locators": {
     "Screen_Login": [
       {
@@ -692,6 +692,20 @@
         "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Explore interactive UI state transitions, audit RX/TX network API latency & cleartext HTTP, and profile FPS jank & PSS heap memory leaks'.",
         "success_rate": 0.95,
         "created_at": "2026-10-26 09:44:08"
+      },
+      {
+        "version": "v65.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Serve interactive Web Testbench over adb reverse and solve Rotation, 3x3 Grid, Slider, RFC 6238 TOTP, Push 84, and Audio PCM CAPTCHAs\n# Base Instructions:\nGoal: Serve interactive Web Testbench over adb reverse and solve Rotation, 3x3 Grid, Slider, RFC 6238 TOTP, Push 84, and Audio PCM CAPTCHAs\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Serve interactive Web Testbench over adb reverse and solve Rotation, 3x3 Grid, Slider, RFC 6238 TOTP, Push 84, and Audio PCM CAPTCHAs'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 13:45:52"
+      },
+      {
+        "version": "v66.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Classify cross-app auth states, measure pixel luminance contrast ratios, and demangle Java/Native/ANR stack traces\n# Base Instructions:\nGoal: Classify cross-app auth states, measure pixel luminance contrast ratios, and demangle Java/Native/ANR stack traces\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Classify cross-app auth states, measure pixel luminance contrast ratios, and demangle Java/Native/ANR stack traces'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 13:45:56"
       }
     ],
     "planner": [
@@ -813,6 +827,13 @@
         "rationale": "Optimized for 3 healing events and 0 failures in scenario 'evolution_cycle_1'.",
         "success_rate": 0.95,
         "created_at": "2026-10-26 09:44:08"
+      },
+      {
+        "version": "v18.0",
+        "prompt": "# Role: Highly Robust Planner\n# Scenario: evolution_cycle_1\n# Base Instructions:\nDeconstruct multi-app mobile testing goals with Set-of-Mark visual grounding, Live Web Testbench E2E, Vivo OriginOS 6 calibration, Universal 7-Mode 2FA, Concentric Ring Rotation, Multi-Image Grid & Audio/Dice CAPTCHA CV, WCAG 2.1 contrast, Crash/ANR demangling, and Network/FPS telemetry.\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 3 healing events and 0 failures in scenario 'evolution_cycle_1'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 13:45:56"
       }
     ]
   },
@@ -7122,31 +7143,6 @@
       "timestamp": "2026-10-26 09:41:47"
     },
     {
-      "id": "mem_1792982534726",
-      "key": "real_device_10CF5L0TYL00312",
-      "value": {
-        "name": "Vivo V2417A",
-        "resolution": "1260x2800",
-        "android_version": "16",
-        "battery": {
-          "level": 100,
-          "temperature_c": 35.1,
-          "voltage_mv": 4431,
-          "status": "charging",
-          "plugged": "usb",
-          "overheated": false,
-          "low_battery": false
-        }
-      },
-      "category": "fleet_topology",
-      "tags": [
-        "real_device",
-        "hardware_profile"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 09:42:14"
-    },
-    {
       "id": "mem_1792982539295",
       "key": "oem_popup_10CF5L0TYL00312_1792982539285",
       "value": {
@@ -7249,27 +7245,6 @@
       "timestamp": "2026-10-26 09:42:23"
     },
     {
-      "id": "mem_1792982547614",
-      "key": "smart_screenshot_10CF5L0TYL00312_evo_cycle_1",
-      "value": {
-        "screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\screen_10CF5L0TYL00312_evo_cycle_1_1792982543416.png",
-        "annotated_screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\som_10CF5L0TYL00312_1792982547389.png",
-        "marks_count": 66,
-        "mean_brightness": 7.677,
-        "edge_density": 0.00839,
-        "is_blank": false
-      },
-      "category": "visual_perception",
-      "tags": [
-        "screenshot",
-        "perception",
-        "som",
-        "10CF5L0TYL00312"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 09:42:27"
-    },
-    {
       "id": "mem_1792982548692",
       "key": "human_touch_10CF5L0TYL00312_1792982548689",
       "value": {
@@ -7296,25 +7271,6 @@
       ],
       "metadata": {},
       "timestamp": "2026-10-26 09:42:28"
-    },
-    {
-      "id": "mem_1792982560252",
-      "key": "live_web_testbench_e2e_10CF5L0TYL00312",
-      "value": {
-        "status": "LIVE_WEB_TESTBENCH_E2E_PASSED",
-        "serial": "10CF5L0TYL00312",
-        "url": "http://127.0.0.1:62757/amaf-testbench",
-        "solved_count": 5,
-        "all_solved": true
-      },
-      "category": "e2e_verification",
-      "tags": [
-        "live_web_testbench",
-        "captcha_2fa_e2e",
-        "10CF5L0TYL00312"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 09:42:40"
     },
     {
       "id": "mem_1792982560272",
@@ -8157,26 +8113,6 @@
       "timestamp": "2026-10-26 09:42:44"
     },
     {
-      "id": "mem_1792982588196",
-      "key": "crawl_10CF5L0TYL00312_com.android.settings",
-      "value": {
-        "serial": "10CF5L0TYL00312",
-        "package": "com.android.settings",
-        "unique_states_discovered": 2,
-        "transitions_recorded": 2,
-        "crashes_detected": 0
-      },
-      "category": "crawler",
-      "tags": [
-        "crawler",
-        "state_graph",
-        "10CF5L0TYL00312",
-        "com.android.settings"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 09:43:08"
-    },
-    {
       "id": "mem_1792982593130",
       "key": "crash_analysis_10CF5L0TYL00312_com.android.settings",
       "value": {
@@ -8196,62 +8132,6 @@
       ],
       "metadata": {},
       "timestamp": "2026-10-26 09:43:13"
-    },
-    {
-      "id": "mem_1792982593861",
-      "key": "net_api_audit_10CF5L0TYL00312_com.android.settings",
-      "value": {
-        "score": 100,
-        "rx_mb": 1169.25,
-        "tx_mb": 89.37,
-        "api_calls": 0,
-        "cleartext_count": 0
-      },
-      "category": "general",
-      "tags": [
-        "network_api",
-        "10CF5L0TYL00312",
-        "com.android.settings"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 09:43:13"
-    },
-    {
-      "id": "mem_1792982597379",
-      "key": "perf_audit_10CF5L0TYL00312_com.android.settings",
-      "value": {
-        "score": 90,
-        "grade": "A",
-        "fps": 59.1,
-        "pss_mb": 82.52,
-        "leak_suspected": false
-      },
-      "category": "general",
-      "tags": [
-        "performance",
-        "memleak",
-        "10CF5L0TYL00312",
-        "com.android.settings"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 09:43:17"
-    },
-    {
-      "id": "mem_1792982636475",
-      "key": "screen_state_emulator-5554",
-      "value": {
-        "keyboard": true,
-        "dialog": true,
-        "dimensions": "1080x1920"
-      },
-      "category": "general",
-      "tags": [
-        "vision",
-        "emulator-5554",
-        "screen_state"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 09:43:56"
     },
     {
       "id": "mem_1792982637487",
@@ -8303,6 +8183,979 @@
       ],
       "metadata": {},
       "timestamp": "2026-10-26 09:44:08"
+    },
+    {
+      "id": "mem_1792997114168",
+      "key": "human_touch_10CF5L0TYL00312_1792997114141",
+      "value": {
+        "status": "HUMAN_TYPE_OK",
+        "serial": "10CF5L0TYL00312",
+        "text_length": 12,
+        "chunks_typed": 8,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "type_text",
+        "elapsed_ms": 601.7
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "type_text",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 13:45:14"
+    },
+    {
+      "id": "mem_1792997114994",
+      "key": "oem_guarded_install_10CF5L0TYL00312_1792997114",
+      "value": {
+        "success": true,
+        "serial": "10CF5L0TYL00312",
+        "apk_path": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp7batz1vn.apk",
+        "popups_auto_clicked": 1,
+        "output": "Performing Streamed Install\nSuccess"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "apk_install",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "apk_path": "C:\\Users\\Admin\\AppData\\Local\\Temp\\tmp7batz1vn.apk",
+        "success": true,
+        "popups_auto_clicked": 1
+      },
+      "timestamp": "2026-10-26 13:45:14"
+    },
+    {
+      "id": "mem_1792997134220",
+      "key": "real_device_10CF5L0TYL00312",
+      "value": {
+        "name": "Ok OK",
+        "resolution": "1080x2400",
+        "android_version": "OK",
+        "battery": {
+          "level": 88,
+          "temperature_c": 34.0,
+          "voltage_mv": 4100,
+          "status": "charging",
+          "plugged": "usb",
+          "overheated": false,
+          "low_battery": false
+        }
+      },
+      "category": "fleet_topology",
+      "tags": [
+        "real_device",
+        "hardware_profile"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 13:45:34"
+    },
+    {
+      "id": "mem_1792997134265",
+      "key": "oem_popup_10CF5L0TYL00312_1792997134252",
+      "value": {
+        "status": "POPUP_DISMISSED",
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "checkbox_ticked": false,
+        "checkbox_info": null,
+        "tapped_coords": [
+          538,
+          2088
+        ],
+        "method": "ui_xml_match",
+        "foreground_window": "mCurrentFocus=Window{111 u0 com.vivo.secime/com.vivo.secime.InstallConfirmActivity}",
+        "timestamp": "2026-10-26 13:45:34"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "security_dialog",
+        "10CF5L0TYL00312",
+        "ui_xml_match"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "tapped_coords": [
+          538,
+          2088
+        ]
+      },
+      "timestamp": "2026-10-26 13:45:34"
+    },
+    {
+      "id": "mem_1792997134299",
+      "key": "vivo_originos_opt_10CF5L0TYL00312_1792997134286",
+      "value": {
+        "status": "VIVO_ORIGINOS_OPTIMIZED",
+        "serial": "10CF5L0TYL00312",
+        "telemetry": {
+          "is_vivo_originos": true,
+          "model": "OK",
+          "device_code": "OK",
+          "os_display_id": "OK",
+          "width": 1080,
+          "height": 2400,
+          "density": 440,
+          "safe_touch_bounds": {
+            "x_min": 16,
+            "y_min": 100,
+            "x_max": 1064,
+            "y_max": 2309,
+            "top_inset_px": 100,
+            "bottom_inset_px": 91,
+            "side_inset_px": 16
+          },
+          "aspect_ratio": 2.2222,
+          "focused_package": "unknown",
+          "focused_activity": "unknown"
+        },
+        "interception_check": {
+          "interception_detected": true,
+          "matched_label": "Tiếp tục cài đặt",
+          "node_text": "Tiếp tục cài đặt",
+          "resource_id": "com.vivo.secime:id/continue_install_btn",
+          "bounds": {
+            "x1": 140,
+            "y1": 2020,
+            "x2": 940,
+            "y2": 2160,
+            "cx": 540,
+            "cy": 2090
+          },
+          "center": [
+            540,
+            2090
+          ],
+          "fallback_coords": {
+            "cx": 630,
+            "cy": 2550
+          }
+        },
+        "optimizations_applied": [
+          "svc power stayon usb",
+          "input keyevent 224",
+          "wm dismiss-keyguard"
+        ]
+      },
+      "category": "vivo_originos_optimizer",
+      "tags": [
+        "vivo",
+        "originos",
+        "optimizer",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "model": "OK",
+        "os_display_id": "OK",
+        "interception_detected": true
+      },
+      "timestamp": "2026-10-26 13:45:34"
+    },
+    {
+      "id": "mem_1792997135512",
+      "key": "smart_screenshot_10CF5L0TYL00312_evo_cycle_1",
+      "value": {
+        "screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\screen_10CF5L0TYL00312_evo_cycle_1_1792997134316.png",
+        "annotated_screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\som_10CF5L0TYL00312_1792997135320.png",
+        "marks_count": 16,
+        "mean_brightness": 233.506,
+        "edge_density": 0.0172,
+        "is_blank": false
+      },
+      "category": "visual_perception",
+      "tags": [
+        "screenshot",
+        "perception",
+        "som",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 13:45:35"
+    },
+    {
+      "id": "mem_1792997135575",
+      "key": "human_touch_10CF5L0TYL00312_1792997135568",
+      "value": {
+        "status": "HUMAN_TAP_OK",
+        "serial": "10CF5L0TYL00312",
+        "target": [
+          540,
+          960
+        ],
+        "actual_point": [
+          540,
+          960
+        ],
+        "dwell_ms": 105,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "tap",
+        "elapsed_ms": 0.1
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "tap",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 13:45:35"
+    },
+    {
+      "id": "mem_1792997135795",
+      "key": "live_web_testbench_e2e_10CF5L0TYL00312",
+      "value": {
+        "status": "LIVE_WEB_TESTBENCH_E2E_PASSED",
+        "serial": "10CF5L0TYL00312",
+        "url": "http://127.0.0.1:54994/amaf-testbench",
+        "solved_count": 5,
+        "all_solved": true
+      },
+      "category": "e2e_verification",
+      "tags": [
+        "live_web_testbench",
+        "captcha_2fa_e2e",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 13:45:35"
+    },
+    {
+      "id": "mem_1792997135831",
+      "key": "macro_replay_vivo_dismiss_usb_install_10CF5L0TYL00312_1792997135818",
+      "value": {
+        "status": "MACRO_REPLAY_OK",
+        "macro_name": "vivo_dismiss_usb_install",
+        "serial": "10CF5L0TYL00312",
+        "dry_run": true,
+        "target_resolution": [
+          1260,
+          2800
+        ],
+        "steps_executed": 2,
+        "steps": [
+          {
+            "step_id": 1,
+            "action_type": "tap",
+            "x": 630,
+            "y": 2464,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          },
+          {
+            "step_id": 2,
+            "action_type": "tap",
+            "x": 907,
+            "y": 2520,
+            "end_x": null,
+            "end_y": null,
+            "strategy": "relative_scale",
+            "confidence": 1.0,
+            "action_result": {
+              "status": "DRY_RUN_OK"
+            },
+            "tokens_used": 0
+          }
+        ],
+        "tokens_used": 0,
+        "elapsed_ms": 0.06,
+        "subagent": "MacroReplaySubagent#37",
+        "subagent_id": 37
+      },
+      "category": "macro_telemetry",
+      "tags": [
+        "macro_replay",
+        "vivo_dismiss_usb_install",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 13:45:35"
+    },
+    {
+      "id": "mem_1792997138123",
+      "key": "cdp_10CF5L0TYL00312_1792997138085",
+      "value": {
+        "status": "CDP_SOCKETS_INSPECTED",
+        "subagent_id": 38,
+        "subagent_name": "AndroidCDPSubagent",
+        "serial": "10CF5L0TYL00312",
+        "discovered_sockets": [],
+        "sockets_discovered": [],
+        "primary_socket": "chrome_devtools_remote",
+        "forwarded": false,
+        "local_port": 9229,
+        "open_tabs": [],
+        "tab_count": 0,
+        "tokens_used": 0,
+        "timestamp": 1792997138.0858412
+      },
+      "category": "android_cdp_bridge",
+      "tags": [
+        "android_cdp_subagent",
+        "cdp",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 13:45:38"
+    },
+    {
+      "id": "mem_1792997138203",
+      "key": "tiktok_workflow_10CF5L0TYL00312_1792997138175",
+      "value": {
+        "status": "TIKTOK_WORKFLOW_COMPLETED",
+        "serial": "10CF5L0TYL00312",
+        "target_account": "nht.tn472",
+        "search_query": "tra dang",
+        "comment_text": "dinh quaa",
+        "steps_completed": 6,
+        "tokens_used": 0
+      },
+      "category": "social_workflow_engine",
+      "tags": [
+        "social_workflow",
+        "subagent_39",
+        "tiktok",
+        "10CF5L0TYL00312",
+        "nht.tn472"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 13:45:38"
+    },
+    {
+      "id": "mem_1792997139726",
+      "key": "kbd_viewport_guard_10CF5L0TYL00312_1792997139706",
+      "value": {
+        "status": "INPUT_AND_VIEWPORT_GUARDED",
+        "subagent_id": 42,
+        "subagent_name": "KeyboardAndViewportGuardSubagent",
+        "serial": "10CF5L0TYL00312",
+        "target_x": 400,
+        "target_y": 2200,
+        "ime_state": {
+          "serial": "10CF5L0TYL00312",
+          "ime_visible": true,
+          "keyboard_height_px": 1120,
+          "safe_visible_y_max": 1680,
+          "screen_size": [
+            1260,
+            2800
+          ],
+          "raw_dumpsys_excerpt": "mInputShown=true mVisibleFrame=[0,1680][1260,2800]",
+          "tokens_used": 0
+        },
+        "compensation": {
+          "occluded": true,
+          "action_needed": "dismiss_keyboard_first",
+          "adjusted_x": 400,
+          "adjusted_y": 2200,
+          "original_x": 400,
+          "original_y": 2200,
+          "ime_visible": true,
+          "keyboard_height_px": 1120,
+          "safe_visible_y_max": 1680,
+          "tokens_used": 0
+        },
+        "dismiss_result": {
+          "status": "IME_DISMISSED",
+          "serial": "10CF5L0TYL00312",
+          "was_visible": true,
+          "ime_visible_after": false,
+          "commands_sent": [
+            "input keyevent 4"
+          ],
+          "safe_visible_y_max": 2800,
+          "dry_run": true,
+          "tokens_used": 0
+        },
+        "viewport_result": {
+          "status": "VIEWPORT_NORMALIZED_AND_CENTERED",
+          "serial": "10CF5L0TYL00312",
+          "selector": "button, input[type='submit']",
+          "tag_name": "button",
+          "text": "Validate",
+          "was_offscreen": true,
+          "horizontal_overflow": true,
+          "scrolled_into_view": true,
+          "scroll_strategy": "el.scrollIntoView({behavior: 'instant', block: 'center', inline: 'center'})",
+          "chrome_focused": true,
+          "socket_rebound": true,
+          "phys_x": 630,
+          "phys_y": 1485,
+          "bounds": null,
+          "css_rect": {
+            "left": 150.0,
+            "top": 360.0,
+            "width": 120.0,
+            "height": 44.0,
+            "right": 270.0,
+            "bottom": 404.0
+          },
+          "viewport_metrics": {
+            "devicePixelRatio": 3.0,
+            "innerWidth": 420.0,
+            "innerHeight": 820.0,
+            "outerWidth": 420.0,
+            "outerHeight": 933.0,
+            "scrollWidth": 980.0,
+            "scrollHeight": 1600.0,
+            "visualViewportOffsetLeft": 0.0,
+            "visualViewportOffsetTop": 0.0,
+            "visualViewportScale": 1.0,
+            "pageXOffset": 280.0,
+            "pageYOffset": 420.0,
+            "webdriver": false
+          },
+          "dry_run": true,
+          "tokens_used": 0
+        },
+        "phys_x": 630,
+        "phys_y": 1485,
+        "dry_run": true,
+        "tokens_used": 0,
+        "timestamp": 1792997139.7061763
+      },
+      "category": "keyboard_viewport_guard",
+      "tags": [
+        "keyboard_viewport_guard",
+        "ime",
+        "viewport",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 13:45:39"
+    },
+    {
+      "id": "mem_1792997140245",
+      "key": "dag_exec_tiktok_smart_switch_and_engage_dag_10CF5L0TYL00312_1792997140234",
+      "value": {
+        "dag_name": "tiktok_smart_switch_and_engage_dag",
+        "serial": "10CF5L0TYL00312",
+        "dry_run": true,
+        "nodes_visited": [
+          "start_launch",
+          "check_ime_or_popup",
+          "switch_account_nht",
+          "search_tra_dang",
+          "open_video_and_like",
+          "post_comment_and_verify",
+          "exit_home_done"
+        ],
+        "branch_decisions": [
+          {
+            "from_node": "start_launch",
+            "to_node": "check_ime_or_popup",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          },
+          {
+            "from_node": "check_ime_or_popup",
+            "to_node": "switch_account_nht",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          },
+          {
+            "from_node": "switch_account_nht",
+            "to_node": "search_tra_dang",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          },
+          {
+            "from_node": "search_tra_dang",
+            "to_node": "open_video_and_like",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          },
+          {
+            "from_node": "open_video_and_like",
+            "to_node": "post_comment_and_verify",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          },
+          {
+            "from_node": "post_comment_and_verify",
+            "to_node": "exit_home_done",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          }
+        ],
+        "step_trace": [
+          {
+            "step_index": 0,
+            "node_id": "start_launch",
+            "title": "Launch TikTok Package & Wait For Main Feed",
+            "node_type": "action",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "check_ime_or_popup",
+            "detail": {
+              "executed": true,
+              "node_type": "action",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 1,
+            "node_id": "check_ime_or_popup",
+            "title": "Guard Against Rogue IME Keyboard or Modal Popup (Subagent #18/#42)",
+            "node_type": "subagent_call",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "switch_account_nht",
+            "detail": {
+              "executed": true,
+              "node_type": "subagent_call",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 2,
+            "node_id": "switch_account_nht",
+            "title": "Switch Active Profile to Account NHT",
+            "node_type": "action",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "search_tra_dang",
+            "detail": {
+              "executed": true,
+              "node_type": "action",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 3,
+            "node_id": "search_tra_dang",
+            "title": "Search Creator 'tra.dang.904' via Top Search Bar",
+            "node_type": "action",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "open_video_and_like",
+            "detail": {
+              "executed": true,
+              "node_type": "action",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 4,
+            "node_id": "open_video_and_like",
+            "title": "Open Latest Video & Trigger Heart Like Gesture",
+            "node_type": "action",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "post_comment_and_verify",
+            "detail": {
+              "executed": true,
+              "node_type": "action",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 5,
+            "node_id": "post_comment_and_verify",
+            "title": "Post Engagement Comment & Verify Delivery",
+            "node_type": "condition",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "exit_home_done",
+            "detail": {
+              "executed": true,
+              "node_type": "condition",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 6,
+            "node_id": "exit_home_done",
+            "title": "Return to Android Home Screen & Complete TikTok DAG",
+            "node_type": "terminal",
+            "success": true,
+            "branch_taken": "terminal",
+            "next_node": null,
+            "detail": {
+              "executed": true,
+              "node_type": "terminal",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          }
+        ],
+        "tokens_used": 0,
+        "status": "DAG_COMPLETED",
+        "elapsed_ms": 0.095,
+        "subagent": "VisualFlowBuilderAndLiveMonitorSubagent",
+        "subagent_id": 45
+      },
+      "category": "dag_telemetry",
+      "tags": [
+        "visual_flow_dag",
+        "tiktok_smart_switch_and_engage_dag",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 13:45:40"
+    },
+    {
+      "id": "mem_1792997140292",
+      "key": "crawl_10CF5L0TYL00312_com.android.settings",
+      "value": {
+        "serial": "10CF5L0TYL00312",
+        "package": "com.android.settings",
+        "unique_states_discovered": 1,
+        "transitions_recorded": 2,
+        "crashes_detected": 0
+      },
+      "category": "crawler",
+      "tags": [
+        "crawler",
+        "state_graph",
+        "10CF5L0TYL00312",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 13:45:40"
+    },
+    {
+      "id": "mem_1792997140470",
+      "key": "net_api_audit_10CF5L0TYL00312_com.android.settings",
+      "value": {
+        "score": 100,
+        "rx_mb": 1.41,
+        "tx_mb": 0.39,
+        "api_calls": 0,
+        "cleartext_count": 0
+      },
+      "category": "general",
+      "tags": [
+        "network_api",
+        "10CF5L0TYL00312",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 13:45:40"
+    },
+    {
+      "id": "mem_1792997140515",
+      "key": "perf_audit_10CF5L0TYL00312_com.android.settings",
+      "value": {
+        "score": 98,
+        "grade": "A+",
+        "fps": 59.2,
+        "pss_mb": 82.52,
+        "leak_suspected": false
+      },
+      "category": "general",
+      "tags": [
+        "performance",
+        "memleak",
+        "10CF5L0TYL00312",
+        "com.android.settings"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 13:45:40"
+    },
+    {
+      "id": "mem_1792997151794",
+      "key": "screen_state_emulator-5554",
+      "value": {
+        "keyboard": false,
+        "dialog": false,
+        "dimensions": "720x1600"
+      },
+      "category": "general",
+      "tags": [
+        "vision",
+        "emulator-5554",
+        "screen_state"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 13:45:51"
+    },
+    {
+      "id": "mem_1792997152353",
+      "key": "SEC_com_android_settings_1792997152",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 0,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792997152.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "emulator-5554"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 13:45:52"
+    },
+    {
+      "id": "mem_1792997156121",
+      "key": "SEC_com_android_settings_1792997156",
+      "value": {
+        "package": "com.android.settings",
+        "findings": 0,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_settings_1792997156.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.settings",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 13:45:56"
+    },
+    {
+      "id": "mem_1792997156359",
+      "key": "human_touch_10CF5L0TYL00312_1792997156357",
+      "value": {
+        "status": "HUMAN_SLIDER_DRAG_OK",
+        "serial": "10CF5L0TYL00312",
+        "points_count": 20,
+        "include_overshoot": true,
+        "trajectory_sample": [
+          {
+            "x": 100,
+            "y": 500,
+            "delay_ms": 41
+          },
+          {
+            "x": 102,
+            "y": 501,
+            "delay_ms": 37
+          },
+          {
+            "x": 110,
+            "y": 504,
+            "delay_ms": 29
+          },
+          {
+            "x": 122,
+            "y": 508,
+            "delay_ms": 28
+          },
+          {
+            "x": 468,
+            "y": 499,
+            "delay_ms": 41
+          },
+          {
+            "x": 460,
+            "y": 498,
+            "delay_ms": 57
+          }
+        ],
+        "start": [
+          100,
+          500
+        ],
+        "distance_px": 360,
+        "end_x": 460,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "slider_drag",
+        "elapsed_ms": 0.1
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "slider_drag",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 13:45:56"
+    },
+    {
+      "id": "mem_1792997156383",
+      "key": "oem_popup_10CF5L0TYL00312_1792997156371",
+      "value": {
+        "status": "POPUP_DISMISSED",
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "checkbox_ticked": false,
+        "checkbox_info": null,
+        "tapped_coords": [
+          542,
+          2091
+        ],
+        "method": "ui_xml_match",
+        "foreground_window": "mCurrentFocus=Window{111 u0 com.vivo.secime/com.vivo.secime.InstallConfirmActivity}",
+        "timestamp": "2026-10-26 13:45:56"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "security_dialog",
+        "10CF5L0TYL00312",
+        "ui_xml_match"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "tapped_coords": [
+          542,
+          2091
+        ]
+      },
+      "timestamp": "2026-10-26 13:45:56"
+    },
+    {
+      "id": "mem_1792997203344",
+      "key": "oem_popup_10CF5L0TYL00312_1792997203329",
+      "value": {
+        "status": "POPUP_DISMISSED",
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "checkbox_ticked": true,
+        "checkbox_info": "Tôi đã hiểu kết quả phát hiện rủi ro của ứng dụng",
+        "tapped_coords": [
+          630,
+          2621
+        ],
+        "method": "ui_xml_match",
+        "foreground_window": "mCurrentFocus=Window{123 u0 com.android.packageinstaller/com.android.packageinstaller.PackageInterceptActivity type=1 }",
+        "timestamp": "2026-10-26 13:46:43"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "security_dialog",
+        "10CF5L0TYL00312",
+        "ui_xml_match"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "tapped_coords": [
+          630,
+          2621
+        ]
+      },
+      "timestamp": "2026-10-26 13:46:43"
+    },
+    {
+      "id": "mem_1792997230275",
+      "key": "oem_popup_10CF5L0TYL00312_1792997230262",
+      "value": {
+        "status": "POPUP_DISMISSED",
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "checkbox_ticked": true,
+        "checkbox_info": "Tôi đã hiểu kết quả phát hiện rủi ro của ứng dụng",
+        "tapped_coords": [
+          630,
+          2621
+        ],
+        "method": "ui_xml_match",
+        "foreground_window": "mCurrentFocus=Window{123 u0 com.android.packageinstaller/com.android.packageinstaller.PackageInterceptActivity type=1 }",
+        "timestamp": "2026-10-26 13:47:10"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "security_dialog",
+        "10CF5L0TYL00312",
+        "ui_xml_match"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "tapped_coords": [
+          630,
+          2621
+        ]
+      },
+      "timestamp": "2026-10-26 13:47:10"
+    },
+    {
+      "id": "mem_1792997291827",
+      "key": "oem_popup_10CF5L0TYL00312_1792997291808",
+      "value": {
+        "status": "POPUP_DISMISSED",
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "checkbox_ticked": true,
+        "checkbox_info": "Tôi đã hiểu kết quả phát hiện rủi ro của ứng dụng",
+        "tapped_coords": [
+          630,
+          2621
+        ],
+        "method": "ui_xml_match",
+        "foreground_window": "mCurrentFocus=Window{123 u0 com.android.packageinstaller/com.android.packageinstaller.PackageInterceptActivity type=1 }",
+        "timestamp": "2026-10-26 13:48:11"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "security_dialog",
+        "10CF5L0TYL00312",
+        "ui_xml_match"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "tapped_coords": [
+          630,
+          2621
+        ]
+      },
+      "timestamp": "2026-10-26 13:48:11"
+    },
+    {
+      "id": "mem_1792998521209",
+      "key": "oem_popup_10CF5L0TYL00312_1792998521193",
+      "value": {
+        "status": "POPUP_DISMISSED",
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "checkbox_ticked": true,
+        "checkbox_info": "Tôi đã hiểu kết quả phát hiện rủi ro của ứng dụng",
+        "tapped_coords": [
+          630,
+          2621
+        ],
+        "method": "ui_xml_match",
+        "foreground_window": "mCurrentFocus=Window{123 u0 com.android.packageinstaller/com.android.packageinstaller.PackageInterceptActivity type=1 }",
+        "timestamp": "2026-10-26 14:08:41"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "security_dialog",
+        "10CF5L0TYL00312",
+        "ui_xml_match"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "tapped_coords": [
+          630,
+          2621
+        ]
+      },
+      "timestamp": "2026-10-26 14:08:41"
     }
   ],
   "macros": {
@@ -8934,11 +9787,11 @@
           "description": "Tap request OTP / submit phone",
           "verified_coords": [
             540,
-            960
+            2090
           ],
           "normalized_coords": [
             0.5,
-            0.5
+            0.8708
           ]
         },
         {
@@ -8953,19 +9806,19 @@
           "locator": "xác thực|hoàn tất|verify|submit",
           "description": "Submit verification and verify dashboard entry",
           "verified_coords": [
-            540,
-            1632
+            360,
+            1360
           ],
           "normalized_coords": [
-            0.5,
-            0.85
+            0.3333,
+            0.5667
           ]
         }
       ],
       "steps_count": 5,
-      "avg_duration_s": 40.23,
-      "success_count": 3,
-      "updated_at": "2026-10-26 09:43:57"
+      "avg_duration_s": 11.87,
+      "success_count": 4,
+      "updated_at": "2026-10-26 13:45:52"
     },
     "com.android.settings::classify_cross_app_auth_states_measure_pixel_luminance": {
       "goal_signature": "com.android.settings::classify_cross_app_auth_states_measure_pixel_luminance",
@@ -8990,9 +9843,9 @@
         }
       ],
       "steps_count": 3,
-      "avg_duration_s": 4.91,
-      "success_count": 3,
-      "updated_at": "2026-10-26 09:44:02"
+      "avg_duration_s": 3.65,
+      "success_count": 4,
+      "updated_at": "2026-10-26 13:45:56"
     },
     "com.android.settings::explore_interactive_ui_state_transitions_audit_rx_tx": {
       "goal_signature": "com.android.settings::explore_interactive_ui_state_transitions_audit_rx_tx",
@@ -9512,6 +10365,61 @@
       "tasks_completed": 3,
       "group_sync_status": "SYNC_COMPLETED",
       "evolved_prompt_version": "v17.0",
+      "macros_total": 20
+    },
+    {
+      "cycle_id": "EVO_1792997156299",
+      "timestamp": "2026-10-26 13:45:56",
+      "cycle_index": 1,
+      "subagents_active": 45,
+      "primary_serial": "10CF5L0TYL00312",
+      "duration_seconds": 32.21,
+      "online_devices_count": 2,
+      "real_devices_count": 1,
+      "feature_worktrees_count": 29,
+      "installed_apps_discovered": 3,
+      "oem_popup_status": "POPUP_DISMISSED",
+      "vivo_originos_status": "VIVO_ORIGINOS_OPTIMIZED",
+      "som_marks_count": 16,
+      "human_touch_status": "HUMAN_TAP_OK",
+      "captcha_check_status": "NO_CAPTCHA_PRESENT",
+      "audio_behavior_status": "solved",
+      "live_testbench_solved": 5,
+      "gpu_name": "NVIDIA GeForce RTX 3050",
+      "gpu_vram_total_mb": 6143,
+      "zero_token_mode": true,
+      "macro_replay_status": "MACRO_REPLAY_OK",
+      "cdp_bridge_sockets": [],
+      "social_workflow_status": "TIKTOK_WORKFLOW_COMPLETED",
+      "hybrid_3tier_status": "HYBRID_3TIER_READY",
+      "persistent_stream_status": "BENCHMARK_OK",
+      "persistent_stream_flash_writes": 0,
+      "keyboard_viewport_guard_status": "INPUT_AND_VIEWPORT_GUARDED",
+      "semantic_matcher_status": "SEMANTIC_MATCHER_READY",
+      "account_vault_status": "VAULT_AND_PROXY_AUDITED",
+      "visual_dag_status": "DAG_COMPLETED",
+      "supported_captcha_types": 15,
+      "cdp_sockets_discovered": 0,
+      "two_factor_status": "NO_2FA_PRESENT",
+      "auth_state": "OEM_SECURITY_DIALOG",
+      "supported_2fa_modes": 7,
+      "qr_scanner_detected": false,
+      "clipboard_status": "CLIPBOARD_READ",
+      "layout_health_score": 100,
+      "wcag_score": 60,
+      "wcag_level": "A",
+      "crash_faults_count": 0,
+      "api_health_score": 100,
+      "performance_grade": "A+",
+      "performance_score": 98,
+      "multi_app_flow_status": "FLOW_COMPLETED",
+      "action_reflection_outcome": "UNEXPECTED_APP_SWITCH",
+      "crawler_states_discovered": 1,
+      "cross_app_notes_count": 6,
+      "proposals_generated": 5,
+      "tasks_completed": 2,
+      "group_sync_status": "SYNC_COMPLETED",
+      "evolved_prompt_version": "v18.0",
       "macros_total": 20
     }
   ]

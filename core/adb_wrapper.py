@@ -213,8 +213,11 @@ class ADBWrapper:
                 class_name = attrib.get("class", "")
                 clickable = attrib.get("clickable", "false") == "true"
                 scrollable = attrib.get("scrollable", "false") == "true"
+                checkable = attrib.get("checkable", "false") == "true"
+                checked = attrib.get("checked", "false") == "true"
+                enabled = attrib.get("enabled", "true") == "true"
 
-                if text or content_desc or resource_id or clickable:
+                if text or content_desc or resource_id or clickable or checkable:
                     elements.append({
                         "text": text,
                         "content_desc": content_desc,
@@ -222,6 +225,9 @@ class ADBWrapper:
                         "class": class_name,
                         "clickable": clickable,
                         "scrollable": scrollable,
+                        "checkable": checkable,
+                        "checked": checked,
+                        "enabled": enabled,
                         "bounds": bounds
                     })
             return elements

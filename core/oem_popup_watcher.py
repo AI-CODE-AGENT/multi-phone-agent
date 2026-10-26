@@ -1,3 +1,4 @@
+import unicodedata
 """
 OEM Security & USB Install Popup Watcher
 Automatically detects and dismisses OEM-specific security, USB installation, and runtime permission dialogs
@@ -18,6 +19,19 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from core.adb_wrapper import ADBWrapper
 
 
+OEM_CONSENT_KEYWORDS_PRIORITY: List[str] = [
+    # High-priority full phrases (matched first, never false-positive)
+    "tiếp tục cài đặt",
+    "cho phép cài đặt qua usb",
+    "cài đặt qua usb",
+    "vẫn cài đặt",
+    "continue installing",
+    "install via usb",
+    "install anyway",
+    "继续安装",
+    "允许通过USB安装",
+]
+
 OEM_CONSENT_KEYWORDS: List[str] = [
     # Vietnamese (Vivo OriginOS / FuntouchOS / MIUI / ColorOS)
     "tiếp tục cài đặt",
@@ -28,7 +42,6 @@ OEM_CONSENT_KEYWORDS: List[str] = [
     "cho phép",
     "đồng ý",
     "đã hiểu",
-    "cài đặt",
     "chấp nhận",
     "trong khi dùng ứng dụng",
     "luôn cho phép",
@@ -41,7 +54,6 @@ OEM_CONSENT_KEYWORDS: List[str] = [
     "while using the app",
     "got it",
     "accept",
-    "install",
     "ok",
     # Chinese (OriginOS / MIUI CN ROMs)
     "继续安装",
@@ -49,6 +61,9 @@ OEM_CONSENT_KEYWORDS: List[str] = [
     "继续",
     "允许",
     "始终允许",
+    # Generic single words (lowest priority)
+    "cài đặt",
+    "install",
     "安装",
 ]
 
@@ -64,10 +79,50 @@ OEM_SECURITY_PACKAGES: List[str] = [
     "com.android.permissioncontroller",
 ]
 
+OEM_CHECKBOX_KEYWORDS: List[str] = [
+    # Vietnamese (Vivo OriginOS, Xiaomi HyperOS, OPPO ColorOS)
+    "tôi đã hiểu",
+    "tôi nhận thức",
+    "kết quả phát hiện rủi ro",
+    "rủi ro của ứng dụng",
+    "rủi ro liên quan",
+    "đã hiểu rủi ro",
+    "rủi ro bảo mật",
+    "đồng ý với điều khoản",
+    "không nhắc lại",
+    "nhận thức được rủi ro",
+    # English
+    "i understand",
+    "i am aware",
+    "understand the risks",
+    "aware of the risks",
+    "remember my choice",
+    "don't ask again",
+    # Chinese
+    "我已了解",
+    "已了解风险",
+    "已知晓风险",
+    "不再提示",
+]
+
+OEM_CHECKBOX_ID_HINTS: List[str] = [
+    "deleted_file_state_cb",
+    "cb_risk",
+    "risk_cb",
+    "checkbox",
+    "check_box",
+    "agreement",
+    "agree",
+    "remember",
+]
+
+VIVO_ORIGINOS_FALLBACK_CHECKBOX_COORDS: Tuple[float, float] = (0.12, 0.875)
+
 VIVO_ORIGINOS_FALLBACK_BUTTON_COORDS: List[Tuple[float, float]] = [
-    (0.5, 0.88),
+    (0.50, 0.936),  # Continue install button center on OriginOS 6 (1260x2800)
+    (0.50, 0.88),
     (0.72, 0.90),
-    (0.5, 0.92),
+    (0.50, 0.92),
 ]
 
 OEM_RESOURCE_ID_HINTS: List[str] = [
@@ -130,7 +185,10 @@ class OEMPopupWatcher:
         xml_str = self.adb.dump_ui_hierarchy(serial)
         elements = self.adb.parse_ui_elements(xml_str)
 
-        # 1. Search parsed UI nodes for matching consent keywords or OEM resource-id hints
+        # 1. Search parsed UI nodes for unticked consent / risk checkboxes (e.g. Vivo 'Tôi đã hiểu kết quả phát hiện rủi ro')
+        checkbox_ticked = False
+        ticked_checkbox_info = None
+
         for el in elements:
             bounds = el.get("bounds")
             if not bounds:
@@ -139,14 +197,79 @@ class OEMPopupWatcher:
             text_raw = (el.get("text") or "").strip()
             desc_raw = (el.get("content_desc") or "").strip()
             res_id = (el.get("resource_id") or "").strip()
+            cls_name = (el.get("class") or "").strip()
+            checkable = str(el.get("checkable", "")).lower() == "true"
+            checked = str(el.get("checked", "")).lower() == "true"
 
-            text_lower = text_raw.lower()
-            desc_lower = desc_raw.lower()
+            text_lower = unicodedata.normalize("NFC", text_raw).lower()
+            desc_lower = unicodedata.normalize("NFC", desc_raw).lower()
             res_lower = res_id.lower()
 
-            matched_label: Optional[str] = None
+            is_checkbox = (
+                "checkbox" in cls_name.lower()
+                or checkable
+                or any(cid in res_lower for cid in OEM_CHECKBOX_ID_HINTS)
+            )
 
-            # Check keyword match (exact or substring for multi-word consent phrases)
+            is_risk_prompt = any(
+                kw in text_lower or kw in desc_lower for kw in OEM_CHECKBOX_KEYWORDS
+            ) or any(cid in res_lower for cid in OEM_CHECKBOX_ID_HINTS)
+
+            if is_checkbox and is_risk_prompt and not checked:
+                # Tap the checkbox to check it!
+                x1 = bounds.get("x1", bounds.get("left", 0))
+                x2 = bounds.get("x2", bounds.get("right", x1 + 80))
+                cx = int(x1 + min(45, (x2 - x1) / 2))
+                cy = int(bounds["center_y"])
+                self._human_micro_dwell_tap(serial, cx, cy)
+                checkbox_ticked = True
+                ticked_checkbox_info = text_raw or desc_raw or res_id
+                time.sleep(0.18)  # Allow UI to animate checkmark and enable install button
+                break
+
+        # 2. Search parsed UI nodes for matching consent buttons
+        # Rule: Filter out top toolbar buttons (y < 450) to avoid false-positives on search/menu icons!
+        # Match high-priority full phrases ('Tiếp tục cài đặt', 'button1') before generic single words.
+        width, height = self._get_device_resolution(serial)
+        candidate_buttons = []
+
+        for el in elements:
+            bounds = el.get("bounds")
+            if not bounds:
+                continue
+
+            cy = bounds.get("center_y", (bounds.get("y1", 0) + bounds.get("y2", 0)) // 2)
+            # Dialog consent buttons are never in the top header/toolbar
+            if cy < int(height * 0.20):
+                continue
+
+            if str(el.get("checkable", "")).lower() == "true" or "checkbox" in (el.get("class") or "").lower():
+                continue
+
+            text_raw = (el.get("text") or "").strip()
+            desc_raw = (el.get("content_desc") or "").strip()
+            res_id = (el.get("resource_id") or "").strip()
+
+            text_lower = unicodedata.normalize("NFC", text_raw).lower()
+            desc_lower = unicodedata.normalize("NFC", desc_raw).lower()
+            res_lower = res_id.lower()
+
+            # Priority 1: Exact positive button ID (android:id/button1, continue_install_btn)
+            if "button1" in res_lower or "continue" in res_lower:
+                candidate_buttons.append((100, text_raw or desc_raw or res_id, bounds))
+                continue
+
+            # Priority 2: High-priority phrases ('tiếp tục cài đặt', 'cho phép cài đặt qua usb')
+            is_priority = False
+            for pkw in OEM_CONSENT_KEYWORDS_PRIORITY:
+                if pkw in text_lower or pkw in desc_lower:
+                    candidate_buttons.append((90, text_raw or desc_raw or pkw, bounds))
+                    is_priority = True
+                    break
+            if is_priority:
+                continue
+
+            # Priority 3: General consent keywords
             for kw in OEM_CONSENT_KEYWORDS:
                 kw_lower = kw.lower()
                 if (
@@ -154,36 +277,40 @@ class OEMPopupWatcher:
                     or desc_lower == kw_lower
                     or (len(kw_lower) >= 6 and (kw_lower in text_lower or kw_lower in desc_lower))
                 ):
-                    matched_label = text_raw or desc_raw or kw
+                    candidate_buttons.append((50, text_raw or desc_raw or kw, bounds))
                     break
 
-            # Check resource-id hints if not matched by text
-            if not matched_label and res_lower:
+            # Priority 4: Resource ID hints
+            if not candidate_buttons or candidate_buttons[-1][2] != bounds:
                 for id_hint in OEM_RESOURCE_ID_HINTS:
                     if id_hint in res_lower:
-                        # If it's a generic vivo:id/ or button1, prefer clickable or non-empty text
                         if id_hint == "vivo:id/" and not (el.get("clickable") or text_raw or desc_raw):
                             continue
-                        matched_label = text_raw or desc_raw or res_id
+                        candidate_buttons.append((40, text_raw or desc_raw or res_id, bounds))
                         break
 
-            if matched_label:
-                cx = int(bounds["center_x"])
-                cy = int(bounds["center_y"])
-                jx, jy = self._human_micro_dwell_tap(serial, cx, cy)
-                result = {
-                    "status": "POPUP_DISMISSED",
-                    "serial": serial,
-                    "matched_label": matched_label,
-                    "tapped_coords": [jx, jy],
-                    "method": "ui_xml_match",
-                    "foreground_window": focus_out.strip(),
-                    "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
-                }
-                self._record_dismissal(result)
-                return result
+        if candidate_buttons:
+            # Sort by priority score (descending) and prefer lower on screen (larger center_y)
+            candidate_buttons.sort(key=lambda item: (item[0], item[2].get("center_y", 0)), reverse=True)
+            best_score, matched_label, best_bounds = candidate_buttons[0]
+            cx = int(best_bounds.get("center_x", (best_bounds.get("x1", 0) + best_bounds.get("x2", 0)) // 2))
+            cy = int(best_bounds.get("center_y", (best_bounds.get("y1", 0) + best_bounds.get("y2", 0)) // 2))
+            jx, jy = self._human_micro_dwell_tap(serial, cx, cy)
+            result = {
+                "status": "POPUP_DISMISSED",
+                "serial": serial,
+                "matched_label": matched_label,
+                "checkbox_ticked": checkbox_ticked,
+                "checkbox_info": ticked_checkbox_info,
+                "tapped_coords": [jx, jy],
+                "method": "ui_xml_match",
+                "foreground_window": focus_out.strip(),
+                "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+            }
+            self._record_dismissal(result)
+            return result
 
-        # 2. Check if Vivo / OEM coordinate fallback should trigger
+        # 3. Check if Vivo / OEM coordinate fallback should trigger
         oem_window_triggers = (
             "com.vivo",
             "com.bbk",
@@ -199,7 +326,14 @@ class OEMPopupWatcher:
 
         if use_vivo_coordinate_fallback or is_oem_security_window:
             width, height = self._get_device_resolution(serial)
-            last_tapped: List[int] = [int(width * 0.5), int(height * 0.88)]
+            # Step A: Tap checkbox location (left bottom area: ~12% width, ~87.5% height)
+            cb_x = int(width * VIVO_ORIGINOS_FALLBACK_CHECKBOX_COORDS[0])
+            cb_y = int(height * VIVO_ORIGINOS_FALLBACK_CHECKBOX_COORDS[1])
+            self._human_micro_dwell_tap(serial, cb_x, cb_y)
+            time.sleep(0.15)
+
+            # Step B: Tap Continue Install button
+            last_tapped: List[int] = [int(width * 0.50), int(height * 0.936)]
             for norm_x, norm_y in VIVO_ORIGINOS_FALLBACK_BUTTON_COORDS:
                 tx = int(width * norm_x)
                 ty = int(height * norm_y)
@@ -210,7 +344,8 @@ class OEMPopupWatcher:
             result = {
                 "status": "POPUP_DISMISSED_FALLBACK",
                 "serial": serial,
-                "matched_label": "Vivo/OriginOS Bottom-Sheet Fallback",
+                "matched_label": "Vivo/OriginOS Bottom-Sheet Fallback (Checkbox+Button)",
+                "checkbox_ticked": True,
                 "tapped_coords": last_tapped,
                 "method": "vivo_originos_coord_fallback",
                 "foreground_window": focus_out.strip(),
@@ -305,13 +440,13 @@ class OEMPopupWatcher:
 
         self.start_background_watcher(
             serial=serial,
-            interval_sec=0.6,
+            interval_sec=0.35,
             use_vivo_fallback=True
         )
         try:
             code, out, err = self.adb.run_device_cmd(
                 serial,
-                ["install", "-r", "-g", apk_path],
+                ["install", "-r", apk_path],
                 timeout=timeout
             )
             ok = code == 0 and ("Success" in out or "Success" in err)
