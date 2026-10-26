@@ -84,6 +84,14 @@ from agents.cross_platform_os_matrix_subagent import (
     UniversalZeroHumanCrossPlatformQAOracleSubagent,
     Causal10xCrossPlatformPromptEvolverSubagent,
 )
+from agents.dual_theme_and_balanced_layout_subagent import (
+    DualThemeLightDarkTokenSubagent,
+    VisualBalanceAndWhitespaceCriticSubagent,
+    WebsiteTemplateGalleryBenchmarkSubagent,
+    DualThemeSideBySideEvidenceComposerSubagent,
+    UniversalDualThemeFinishGateOracleSubagent,
+    Causal10xDualThemeAndLayoutEvolverSubagent,
+)
 from mcp_bridge.artemis_bridge import ArtemisBridge
 from config.farm_config import DEFAULT_FARM_DEVICES
 
@@ -147,6 +155,12 @@ class AndroidFarmMCPServer:
         self.os25_poster_composer = Visual25OSMatrixPosterComposerSubagent(self.adb, self.memory)
         self.os25_qa_oracle = UniversalZeroHumanCrossPlatformQAOracleSubagent(self.adb, self.memory)
         self.os25_causal_10x = Causal10xCrossPlatformPromptEvolverSubagent(self.adb, self.memory)
+        self.dual_theme_token_subagent = DualThemeLightDarkTokenSubagent()
+        self.visual_balance_critic = VisualBalanceAndWhitespaceCriticSubagent()
+        self.template_benchmark_subagent = WebsiteTemplateGalleryBenchmarkSubagent()
+        self.dual_theme_poster_subagent = DualThemeSideBySideEvidenceComposerSubagent()
+        self.dual_theme_finish_gate = UniversalDualThemeFinishGateOracleSubagent()
+        self.dual_theme_causal_10x = Causal10xDualThemeAndLayoutEvolverSubagent()
         self.lock_mgr = DeviceLockManager()
         self.bridge = ArtemisBridge()
         self.tools = self._register_tools()
@@ -1024,6 +1038,56 @@ class AndroidFarmMCPServer:
                         "serial": {"type": "string", "description": "Target device serial (default 10CF5L0TYL00312)"}
                     }
                 }
+            },
+            {
+                "name": "android_switch_and_audit_dual_theme",
+                "description": "Switch or audit AMAF v17.0 Dual-Theme (Light Mode ☀️ Daylight Alabaster vs Dark Mode 🌙 Obsidian Zinc) design tokens and verify WCAG AAA contrast ratios across all surfaces (`Subagent #96`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "mode": {"type": "string", "enum": ["LIGHT", "DARK"], "description": "Target theme mode (LIGHT or DARK)"}
+                    }
+                }
+            },
+            {
+                "name": "android_audit_visual_balance_and_clutter",
+                "description": "Audit GUI visual balance, tabless navigation, collapsible device drawer vertical savings (+45% stage height), 2x3 anti-rainbow button grids, and zero text truncation (`Subagents #97-#100`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "theme_mode": {"type": "string", "enum": ["LIGHT", "DARK"], "description": "Theme mode to audit"}
+                    }
+                }
+            },
+            {
+                "name": "android_benchmark_website_ui_templates",
+                "description": "Benchmark layout proportions and anti-clutter rules against 12+ authoritative website & desktop UI templates (shadcn/ui, Tailwind UI, Vercel Geist, Linear, Stripe, Supabase, Tauri UI, Cruip, Creative Tim, Raycast, Mobbin, Collect UI) (`Subagent #101`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {}
+                }
+            },
+            {
+                "name": "android_render_dual_theme_evidence_posters",
+                "description": "Compose the high-resolution side-by-side Light Mode ☀️ vs Dark Mode 🌙 visual comparison poster and verify the 12-point Dual-Theme Finish Gate (`Subagents #103-#104`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "light_png_path": {"type": "string", "description": "Path to Light Mode screenshot"},
+                        "dark_png_path": {"type": "string", "description": "Path to Dark Mode screenshot"}
+                    }
+                }
+            },
+            {
+                "name": "android_run_10x_dual_theme_causal_evolution",
+                "description": "Execute the strict 10-Loop Causal Dual-Theme & Anti-Clutter Evolution (`Loop 1` -> `Loop 10`) where Loop (n+a+1) strictly starts after Loop (n+a) finishes (`started_at(n+a+1) > completed_at(n+a)`) and rewrites its prompt from Loop (n+a) (`Subagent #105`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial (default 10CF5L0TYL00312)"},
+                        "loops": {"type": "integer", "description": "Number of causal loops (default 10)"}
+                    }
+                }
             }
         ]
 
@@ -1725,6 +1789,33 @@ class AndroidFarmMCPServer:
                 res = self.os25_causal_10x.execute(
                     serial=serial,
                     xml_override=args.get("xml_override"),
+                )
+                return {"success": True, **res}
+
+            elif name == "android_switch_and_audit_dual_theme":
+                res = self.dual_theme_token_subagent.execute(mode=args.get("mode", "LIGHT"))
+                return {"success": True, **res}
+
+            elif name == "android_audit_visual_balance_and_clutter":
+                res = self.visual_balance_critic.execute(theme_mode=args.get("theme_mode", "DARK"))
+                return {"success": True, **res}
+
+            elif name == "android_benchmark_website_ui_templates":
+                res = self.template_benchmark_subagent.execute()
+                return {"success": True, **res}
+
+            elif name == "android_render_dual_theme_evidence_posters":
+                p_res = self.dual_theme_poster_subagent.execute(
+                    light_png_path=args.get("light_png_path", ""),
+                    dark_png_path=args.get("dark_png_path", ""),
+                )
+                fg_res = self.dual_theme_finish_gate.execute()
+                return {"success": True, **p_res, "finish_gate": fg_res}
+
+            elif name == "android_run_10x_dual_theme_causal_evolution":
+                res = self.dual_theme_causal_10x.execute(
+                    serial=args.get("serial", "10CF5L0TYL00312"),
+                    loops=int(args.get("loops", 10)),
                 )
                 return {"success": True, **res}
 

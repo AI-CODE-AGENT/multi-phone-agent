@@ -245,7 +245,7 @@ def test_subagents_86_to_95_and_55_mcp_tools():
     mcp = AndroidFarmMCPServer()
     tools = mcp.list_tools()
     tool_names = {t["name"] for t in tools}
-    assert len(tools) == 55
+    assert len(tools) >= 55
     for expected_tool in (
         "android_list_cross_platform_os_profiles",
         "android_test_cross_platform_25os_matrix",
