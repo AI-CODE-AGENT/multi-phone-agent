@@ -1,5 +1,5 @@
 @echo off
-title Android Multi-Agent Farm (AMAF 7.0 - 30 Subagents) - Control Center
+title AMAF v19.0 Studio (125 Subagents - 70 MCP Tools - 25 OS - Dual-Theme - 8 Website UI Presets - 7-FW Codegen)
 cd /d "D:\Project\multi-phone-agent"
 
 set "PY_EXE=C:\Users\Admin\AppData\Local\Python\pythoncore-3.14-64\pythonw.exe"

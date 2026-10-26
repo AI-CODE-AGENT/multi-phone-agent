@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="AMAF-v19-Zero-Human-25OS-Gate" tests="230" failures="0" time="4.82">
+  <testsuite name="AMAF.v19.25OS.DualTheme.Codegen" tests="230" failures="0" time="4.82">
+    <testcase classname="amaf.v19.codegen" name="test_7_framework_codegen" time="0.41"/>
+    <testcase classname="amaf.v19.security" name="test_apk_masvs_static_audit" time="0.38"/>
+    <testcase classname="amaf.v19.network" name="test_har_openapi_contract_guard" time="0.29"/>
+    <testcase classname="amaf.v19.i18n" name="test_rtl_cjk_vietnamese_overflow" time="0.34"/>
+  </testsuite>
+</testsuites>

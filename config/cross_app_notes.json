@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-26 16:12:59",
+  "updated_at": "2026-10-27 00:40:27",
   "count": 6,
   "notes": {
     "otp_code": {
@@ -7,7 +7,7 @@
       "value": "839201",
       "source_app": "notification",
       "serial": "10CF5L0TYL00312",
-      "timestamp": "2026-10-26 07:00:13",
+      "timestamp": "2026-10-27 00:39:49",
       "metadata": {
         "extractor": "notification",
         "pattern": "otp_6_digit"
@@ -18,7 +18,7 @@
       "value": "ORD-99281A",
       "source_app": "com.shop.app",
       "serial": "10CF5L0TYL00312",
-      "timestamp": "2026-10-26 07:00:13",
+      "timestamp": "2026-10-27 00:39:49",
       "metadata": {
         "extractor": "screen_ui",
         "pattern": "order_txn_id"
@@ -29,7 +29,7 @@
       "value": "https://shop.example.com/verify",
       "source_app": "clipboard",
       "serial": "10CF5L0TYL00312",
-      "timestamp": "2026-10-26 07:00:13",
+      "timestamp": "2026-10-27 00:39:49",
       "metadata": {
         "extractor": "clipboard",
         "pattern": "url_or_deeplink"
@@ -40,7 +40,7 @@
       "value": "$149.99",
       "source_app": "com.shop.app",
       "serial": "10CF5L0TYL00312",
-      "timestamp": "2026-10-26 07:00:13",
+      "timestamp": "2026-10-27 00:39:49",
       "metadata": {
         "extractor": "screen_ui",
         "pattern": "currency_price"
@@ -48,18 +48,18 @@
     },
     "last_otp": {
       "key": "last_otp",
-      "value": "410768",
+      "value": "539674",
       "source_app": "com.android.settings",
-      "serial": "10CF5L0TYL00312",
-      "timestamp": "2026-10-26 16:12:59",
+      "serial": "R58M99AABB",
+      "timestamp": "2026-10-27 00:40:27",
       "metadata": {}
     },
     "active_package": {
       "key": "active_package",
       "value": "com.android.settings",
       "source_app": "com.android.settings",
-      "serial": "10CF5L0TYL00312",
-      "timestamp": "2026-10-26 16:12:59",
+      "serial": "R58M99AABB",
+      "timestamp": "2026-10-27 00:40:27",
       "metadata": {}
     }
   }

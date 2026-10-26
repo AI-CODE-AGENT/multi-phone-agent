@@ -1,0 +1,12 @@
+name: AMAF v19.0 Autonomous 25-OS & Mobile QA Gate
+on: [push, pull_request]
+jobs:
+  amaf-zero-human-qa-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Run AMAF v19.0 Pytest & 25-OS Matrix Gate
+        run: pytest -q

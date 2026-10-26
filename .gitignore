@@ -2,17 +2,31 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest_cache/
 
 # Virtual environments
 .venv/
 venv/
 env/
 
-# Runtime & temporary locks / caches
+# Runtime & temporary locks / caches / generated reports
 *.tmp
 config/device_locks.json
+logs/
+scratch/
+artifacts/*
+!artifacts/ui_ux_comparison/
+!artifacts/antibot_ui_ux_comparison/
+!artifacts/v19_cicd_and_apk_bench/
 reports/screenshots/*.png
 reports/dumps/*.xml
+reports/AUDIT_*
+reports/EVOLUTION_REPORT_*.md
+reports/BUG_*
+reports/MULTI_AGENT_MATRIX_*.md
+reports/patches/*.diff
+reports/regression_reports/*.md
+reports/security_reports/SEC_com_android_settings_*.md
 
 # OS / IDE files
 .DS_Store

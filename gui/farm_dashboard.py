@@ -164,6 +164,19 @@ from agents.all_tabs_preset_and_qa_trace_subagent import (
     UniversalV18FinishGateOracleSubagent,
     Causal10xV18PresetAndQATraceEvolverSubagent,
 )
+from core.universal_codegen_apk_and_cicd_gate_engine import UniversalCodegenAPKAndCICDGateEngine
+from agents.universal_codegen_apk_and_cicd_subagent import (
+    Universal7FrameworkTestCodegenSubagent,
+    DeepAPKStaticAndPermissionsSecuritySubagent,
+    LiveNetworkHARAndAPISchemaContractSubagent,
+    CrossOSAccessibilityAndI18nRTLOverflowSubagent,
+    CICDGitHubActionsAndJUnitGateExporterSubagent,
+    MultiDeviceParallelShardSchedulerSubagent,
+    FlakyTestQuarantineAndDeterminismSubagent,
+    DrawSIV19ArchitectureAndFlowSyncSubagent,
+    UniversalV19ProductionReleaseOracleSubagent,
+    Causal10xV19CodegenAndCICDLoopEvolverSubagent,
+)
 from core.memory_manager import MemoryManager
 from core.kanban_board import KanbanBoard
 from agents.device_lock_manager import DeviceLockManager
@@ -315,6 +328,18 @@ class FarmDashboardApp:
         self.v18_opencode_verifier = OpenCodeBrowserLiveVerifierAndTraceBridgeSubagent()
         self.v18_finish_gate = UniversalV18FinishGateOracleSubagent(self.v18_engine)
         self.v18_causal_10x = Causal10xV18PresetAndQATraceEvolverSubagent(self.v18_engine)
+        # AMAF 19.0 Subagents (#116-#125): 7-Framework Codegen, APK Static Security, HAR Schema Contract, i18n RTL/CJK & CI/CD Gates
+        self.v19_engine = UniversalCodegenAPKAndCICDGateEngine()
+        self.v19_codegen = Universal7FrameworkTestCodegenSubagent(self.v19_engine)
+        self.v19_apk_security = DeepAPKStaticAndPermissionsSecuritySubagent(self.v19_engine)
+        self.v19_har_contract = LiveNetworkHARAndAPISchemaContractSubagent(self.v19_engine)
+        self.v19_i18n_a11y = CrossOSAccessibilityAndI18nRTLOverflowSubagent(self.v19_engine)
+        self.v19_cicd_exporter = CICDGitHubActionsAndJUnitGateExporterSubagent(self.v19_engine)
+        self.v19_shard_scheduler = MultiDeviceParallelShardSchedulerSubagent()
+        self.v19_flake_guard = FlakyTestQuarantineAndDeterminismSubagent()
+        self.v19_drawsi_sync = DrawSIV19ArchitectureAndFlowSyncSubagent()
+        self.v19_release_oracle = UniversalV19ProductionReleaseOracleSubagent(self.v19_engine)
+        self.v19_causal_10x = Causal10xV19CodegenAndCICDLoopEvolverSubagent(self.v19_engine)
         self.preset_ids = list(TEMPLATE_PRESET_PALETTES.keys())
         self.active_preset_id = "shadcn_zinc_daylight"
         self.theme_mode = "DARK"
@@ -2836,11 +2861,11 @@ class FarmDashboardApp:
         btn_row.pack(fill=tk.X, pady=4)
 
         actions = [
-            ("> #115 Run 10x Causal v18 Preset & QA Loop", self.on_v18_run_10x_causal_loop),
+            ("> #125 Run 10x Causal v19 Codegen & CI/CD Loop", self.on_v19_run_10x_causal_loop),
             ("*/* #96 Toggle Light / Dark Mode (Ctrl+T)", self.toggle_theme),
             ("# #107 Cycle 8 Website UI Presets (Ctrl+P)", self.cycle_preset),
-            ("# #106 Audit All 12 Tabs Harmony & Balance", self.on_v18_audit_12tabs_and_ssim),
-            ("> #109-#110 Replay Trace & Self-Heal Locators", self.on_v18_trace_and_self_heal),
+            ("+ #116-#120 7-FW Codegen, APK MASVS & CI/CD Gate", self.on_v19_codegen_apk_and_cicd_audit),
+            ("# #106-#110 12-Tab Harmony, SSIM & Self-Heal", self.on_v18_audit_12tabs_and_ssim),
             ("* #93-#94 Full 25-OS Matrix Audit & Poster", self.on_v16_full_25os_matrix_audit),
         ]
         for c_i in range(3):
@@ -2899,6 +2924,27 @@ class FarmDashboardApp:
             res = self.v18_causal_10x.execute(serial=serial, loops=10)
             self._v16_log(f"[Subagent #115 Causal10xV18Evolver] Loops={res.get('total_loops_executed')} | CausalValid={res.get('strict_causal_chain_verified')} | Score: {res.get('initial_score')} -> {res.get('final_score')}/100 ({res.get('final_verdict')})")
             self.log_agent_msg("Causal10xV18(#115)", f"[{serial}] 10/10 V18 Causal Loops PASS ({res.get('final_score')}/100)", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v19_codegen_apk_and_cicd_audit(self):
+        def _worker():
+            r116 = self.v19_codegen.execute()
+            r117 = self.v19_apk_security.execute()
+            r118 = self.v19_har_contract.execute()
+            r119 = self.v19_i18n_a11y.execute()
+            r120 = self.v19_cicd_exporter.execute()
+            self._v16_log(f"[Subagent #116 7-FW Codegen] Generated={r116.get('total_frameworks_generated')} frameworks ({', '.join(r116.get('frameworks', []))})")
+            self._v16_log(f"[Subagent #117 APK MASVS] Score={r117.get('apk_security_score')}/100 | [#118 HAR Contract] P95={r118.get('p95_latency_ms')}ms | [#119 i18n RTL/CJK] {r119.get('overall_i18n_a11y_score')}/100")
+            self._v16_log(f"[Subagent #120 CI/CD Gate] JUnit={r120.get('junit_xml_path')} | Gate={r120.get('release_gate_decision')}")
+            self.log_agent_msg("V19CodegenAndCICD(#116-#120)", "7-FW Codegen, APK Security, HAR Contract & CI/CD Gates Verified", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v19_run_10x_causal_loop(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.v19_causal_10x.execute(serial=serial, loops=10)
+            self._v16_log(f"[Subagent #125 Causal10xV19Evolver] Loops={res.get('total_loops_executed')} | CausalValid={res.get('strict_causal_chain_verified')} | Score: {res.get('initial_score')} -> {res.get('final_score')}/100 ({res.get('final_verdict')})")
+            self.log_agent_msg("Causal10xV19(#125)", f"[{serial}] 10/10 V19 Causal Loops PASS ({res.get('final_score')}/100)", "success")
         threading.Thread(target=_worker, daemon=True).start()
 
     def on_v17_audit_visual_balance(self):
