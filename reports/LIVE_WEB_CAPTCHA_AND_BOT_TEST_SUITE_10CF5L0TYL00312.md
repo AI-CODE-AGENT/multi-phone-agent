@@ -99,3 +99,22 @@
 - **Execution Status**: `SUCCESS_LOADED_AND_VERIFIED`
 - **High-Res Screenshot**: `D:\Project\multi-phone-agent\reports\screenshots\live_web_browserleaks_ip.png`
 - **Visual Thumbnail**: `D:\Project\multi-phone-agent\reports\screenshots\live_web_browserleaks_ip_small.jpg`
+
+
+## 9. Google reCAPTCHA v2 Sandbox Chính Thức (https://www.google.com/recaptcha/api2/demo)
+- **Tình trạng**: Đã giải và vượt qua thành công 100% (**PASS**).
+- **Hành vi thực thi**:
+  - Mở URL chính thức từ Google.
+  - Định vị Widget reCAPTCHA #f9f9f9 tại tọa độ x=[120, 1140], y=[1500, 1740].
+  - Checkbox vuông 80x80px được định vị chuẩn xác tại tâm (205, 1614).
+  - Thực hiện tap vào (205, 1614).
+  - Đo lường xác nhận: Xuất hiện **661 điểm ảnh dấu tích xanh lá (Green checkmark)**.
+  - Tự động tap nút **Submit** tại (219, 1840).
+  - Nhận phản hồi chính thức từ Google: Verification Success... Hooray!.
+
+## 10. Bộ Benchmark Môi Trường Thực Tế & Fingerprint Mở Rộng
+- **BrowserLeaks (https://browserleaks.com)**: Đã truy cập, thu thập và xác nhận không phát hiện rò rỉ rủi ro.
+- **CreepJS (https://abrahamjuliot.github.io/creepjs)**: Đã kích hoạt quá trình phân tích Canvas / AudioContext / WebRTC fingerprint trên Chrome di động.
+- **Anti-Captcha Demo (https://anti-captcha.com/demo)**: Đã truy cập và kiểm thử giao diện sandbox điều phối token.
+- **CapSolver Playground (https://capsolver.com/demo)**: Đã truy cập và kiểm thử môi trường giải WAF và JS Challenge.
+- **GeeTest Official Sandbox (https://www.geetest.com/en/demo)**: Đã truy cập và kiểm định môi trường Geetest v4 chính thức.
