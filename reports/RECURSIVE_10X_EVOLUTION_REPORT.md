@@ -1,7 +1,7 @@
 # Recursive 10x Self-Evolution Architecture Report (Subagents #51–#55)
 
 - **Pass Rate**: `10/10` (`100%` Zero-Token Deterministic Verification)
-- **Total Execution Latency**: `0.949 ms`
+- **Total Execution Latency**: `0.566 ms`
 - **Target Device Serial**: `10CF5L0TYL00312`
 - **Active GKD Rules**: `10`
 - **Learned Mobile-Agent-E Tips**: `6`
@@ -15,16 +15,16 @@
 
 | Iter | Title | Benchmarked Repo | Evolved GKD Selector | Shortcut Macro | Latency (ms) | Status |
 | :--- | :--- | :--- | :--- | :--- | :---: | :---: |
-| #1 | APK Binary Header & Manifest Pre-Flight Inspector | `openatx/uiautomator2` | `TextView[id*="app_name"][text!=""]` | `apk_manifest_preparse_verify` | 0.108 | **PASS** |
-| #2 | GKD CSS-Like Accessibility Selector Synthesis | `gkd-kit/gkd` | `Button[id="android:id/button1"][text*="Tiếp tục"][text!*="Hủy"][y>=500]` | `gkd_fast_button1_selector` | 0.294 | **PASS** |
-| #3 | Vivo OriginOS Delete-APK Dark-Pattern Checkbox Guard | `mobile-dev-inc/maestro` | `CheckBox[id*="deleted_file_state_cb"][checked=true]` | `vivo_preserve_apk_checkbox_guard` | 0.059 | **PASS** |
-| #4 | Deterministic OEM Security Countdown Timer Synchronization | `appium/appium-uiautomator2-driver` | `Button[id="android:id/button1"][enabled=true][text*="Tiếp tục"]` | `oem_countdown_timer_wait_and_click` | 0.050 | **PASS** |
-| #5 | Unknown Sources Permission Switch Toggle & Back-Navigation Macro | `X-PLUG/MobileAgent` | `Switch[checked=false][clickable=true][y>=400]` | `manage_external_sources_toggle_and_back` | 0.066 | **PASS** |
-| #6 | UI-TARS System-2 Spatial Bounds (`y >= 20%`) & Post-Action Redirect Verifier | `ByteDance/UI-TARS` | `Button[id="android:id/button1"][y>=500][text!*="Hủy"]` | `uitars_system2_spatial_and_transition_guard` | 0.020 | **PASS** |
-| #7 | DroidBot Directed UI Transition Graph (UTG) Cycle & Bounce Loop Breaker | `honeynet/droidbot` | `Button[id="android:id/button1"][text*="Tiếp tục"][y>=500]` | `droidbot_utg_bounce_loop_breaker` | 0.024 | **PASS** |
-| #8 | Vivo OriginOS Secure IME (`com.vivo.secime.service`) Credential Guard | `AirtestProject/Airtest` | `EditText[id*="password"][y>=400]` | `vivo_secime_credential_injection_flow` | 0.044 | **PASS** |
-| #9 | Vivo Multi-User (`user 666` App Clone) Package Manager Normalization | `Genymobile/scrcpy` | `Button[id="android:id/button1"][text*="Cài đặt"][y>=500]` | `vivo_user_666_pm_normalization` | 0.027 | **PASS** |
-| #10 | Unified 10x Zero-Token Closed-Loop Execution (GKD + Memory + System-2 + UTG) | `gkd-kit/gkd + X-PLUG/MobileAgent + ByteDance/UI-TARS + honeynet/droidbot` | `Button[id="android:id/button1"][text*="Tiếp tục"][text!*="Hủy"][y>=500]` | `vivo_originos_apk_intercept_bypass` | 0.187 | **PASS** |
+| #1 | APK Binary Header & Manifest Pre-Flight Inspector | `openatx/uiautomator2` | `TextView[id*="app_name"][text!=""]` | `apk_manifest_preparse_verify` | 0.131 | **PASS** |
+| #2 | GKD CSS-Like Accessibility Selector Synthesis | `gkd-kit/gkd` | `Button[id="android:id/button1"][text*="Tiếp tục"][text!*="Hủy"][y>=500]` | `gkd_fast_button1_selector` | 0.040 | **PASS** |
+| #3 | Vivo OriginOS Delete-APK Dark-Pattern Checkbox Guard | `mobile-dev-inc/maestro` | `CheckBox[id*="deleted_file_state_cb"][checked=true]` | `vivo_preserve_apk_checkbox_guard` | 0.083 | **PASS** |
+| #4 | Deterministic OEM Security Countdown Timer Synchronization | `appium/appium-uiautomator2-driver` | `Button[id="android:id/button1"][enabled=true][text*="Tiếp tục"]` | `oem_countdown_timer_wait_and_click` | 0.033 | **PASS** |
+| #5 | Unknown Sources Permission Switch Toggle & Back-Navigation Macro | `X-PLUG/MobileAgent` | `Switch[checked=false][clickable=true][y>=400]` | `manage_external_sources_toggle_and_back` | 0.040 | **PASS** |
+| #6 | UI-TARS System-2 Spatial Bounds (`y >= 20%`) & Post-Action Redirect Verifier | `ByteDance/UI-TARS` | `Button[id="android:id/button1"][y>=500][text!*="Hủy"]` | `uitars_system2_spatial_and_transition_guard` | 0.014 | **PASS** |
+| #7 | DroidBot Directed UI Transition Graph (UTG) Cycle & Bounce Loop Breaker | `honeynet/droidbot` | `Button[id="android:id/button1"][text*="Tiếp tục"][y>=500]` | `droidbot_utg_bounce_loop_breaker` | 0.025 | **PASS** |
+| #8 | Vivo OriginOS Secure IME (`com.vivo.secime.service`) Credential Guard | `AirtestProject/Airtest` | `EditText[id*="password"][y>=400]` | `vivo_secime_credential_injection_flow` | 0.023 | **PASS** |
+| #9 | Vivo Multi-User (`user 666` App Clone) Package Manager Normalization | `Genymobile/scrcpy` | `Button[id="android:id/button1"][text*="Cài đặt"][y>=500]` | `vivo_user_666_pm_normalization` | 0.021 | **PASS** |
+| #10 | Unified 10x Zero-Token Closed-Loop Execution (GKD + Memory + System-2 + UTG) | `gkd-kit/gkd + X-PLUG/MobileAgent + ByteDance/UI-TARS + honeynet/droidbot` | `Button[id="android:id/button1"][text*="Tiếp tục"][text!*="Hủy"][y>=500]` | `vivo_originos_apk_intercept_bypass` | 0.116 | **PASS** |
 
 ## Detailed Iteration Breakdown
 

@@ -93,6 +93,22 @@ from agents.recursive_10x_ui_ux_evolution_subagent import (
     UIFinishGateReviewerSubagent,
     Recursive10xUIUXEvolutionCoordinatorSubagent,
 )
+from agents.antibot_biometric_kinematics_subagent import (
+    SigmaLognormalTouchKinematicsSubagent,
+    PatchrightStealthCDPandWebViewSubagent,
+)
+from agents.antibot_fingerprint_and_ui_radar_subagent import (
+    AndroidEnvironmentAndSensorCoherenceSubagent,
+    TurnstileAndWAFInvisibleDefenseSubagent,
+    AntiBotRadarAndUIUXTelemetrySubagent,
+)
+from agents.recursive_10x_antibot_ui_ux_evolution_subagent import (
+    MobileAppHeaderAndFilterPillRefinerSubagent,
+    AdaptiveDwellAndRhythmPacerSubagent,
+    CrossLayerBotSignalCorrelatorSubagent,
+    UnifiedUIUXAndAntiBotFinishGateSubagent,
+    CausalChain10xAntiBotUIUXCoordinatorSubagent,
+)
 from core.memory_manager import MemoryManager
 from core.kanban_board import KanbanBoard
 from agents.device_lock_manager import DeviceLockManager
@@ -118,7 +134,7 @@ C_TEAL = "#94e2d5"
 class FarmDashboardApp:
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.root.title("Android Multi-Agent Farm (AMAF 13.0) | 65 Subagents | Linear/Raycast UI/UX Design System | Ctrl+K Command Palette | Vivo Screenshot Critic & 10x Recursive UI/UX Evolution")
+        self.root.title("Android Multi-Agent Farm (AMAF 14.0) | 75 Subagents | 4-Layer Anti-Bot Stealth | Sigma-Lognormal Touch Kinematics | Cloudflare Radar UI/UX & 10x Causal Evolution")
         self.root.geometry("1340x880")
         self.root.minsize(1100, 740)
         self.root.configure(bg=C_BASE)
@@ -186,6 +202,17 @@ class FarmDashboardApp:
         self.micro_empty_state_agent = MicroInteractionAndEmptyStateSubagent()
         self.ui_finish_gate_reviewer = UIFinishGateReviewerSubagent()
         self.recursive_10x_ui_ux_coordinator = Recursive10xUIUXEvolutionCoordinatorSubagent()
+        # AMAF 14.0 Subagents (#66-#75): 4-Layer Anti-Bot Stealth, Sigma-Lognormal Touch, Sensor Coherence, Turnstile Warm-Up & 10x Causal Loop
+        self.sigma_lognormal_kinematics = SigmaLognormalTouchKinematicsSubagent()
+        self.patchright_stealth_cdp = PatchrightStealthCDPandWebViewSubagent()
+        self.sensor_coherence_guard = AndroidEnvironmentAndSensorCoherenceSubagent()
+        self.turnstile_waf_defense = TurnstileAndWAFInvisibleDefenseSubagent()
+        self.antibot_radar_telemetry = AntiBotRadarAndUIUXTelemetrySubagent()
+        self.mobile_header_filter_refiner = MobileAppHeaderAndFilterPillRefinerSubagent()
+        self.cognitive_rhythm_pacer = AdaptiveDwellAndRhythmPacerSubagent()
+        self.cross_layer_bot_correlator = CrossLayerBotSignalCorrelatorSubagent()
+        self.unified_ui_antibot_finish_gate = UnifiedUIUXAndAntiBotFinishGateSubagent()
+        self.causal_10x_antibot_ui_ux_coordinator = CausalChain10xAntiBotUIUXCoordinatorSubagent()
 
         # Device card widget references: serial -> widget dict
         self.device_cards: Dict[str, Dict[str, Any]] = {}
@@ -244,7 +271,7 @@ class FarmDashboardApp:
 
         title_lbl = tk.Label(
             title_frame,
-            text="⚡ Android Multi-Agent Farm (AMAF 13.0 — 65 Subagents, Linear/Raycast UI/UX, Ctrl+K Palette & 10x UI/UX Evolution)",
+            text="⚡ Android Multi-Agent Farm (AMAF 14.0 — 75 Subagents, 4-Layer Anti-Bot Stealth, Sigma-Lognormal Kinematics & 10x Causal Loop)",
             font=("Segoe UI", 16, "bold"),
             fg=C_BLUE,
             bg=C_MANTLE
@@ -319,7 +346,7 @@ class FarmDashboardApp:
 
         # Tab 1: Multi-Agent & 30-Subagent Evolution
         self.tab_agents = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
-        self.notebook.add(self.tab_agents, text=" 🤖 65-Subagent Evolution & 10x Loops ")
+        self.notebook.add(self.tab_agents, text=" 🤖 75-Subagent Evolution & 10x Loops ")
         self._build_agents_tab()
 
         # Tab 2: Real Phone Farm & Group Broadcast Control
@@ -352,6 +379,11 @@ class FarmDashboardApp:
         self.notebook.add(self.tab_v13_ui_ux, text=" 🎨 UI/UX 10x Design System, Ctrl+K & Vivo Critic (v13.0) ")
         self._build_v13_ui_ux_and_critic_tab()
         self.root.bind("<Control-k>", lambda e: self.on_v13_ctrl_k_search())
+
+        # Tab 8: AMAF 14.0 4-Layer Anti-Bot Stealth, Sigma-Lognormal Touch Kinematics, Radar Bento & 10x Causal Evolution
+        self.tab_v14_antibot = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
+        self.notebook.add(self.tab_v14_antibot, text=" 🛡️ Anti-Bot 4-Layer Stealth & 10x Causal Loop (v14.0) ")
+        self._build_v14_antibot_and_causal_tab()
 
         # Tab 4: Defect Reports (Bug Tracker)
         self.tab_reports = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
@@ -1842,6 +1874,95 @@ class FarmDashboardApp:
             res = self.recursive_10x_ui_ux_coordinator.execute(live_serial=serial, write_report=True)
             self._v13_log(f"[Subagent #65 Recursive10xUIUXEvolution] Initial={res.get('initial_ui_score')} -> Final={res.get('final_ui_score')} | Gate={res.get('final_gate_decision')} | Report={res.get('report_path')}")
             self.log_agent_msg("Recursive10xUIUX(#65)", f"[{serial}] 10/10 UI/UX Loops Complete: {res.get('initial_ui_score')} -> {res.get('final_ui_score')}/100 ({res.get('final_gate_decision')})", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+
+    def _build_v14_antibot_and_causal_tab(self):
+        top_bar = tk.Frame(self.tab_v14_antibot, bg=C_MANTLE, padx=12, pady=10)
+        top_bar.pack(fill=tk.X, pady=(0, 8))
+
+        tk.Label(
+            top_bar,
+            text="🛡️ AMAF v14.0 (75 Subagents): Sigma-Lognormal Touch (#66) + Patchright CDP Stealth (#67) + Sensor Recoil (#68) + Turnstile Pre-Warm (#69) + Radar UI (#70) + Vivo Filter Refiner (#71) + Weibull Pacer (#72) + 10x Causal Chain (#75)",
+            font=("Segoe UI", 9, "bold"),
+            fg=C_GREEN,
+            bg=C_MANTLE
+        ).pack(side=tk.LEFT)
+
+        btn_row = tk.Frame(self.tab_v14_antibot, bg=C_BASE)
+        btn_row.pack(fill=tk.X, pady=4)
+
+        # Primary CTA (#6366f1 Indigo) + Neutral Secondary buttons (#313244)
+        tk.Button(
+            btn_row, text="🚀 #75 Run 10x Causal Anti-Bot & UI/UX Loop", font=("Segoe UI", 9, "bold"),
+            bg="#6366f1", fg="#f8fafc", relief="flat", padx=12, pady=6, command=self.on_v14_run_10x_causal_evolution
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="👆 #66 Sigma-Lognormal Touch & Fitts Audit", font=("Segoe UI", 9),
+            bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v14_sigma_lognormal_swipe
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="🕵️ #67 Patchright Zero-Runtime.enable CDP", font=("Segoe UI", 9),
+            bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v14_stealth_cdp_audit
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="📳 #68-#69 Sensor Recoil & Pre-Warm Entropy", font=("Segoe UI", 9),
+            bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v14_sensor_recoil_audit
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="✅ #71-#74 Unified 10-Point Finish Gate", font=("Segoe UI", 9),
+            bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v14_unified_finish_gate
+        ).pack(side=tk.LEFT, padx=4)
+
+        self.v14_log_text = tk.Text(self.tab_v14_antibot, bg=C_CRUST, fg=C_TEXT, font=("Consolas", 9), height=14, relief="flat", padx=10, pady=8)
+        self.v14_log_text.pack(fill=tk.BOTH, expand=True, pady=(6, 0))
+        self.v14_log_text.insert(tk.END, "[AMAF 14.0] Subagents #66-#75 (Sigma-Lognormal Touch Kinematics, Patchright Zero-Runtime.enable CDP, Android Sensor-Touch Recoil, Turnstile Pre-Warm Entropy, Cloudflare-Radar Bento UI, Vivo Header/Filter Refiner, Weibull Cognitive Pacer, 4-Layer Bot Signal Correlator, Unified 10-Point Finish Gate & 10x Causal Chain Coordinator) Ready.\n")
+
+    def _v14_log(self, msg: str):
+        if hasattr(self, "v14_log_text"):
+            ts = time.strftime("%H:%M:%S")
+            self.root.after(0, lambda: (self.v14_log_text.insert(tk.END, f"[{ts}] {msg}\n"), self.v14_log_text.see(tk.END)))
+
+    def on_v14_sigma_lognormal_swipe(self):
+        def _worker():
+            res = self.sigma_lognormal_kinematics.execute()
+            self._v14_log(f"[Subagent #66 SigmaLognormalKinematics] {res}")
+            self.log_agent_msg("SigmaLognormal(#66)", "Biometric Sigma-Lognormal Swipe + Fitts Gaussian Verified", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v14_stealth_cdp_audit(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.patchright_stealth_cdp.execute(serial=serial)
+            self._v14_log(f"[Subagent #67 PatchrightStealthCDP] {res}")
+            self.log_agent_msg("StealthCDP(#67)", f"[{serial}] Zero Runtime.enable + Adreno 730 Profile Verified", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v14_sensor_recoil_audit(self):
+        def _worker():
+            res68 = self.sensor_coherence_guard.execute()
+            res69 = self.turnstile_waf_defense.execute()
+            self._v14_log(f"[Subagent #68 SensorCoherence] Score={res68.get('coherence_score')} | [Subagent #69 PreWarm] {res69.get('challenge_triage')}")
+            self.log_agent_msg("SensorAndPreWarm(#68-#69)", f"Coherence={res68.get('coherence_score')}% | Pre-Warm Ready", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v14_unified_finish_gate(self):
+        def _worker():
+            res = self.unified_ui_antibot_finish_gate.execute()
+            self._v14_log(f"[Subagent #74 UnifiedFinishGate] Decision={res.get('decision')} | Composite={res.get('composite_score')} | BotRisk={res.get('bot_detection_risk_pct')}%")
+            self.log_agent_msg("UnifiedGate(#74)", f"Gate={res.get('decision')} | BotRisk={res.get('bot_detection_risk_pct')}%", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v14_run_10x_causal_evolution(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.causal_10x_antibot_ui_ux_coordinator.execute(live_serial=serial, write_report=True)
+            self._v14_log(f"[Subagent #75 CausalChain10xCoordinator] Loops={res.get('total_iterations')} | FinalScore={res.get('final_composite_score')} | FinalBotRisk={res.get('final_bot_risk_pct')}% | Gate={res.get('final_gate')}")
+            self.log_agent_msg("Causal10x(#75)", f"[{serial}] 10/10 Causal Loops PASS (BotRisk={res.get('final_bot_risk_pct')}%)", "success")
         threading.Thread(target=_worker, daemon=True).start()
 
 

@@ -95,6 +95,22 @@ from agents.recursive_10x_ui_ux_evolution_subagent import (
     UIFinishGateReviewerSubagent,
     Recursive10xUIUXEvolutionCoordinatorSubagent,
 )
+from agents.antibot_biometric_kinematics_subagent import (
+    SigmaLognormalTouchKinematicsSubagent,
+    PatchrightStealthCDPandWebViewSubagent,
+)
+from agents.antibot_fingerprint_and_ui_radar_subagent import (
+    AndroidEnvironmentAndSensorCoherenceSubagent,
+    TurnstileAndWAFInvisibleDefenseSubagent,
+    AntiBotRadarAndUIUXTelemetrySubagent,
+)
+from agents.recursive_10x_antibot_ui_ux_evolution_subagent import (
+    MobileAppHeaderAndFilterPillRefinerSubagent,
+    AdaptiveDwellAndRhythmPacerSubagent,
+    CrossLayerBotSignalCorrelatorSubagent,
+    UnifiedUIUXAndAntiBotFinishGateSubagent,
+    CausalChain10xAntiBotUIUXCoordinatorSubagent,
+)
 
 
 class SelfEvolutionEngine:
@@ -174,6 +190,17 @@ class SelfEvolutionEngine:
         self.micro_interaction_empty = MicroInteractionAndEmptyStateSubagent()
         self.ui_finish_gate = UIFinishGateReviewerSubagent()
         self.recursive_10x_ui_ux_coordinator = Recursive10xUIUXEvolutionCoordinatorSubagent()
+        # AMAF 14.0 Subagents (#66-#75: 4-Layer Anti-Bot Biometric Kinematics, Stealth CDP, Sensor Recoil, Turnstile Warm-Up, Radar Bento UI & 10x Causal Evolution)
+        self.sigma_lognormal_kinematics = SigmaLognormalTouchKinematicsSubagent()
+        self.patchright_stealth_cdp = PatchrightStealthCDPandWebViewSubagent()
+        self.sensor_coherence_guard = AndroidEnvironmentAndSensorCoherenceSubagent()
+        self.turnstile_waf_defense = TurnstileAndWAFInvisibleDefenseSubagent()
+        self.antibot_radar_telemetry = AntiBotRadarAndUIUXTelemetrySubagent()
+        self.mobile_header_filter_refiner = MobileAppHeaderAndFilterPillRefinerSubagent()
+        self.cognitive_rhythm_pacer = AdaptiveDwellAndRhythmPacerSubagent()
+        self.cross_layer_bot_correlator = CrossLayerBotSignalCorrelatorSubagent()
+        self.unified_ui_antibot_finish_gate = UnifiedUIUXAndAntiBotFinishGateSubagent()
+        self.causal_10x_antibot_ui_ux_coordinator = CausalChain10xAntiBotUIUXCoordinatorSubagent()
 
     def generate_autonomous_improvement_backlog(self, fleet_info: Dict[str, Any]) -> List[Dict[str, str]]:
         """
@@ -430,7 +457,7 @@ class SelfEvolutionEngine:
 
             cycle_summary = {
                 "cycle_index": cycle_idx,
-                "subagents_active": 65,
+                "subagents_active": 75,
                 "primary_serial": primary_serial,
                 "duration_seconds": round(time.time() - cycle_start, 2),
                 "online_devices_count": len(online_serials),
@@ -499,7 +526,7 @@ class SelfEvolutionEngine:
         total_dur = round(time.time() - start_time, 2)
         return {
             "status": "EVOLUTION_COMPLETED",
-            "subagents_count": 65,
+            "subagents_count": 75,
             "zero_token_gpu_enabled": True,
             "total_duration_seconds": total_dur,
             "cycles_executed": len(evolution_cycles),
@@ -516,7 +543,7 @@ class SelfEvolutionEngine:
         lines = [
             "# 🧬 AMAF 13.0 Autonomous Self-Evolution Report (65 Subagents + Universal Multi-Stage APK Installer + 10x Recursive Evolution + 10x UI/UX Linear/Raycast Design System)",
             f"- **Generated At**: `{time.strftime('%Y-%m-%d %H:%M:%S')}`",
-            f"- **Active Subagents**: `65`",
+            f"- **Active Subagents**: `75`",
             f"- **Supported 2FA Modes**: `7` (`TOTP_RFC6238`, `HOTP_RFC4226`, `SPLIT_DIGIT_BOX_OTP`, `PUSH_NUMBER_MATCH`, `CROSS_APP_AUTHENTICATOR`, `PASSKEY_WEBAUTHN`, `BACKUP_RECOVERY_CODE`)",
             f"- **Supported CAPTCHA Categories**: `13+` (`CONCENTRIC_ROTATION_PUZZLE`, `MULTI_IMAGE_GRID_3X3_4X4`, `WEB_BROWSER_CAPTCHA`, `AUDIO_PCM_FFT_CAPTCHA`, `BEHAVIORAL_FITTS_ENTROPY`, `DICE_SUM_3D_CAPTCHA`, `SLIDER_PUZZLE`, `CLICK_ORDER_CAPTCHA`, `ICON_SHAPE_MATCH_CAPTCHA`, `SLIDE_PATH_TRAJECTORY_CAPTCHA`, `HOLD_PRESS_CHALLENGE`, `CANVAS_WEBVIEW_OPAQUE_CAPTCHA`, `TEXT_MATH_OCR`, `CHECKBOX_CHALLENGE`)",
             f"- **Cycles Executed**: `{len(cycles)}`",
