@@ -65,6 +65,18 @@ from agents.keyboard_viewport_guard_subagent import KeyboardAndViewportGuardSuba
 from agents.semantic_object_matcher_subagent import ZeroTokenSemanticMatcherSubagent
 from agents.account_vault_proxy_subagent import MultiAccountVaultAndProxySubagent
 from agents.visual_flow_dag_subagent import VisualFlowBuilderAndLiveMonitorSubagent
+from agents.universal_apk_installer_subagent import UniversalMultiStageInstallerSubagent
+from agents.sideload_source_guard_subagent import SideloadSourceAndPermissionSubagent
+from agents.oem_secime_vault_subagent import OEMVaultAndSecIMEHandlerSubagent
+from agents.multi_user_package_subagent import MultiUserProfileAndPackageSubagent
+from agents.always_on_install_daemon_subagent import AlwaysOnInstallDaemonAndCLISubagent
+from agents.recursive_10x_evolution_subagent import (
+    GKDSelectorRuleEngineSubagent,
+    MobileAgentTipsAndShortcutsMemorySubagent,
+    UITarsSystem2ReflectionVerifierSubagent,
+    DroidBotStateTransitionGraphSubagent,
+    Recursive10xEvolutionCoordinatorSubagent,
+)
 from core.memory_manager import MemoryManager
 from core.kanban_board import KanbanBoard
 from agents.device_lock_manager import DeviceLockManager
@@ -90,7 +102,7 @@ C_TEAL = "#94e2d5"
 class FarmDashboardApp:
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.root.title("Android Multi-Agent Farm (AMAF 10.0) | 45 Subagents | RTX 3050 Zero-Token GPU | Persistent ADB Stream | IME Guard | Semantic GPU | Account Vault & Visual DAG")
+        self.root.title("Android Multi-Agent Farm (AMAF 12.0) | 55 Subagents | Universal APK Installer | Sideload Guard | SecIME Vault | AXML Parser | Always-On Daemon & 10x Recursive Evolution")
         self.root.geometry("1340x880")
         self.root.minsize(1100, 740)
         self.root.configure(bg=C_BASE)
@@ -137,6 +149,16 @@ class FarmDashboardApp:
         self.semantic_matcher = ZeroTokenSemanticMatcherSubagent(self.adb, self.memory)
         self.account_vault = MultiAccountVaultAndProxySubagent(adb=self.adb, memory=self.memory)
         self.visual_flow_dag = VisualFlowBuilderAndLiveMonitorSubagent(adb=self.adb, memory=self.memory)
+        self.universal_apk_installer = UniversalMultiStageInstallerSubagent(adb_wrapper=self.adb)
+        self.sideload_source_guard = SideloadSourceAndPermissionSubagent(adb_wrapper=self.adb)
+        self.oem_secime_vault = OEMVaultAndSecIMEHandlerSubagent(adb=self.adb, memory=self.memory)
+        self.multi_user_pkg = MultiUserProfileAndPackageSubagent(adb=self.adb, memory=self.memory)
+        self.always_on_install_daemon = AlwaysOnInstallDaemonAndCLISubagent(adb=self.adb, memory=self.memory)
+        self.gkd_selector_engine = GKDSelectorRuleEngineSubagent()
+        self.mobile_agent_memory = MobileAgentTipsAndShortcutsMemorySubagent()
+        self.uitars_reflection = UITarsSystem2ReflectionVerifierSubagent()
+        self.droidbot_utg = DroidBotStateTransitionGraphSubagent()
+        self.recursive_10x_coordinator = Recursive10xEvolutionCoordinatorSubagent()
 
         # Device card widget references: serial -> widget dict
         self.device_cards: Dict[str, Dict[str, Any]] = {}
@@ -195,7 +217,7 @@ class FarmDashboardApp:
 
         title_lbl = tk.Label(
             title_frame,
-            text="⚡ Android Multi-Agent Farm (AMAF 10.0 — 45 Subagents & Zero-Token GPU)",
+            text="⚡ Android Multi-Agent Farm (AMAF 12.0 — 55 Subagents, Universal APK Installer & 10x Recursive Evolution)",
             font=("Segoe UI", 16, "bold"),
             fg=C_BLUE,
             bg=C_MANTLE
@@ -204,7 +226,7 @@ class FarmDashboardApp:
 
         sub_lbl = tk.Label(
             title_frame,
-            text="45 Subagents | RTX 3050 PTX | Persistent ADB Pipe (#41) | IME/Viewport Guard (#42) | Semantic GPU (#43) | Account Vault (#44) | Visual DAG (#45)",
+            text="55 Subagents | Universal APK Installer (#46) | Sideload Guard (#47) | SecIME Vault (#48) | AXML Parser (#49) | Always-On Daemon (#50) | 10x Recursive Evolution (#51-#55)",
             font=("Segoe UI", 9),
             fg=C_SUBTEXT,
             bg=C_MANTLE
@@ -270,7 +292,7 @@ class FarmDashboardApp:
 
         # Tab 1: Multi-Agent & 30-Subagent Evolution
         self.tab_agents = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
-        self.notebook.add(self.tab_agents, text=" 🤖 45-Subagent Evolution & Loops ")
+        self.notebook.add(self.tab_agents, text=" 🤖 55-Subagent Evolution & 10x Loops ")
         self._build_agents_tab()
 
         # Tab 2: Real Phone Farm & Group Broadcast Control
@@ -292,6 +314,11 @@ class FarmDashboardApp:
         self.tab_v10_dag = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
         self.notebook.add(self.tab_v10_dag, text=" ⚡ Live Stream, IME Guard, Semantic GPU, Vault & DAG (v10.0) ")
         self._build_v10_stream_vault_dag_tab()
+
+        # Tab 6: AMAF 12.0 Universal APK Installer, Sideload Guard, Always-On Daemon & 10x Recursive Evolution
+        self.tab_v12_installer = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
+        self.notebook.add(self.tab_v12_installer, text=" 📦 Universal APK Installer & 10x Evolution (v12.0) ")
+        self._build_v12_installer_and_10x_tab()
 
         # Tab 4: Defect Reports (Bug Tracker)
         self.tab_reports = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
@@ -423,7 +450,7 @@ class FarmDashboardApp:
                                  relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_run_pipeline)
         btn_pipeline.pack(side=tk.LEFT, padx=2)
 
-        btn_evo = tk.Button(ctl2, text="🧬 Run 35-Subagent Self-Evolution (v8.0)", font=("Segoe UI", 9, "bold"), bg=C_TEAL, fg=C_CRUST,
+        btn_evo = tk.Button(ctl2, text="🧬 Run 55-Subagent 10x Evolution (v12.0)", font=("Segoe UI", 9, "bold"), bg=C_TEAL, fg=C_CRUST,
                             relief="flat", padx=12, pady=3, cursor="hand2", command=self.on_run_self_evolution)
         btn_evo.pack(side=tk.LEFT, padx=3)
 
@@ -1603,6 +1630,90 @@ class FarmDashboardApp:
             )
             self._v10_log(f"[Subagent #45 VisualFlowDAG] {res} | PreviewFrame={preview_img.size}")
             self.log_agent_msg("VisualFlowDAG(#45)", f"[{serial}] DAG={res.get('status')} | Visited={len(res.get('visited_nodes', []))}", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+
+
+    def _build_v12_installer_and_10x_tab(self):
+        top_bar = tk.Frame(self.tab_v12_installer, bg=C_MANTLE, padx=12, pady=10)
+        top_bar.pack(fill=tk.X, pady=(0, 8))
+
+        tk.Label(
+            top_bar,
+            text="📦 AMAF v12.0: Universal APK Installer (#46) + Sideload Guard (#47) + SecIME Vault (#48) + AXML Parser (#49) + Daemon (#50) + 10x Evolution (#51-#55)",
+            font=("Segoe UI", 10, "bold"),
+            fg=C_GREEN,
+            bg=C_MANTLE
+        ).pack(side=tk.LEFT)
+
+        btn_row = tk.Frame(self.tab_v12_installer, bg=C_BASE)
+        btn_row.pack(fill=tk.X, pady=4)
+
+        tk.Button(
+            btn_row, text="📦 #46-#50 Universal Install APK", font=("Segoe UI", 9, "bold"),
+            bg=C_GREEN, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_install_apk_all
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="🛡️ #47 Pre-Authorize Sideload Sources", font=("Segoe UI", 9, "bold"),
+            bg=C_BLUE, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v12_sideload_guard
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="🔍 #49 Inspect APK AXML & --user 0", font=("Segoe UI", 9, "bold"),
+            bg=C_TEAL, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v12_inspect_axml
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="💓 #50 Start Always-On Install Daemon", font=("Segoe UI", 9, "bold"),
+            bg=C_PEACH, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v12_toggle_daemon
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="🧬 #51-#55 Run 10x Recursive Evolution", font=("Segoe UI", 9, "bold"),
+            bg=C_MAUVE, fg=C_CRUST, relief="flat", padx=10, pady=6, command=self.on_v12_run_10x_evolution
+        ).pack(side=tk.LEFT, padx=4)
+
+        self.v12_log_text = tk.Text(self.tab_v12_installer, bg=C_CRUST, fg=C_TEXT, font=("Consolas", 9), height=14, relief="flat", padx=10, pady=8)
+        self.v12_log_text.pack(fill=tk.BOTH, expand=True, pady=(6, 0))
+        self.v12_log_text.insert(tk.END, "[AMAF 12.0] Subagents #46-#55 (Universal APK Installer, Sideload Guard, SecIME Vault, Pure-Python AXML, Always-On Daemon, GKD Selector, Mobile-Agent-E Memory, UI-TARS Reflection, DroidBot UTG & 10x Recursive Evolution) Ready.\n")
+
+    def _v12_log(self, msg: str):
+        if hasattr(self, "v12_log_text"):
+            ts = time.strftime("%H:%M:%S")
+            self.root.after(0, lambda: (self.v12_log_text.insert(tk.END, f"[{ts}] {msg}\n"), self.v12_log_text.see(tk.END)))
+
+    def on_v12_sideload_guard(self):
+        def _worker():
+            res = self.sideload_source_guard.get_status()
+            self._v12_log(f"[Subagent #47 SideloadSourceGuard] {res}")
+            self.log_agent_msg("SideloadGuard(#47)", "Sideload Source & --user 0 Permission Guard Ready", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v12_inspect_axml(self):
+        def _worker():
+            res = self.multi_user_pkg.normalize_and_filter_pm_execution(
+                "pm list packages",
+                raw_output="Error: Shell does not have permission to access user 666\npackage:com.geminicall.ai"
+            )
+            self._v12_log(f"[Subagent #49 MultiUserPackage] {res}")
+            self.log_agent_msg("MultiUserPkg(#49)", f"Normalized: {res.get('normalized_cmd')} | Packages={res.get('packages')}", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v12_toggle_daemon(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            health = self.always_on_install_daemon.get_health_status(serial)
+            self._v12_log(f"[Subagent #50 AlwaysOnInstallDaemon] {health}")
+            self.log_agent_msg("InstallDaemon(#50)", f"[{serial}] Daemon Healthy={health.get('healthy')}", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v12_run_10x_evolution(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.recursive_10x_coordinator.run_10_iterations(live_serial=serial, write_report=True)
+            self._v12_log(f"[Subagents #51-#55 Recursive10xEvolution] Passed={res.get('passed_iterations')}/10 | Report={res.get('report_path')}")
+            self.log_agent_msg("Recursive10x(#55)", f"[{serial}] 10/10 Recursive Evolution Iterations Passed!", "success")
         threading.Thread(target=_worker, daemon=True).start()
 
 

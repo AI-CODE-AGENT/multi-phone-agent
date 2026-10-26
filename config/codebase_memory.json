@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-10-26 14:08:41",
+  "last_updated": "2026-10-26 14:48:03",
   "locators": {
     "Screen_Login": [
       {
@@ -9156,6 +9156,644 @@
         ]
       },
       "timestamp": "2026-10-26 14:08:41"
+    },
+    {
+      "id": "mem_1793000832290",
+      "key": "oem_popup_10CF5L0TYL00312_1793000832288",
+      "value": {
+        "status": "POPUP_DISMISSED",
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "checkbox_ticked": true,
+        "checkbox_info": "Tôi đã hiểu kết quả phát hiện rủi ro của ứng dụng",
+        "tapped_coords": [
+          630,
+          2621
+        ],
+        "method": "ui_xml_match",
+        "foreground_window": "mCurrentFocus=Window{123 u0 com.android.packageinstaller/com.android.packageinstaller.PackageInterceptActivity type=1 }",
+        "timestamp": "2026-10-26 14:47:12"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "security_dialog",
+        "10CF5L0TYL00312",
+        "ui_xml_match"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "tapped_coords": [
+          630,
+          2621
+        ]
+      },
+      "timestamp": "2026-10-26 14:47:12"
+    },
+    {
+      "id": "mem_1793000836510",
+      "key": "kbd_viewport_guard_10CF5L0TYL00312_1793000836498",
+      "value": {
+        "status": "INPUT_AND_VIEWPORT_GUARDED",
+        "subagent_id": 42,
+        "subagent_name": "KeyboardAndViewportGuardSubagent",
+        "serial": "10CF5L0TYL00312",
+        "target_x": 400,
+        "target_y": 2200,
+        "ime_state": {
+          "serial": "10CF5L0TYL00312",
+          "ime_visible": true,
+          "keyboard_height_px": 1120,
+          "safe_visible_y_max": 1680,
+          "screen_size": [
+            1260,
+            2800
+          ],
+          "raw_dumpsys_excerpt": "mInputShown=true mVisibleFrame=[0,1680][1260,2800]",
+          "tokens_used": 0
+        },
+        "compensation": {
+          "occluded": true,
+          "action_needed": "dismiss_keyboard_first",
+          "adjusted_x": 400,
+          "adjusted_y": 2200,
+          "original_x": 400,
+          "original_y": 2200,
+          "ime_visible": true,
+          "keyboard_height_px": 1120,
+          "safe_visible_y_max": 1680,
+          "tokens_used": 0
+        },
+        "dismiss_result": {
+          "status": "IME_DISMISSED",
+          "serial": "10CF5L0TYL00312",
+          "was_visible": true,
+          "ime_visible_after": false,
+          "commands_sent": [
+            "input keyevent 4"
+          ],
+          "safe_visible_y_max": 2800,
+          "dry_run": true,
+          "tokens_used": 0
+        },
+        "viewport_result": {
+          "status": "VIEWPORT_NORMALIZED_AND_CENTERED",
+          "serial": "10CF5L0TYL00312",
+          "selector": "button, input[type='submit']",
+          "tag_name": "button",
+          "text": "Validate",
+          "was_offscreen": true,
+          "horizontal_overflow": true,
+          "scrolled_into_view": true,
+          "scroll_strategy": "el.scrollIntoView({behavior: 'instant', block: 'center', inline: 'center'})",
+          "chrome_focused": true,
+          "socket_rebound": true,
+          "phys_x": 630,
+          "phys_y": 1485,
+          "bounds": null,
+          "css_rect": {
+            "left": 150.0,
+            "top": 360.0,
+            "width": 120.0,
+            "height": 44.0,
+            "right": 270.0,
+            "bottom": 404.0
+          },
+          "viewport_metrics": {
+            "devicePixelRatio": 3.0,
+            "innerWidth": 420.0,
+            "innerHeight": 820.0,
+            "outerWidth": 420.0,
+            "outerHeight": 933.0,
+            "scrollWidth": 980.0,
+            "scrollHeight": 1600.0,
+            "visualViewportOffsetLeft": 0.0,
+            "visualViewportOffsetTop": 0.0,
+            "visualViewportScale": 1.0,
+            "pageXOffset": 280.0,
+            "pageYOffset": 420.0,
+            "webdriver": false
+          },
+          "dry_run": true,
+          "tokens_used": 0
+        },
+        "phys_x": 630,
+        "phys_y": 1485,
+        "dry_run": true,
+        "tokens_used": 0,
+        "timestamp": 1793000836.4983761
+      },
+      "category": "keyboard_viewport_guard",
+      "tags": [
+        "keyboard_viewport_guard",
+        "ime",
+        "viewport",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 14:47:16"
+    },
+    {
+      "id": "mem_1793000836697",
+      "key": "dag_exec_tiktok_smart_switch_and_engage_dag_10CF5L0TYL00312_1793000836681",
+      "value": {
+        "dag_name": "tiktok_smart_switch_and_engage_dag",
+        "serial": "10CF5L0TYL00312",
+        "dry_run": true,
+        "nodes_visited": [
+          "start_launch",
+          "check_ime_or_popup",
+          "switch_account_nht",
+          "search_tra_dang",
+          "open_video_and_like",
+          "post_comment_and_verify",
+          "exit_home_done"
+        ],
+        "branch_decisions": [
+          {
+            "from_node": "start_launch",
+            "to_node": "check_ime_or_popup",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          },
+          {
+            "from_node": "check_ime_or_popup",
+            "to_node": "switch_account_nht",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          },
+          {
+            "from_node": "switch_account_nht",
+            "to_node": "search_tra_dang",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          },
+          {
+            "from_node": "search_tra_dang",
+            "to_node": "open_video_and_like",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          },
+          {
+            "from_node": "open_video_and_like",
+            "to_node": "post_comment_and_verify",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          },
+          {
+            "from_node": "post_comment_and_verify",
+            "to_node": "exit_home_done",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          }
+        ],
+        "step_trace": [
+          {
+            "step_index": 0,
+            "node_id": "start_launch",
+            "title": "Launch TikTok Package & Wait For Main Feed",
+            "node_type": "action",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "check_ime_or_popup",
+            "detail": {
+              "executed": true,
+              "node_type": "action",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 1,
+            "node_id": "check_ime_or_popup",
+            "title": "Guard Against Rogue IME Keyboard or Modal Popup (Subagent #18/#42)",
+            "node_type": "subagent_call",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "switch_account_nht",
+            "detail": {
+              "executed": true,
+              "node_type": "subagent_call",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 2,
+            "node_id": "switch_account_nht",
+            "title": "Switch Active Profile to Account NHT",
+            "node_type": "action",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "search_tra_dang",
+            "detail": {
+              "executed": true,
+              "node_type": "action",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 3,
+            "node_id": "search_tra_dang",
+            "title": "Search Creator 'tra.dang.904' via Top Search Bar",
+            "node_type": "action",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "open_video_and_like",
+            "detail": {
+              "executed": true,
+              "node_type": "action",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 4,
+            "node_id": "open_video_and_like",
+            "title": "Open Latest Video & Trigger Heart Like Gesture",
+            "node_type": "action",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "post_comment_and_verify",
+            "detail": {
+              "executed": true,
+              "node_type": "action",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 5,
+            "node_id": "post_comment_and_verify",
+            "title": "Post Engagement Comment & Verify Delivery",
+            "node_type": "condition",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "exit_home_done",
+            "detail": {
+              "executed": true,
+              "node_type": "condition",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 6,
+            "node_id": "exit_home_done",
+            "title": "Return to Android Home Screen & Complete TikTok DAG",
+            "node_type": "terminal",
+            "success": true,
+            "branch_taken": "terminal",
+            "next_node": null,
+            "detail": {
+              "executed": true,
+              "node_type": "terminal",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          }
+        ],
+        "tokens_used": 0,
+        "status": "DAG_COMPLETED",
+        "elapsed_ms": 0.073,
+        "subagent": "VisualFlowBuilderAndLiveMonitorSubagent",
+        "subagent_id": 45
+      },
+      "category": "dag_telemetry",
+      "tags": [
+        "visual_flow_dag",
+        "tiktok_smart_switch_and_engage_dag",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 14:47:16"
+    },
+    {
+      "id": "mem_1793000877448",
+      "key": "oem_popup_10CF5L0TYL00312_1793000877438",
+      "value": {
+        "status": "POPUP_DISMISSED",
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "checkbox_ticked": true,
+        "checkbox_info": "Tôi đã hiểu kết quả phát hiện rủi ro của ứng dụng",
+        "tapped_coords": [
+          630,
+          2621
+        ],
+        "method": "ui_xml_match",
+        "foreground_window": "mCurrentFocus=Window{123 u0 com.android.packageinstaller/com.android.packageinstaller.PackageInterceptActivity type=1 }",
+        "timestamp": "2026-10-26 14:47:57"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "security_dialog",
+        "10CF5L0TYL00312",
+        "ui_xml_match"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "tapped_coords": [
+          630,
+          2621
+        ]
+      },
+      "timestamp": "2026-10-26 14:47:57"
+    },
+    {
+      "id": "mem_1793000883431",
+      "key": "kbd_viewport_guard_10CF5L0TYL00312_1793000883417",
+      "value": {
+        "status": "INPUT_AND_VIEWPORT_GUARDED",
+        "subagent_id": 42,
+        "subagent_name": "KeyboardAndViewportGuardSubagent",
+        "serial": "10CF5L0TYL00312",
+        "target_x": 400,
+        "target_y": 2200,
+        "ime_state": {
+          "serial": "10CF5L0TYL00312",
+          "ime_visible": true,
+          "keyboard_height_px": 1120,
+          "safe_visible_y_max": 1680,
+          "screen_size": [
+            1260,
+            2800
+          ],
+          "raw_dumpsys_excerpt": "mInputShown=true mVisibleFrame=[0,1680][1260,2800]",
+          "tokens_used": 0
+        },
+        "compensation": {
+          "occluded": true,
+          "action_needed": "dismiss_keyboard_first",
+          "adjusted_x": 400,
+          "adjusted_y": 2200,
+          "original_x": 400,
+          "original_y": 2200,
+          "ime_visible": true,
+          "keyboard_height_px": 1120,
+          "safe_visible_y_max": 1680,
+          "tokens_used": 0
+        },
+        "dismiss_result": {
+          "status": "IME_DISMISSED",
+          "serial": "10CF5L0TYL00312",
+          "was_visible": true,
+          "ime_visible_after": false,
+          "commands_sent": [
+            "input keyevent 4"
+          ],
+          "safe_visible_y_max": 2800,
+          "dry_run": true,
+          "tokens_used": 0
+        },
+        "viewport_result": {
+          "status": "VIEWPORT_NORMALIZED_AND_CENTERED",
+          "serial": "10CF5L0TYL00312",
+          "selector": "button, input[type='submit']",
+          "tag_name": "button",
+          "text": "Validate",
+          "was_offscreen": true,
+          "horizontal_overflow": true,
+          "scrolled_into_view": true,
+          "scroll_strategy": "el.scrollIntoView({behavior: 'instant', block: 'center', inline: 'center'})",
+          "chrome_focused": true,
+          "socket_rebound": true,
+          "phys_x": 630,
+          "phys_y": 1485,
+          "bounds": null,
+          "css_rect": {
+            "left": 150.0,
+            "top": 360.0,
+            "width": 120.0,
+            "height": 44.0,
+            "right": 270.0,
+            "bottom": 404.0
+          },
+          "viewport_metrics": {
+            "devicePixelRatio": 3.0,
+            "innerWidth": 420.0,
+            "innerHeight": 820.0,
+            "outerWidth": 420.0,
+            "outerHeight": 933.0,
+            "scrollWidth": 980.0,
+            "scrollHeight": 1600.0,
+            "visualViewportOffsetLeft": 0.0,
+            "visualViewportOffsetTop": 0.0,
+            "visualViewportScale": 1.0,
+            "pageXOffset": 280.0,
+            "pageYOffset": 420.0,
+            "webdriver": false
+          },
+          "dry_run": true,
+          "tokens_used": 0
+        },
+        "phys_x": 630,
+        "phys_y": 1485,
+        "dry_run": true,
+        "tokens_used": 0,
+        "timestamp": 1793000883.4170747
+      },
+      "category": "keyboard_viewport_guard",
+      "tags": [
+        "keyboard_viewport_guard",
+        "ime",
+        "viewport",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 14:48:03"
+    },
+    {
+      "id": "mem_1793000883582",
+      "key": "dag_exec_tiktok_smart_switch_and_engage_dag_10CF5L0TYL00312_1793000883571",
+      "value": {
+        "dag_name": "tiktok_smart_switch_and_engage_dag",
+        "serial": "10CF5L0TYL00312",
+        "dry_run": true,
+        "nodes_visited": [
+          "start_launch",
+          "check_ime_or_popup",
+          "switch_account_nht",
+          "search_tra_dang",
+          "open_video_and_like",
+          "post_comment_and_verify",
+          "exit_home_done"
+        ],
+        "branch_decisions": [
+          {
+            "from_node": "start_launch",
+            "to_node": "check_ime_or_popup",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          },
+          {
+            "from_node": "check_ime_or_popup",
+            "to_node": "switch_account_nht",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          },
+          {
+            "from_node": "switch_account_nht",
+            "to_node": "search_tra_dang",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          },
+          {
+            "from_node": "search_tra_dang",
+            "to_node": "open_video_and_like",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          },
+          {
+            "from_node": "open_video_and_like",
+            "to_node": "post_comment_and_verify",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          },
+          {
+            "from_node": "post_comment_and_verify",
+            "to_node": "exit_home_done",
+            "branch": "on_success",
+            "success": true,
+            "attempt": 1
+          }
+        ],
+        "step_trace": [
+          {
+            "step_index": 0,
+            "node_id": "start_launch",
+            "title": "Launch TikTok Package & Wait For Main Feed",
+            "node_type": "action",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "check_ime_or_popup",
+            "detail": {
+              "executed": true,
+              "node_type": "action",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 1,
+            "node_id": "check_ime_or_popup",
+            "title": "Guard Against Rogue IME Keyboard or Modal Popup (Subagent #18/#42)",
+            "node_type": "subagent_call",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "switch_account_nht",
+            "detail": {
+              "executed": true,
+              "node_type": "subagent_call",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 2,
+            "node_id": "switch_account_nht",
+            "title": "Switch Active Profile to Account NHT",
+            "node_type": "action",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "search_tra_dang",
+            "detail": {
+              "executed": true,
+              "node_type": "action",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 3,
+            "node_id": "search_tra_dang",
+            "title": "Search Creator 'tra.dang.904' via Top Search Bar",
+            "node_type": "action",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "open_video_and_like",
+            "detail": {
+              "executed": true,
+              "node_type": "action",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 4,
+            "node_id": "open_video_and_like",
+            "title": "Open Latest Video & Trigger Heart Like Gesture",
+            "node_type": "action",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "post_comment_and_verify",
+            "detail": {
+              "executed": true,
+              "node_type": "action",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 5,
+            "node_id": "post_comment_and_verify",
+            "title": "Post Engagement Comment & Verify Delivery",
+            "node_type": "condition",
+            "success": true,
+            "branch_taken": "on_success",
+            "next_node": "exit_home_done",
+            "detail": {
+              "executed": true,
+              "node_type": "condition",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          },
+          {
+            "step_index": 6,
+            "node_id": "exit_home_done",
+            "title": "Return to Android Home Screen & Complete TikTok DAG",
+            "node_type": "terminal",
+            "success": true,
+            "branch_taken": "terminal",
+            "next_node": null,
+            "detail": {
+              "executed": true,
+              "node_type": "terminal",
+              "dry_run": true,
+              "serial": "10CF5L0TYL00312"
+            }
+          }
+        ],
+        "tokens_used": 0,
+        "status": "DAG_COMPLETED",
+        "elapsed_ms": 0.069,
+        "subagent": "VisualFlowBuilderAndLiveMonitorSubagent",
+        "subagent_id": 45
+      },
+      "category": "dag_telemetry",
+      "tags": [
+        "visual_flow_dag",
+        "tiktok_smart_switch_and_engage_dag",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 14:48:03"
     }
   ],
   "macros": {
