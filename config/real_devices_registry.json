@@ -27,11 +27,11 @@
       "android_version": "16",
       "resolution": "1260x2800",
       "wifi_ip": "192.168.1.124",
-      "last_seen": "2026-10-26 07:03:43"
+      "last_seen": "2026-10-26 07:39:26"
     }
   },
   "wireless_endpoints": [
     "192.168.1.77:5555"
   ],
-  "last_updated": "2026-10-26 07:03:43"
+  "last_updated": "2026-10-26 07:39:26"
 }
