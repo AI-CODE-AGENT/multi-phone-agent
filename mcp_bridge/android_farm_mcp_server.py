@@ -110,6 +110,19 @@ from agents.universal_codegen_apk_and_cicd_subagent import (
     UniversalV19ProductionReleaseOracleSubagent,
     Causal10xV19CodegenAndCICDLoopEvolverSubagent,
 )
+from core.agent_flight_recorder import AgentFlightRecorder
+from core.universal_error_ledger_engine import UniversalErrorLedgerEngine
+from agents.agent_observability_and_error_ledger_subagent import (
+    OTelGenAIFlightRecorderSubagent,
+    UnbufferedHeartbeatStreamGuardSubagent,
+    UniversalCrossProjectErrorLedgerSubagent,
+    AutoReflexionExceptionDiagnoserSubagent,
+    MCPStdioOneshotProbeSubagent,
+    TimeTravelStepReplayInspectorSubagent,
+    SmartLocatorSelfHealingEngineSubagent,
+    LiveFlightLogFilterAndExportSubagent,
+    Causal10xV20ObservabilityAndReflexionEvolverSubagent,
+)
 from mcp_bridge.artemis_bridge import ArtemisBridge
 from config.farm_config import DEFAULT_FARM_DEVICES
 
@@ -193,6 +206,17 @@ class AndroidFarmMCPServer:
         self.v19_cicd_exporter = CICDGitHubActionsAndJUnitGateExporterSubagent()
         self.v19_release_oracle = UniversalV19ProductionReleaseOracleSubagent()
         self.v19_causal_10x = Causal10xV19CodegenAndCICDLoopEvolverSubagent()
+        self.flight_recorder = AgentFlightRecorder()
+        self.error_ledger = UniversalErrorLedgerEngine()
+        self.v20_flight_subagent = OTelGenAIFlightRecorderSubagent(self.flight_recorder)
+        self.v20_heartbeat_subagent = UnbufferedHeartbeatStreamGuardSubagent(self.flight_recorder)
+        self.v20_ledger_subagent = UniversalCrossProjectErrorLedgerSubagent(self.error_ledger)
+        self.v20_diagnoser_subagent = AutoReflexionExceptionDiagnoserSubagent(self.error_ledger)
+        self.v20_probe_subagent = MCPStdioOneshotProbeSubagent(self.error_ledger)
+        self.v20_replay_subagent = TimeTravelStepReplayInspectorSubagent(self.flight_recorder)
+        self.v20_healer_subagent = SmartLocatorSelfHealingEngineSubagent(self.flight_recorder)
+        self.v20_filter_subagent = LiveFlightLogFilterAndExportSubagent(self.flight_recorder)
+        self.v20_causal_10x = Causal10xV20ObservabilityAndReflexionEvolverSubagent(self.flight_recorder, self.error_ledger)
         self.lock_mgr = DeviceLockManager()
         self.bridge = ArtemisBridge()
         self.tools = self._register_tools()
@@ -1230,6 +1254,88 @@ class AndroidFarmMCPServer:
                         "loops": {"type": "integer", "description": "Number of causal loops (default 10)"}
                     }
                 }
+            },
+            {
+                "name": "android_record_agent_flight_span",
+                "description": "Record an OpenTelemetry GenAI (`gen_ai.*`) structured JSONL flight span with optional unbuffered heartbeat (`Subagents #126-#127`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "agent_name": {"type": "string", "description": "Subagent or caller name"},
+                        "tool_name": {"type": "string", "description": "Executed tool or step name"},
+                        "device_serial": {"type": "string", "description": "Device serial"},
+                        "status": {"type": "string", "description": "success | error | healed"},
+                        "duration_ms": {"type": "number", "description": "Execution duration in milliseconds"},
+                        "input_args": {"type": "object", "description": "Sanitized input arguments"},
+                        "output_result": {"type": "object", "description": "Sanitized output result"}
+                    }
+                }
+            },
+            {
+                "name": "android_query_agent_flight_logs",
+                "description": "Query structured OpenTelemetry GenAI JSONL flight logs by trace_id, agent_name, tool_name, status, or min_duration_ms (`Subagent #134`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "trace_id": {"type": "string", "description": "Optional trace_id filter"},
+                        "agent_name": {"type": "string", "description": "Optional agent substring filter"},
+                        "tool_name": {"type": "string", "description": "Optional tool substring filter"},
+                        "status": {"type": "string", "description": "Optional status filter (success/error/healed)"},
+                        "min_duration_ms": {"type": "number", "description": "Minimum duration threshold in ms"},
+                        "limit": {"type": "integer", "description": "Max records to return (default 30)"}
+                    }
+                }
+            },
+            {
+                "name": "android_diagnose_with_error_ledger",
+                "description": "Match any exception, stderr output, or symptom against the Cross-Project Universal Error Ledger (`ERR-001`..`ERR-012+`) and return root cause + golden rule (`Subagents #128-#129`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "error_text": {"type": "string", "description": "Exception message, stderr log, or symptom"},
+                        "tech_stack": {"type": "string", "description": "Optional tech stack hint (e.g. MCP, Tkinter, ADB, PyTorch)"}
+                    }
+                }
+            },
+            {
+                "name": "android_register_cross_project_error",
+                "description": "Register a newly discovered engineering error and golden rule into D:/Project/universal_error_ledger.jsonl and UNIVERSAL_ENGINEERING_ERROR_PLAYBOOK.md (`Subagent #128`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "category": {"type": "string", "description": "Error category"},
+                        "tech_stack": {"type": "array", "items": {"type": "string"}, "description": "Affected technologies"},
+                        "symptom": {"type": "string", "description": "Observed failure symptom"},
+                        "root_cause": {"type": "string", "description": "Underlying technical root cause"},
+                        "golden_rule": {"type": "string", "description": "Mandatory rule to prevent recurrence"},
+                        "verification_hook": {"type": "string", "description": "Automated check or test command"}
+                    },
+                    "required": ["category", "symptom", "root_cause", "golden_rule"]
+                }
+            },
+            {
+                "name": "android_probe_mcp_stdio_health",
+                "description": "Safely probe any stdio MCP server (`python`, `node`, `npx tsx`) using a JSON-RPC oneshot request + immediate stdin EOF closure + timeout to prevent 'Status: RUNNING / No log output recorded yet' hangs (`Subagent #130`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "command": {"type": "array", "items": {"type": "string"}, "description": "Command list to probe"},
+                        "timeout_sec": {"type": "number", "description": "Timeout in seconds (default 4.0)"}
+                    }
+                }
+            },
+            {
+                "name": "android_time_travel_replay_and_heal_locator",
+                "description": "Replay a recorded flight span snapshot, synthesize a resilient Dynamic-First + Coordinate-Fallback locator, and optionally run the 10-Loop AMAF v20.0 Causal Observability Evolution (`Subagents #131-#135`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "span_id": {"type": "string", "description": "Optional span_id to replay"},
+                        "broken_locator": {"type": "string", "description": "Broken XPath or resource-id locator to heal"},
+                        "run_10x_loop": {"type": "boolean", "description": "Whether to also execute the 10-Loop v20.0 Causal Evolution"},
+                        "serial": {"type": "string", "description": "Target device serial"}
+                    }
+                }
             }
         ]
 
@@ -2041,12 +2147,85 @@ class AndroidFarmMCPServer:
                     "release_oracle": oracle_res,
                 }
 
+            elif name == "android_record_agent_flight_span":
+                res = self.v20_flight_subagent.execute(
+                    agent_name=args.get("agent_name", "ExternalMCPAgent"),
+                    tool_name=args.get("tool_name", "custom_action"),
+                    device_serial=args.get("device_serial", "10CF5L0TYL00312"),
+                    status=args.get("status", "success"),
+                    duration_ms=float(args.get("duration_ms", 5.0)),
+                    input_args=args.get("input_args"),
+                    output_result=args.get("output_result"),
+                )
+                return {"success": True, **res}
+
+            elif name == "android_query_agent_flight_logs":
+                res = self.flight_recorder.query_logs(
+                    trace_id=args.get("trace_id"),
+                    agent_name=args.get("agent_name"),
+                    tool_name=args.get("tool_name"),
+                    status=args.get("status"),
+                    min_duration_ms=args.get("min_duration_ms"),
+                    limit=int(args.get("limit", 30)),
+                )
+                return {"success": True, **res}
+
+            elif name == "android_diagnose_with_error_ledger":
+                err_txt = args.get("error_text", "Status: RUNNING - No log output recorded yet")
+                res = self.v20_diagnoser_subagent.execute(
+                    error_text=err_txt,
+                    tech_stack=args.get("tech_stack"),
+                )
+                return {"success": True, **res}
+
+            elif name == "android_register_cross_project_error":
+                res = self.error_ledger.register_error(
+                    category=args.get("category", "GENERAL_ENGINEERING"),
+                    tech_stack=args.get("tech_stack", ["Python"]),
+                    symptom=args.get("symptom", ""),
+                    root_cause=args.get("root_cause", ""),
+                    golden_rule=args.get("golden_rule", ""),
+                    verification_hook=args.get("verification_hook", "pytest -q"),
+                    persist_to_disk=bool(args.get("persist_to_disk", True)),
+                )
+                return {"success": True, **res}
+
+            elif name == "android_probe_mcp_stdio_health":
+                res = self.v20_probe_subagent.execute(
+                    command=args.get("command"),
+                    timeout_sec=float(args.get("timeout_sec", 4.0)),
+                )
+                return {"success": True, **res}
+
+            elif name == "android_time_travel_replay_and_heal_locator":
+                heal_res = self.v20_healer_subagent.execute(
+                    span_id=args.get("span_id"),
+                    broken_locator=args.get("broken_locator", "//android.widget.Button[@text='Tiếp tục']"),
+                )
+                loop_res = None
+                if args.get("run_10x_loop", False):
+                    loop_res = self.v20_causal_10x.execute(
+                        serial=args.get("serial", "10CF5L0TYL00312"),
+                        loops=10,
+                    )
+                return {"success": True, **heal_res, "causal_10x_v20": loop_res}
+
             else:
                 return {"success": False, "error": f"Unknown tool: {name}"}
 
         except Exception as e:
             logger.exception("Error executing tool %s: %s", name, e)
-            return {"success": False, "error": str(e)}
+            diag = self.error_ledger.diagnose_error(str(e))
+            self.flight_recorder.record_span(
+                agent_name="AndroidFarmMCPServer",
+                tool_name=name,
+                status="error",
+                error_type=type(e).__name__,
+                error_diagnosis=diag,
+                input_args=args,
+                output_result={"error": str(e)},
+            )
+            return {"success": False, "error": str(e), "error_diagnosis": diag}
 
     def run_stdio(self):
         """Standard JSON-RPC 2.0 I/O loop."""
