@@ -29,6 +29,8 @@ class TestAndroidFarmMCPServer(unittest.TestCase):
         self.assertIn("android_touch_fingerprint", tool_names)
         self.assertIn("android_set_gps", tool_names)
         self.assertIn("android_run_kanban_task", tool_names)
+        self.assertIn("android_oem_popup_guard", tool_names)
+        self.assertIn("android_universal_install_apk", tool_names)
 
     def test_mock_otp_tool_flow(self):
         # 1. Generate OTP

@@ -225,7 +225,7 @@ class FarmDashboardApp:
         # Background state refresher
         self._is_running = True
         self.refresh_thread = threading.Thread(target=self._auto_refresh_loop, daemon=True)
-        self.refresh_thread.start(); self.oem_guard.start_watcher("10CF5L0TYL00312", interval_sec=0.6)
+        self.refresh_thread.start()
 
         # Clean shutdown on window close
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)

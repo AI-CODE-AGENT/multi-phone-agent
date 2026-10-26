@@ -30,6 +30,7 @@ from core.group_control_broadcaster import GroupControlBroadcaster
 from core.multi_app_manager import MultiAppAutomationManager
 from core.human_touch_engine import HumanTouchEngine
 from core.oem_popup_watcher import OEMPopupWatcher
+from core.universal_apk_installer_engine import UniversalAPKInstallerEngine
 from core.scrcpy_manager import ScrcpyManager
 from core.memory_manager import MemoryManager
 from core.git_worktree_manager import GitWorktreeManager
@@ -76,6 +77,7 @@ class AndroidFarmMCPServer:
         self.multi_app_mgr = MultiAppAutomationManager(self.adb, self.real_mgr, self.broadcaster, self.otp_service)
         self.human_engine = HumanTouchEngine(self.adb, self.real_mgr)
         self.oem_watcher = OEMPopupWatcher(self.adb)
+        self.universal_installer = UniversalAPKInstallerEngine()
         self.scrcpy_mgr = ScrcpyManager()
         self.memory = MemoryManager()
         self.worktree_mgr = GitWorktreeManager()
@@ -819,6 +821,23 @@ class AndroidFarmMCPServer:
                     },
                     "required": ["serial"]
                 }
+            },
+            {
+                "name": "android_universal_install_apk",
+                "description": "On-demand MCP tool (zero 24/7 background polling) to 100% automatically install an APK or dismiss Vivo OriginOS PackageInterceptActivity ('Tôi đã hiểu kết quả phát hiện rủi ro của ứng dụng' checkbox + 'Tiếp tục cài đặt' button). Runs a scoped popup watcher ONLY during the tool call and stops immediately upon completion.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Optional target device serial (auto-detects connected Vivo/Android device if omitted)"},
+                        "apk_path": {"type": "string", "description": "Local path to the .apk file to install (leave empty if action='dismiss_active_dialog')"},
+                        "action": {
+                            "type": "string",
+                            "enum": ["install_apk", "dismiss_active_dialog"],
+                            "description": "Whether to install an APK with scoped OEM popup watcher or immediately dismiss an active install dialog on screen"
+                        },
+                        "grant_permissions": {"type": "boolean", "description": "Auto-grant runtime permissions (-g) during install (default true)"}
+                    }
+                }
             }
         ]
 
@@ -1410,6 +1429,26 @@ class AndroidFarmMCPServer:
                     execute_touch=exec_t
                 )
                 return {"success": True, **res}
+
+            elif name == "android_universal_install_apk":
+                serial = args.get("serial")
+                if not serial:
+                    online = self.adb.get_online_devices()
+                    serial = online[0] if online else "10CF5L0TYL00312"
+                apk_path = str(args.get("apk_path", "")).strip()
+                act = args.get("action", "install_apk" if apk_path else "dismiss_active_dialog")
+                if act == "dismiss_active_dialog" or not apk_path:
+                    stage_res = self.universal_installer.execute_installer_step(self.adb, serial=serial)
+                    oem_res = self.oem_watcher.scan_and_dismiss_once(serial, use_vivo_fallback=True)
+                    return {
+                        "success": True,
+                        "mode": "dismiss_active_dialog",
+                        "serial": serial,
+                        "stage_result": stage_res,
+                        "oem_result": oem_res,
+                    }
+                res = self.oem_guard.guarded_apk_install(serial=serial, apk_path=apk_path)
+                return {"success": bool(res.get("success", res.get("installed", False))), **res}
 
             else:
                 return {"success": False, "error": f"Unknown tool: {name}"}

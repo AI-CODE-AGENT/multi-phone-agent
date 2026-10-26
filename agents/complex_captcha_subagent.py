@@ -11,7 +11,7 @@ import sys
 import tempfile
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from agents.captcha_solver_subagent import CaptchaSolverSubagent
@@ -65,7 +65,7 @@ class ComplexCaptchaSubagent:
         serial: str,
         screenshot_path: Optional[str],
         auto_screenshot: bool,
-    ) -> Tuple_or_Path:
+    ) -> Tuple[Optional[str], bool]:
         """Capture screenshot to a temporary file if `screenshot_path` is not provided and `auto_screenshot=True`."""
         if screenshot_path and os.path.exists(screenshot_path):
             return screenshot_path, False

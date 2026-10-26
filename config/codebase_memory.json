@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-10-26 16:34:13",
+  "last_updated": "2026-10-26 16:52:48",
   "locators": {
     "Screen_Login": [
       {
@@ -10579,6 +10579,64 @@
         ]
       },
       "timestamp": "2026-10-26 16:34:13"
+    },
+    {
+      "id": "mem_1793008342988",
+      "key": "oem_guarded_install_10CF5L0TYL00312_1793008342",
+      "value": {
+        "success": true,
+        "serial": "10CF5L0TYL00312",
+        "apk_path": "D:\\Project\\food-delivery\\app\\build\\outputs\\apk\\debug\\app-debug.apk",
+        "popups_auto_clicked": 2,
+        "output": "Performing Streamed Install\nSuccess"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "apk_install",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "apk_path": "D:\\Project\\food-delivery\\app\\build\\outputs\\apk\\debug\\app-debug.apk",
+        "success": true,
+        "popups_auto_clicked": 2
+      },
+      "timestamp": "2026-10-26 16:52:22"
+    },
+    {
+      "id": "mem_1793008368288",
+      "key": "oem_popup_10CF5L0TYL00312_1793008368275",
+      "value": {
+        "status": "POPUP_DISMISSED",
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "checkbox_ticked": true,
+        "checkbox_info": "Tôi đã hiểu kết quả phát hiện rủi ro của ứng dụng",
+        "tapped_coords": [
+          630,
+          2621
+        ],
+        "method": "ui_xml_match",
+        "foreground_window": "mCurrentFocus=Window{123 u0 com.android.packageinstaller/com.android.packageinstaller.PackageInterceptActivity type=1 }",
+        "timestamp": "2026-10-26 16:52:48"
+      },
+      "category": "oem_popup_guard",
+      "tags": [
+        "oem_popup",
+        "security_dialog",
+        "10CF5L0TYL00312",
+        "ui_xml_match"
+      ],
+      "metadata": {
+        "serial": "10CF5L0TYL00312",
+        "matched_label": "Tiếp tục cài đặt",
+        "tapped_coords": [
+          630,
+          2621
+        ]
+      },
+      "timestamp": "2026-10-26 16:52:48"
     }
   ],
   "macros": {
