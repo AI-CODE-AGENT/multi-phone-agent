@@ -58,6 +58,20 @@ from agents.vivo_originos_optimizer_subagent import VivoOriginOSDeepOptimizerSub
 from agents.audio_behavior_captcha_subagent import InteractiveAudioAndBehaviorCaptchaSubagent
 from agents.session_credential_guard_subagent import CrossAppSessionAndCredentialGuardSubagent
 from agents.real_device_e2e_benchmark_subagent import RealDeviceE2EBenchmarkAndSelfHealerSubagent
+from agents.multi_screen_responsive_subagent import (
+    MultiScreenViewportMatrixSubagent,
+    ResponsiveDOMAndXMLCriticSubagent,
+    SynchronizedMultiDeviceMirrorSubagent,
+    VisualMultiScreenGridComposerSubagent,
+    AutoFixLayoutPatchSynthesizerSubagent,
+)
+from agents.autonomous_qa_tester_subagent import (
+    AutonomousTestPlanGeneratorSubagent,
+    BoundaryAndMonkeyFuzzTesterSubagent,
+    ZeroHumanQASignOffOracleSubagent,
+    MCPVisionAndTestRunnerBridgeSubagent,
+    Causal10xResponsiveQACoordinatorSubagent,
+)
 from mcp_bridge.artemis_bridge import ArtemisBridge
 from config.farm_config import DEFAULT_FARM_DEVICES
 
@@ -66,7 +80,7 @@ logger = logging.getLogger("AndroidFarmMCP")
 
 
 class AndroidFarmMCPServer:
-    """Standard Model Context Protocol Server 2.0 (45 Tools) for Hybrid Real & Virtual Multi-App Farm (AMAF 8.0)."""
+    """Standard Model Context Protocol Server 2.0 (50 Tools) for Hybrid Real & Virtual Multi-App Farm (AMAF 15.0)."""
 
     def __init__(self):
         self.adb = ADBWrapper()
@@ -104,9 +118,19 @@ class AndroidFarmMCPServer:
         self.audio_behavior_captcha = InteractiveAudioAndBehaviorCaptchaSubagent(self.adb, self.memory)
         self.session_guard = CrossAppSessionAndCredentialGuardSubagent(self.adb, self.memory)
         self.e2e_benchmark = RealDeviceE2EBenchmarkAndSelfHealerSubagent(self.adb, self.memory)
+        self.responsive_matrix = MultiScreenViewportMatrixSubagent(self.adb, self.memory)
+        self.responsive_critic = ResponsiveDOMAndXMLCriticSubagent(self.adb, self.memory)
+        self.sync_mirror = SynchronizedMultiDeviceMirrorSubagent(self.adb, self.memory)
+        self.qa_plan_gen = AutonomousTestPlanGeneratorSubagent(self.adb, self.memory)
+        self.qa_fuzzer = BoundaryAndMonkeyFuzzTesterSubagent(self.adb, self.memory)
+        self.qa_oracle = ZeroHumanQASignOffOracleSubagent(self.adb, self.memory)
+        self.qa_10x_evolver = Causal10xResponsiveQACoordinatorSubagent(self.adb, self.memory)
         self.lock_mgr = DeviceLockManager()
         self.bridge = ArtemisBridge()
         self.tools = self._register_tools()
+
+    def list_tools(self) -> List[Dict[str, Any]]:
+        return self.tools
 
     def _register_tools(self) -> List[Dict[str, Any]]:
         return [
@@ -838,8 +862,91 @@ class AndroidFarmMCPServer:
                         "grant_permissions": {"type": "boolean", "description": "Auto-grant runtime permissions (-g) during install (default true)"}
                     }
                 }
+            },
+            {
+                "name": "android_test_multi_screen_responsive",
+                "description": "Test an Android app across multiple screen resolutions, densities, and orientations (Compact 720x1280, Standard 1080x2400, Vivo V2417A 1260x2800, Foldable 1812x2176, Tablet 1600x2560). Detects offscreen clipping, sibling overlap, text ellipsis, <48dp touch targets, and row misalignment, generates Android XML / Jetpack Compose / WebView CSS @media fixes, and returns a side-by-side comparison grid plus base64 images for Vision LLMs.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial (default 10CF5L0TYL00312)"},
+                        "suite": {
+                            "type": "string",
+                            "enum": ["default_3", "phone_matrix", "full_5_screens"],
+                            "description": "Preset screen suite to sweep (default full_5_screens)"
+                        },
+                        "profiles": {
+                            "type": "array",
+                            "items": {},
+                            "description": "Optional custom list of profile IDs or {id, width, height, density_dpi} dicts"
+                        },
+                        "apply_hardware_wm": {
+                            "type": "boolean",
+                            "description": "If true, dynamically applies `adb shell wm size` and `wm density` per profile and resets in `finally` (default false for fast non-disruptive projection)"
+                        },
+                        "landscape": {"type": "boolean", "description": "Test in landscape orientation (default false)"},
+                        "capture_screenshots": {"type": "boolean", "description": "Capture screenshots and return Vision LLM image blocks (default true)"}
+                    }
+                }
+            },
+            {
+                "name": "android_run_autonomous_qa_tester",
+                "description": "Zero-Human Autonomous QA Tester ('Thay thế hoàn toàn Tester'): Automatically discovers UI states, generates a 6-category Test Plan (Smoke, Multi-Screen Responsive, Actionability, Boundary Input Fuzzing, WCAG Accessibility, Crash/ANR), runs all 6 stages, compiles reproducible Bug Tickets (BUG-RESP/A11Y/CRASH) with Android XML/Compose/CSS fixes, and computes a 0..100 QA Readiness Verdict.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial (default 10CF5L0TYL00312)"},
+                        "package_name": {"type": "string", "description": "Target Android package name (default com.android.settings)"},
+                        "suite": {
+                            "type": "string",
+                            "enum": ["default_3", "phone_matrix", "full_5_screens"],
+                            "description": "Responsive screen suite (default full_5_screens)"
+                        },
+                        "apply_hardware_wm": {"type": "boolean", "description": "Apply live `wm size`/`wm density` switches with `finally` reset (default false)"},
+                        "capture_screenshots": {"type": "boolean", "description": "Capture multi-screen visual evidence (default true)"}
+                    }
+                }
+            },
+            {
+                "name": "android_sync_multi_screen_action",
+                "description": "Responsively-style synchronized interaction mirroring across multiple Android devices or screen resolutions using normalized [0.0 .. 1.0] coordinates (`norm_x`, `norm_y`) so a single tap, swipe, scroll, or text input maps accurately to 720p, 1080p, 1260p, Foldable, and Tablet screens simultaneously.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serials": {
+                            "type": "array",
+                            "items": {"type": "string"},
+                            "description": "List of target device serials (defaults to all online devices)"
+                        },
+                        "action_type": {
+                            "type": "string",
+                            "enum": ["tap", "swipe", "scroll", "input"],
+                            "description": "Synchronized action to mirror"
+                        },
+                        "norm_x": {"type": "number", "description": "Normalized X coordinate in [0.0 .. 1.0]"},
+                        "norm_y": {"type": "number", "description": "Normalized Y coordinate in [0.0 .. 1.0]"},
+                        "norm_to_x": {"type": "number", "description": "Normalized end X for swipe/scroll in [0.0 .. 1.0]"},
+                        "norm_to_y": {"type": "number", "description": "Normalized end Y for swipe/scroll in [0.0 .. 1.0]"},
+                        "text": {"type": "string", "description": "Text to type when action_type='input'"},
+                        "dry_run": {"type": "boolean", "description": "Compute coordinate mappings without dispatching ADB input"}
+                    }
+                }
+            },
+            {
+                "name": "android_run_10x_responsive_qa_evolution",
+                "description": "Execute the 10-Loop Causal Multi-Agent Evolution (`Loop 1` -> `Loop 10`) for Responsive Multi-Screen & Autonomous QA Testing, where each Loop n+1 strictly learns from Loop n's telemetry (`loop_n_plus_1.input_lesson == loop_n.learned_lesson`).",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial (default 10CF5L0TYL00312)"},
+                        "package_name": {"type": "string", "description": "Target package name (default com.android.settings)"}
+                    }
+                }
             }
         ]
+
+    def call_tool(self, name: str, args: Dict[str, Any]) -> Dict[str, Any]:
+        return self.handle_tool_call(name, args)
 
     def handle_tool_call(self, name: str, args: Dict[str, Any]) -> Dict[str, Any]:
         """Dispatch tool calls to internal implementations."""
@@ -1450,6 +1557,57 @@ class AndroidFarmMCPServer:
                 res = self.oem_guard.guarded_apk_install(serial=serial, apk_path=apk_path)
                 return {"success": bool(res.get("success", res.get("installed", False))), **res}
 
+            elif name == "android_test_multi_screen_responsive":
+                serial = args.get("serial") or (self.adb.get_online_devices() or ["10CF5L0TYL00312"])[0]
+                res = self.responsive_matrix.run_matrix_sweep(
+                    serial=serial,
+                    suite=args.get("suite", "full_5_screens"),
+                    profiles=args.get("profiles"),
+                    apply_hardware_wm=bool(args.get("apply_hardware_wm", False)),
+                    landscape=bool(args.get("landscape", False)),
+                    capture_screenshots=bool(args.get("capture_screenshots", True)),
+                    xml_override=args.get("xml_override"),
+                )
+                return {"success": True, **res}
+
+            elif name == "android_run_autonomous_qa_tester":
+                serial = args.get("serial") or (self.adb.get_online_devices() or ["10CF5L0TYL00312"])[0]
+                pkg = args.get("package_name", "com.android.settings")
+                res = self.qa_oracle.run_autonomous_qa_tester(
+                    serial=serial,
+                    package_name=pkg,
+                    suite=args.get("suite", "full_5_screens"),
+                    profiles=args.get("profiles"),
+                    apply_hardware_wm=bool(args.get("apply_hardware_wm", False)),
+                    capture_screenshots=bool(args.get("capture_screenshots", True)),
+                    xml_override=args.get("xml_override"),
+                )
+                return {"success": True, **res}
+
+            elif name == "android_sync_multi_screen_action":
+                serials = args.get("serials") or self.adb.get_online_devices() or ["10CF5L0TYL00312"]
+                res = self.sync_mirror.mirror_action(
+                    serials=serials,
+                    action_type=args.get("action_type", "tap"),
+                    norm_x=float(args.get("norm_x", 0.5)),
+                    norm_y=float(args.get("norm_y", 0.5)),
+                    norm_to_x=float(args.get("norm_to_x", 0.5)),
+                    norm_to_y=float(args.get("norm_to_y", 0.25)),
+                    text=str(args.get("text", "")),
+                    dry_run=bool(args.get("dry_run", False)),
+                )
+                return {"success": True, **res}
+
+            elif name == "android_run_10x_responsive_qa_evolution":
+                serial = args.get("serial") or (self.adb.get_online_devices() or ["10CF5L0TYL00312"])[0]
+                pkg = args.get("package_name", "com.android.settings")
+                res = self.qa_10x_evolver.run_10x_causal_evolution(
+                    serial=serial,
+                    package_name=pkg,
+                    xml_override=args.get("xml_override"),
+                )
+                return {"success": True, **res}
+
             else:
                 return {"success": False, "error": f"Unknown tool: {name}"}
 
@@ -1459,7 +1617,7 @@ class AndroidFarmMCPServer:
 
     def run_stdio(self):
         """Standard JSON-RPC 2.0 I/O loop."""
-        logger.info("Android Multi-Agent Farm MCP Server 2.0 (AMAF 8.0 - 45 Tools) started on stdio.")
+        logger.info("Android Multi-Agent Farm MCP Server 2.0 (AMAF 15.0 - 50 Tools) started on stdio.")
         for line in sys.stdin:
             line = line.strip()
             if not line:
@@ -1479,7 +1637,7 @@ class AndroidFarmMCPServer:
                             "capabilities": {"tools": {}},
                             "serverInfo": {
                                 "name": "android-multi-agent-farm",
-                                "version": "8.0.0"
+                                "version": "15.0.0"
                             }
                         }
                     }
@@ -1495,16 +1653,28 @@ class AndroidFarmMCPServer:
                     tool_name = params.get("name")
                     arguments = params.get("arguments", {})
                     output = self.handle_tool_call(tool_name, arguments)
+                    mcp_images = output.pop("mcp_images", None) if isinstance(output, dict) else None
+                    content_blocks = [
+                        {
+                            "type": "text",
+                            "text": json.dumps(output, ensure_ascii=False, indent=2)
+                        }
+                    ]
+                    if isinstance(mcp_images, list):
+                        for img in mcp_images[:4]:
+                            if isinstance(img, dict) and img.get("data"):
+                                content_blocks.append(
+                                    {
+                                        "type": "image",
+                                        "data": img["data"],
+                                        "mimeType": img.get("mimeType", "image/jpeg"),
+                                    }
+                                )
                     res = {
                         "jsonrpc": "2.0",
                         "id": req_id,
                         "result": {
-                            "content": [
-                                {
-                                    "type": "text",
-                                    "text": json.dumps(output, ensure_ascii=False, indent=2)
-                                }
-                            ]
+                            "content": content_blocks
                         }
                     }
                 elif method == "ping":

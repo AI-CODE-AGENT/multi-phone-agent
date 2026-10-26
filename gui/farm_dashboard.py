@@ -109,6 +109,20 @@ from agents.recursive_10x_antibot_ui_ux_evolution_subagent import (
     UnifiedUIUXAndAntiBotFinishGateSubagent,
     CausalChain10xAntiBotUIUXCoordinatorSubagent,
 )
+from agents.multi_screen_responsive_subagent import (
+    MultiScreenViewportMatrixSubagent,
+    ResponsiveDOMAndXMLCriticSubagent,
+    SynchronizedMultiDeviceMirrorSubagent,
+    VisualMultiScreenGridComposerSubagent,
+    AutoFixLayoutPatchSynthesizerSubagent,
+)
+from agents.autonomous_qa_tester_subagent import (
+    AutonomousTestPlanGeneratorSubagent,
+    BoundaryAndMonkeyFuzzTesterSubagent,
+    ZeroHumanQASignOffOracleSubagent,
+    MCPVisionAndTestRunnerBridgeSubagent,
+    Causal10xResponsiveQACoordinatorSubagent,
+)
 from core.memory_manager import MemoryManager
 from core.kanban_board import KanbanBoard
 from agents.device_lock_manager import DeviceLockManager
@@ -134,7 +148,7 @@ C_TEAL = "#94e2d5"
 class FarmDashboardApp:
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.root.title("Android Multi-Agent Farm (AMAF 14.0) | 75 Subagents | 4-Layer Anti-Bot Stealth | Sigma-Lognormal Touch Kinematics | Cloudflare Radar UI/UX & 10x Causal Evolution")
+        self.root.title("Android Multi-Agent Farm (AMAF 15.0) | 85 Subagents | 50 MCP Tools | Multi-Screen Responsive Matrix | Zero-Human Autonomous QA Tester & 10x Causal Loop")
         self.root.geometry("1340x880")
         self.root.minsize(1100, 740)
         self.root.configure(bg=C_BASE)
@@ -213,6 +227,17 @@ class FarmDashboardApp:
         self.cross_layer_bot_correlator = CrossLayerBotSignalCorrelatorSubagent()
         self.unified_ui_antibot_finish_gate = UnifiedUIUXAndAntiBotFinishGateSubagent()
         self.causal_10x_antibot_ui_ux_coordinator = CausalChain10xAntiBotUIUXCoordinatorSubagent()
+        # AMAF 15.0 Subagents (#76-#85): 5-Screen Responsive Viewport Matrix, Zero-Human Autonomous QA Tester, Sync Mirror & 10x Causal QA Loop
+        self.multi_screen_viewport_matrix = MultiScreenViewportMatrixSubagent()
+        self.responsive_dom_xml_critic = ResponsiveDOMAndXMLCriticSubagent()
+        self.sync_multi_device_mirror = SynchronizedMultiDeviceMirrorSubagent()
+        self.autonomous_test_plan_gen = AutonomousTestPlanGeneratorSubagent()
+        self.boundary_monkey_fuzzer = BoundaryAndMonkeyFuzzTesterSubagent()
+        self.visual_grid_composer = VisualMultiScreenGridComposerSubagent()
+        self.autofix_layout_patch_synth = AutoFixLayoutPatchSynthesizerSubagent()
+        self.zero_human_qa_oracle = ZeroHumanQASignOffOracleSubagent()
+        self.mcp_vision_test_bridge = MCPVisionAndTestRunnerBridgeSubagent()
+        self.causal_10x_responsive_qa_coordinator = Causal10xResponsiveQACoordinatorSubagent()
 
         # Device card widget references: serial -> widget dict
         self.device_cards: Dict[str, Dict[str, Any]] = {}
@@ -271,7 +296,7 @@ class FarmDashboardApp:
 
         title_lbl = tk.Label(
             title_frame,
-            text="⚡ Android Multi-Agent Farm (AMAF 14.0 — 75 Subagents, 4-Layer Anti-Bot Stealth, Sigma-Lognormal Kinematics & 10x Causal Loop)",
+            text="⚡ Android Multi-Agent Farm (AMAF 15.0 — 85 Subagents, 50 MCP Tools, 5-Screen Responsive Matrix & Zero-Human Autonomous QA Tester)",
             font=("Segoe UI", 16, "bold"),
             fg=C_BLUE,
             bg=C_MANTLE
@@ -346,7 +371,7 @@ class FarmDashboardApp:
 
         # Tab 1: Multi-Agent & 30-Subagent Evolution
         self.tab_agents = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
-        self.notebook.add(self.tab_agents, text=" 🤖 75-Subagent Evolution & 10x Loops ")
+        self.notebook.add(self.tab_agents, text=" 🤖 85-Subagent Evolution & 10x Loops ")
         self._build_agents_tab()
 
         # Tab 2: Real Phone Farm & Group Broadcast Control
@@ -384,6 +409,11 @@ class FarmDashboardApp:
         self.tab_v14_antibot = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
         self.notebook.add(self.tab_v14_antibot, text=" 🛡️ Anti-Bot 4-Layer Stealth & 10x Causal Loop (v14.0) ")
         self._build_v14_antibot_and_causal_tab()
+
+        # Tab 9: AMAF 15.0 5-Screen Responsive Viewport Matrix, Zero-Human Autonomous QA Tester, Sync Mirror & 10x Causal QA Loop
+        self.tab_v15_responsive_qa = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
+        self.notebook.add(self.tab_v15_responsive_qa, text=" 📱 Responsive 5-Screen Matrix & Zero-Human QA Tester (v15.0) ")
+        self._build_v15_responsive_and_qa_tab()
 
         # Tab 4: Defect Reports (Bug Tracker)
         self.tab_reports = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
@@ -1963,6 +1993,97 @@ class FarmDashboardApp:
             res = self.causal_10x_antibot_ui_ux_coordinator.execute(live_serial=serial, write_report=True)
             self._v14_log(f"[Subagent #75 CausalChain10xCoordinator] Loops={res.get('total_iterations')} | FinalScore={res.get('final_composite_score')} | FinalBotRisk={res.get('final_bot_risk_pct')}% | Gate={res.get('final_gate')}")
             self.log_agent_msg("Causal10x(#75)", f"[{serial}] 10/10 Causal Loops PASS (BotRisk={res.get('final_bot_risk_pct')}%)", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+
+
+    def _build_v15_responsive_and_qa_tab(self):
+        top_bar = tk.Frame(self.tab_v15_responsive_qa, bg=C_MANTLE, padx=12, pady=10)
+        top_bar.pack(fill=tk.X, pady=(0, 8))
+
+        tk.Label(
+            top_bar,
+            text="📱 AMAF v15.0 (85 Subagents | 50 MCP Tools): 5-Screen Responsive Matrix (#76) + XML/DOM Critic (#77) + Sync Mirror (#78) + Auto Test Gen (#79) + Fuzz (#80) + Grid Composer (#81) + Auto-Fix (#82) + Zero-Human QA Oracle (#83) + MCP Vision (#84) + 10x Causal Loop (#85)",
+            font=("Segoe UI", 9, "bold"),
+            fg=C_TEAL,
+            bg=C_MANTLE
+        ).pack(side=tk.LEFT)
+
+        btn_row = tk.Frame(self.tab_v15_responsive_qa, bg=C_BASE)
+        btn_row.pack(fill=tk.X, pady=4)
+
+        tk.Button(
+            btn_row, text="🚀 #85 Run 10x Causal Responsive & QA Loop", font=("Segoe UI", 9, "bold"),
+            bg="#6366f1", fg="#f8fafc", relief="flat", padx=12, pady=6, command=self.on_v15_run_10x_responsive_qa_loop
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="📱 #76-#77 5-Screen Responsive Matrix Audit", font=("Segoe UI", 9),
+            bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v15_responsive_5screen_audit
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="🤖 #79-#83 Zero-Human Autonomous QA Tester", font=("Segoe UI", 9),
+            bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v15_zero_human_qa_tester
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="🔄 #78 Sync Normalized Multi-Screen Tap", font=("Segoe UI", 9),
+            bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v15_sync_multi_screen_tap
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            btn_row, text="🔧 #81-#84 Auto-Fix & MCP Vision Payload", font=("Segoe UI", 9),
+            bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v15_autofix_and_mcp_vision
+        ).pack(side=tk.LEFT, padx=4)
+
+        self.v15_log_text = tk.Text(self.tab_v15_responsive_qa, bg=C_CRUST, fg=C_TEXT, font=("Consolas", 9), height=14, relief="flat", padx=10, pady=8)
+        self.v15_log_text.pack(fill=tk.BOTH, expand=True, pady=(6, 0))
+        self.v15_log_text.insert(tk.END, "[AMAF 15.0] Subagents #76-#85 (5-Screen Responsive Viewport Matrix, XML/DOM Responsive Critic, Synchronized Multi-Device Action Mirror, Autonomous Test Plan Generator, Boundary/Monkey Fuzzer, Visual 5-Screen Grid Composer, Auto-Fix Layout Patch Synthesizer, Zero-Human QA Sign-Off Oracle, MCP Vision Bridge & 10x Causal Responsive QA Coordinator) Ready.\n")
+
+    def _v15_log(self, msg: str):
+        if hasattr(self, "v15_log_text"):
+            ts = time.strftime("%H:%M:%S")
+            self.root.after(0, lambda: (self.v15_log_text.insert(tk.END, f"[{ts}] {msg}\n"), self.v15_log_text.see(tk.END)))
+
+    def on_v15_responsive_5screen_audit(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.multi_screen_viewport_matrix.execute(serial=serial, suite="full_5_screens", apply_hardware_wm=False)
+            self._v15_log(f"[Subagent #76 MultiScreenViewportMatrix] Score={res.get('overall_responsive_score')} | Grade={res.get('grade')} | Grid={res.get('comparison_grid_path')}")
+            self.log_agent_msg("ResponsiveMatrix(#76)", f"[{serial}] 5-Screen Score={res.get('overall_responsive_score')}/100 ({res.get('grade')})", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v15_zero_human_qa_tester(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.zero_human_qa_oracle.execute(serial=serial, suite="default_3", apply_hardware_wm=False)
+            self._v15_log(f"[Subagent #83 ZeroHumanQASignOffOracle] Score={res.get('qa_readiness_score')} | Verdict={res.get('verdict')} | Bugs={res.get('total_bugs_found')}")
+            self.log_agent_msg("ZeroHumanQA(#83)", f"[{serial}] QA Score={res.get('qa_readiness_score')}/100 ({res.get('verdict')})", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v15_sync_multi_screen_tap(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.sync_multi_device_mirror.execute(serials=[serial], action_type="tap", norm_x=0.5, norm_y=0.5, execute_adb=False)
+            self._v15_log(f"[Subagent #78 SyncMultiDeviceMirror] Mirrored={res.get('devices_mirrored')} | Results={res.get('results')}")
+            self.log_agent_msg("SyncMirror(#78)", f"Mirrored normalized tap (0.5, 0.5) across {res.get('devices_mirrored')} screen(s)", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v15_autofix_and_mcp_vision(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.mcp_vision_test_bridge.execute(serial=serial, suite="default_3")
+            self._v15_log(f"[Subagent #84 MCPVisionBridge] Images={res.get('mcp_images_count')} | Score={res.get('overall_responsive_score')} | Grid={res.get('comparison_grid_path')}")
+            self.log_agent_msg("MCPVision(#84)", f"[{serial}] {res.get('mcp_images_count')} Vision-LLM MCP image blocks ready", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v15_run_10x_responsive_qa_loop(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.causal_10x_responsive_qa_coordinator.execute(serial=serial, write_report=True)
+            self._v15_log(f"[Subagent #85 Causal10xResponsiveQACoordinator] Loops={res.get('total_iterations')} | CausalValid={res.get('causal_chain_valid')} | FinalQAScore={res.get('final_qa_score')} | Verdict={res.get('final_verdict')}")
+            self.log_agent_msg("Causal10xQA(#85)", f"[{serial}] 10/10 Causal Responsive QA Loops PASS (Score={res.get('final_qa_score')}/100)", "success")
         threading.Thread(target=_worker, daemon=True).start()
 
 

@@ -164,7 +164,7 @@ class SelfEvolutionEngine:
         self.android_cdp = AndroidCDPSubagent(self.adb, self.memory)
         self.social_workflow = SocialWorkflowSubagent(self.adb, self.memory)
         self.hybrid_captcha_3tier = HybridCaptchaFallbackSubagent(self.adb, self.memory)
-        self.persistent_stream = PersistentADBStreamSubagent(adb_path=self.adb.adb_path)
+        self.persistent_stream = PersistentADBStreamSubagent(adb_path=getattr(self.adb, "adb_path", "adb"))
         self.kbd_viewport_guard = KeyboardAndViewportGuardSubagent(self.adb, self.memory, cdp_bridge=self.android_cdp.bridge)
         self.semantic_matcher = ZeroTokenSemanticMatcherSubagent(self.adb, self.memory)
         self.account_vault = MultiAccountVaultAndProxySubagent(adb=self.adb, memory=self.memory)

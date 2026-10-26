@@ -172,6 +172,12 @@ class ADBWrapper:
             except Exception:
                 return False
 
+    def take_screenshot(self, serial: str, local_output_path: str) -> bool:
+        return self.capture_screenshot(serial, local_output_path)
+
+    def dump_ui_xml(self, serial: str) -> str:
+        return self.dump_ui_hierarchy(serial)
+
     def dump_ui_hierarchy(self, serial: str) -> str:
         """Dump UIAutomator XML hierarchy string with self-healing against stale uiautomator sessions."""
         remote_xml = "/sdcard/window_dump.xml"
