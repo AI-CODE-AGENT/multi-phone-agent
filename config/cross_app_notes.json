@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-26 03:06:30",
+  "updated_at": "2026-10-26 07:04:12",
   "count": 6,
   "notes": {
     "otp_code": {
@@ -7,7 +7,7 @@
       "value": "839201",
       "source_app": "notification",
       "serial": "10CF5L0TYL00312",
-      "timestamp": "2026-10-26 02:18:26",
+      "timestamp": "2026-10-26 07:00:13",
       "metadata": {
         "extractor": "notification",
         "pattern": "otp_6_digit"
@@ -18,7 +18,7 @@
       "value": "ORD-99281A",
       "source_app": "com.shop.app",
       "serial": "10CF5L0TYL00312",
-      "timestamp": "2026-10-26 02:18:26",
+      "timestamp": "2026-10-26 07:00:13",
       "metadata": {
         "extractor": "screen_ui",
         "pattern": "order_txn_id"
@@ -29,7 +29,7 @@
       "value": "https://shop.example.com/verify",
       "source_app": "clipboard",
       "serial": "10CF5L0TYL00312",
-      "timestamp": "2026-10-26 02:18:26",
+      "timestamp": "2026-10-26 07:00:13",
       "metadata": {
         "extractor": "clipboard",
         "pattern": "url_or_deeplink"
@@ -40,7 +40,7 @@
       "value": "$149.99",
       "source_app": "com.shop.app",
       "serial": "10CF5L0TYL00312",
-      "timestamp": "2026-10-26 02:18:26",
+      "timestamp": "2026-10-26 07:00:13",
       "metadata": {
         "extractor": "screen_ui",
         "pattern": "currency_price"
@@ -48,18 +48,18 @@
     },
     "last_otp": {
       "key": "last_otp",
-      "value": "327839",
-      "source_app": "com.android.settings",
-      "serial": "emulator-5554",
-      "timestamp": "2026-10-26 03:06:30",
+      "value": "916898",
+      "source_app": "com.android.chrome",
+      "serial": "emulator-5556",
+      "timestamp": "2026-10-26 07:04:12",
       "metadata": {}
     },
     "active_package": {
       "key": "active_package",
-      "value": "com.android.settings",
-      "source_app": "com.android.settings",
-      "serial": "emulator-5554",
-      "timestamp": "2026-10-26 03:06:30",
+      "value": "com.android.chrome",
+      "source_app": "com.android.chrome",
+      "serial": "emulator-5556",
+      "timestamp": "2026-10-26 07:04:12",
       "metadata": {}
     }
   }

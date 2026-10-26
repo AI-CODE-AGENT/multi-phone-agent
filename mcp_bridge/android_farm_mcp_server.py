@@ -1,11 +1,13 @@
 """
-Model Context Protocol (MCP) Server 2.0 for Android Multi-Agent Farm (AMAF 7.0).
+Model Context Protocol (MCP) Server 2.0 for Android Multi-Agent Farm (AMAF 8.0).
 Allows any AI Agent (Antigravity, Cursor, Claude Code, Kilo Code, ARTEMIS, OpenCode)
 to discover, lease, observe, navigate, broadcast group actions, manage real physical phones,
 orchestrate multi-app testing flows, crawl UI state graphs, execute human-like Cubic Bezier gestures,
-auto-dismiss Vivo/OriginOS/MIUI USB installation popups, solve all 10+ CAPTCHAs (including Concentric Ring Rotation,
-Multi-Image Grids, and Web Browser/WebView CAPTCHAs), automate 7-mode 2FA/MFA verification, audit WCAG 2.1 contrast,
-demangle Java/Native/ANR stack traces, inspect network API latency, and trigger 30-subagent self-evolution loops.
+auto-dismiss Vivo/OriginOS/MIUI USB installation popups, optimize Vivo OriginOS 6 (1260x2800) hardware,
+launch a Live Interactive Web Testbench over `adb reverse`, solve all 13+ CAPTCHAs (Concentric Ring Rotation,
+Multi-Image Grids, Web Browser/WebView, Audio PCM FFT, Behavioral Entropy, 3D Dice Sum), automate 7-mode 2FA/MFA,
+classify cross-app auth states, audit WCAG 2.1 contrast, demangle Java/Native/ANR stack traces, inspect network API latency,
+run 8-Stage Real-Device E2E Benchmarks, and trigger 35-subagent self-evolution loops.
 Implements JSON-RPC 2.0 over standard I/O (stdio) with zero external dependencies.
 """
 
@@ -50,6 +52,11 @@ from agents.web_and_advanced_captcha_subagent import WebAndAdvancedCaptchaSubage
 from agents.accessibility_wcag_subagent import AccessibilityAndWCAGContrastSubagent
 from agents.crash_tombstone_anr_subagent import CrashTombstoneAndANRSubagent
 from agents.network_api_latency_subagent import NetworkTrafficAndAPILatencySubagent
+from agents.live_web_testbench_e2e_subagent import LiveWebTestbenchAndRealPhoneE2ESubagent
+from agents.vivo_originos_optimizer_subagent import VivoOriginOSDeepOptimizerSubagent
+from agents.audio_behavior_captcha_subagent import InteractiveAudioAndBehaviorCaptchaSubagent
+from agents.session_credential_guard_subagent import CrossAppSessionAndCredentialGuardSubagent
+from agents.real_device_e2e_benchmark_subagent import RealDeviceE2EBenchmarkAndSelfHealerSubagent
 from mcp_bridge.artemis_bridge import ArtemisBridge
 from config.farm_config import DEFAULT_FARM_DEVICES
 
@@ -58,7 +65,7 @@ logger = logging.getLogger("AndroidFarmMCP")
 
 
 class AndroidFarmMCPServer:
-    """Standard Model Context Protocol Server 2.0 (40 Tools) for Hybrid Real & Virtual Multi-App Farm (AMAF 7.0)."""
+    """Standard Model Context Protocol Server 2.0 (45 Tools) for Hybrid Real & Virtual Multi-App Farm (AMAF 8.0)."""
 
     def __init__(self):
         self.adb = ADBWrapper()
@@ -90,6 +97,11 @@ class AndroidFarmMCPServer:
         self.wcag_auditor = AccessibilityAndWCAGContrastSubagent(self.adb, self.memory)
         self.crash_analyzer = CrashTombstoneAndANRSubagent(self.adb, self.memory)
         self.net_api_profiler = NetworkTrafficAndAPILatencySubagent(self.adb, self.memory)
+        self.live_testbench = LiveWebTestbenchAndRealPhoneE2ESubagent(self.adb, self.memory)
+        self.vivo_optimizer = VivoOriginOSDeepOptimizerSubagent(self.adb, self.memory)
+        self.audio_behavior_captcha = InteractiveAudioAndBehaviorCaptchaSubagent(self.adb, self.memory)
+        self.session_guard = CrossAppSessionAndCredentialGuardSubagent(self.adb, self.memory)
+        self.e2e_benchmark = RealDeviceE2EBenchmarkAndSelfHealerSubagent(self.adb, self.memory)
         self.lock_mgr = DeviceLockManager()
         self.bridge = ArtemisBridge()
         self.tools = self._register_tools()
@@ -115,7 +127,7 @@ class AndroidFarmMCPServer:
                 "inputSchema": {
                     "type": "object",
                     "properties": {
-                        "serial": {"type": "string", "description": "Device serial (e.g. emulator-5554 or R58M... or 192.168.1.50:5555)"},
+                        "serial": {"type": "string", "description": "Device serial (e.g. emulator-5554 or 10CF5L0TYL00312)"},
                         "agent_id": {"type": "string", "description": "Unique identifier of the calling agent"},
                         "task_name": {"type": "string", "description": "Name or goal of the testing task"},
                         "lease_seconds": {"type": "integer", "description": "Lease duration in seconds (default 300)"}
@@ -320,7 +332,7 @@ class AndroidFarmMCPServer:
             },
             {
                 "name": "android_run_self_evolution_loop",
-                "description": "Trigger the 30-Subagent Autonomous Self-Evolution Engine (Worktree Audit -> Scout -> Vivo/OEM Guard -> SoM Screenshot -> Multi-App Discovery -> Human Touch & 10+ Type CAPTCHA CV -> Universal 7-Mode 2FA -> Multi-App Flow + Notetaker + Action Reflector -> UI Graph Crawler -> 48dp & WCAG 2.1 Audit -> Crash/ANR Demangler -> Network API Latency -> FPS/MemLeak -> Kanban Pipeline -> Prompt Evolution).",
+                "description": "Trigger the 35-Subagent Autonomous Self-Evolution Engine (Worktree Audit -> Scout -> Vivo OriginOS 6 Guard -> SoM Screenshot -> Multi-App Discovery -> Human Touch & 13+ Type CAPTCHA CV -> Universal 7-Mode 2FA & Session Guard -> Live Web Testbench E2E -> Multi-App Flow + Notetaker + Action Reflector -> UI Graph Crawler -> 48dp & WCAG 2.1 Audit -> Crash/ANR Demangler -> Network API Latency -> FPS/MemLeak -> Kanban Pipeline -> Prompt Evolution).",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
@@ -735,6 +747,75 @@ class AndroidFarmMCPServer:
                         "serial": {"type": "string", "description": "Target device serial"},
                         "package_name": {"type": "string", "description": "Target package name (default com.android.settings)"},
                         "raw_logcat_override": {"type": "string", "description": "Optional logcat override"}
+                    },
+                    "required": ["serial"]
+                }
+            },
+            {
+                "name": "android_run_live_web_testbench_e2e",
+                "description": "Start the Live Interactive Web CAPTCHA & 2FA Testbench Server on 127.0.0.1:8765, bind `adb reverse tcp:8765 tcp:8765`, open `/amaf-testbench` in the phone browser, and autonomously solve Concentric Rotation CAPTCHA, 3x3 Multi-Image Grid CAPTCHA, Slider Jigsaw CAPTCHA, RFC 6238 Live TOTP 2FA, and Push Number-Match 2FA.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial (e.g. 10CF5L0TYL00312)"},
+                        "open_in_browser": {"type": "boolean", "description": "Open testbench URL in device browser (default true)"},
+                        "execute_touch": {"type": "boolean", "description": "Execute physical touch gestures on device (default true)"}
+                    },
+                    "required": ["serial"]
+                }
+            },
+            {
+                "name": "android_optimize_vivo_originos_device",
+                "description": "Inspect and optimize a Vivo / OriginOS 6 physical phone (such as Vivo V2417A 1260x2800): calibrate safe touch insets, enable USB stay-awake (`svc power stayon usb`), dismiss keyguard, and detect/dismiss Vivo security & USB install dialogs.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial (e.g. 10CF5L0TYL00312)"},
+                        "keep_awake": {"type": "boolean", "description": "Keep screen awake over USB (default true)"},
+                        "dismiss_keyguard": {"type": "boolean", "description": "Wake and dismiss keyguard (default true)"}
+                    },
+                    "required": ["serial"]
+                }
+            },
+            {
+                "name": "android_solve_audio_and_behavior_captcha",
+                "description": "Solve Audio Accessibility CAPTCHAs via 16-bit PCM RMS + FFT spectral digit decoding, generate Fitts's Law minimum-jerk anti-bot human pointer trajectories, or solve 3D Dice Sum CAPTCHAs.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "challenge_type": {
+                            "type": "string",
+                            "enum": ["AUTO", "AUDIO_CAPTCHA", "BEHAVIORAL_ENTROPY", "DICE_SUM_CAPTCHA"],
+                            "description": "Audio or behavioral CAPTCHA challenge type"
+                        },
+                        "wav_path": {"type": "string", "description": "Optional WAV file path for AUDIO_CAPTCHA"},
+                        "image_path": {"type": "string", "description": "Optional PNG path for DICE_SUM_CAPTCHA"}
+                    },
+                    "required": ["serial"]
+                }
+            },
+            {
+                "name": "android_audit_session_and_credential_state",
+                "description": "Classify current UI into deterministic auth states (`CAPTCHA_WALL`, `TWO_FACTOR_PROMPT`, `BIOMETRIC_PROMPT`, `OEM_SECURITY_DIALOG`, `LOGIN_CREDENTIALS_FORM`, `AUTHENTICATED_OR_GENERAL`), audit Android AccountManager/Autofill services, and extract deduplicated fresh OTPs.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial"},
+                        "ui_xml_override": {"type": "string", "description": "Optional UI XML override"}
+                    },
+                    "required": ["serial"]
+                }
+            },
+            {
+                "name": "android_run_real_device_e2e_benchmark",
+                "description": "Execute the 8-Stage Full-Stack Real-Device E2E Verification & Benchmark Suite on a connected physical phone (e.g. Vivo V2417A 10CF5L0TYL00312) or emulator and generate a Markdown evidence report.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "serial": {"type": "string", "description": "Target device serial (e.g. 10CF5L0TYL00312)"},
+                        "package_name": {"type": "string", "description": "Target package name (default com.android.settings)"},
+                        "execute_touch": {"type": "boolean", "description": "Execute physical touch gestures (default true)"}
                     },
                     "required": ["serial"]
                 }
@@ -1197,7 +1278,7 @@ class AndroidFarmMCPServer:
                 elif act == "register_otpauth_uri":
                     res = self.universal_2fa.engine.register_otpauth_uri(args.get("otpauth_uri", ""))
                 elif act == "list_accounts":
-                    accts = self.universal_2fa.engine.list_accounts()
+                    accts = self.universal_2fa.engine.list_accounts() if hasattr(self.universal_2fa.engine, "list_accounts") else []
                     res = {"accounts_count": len(accts), "accounts": accts}
                 else:
                     res = self.universal_2fa.solve_2fa_challenge(
@@ -1278,6 +1359,58 @@ class AndroidFarmMCPServer:
                 )
                 return {"success": True, **res}
 
+            elif name == "android_run_live_web_testbench_e2e":
+                serial = args["serial"]
+                open_br = bool(args.get("open_in_browser", True))
+                exec_t = bool(args.get("execute_touch", True))
+                res = self.live_testbench.run_live_web_captcha_and_2fa_e2e(
+                    serial=serial,
+                    open_in_browser=open_br,
+                    execute_touch=exec_t
+                )
+                return {"success": True, **res}
+
+            elif name == "android_optimize_vivo_originos_device":
+                serial = args["serial"]
+                keep_awake = bool(args.get("keep_awake", True))
+                dismiss_kg = bool(args.get("dismiss_keyguard", True))
+                res = self.vivo_optimizer.inspect_and_optimize_vivo_device(
+                    serial=serial,
+                    keep_awake=keep_awake,
+                    dismiss_keyguard=dismiss_kg
+                )
+                return {"success": True, **res}
+
+            elif name == "android_solve_audio_and_behavior_captcha":
+                serial = args["serial"]
+                ctype = args.get("challenge_type", "AUTO")
+                res = self.audio_behavior_captcha.solve_audio_or_behavioral_challenge(
+                    serial=serial,
+                    challenge_type=ctype,
+                    wav_path=args.get("wav_path"),
+                    image_path=args.get("image_path")
+                )
+                return {"success": True, **res}
+
+            elif name == "android_audit_session_and_credential_state":
+                serial = args["serial"]
+                res = self.session_guard.audit_and_advance_auth_state(
+                    serial=serial,
+                    ui_xml_override=args.get("ui_xml_override")
+                )
+                return {"success": True, **res}
+
+            elif name == "android_run_real_device_e2e_benchmark":
+                serial = args["serial"]
+                pkg = args.get("package_name", "com.android.settings")
+                exec_t = bool(args.get("execute_touch", True))
+                res = self.e2e_benchmark.run_full_device_e2e_benchmark(
+                    serial=serial,
+                    package_name=pkg,
+                    execute_touch=exec_t
+                )
+                return {"success": True, **res}
+
             else:
                 return {"success": False, "error": f"Unknown tool: {name}"}
 
@@ -1287,7 +1420,7 @@ class AndroidFarmMCPServer:
 
     def run_stdio(self):
         """Standard JSON-RPC 2.0 I/O loop."""
-        logger.info("Android Multi-Agent Farm MCP Server 2.0 (AMAF 7.0 - 40 Tools) started on stdio.")
+        logger.info("Android Multi-Agent Farm MCP Server 2.0 (AMAF 8.0 - 45 Tools) started on stdio.")
         for line in sys.stdin:
             line = line.strip()
             if not line:
@@ -1307,7 +1440,7 @@ class AndroidFarmMCPServer:
                             "capabilities": {"tools": {}},
                             "serverInfo": {
                                 "name": "android-multi-agent-farm",
-                                "version": "7.0.0"
+                                "version": "8.0.0"
                             }
                         }
                     }

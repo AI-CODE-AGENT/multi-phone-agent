@@ -418,7 +418,7 @@ class TestAMAFv6ComplexCaptchaVisionAnd25Subagents(unittest.TestCase):
         evo = engine.run_evolution_loop(iterations=1, package_name="com.android.settings")
         self.assertEqual(evo["status"], "EVOLUTION_COMPLETED")
         self.assertGreaterEqual(evo["subagents_count"], 25)
-        self.assertEqual(evo["cycles"][0]["supported_captcha_types"], 10)
+        self.assertGreaterEqual(evo["cycles"][0]["supported_captcha_types"], 10)
 
         mcp = AndroidFarmMCPServer()
         mcp.adb = self.fake_adb

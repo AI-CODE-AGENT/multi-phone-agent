@@ -236,6 +236,31 @@ def main():
     p_net.add_argument("--serial", default="emulator-5554", help="Target device serial")
     p_net.add_argument("--package", default="com.android.settings", help="Target package name")
 
+    # live-testbench (Subagent #31 Live Web Testbench & Real Phone E2E Subagent)
+    p_ltb = subparsers.add_parser("live-testbench", help="Launch local Live CAPTCHA and 2FA Testbench Server + ADB reverse and run E2E on phone")
+    p_ltb.add_argument("--serial", default="10CF5L0TYL00312", help="Target device serial")
+    p_ltb.add_argument("--port", type=int, default=8765, help="Local HTTP server port")
+
+    # vivo-optimize (Subagent #32 Vivo OriginOS Deep Optimizer Subagent)
+    p_vivo = subparsers.add_parser("vivo-optimize", help="Optimize Vivo/OriginOS 6 display (1260x2800), stay-on, and battery telemetry")
+    p_vivo.add_argument("--serial", default="10CF5L0TYL00312", help="Target Vivo serial")
+
+    # audio-captcha (Subagent #33 Interactive Audio, Dice/Math & Behavior Trajectory CAPTCHA Subagent)
+    p_aud = subparsers.add_parser("audio-captcha", help="Solve Audio WAV, Dice/3D Object Count, or Fitts/Min-Jerk Behavior CAPTCHA")
+    p_aud.add_argument("--serial", default="10CF5L0TYL00312", help="Target device serial")
+    p_aud.add_argument("--mode", choices=["audio", "dice", "behavior"], default="behavior", help="Solver mode")
+
+    # session-guard (Subagent #34 Cross-App Session, Smart Lock & Credential Guard Subagent)
+    p_sess = subparsers.add_parser("session-guard", help="Detect OAuth SSO / Google Smart Lock / Passkey and backup/restore session state")
+    p_sess.add_argument("--serial", default="10CF5L0TYL00312", help="Target device serial")
+    p_sess.add_argument("--package", default="com.android.chrome", help="Target package name")
+    p_sess.add_argument("--action", choices=["handle_sso", "backup", "restore"], default="handle_sso", help="Session action")
+
+    # e2e-benchmark (Subagent #35 Real-Device 8-Stage E2E Benchmark & Self-Healer Subagent)
+    p_bench = subparsers.add_parser("e2e-benchmark", help="Run 8-stage real-device E2E verification benchmark on physical phone")
+    p_bench.add_argument("--serial", default="10CF5L0TYL00312", help="Target device serial")
+    p_bench.add_argument("--package", default="com.android.settings", help="Target package name")
+
     args = parser.parse_args()
 
     if args.command == "setup":
@@ -550,6 +575,36 @@ def main():
         from agents.network_api_latency_subagent import NetworkTrafficAndAPILatencySubagent
         sub = NetworkTrafficAndAPILatencySubagent()
         print("Network API Telemetry Report:", sub.run_network_api_telemetry_audit(args.serial, package_name=args.package))
+    elif args.command == "live-testbench":
+        from agents.live_web_testbench_e2e_subagent import LiveWebTestbenchAndRealPhoneE2ESubagent
+        sub = LiveWebTestbenchAndRealPhoneE2ESubagent()
+        print("Live Web Testbench E2E Result:", sub.run_live_real_phone_testbench_e2e(args.serial, port=args.port))
+    elif args.command == "vivo-optimize":
+        from agents.vivo_originos_optimizer_subagent import VivoOriginOSDeepOptimizerSubagent
+        sub = VivoOriginOSDeepOptimizerSubagent()
+        print("Vivo OriginOS Optimization Result:", sub.optimize_vivo_real_phone(args.serial))
+    elif args.command == "audio-captcha":
+        from agents.audio_behavior_captcha_subagent import InteractiveAudioAndBehaviorCaptchaSubagent
+        sub = InteractiveAudioAndBehaviorCaptchaSubagent()
+        if args.mode == "audio":
+            print("Audio CAPTCHA Result:", sub.solve_audio_captcha_challenge(args.serial))
+        elif args.mode == "dice":
+            print("Dice/Object Count CAPTCHA Result:", sub.solve_dice_or_object_count_captcha(args.serial))
+        else:
+            print("Behavior CAPTCHA Result:", sub.execute_human_behavior_verification(args.serial))
+    elif args.command == "session-guard":
+        from agents.session_credential_guard_subagent import CrossAppSessionAndCredentialGuardSubagent
+        sub = CrossAppSessionAndCredentialGuardSubagent()
+        if args.action == "backup":
+            print("Session Backup Result:", sub.backup_or_restore_app_session(args.serial, args.package, action="backup"))
+        elif args.action == "restore":
+            print("Session Restore Result:", sub.backup_or_restore_app_session(args.serial, args.package, action="restore"))
+        else:
+            print("SSO/Passkey Handle Result:", sub.handle_sso_or_credential_prompt(args.serial))
+    elif args.command == "e2e-benchmark":
+        from agents.real_device_e2e_benchmark_subagent import RealDeviceE2EBenchmarkAndSelfHealerSubagent
+        sub = RealDeviceE2EBenchmarkAndSelfHealerSubagent()
+        print("Real-Device 8-Stage E2E Benchmark:", sub.run_full_device_e2e_benchmark(args.serial, package_name=args.package))
 
 
 if __name__ == "__main__":

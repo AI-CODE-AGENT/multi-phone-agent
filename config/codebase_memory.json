@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-10-26 06:27:33",
+  "last_updated": "2026-10-26 07:05:20",
   "locators": {
     "Screen_Login": [
       {
@@ -615,6 +615,20 @@
         "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Measure pixel relative luminance contrast ratios, audit TalkBack focus order, and demangle Java/Native/ANR stack traces'.",
         "success_rate": 0.95,
         "created_at": "2026-10-26 03:06:04"
+      },
+      {
+        "version": "v54.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Serve interactive Web Testbench over adb reverse and solve Rotation, 3x3 Grid, Slider, RFC 6238 TOTP, Push 84, and Audio PCM CAPTCHAs\n# Base Instructions:\nGoal: Serve interactive Web Testbench over adb reverse and solve Rotation, 3x3 Grid, Slider, RFC 6238 TOTP, Push 84, and Audio PCM CAPTCHAs\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Serve interactive Web Testbench over adb reverse and solve Rotation, 3x3 Grid, Slider, RFC 6238 TOTP, Push 84, and Audio PCM CAPTCHAs'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 07:05:14"
+      },
+      {
+        "version": "v55.0",
+        "prompt": "# Role: Highly Robust Operator\n# Scenario: Classify cross-app auth states, measure pixel luminance contrast ratios, and demangle Java/Native/ANR stack traces\n# Base Instructions:\nGoal: Classify cross-app auth states, measure pixel luminance contrast ratios, and demangle Java/Native/ANR stack traces\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Consistency Rule]: Maintain explicit verification after each step.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 0 healing events and 0 failures in scenario 'Classify cross-app auth states, measure pixel luminance contrast ratios, and demangle Java/Native/ANR stack traces'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 07:05:19"
       }
     ],
     "planner": [
@@ -708,6 +722,13 @@
         "rationale": "Optimized for 3 healing events and 0 failures in scenario 'evolution_cycle_1'.",
         "success_rate": 0.95,
         "created_at": "2026-10-26 03:06:04"
+      },
+      {
+        "version": "v14.0",
+        "prompt": "# Role: Highly Robust Planner\n# Scenario: evolution_cycle_1\n# Base Instructions:\nDeconstruct multi-app mobile testing goals with Set-of-Mark visual grounding, Live Web Testbench E2E, Vivo OriginOS 6 calibration, Universal 7-Mode 2FA, Concentric Ring Rotation, Multi-Image Grid & Audio/Dice CAPTCHA CV, WCAG 2.1 contrast, Crash/ANR demangling, and Network/FPS telemetry.\n\n# Autonomous Refinements (Iterative Self-Optimization):\n- [Dynamic UI Rule]: Screen elements may change labels or resource IDs across app updates. Always prioritize broad semantic matching and text fallbacks before concluding an element is missing.\n# Guideline: Prioritize zero-cost Mock OTP (0 VND) for authentication, resilient dynamic locators with coordinate fallbacks, and explicit wait checks.\n",
+        "rationale": "Optimized for 3 healing events and 0 failures in scenario 'evolution_cycle_1'.",
+        "success_rate": 0.95,
+        "created_at": "2026-10-26 07:05:20"
       }
     ]
   },
@@ -1832,23 +1853,6 @@
       "timestamp": "2026-10-26 00:37:43"
     },
     {
-      "id": "mem_1792949874886",
-      "key": "screen_state_emulator-5556",
-      "value": {
-        "keyboard": false,
-        "dialog": false,
-        "dimensions": "720x1600"
-      },
-      "category": "general",
-      "tags": [
-        "vision",
-        "emulator-5556",
-        "screen_state"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 00:37:54"
-    },
-    {
       "id": "mem_1792949875427",
       "key": "SEC_com_android_settings_1792949875",
       "value": {
@@ -2039,31 +2043,6 @@
       ],
       "metadata": {},
       "timestamp": "2026-10-26 02:22:14"
-    },
-    {
-      "id": "mem_1792958592963",
-      "key": "real_device_10CF5L0TYL00312",
-      "value": {
-        "name": "Vivo V2417A",
-        "resolution": "1260x2800",
-        "android_version": "16",
-        "battery": {
-          "level": 100,
-          "temperature_c": 33.7,
-          "voltage_mv": 4446,
-          "status": "charging",
-          "plugged": "usb",
-          "overheated": false,
-          "low_battery": false
-        }
-      },
-      "category": "fleet_topology",
-      "tags": [
-        "real_device",
-        "hardware_profile"
-      ],
-      "metadata": {},
-      "timestamp": "2026-10-26 03:03:12"
     },
     {
       "id": "mem_1792958602597",
@@ -2316,6 +2295,522 @@
         "popups_auto_clicked": 1
       },
       "timestamp": "2026-10-26 06:27:33"
+    },
+    {
+      "id": "mem_1792971872101",
+      "key": "human_touch_10CF5L0TYL00312_1792971872099",
+      "value": {
+        "status": "HUMAN_TAP_OK",
+        "serial": "10CF5L0TYL00312",
+        "target": [
+          204,
+          1604
+        ],
+        "actual_point": [
+          206,
+          1608
+        ],
+        "dwell_ms": 104,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "tap",
+        "elapsed_ms": 182.7
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "tap",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 06:44:32"
+    },
+    {
+      "id": "mem_1792971941619",
+      "key": "human_touch_10CF5L0TYL00312_1792971941608",
+      "value": {
+        "status": "HUMAN_TAP_OK",
+        "serial": "10CF5L0TYL00312",
+        "target": [
+          174,
+          1826
+        ],
+        "actual_point": [
+          168,
+          1823
+        ],
+        "dwell_ms": 88,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "tap",
+        "elapsed_ms": 160.0
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "tap",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 06:45:41"
+    },
+    {
+      "id": "mem_1792973009469",
+      "key": "smart_screenshot_10CF5L0TYL00312_e2e_stage2_som",
+      "value": {
+        "screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\screen_10CF5L0TYL00312_e2e_stage2_som_1792973008752.png",
+        "annotated_screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\som_10CF5L0TYL00312_1792973009387.png",
+        "marks_count": 17,
+        "mean_brightness": 71.515,
+        "edge_density": 0.01691,
+        "is_blank": false
+      },
+      "category": "visual_perception",
+      "tags": [
+        "screenshot",
+        "perception",
+        "som",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 07:03:29"
+    },
+    {
+      "id": "mem_1792973009947",
+      "key": "human_touch_10CF5L0TYL00312_1792973009939",
+      "value": {
+        "status": "HUMAN_SLIDER_DRAG_OK",
+        "serial": "10CF5L0TYL00312",
+        "points_count": 20,
+        "include_overshoot": true,
+        "trajectory_sample": [
+          {
+            "x": 100,
+            "y": 980,
+            "delay_ms": 38
+          },
+          {
+            "x": 102,
+            "y": 980,
+            "delay_ms": 34
+          },
+          {
+            "x": 107,
+            "y": 979,
+            "delay_ms": 33
+          },
+          {
+            "x": 115,
+            "y": 978,
+            "delay_ms": 25
+          },
+          {
+            "x": 287,
+            "y": 981,
+            "delay_ms": 34
+          },
+          {
+            "x": 281,
+            "y": 980,
+            "delay_ms": 55
+          }
+        ],
+        "start": [
+          100,
+          980
+        ],
+        "distance_px": 181,
+        "end_x": 281,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "slider_drag",
+        "elapsed_ms": 438.8
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "slider_drag",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 07:03:29"
+    },
+    {
+      "id": "mem_1792973010180",
+      "key": "human_touch_10CF5L0TYL00312_1792973010167",
+      "value": {
+        "status": "HUMAN_TAP_OK",
+        "serial": "10CF5L0TYL00312",
+        "target": [
+          80,
+          80
+        ],
+        "actual_point": [
+          79,
+          83
+        ],
+        "dwell_ms": 86,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "tap",
+        "elapsed_ms": 161.9
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "tap",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 07:03:30"
+    },
+    {
+      "id": "mem_1792973010367",
+      "key": "human_touch_10CF5L0TYL00312_1792973010357",
+      "value": {
+        "status": "HUMAN_TAP_OK",
+        "serial": "10CF5L0TYL00312",
+        "target": [
+          400,
+          80
+        ],
+        "actual_point": [
+          405,
+          72
+        ],
+        "dwell_ms": 93,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "tap",
+        "elapsed_ms": 173.3
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "tap",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 07:03:30"
+    },
+    {
+      "id": "mem_1792973010421",
+      "key": "net_api_audit_10CF5L0TYL00312_com.android.chrome",
+      "value": {
+        "score": 100,
+        "rx_mb": 8.0,
+        "tx_mb": 3.0,
+        "api_calls": 2,
+        "cleartext_count": 0
+      },
+      "category": "general",
+      "tags": [
+        "network_api",
+        "10CF5L0TYL00312",
+        "com.android.chrome"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 07:03:30"
+    },
+    {
+      "id": "mem_1792973010435",
+      "key": "perf_audit_10CF5L0TYL00312_com.android.chrome",
+      "value": {
+        "score": 99,
+        "grade": "A+",
+        "fps": 59.7,
+        "pss_mb": 66.8,
+        "leak_suspected": false
+      },
+      "category": "general",
+      "tags": [
+        "performance",
+        "memleak",
+        "10CF5L0TYL00312",
+        "com.android.chrome"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 07:03:30"
+    },
+    {
+      "id": "mem_1792973010451",
+      "key": "e2e_benchmark_10CF5L0TYL00312_1792973010440",
+      "value": {
+        "status": "E2E_BENCHMARK_COMPLETED",
+        "serial": "10CF5L0TYL00312",
+        "package_name": "com.android.chrome",
+        "stages_passed": 8,
+        "stages_total": 8,
+        "total_benchmark_score": 99.94,
+        "grade": "S+",
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\REAL_DEVICE_E2E_BENCHMARK_10CF5L0TYL00312_20261026_070330.md"
+      },
+      "category": "real_device_e2e_benchmark",
+      "tags": [
+        "e2e_benchmark",
+        "subagent_35",
+        "10CF5L0TYL00312",
+        "com.android.chrome",
+        "S+"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 07:03:30"
+    },
+    {
+      "id": "mem_1792973022530",
+      "key": "real_device_10CF5L0TYL00312",
+      "value": {
+        "name": "Vivo V2417A",
+        "resolution": "1260x2800",
+        "android_version": "16",
+        "battery": {
+          "level": 100,
+          "temperature_c": 33.2,
+          "voltage_mv": 4428,
+          "status": "charging",
+          "plugged": "usb",
+          "overheated": false,
+          "low_battery": false
+        }
+      },
+      "category": "fleet_topology",
+      "tags": [
+        "real_device",
+        "hardware_profile"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 07:03:42"
+    },
+    {
+      "id": "mem_1792973032064",
+      "key": "vivo_originos_opt_emulator-5556_1792973032054",
+      "value": {
+        "status": "VIVO_ORIGINOS_OPTIMIZED",
+        "serial": "emulator-5556",
+        "telemetry": {
+          "is_vivo_originos": true,
+          "model": "sdk_gphone64_x86_64",
+          "device_code": "emu64xa",
+          "os_display_id": "OriginOS 6",
+          "width": 1080,
+          "height": 1920,
+          "density": 420,
+          "safe_touch_bounds": {
+            "x_min": 16,
+            "y_min": 80,
+            "x_max": 1064,
+            "y_max": 1848,
+            "top_inset_px": 80,
+            "bottom_inset_px": 72,
+            "side_inset_px": 16
+          },
+          "aspect_ratio": 1.7778,
+          "focused_package": "com.google.android.apps.nexuslauncher",
+          "focused_activity": "com.google.android.apps.nexuslauncher.NexusLauncherActivity"
+        },
+        "interception_check": {
+          "interception_detected": false,
+          "matched_label": null,
+          "bounds": null,
+          "center": null,
+          "fallback_coords": {
+            "cx": 630,
+            "cy": 2550
+          }
+        },
+        "optimizations_applied": [
+          "svc power stayon usb",
+          "input keyevent 224",
+          "wm dismiss-keyguard"
+        ]
+      },
+      "category": "vivo_originos_optimizer",
+      "tags": [
+        "vivo",
+        "originos",
+        "optimizer",
+        "emulator-5556"
+      ],
+      "metadata": {
+        "serial": "emulator-5556",
+        "model": "sdk_gphone64_x86_64",
+        "os_display_id": "OriginOS 6",
+        "interception_detected": false
+      },
+      "timestamp": "2026-10-26 07:03:52"
+    },
+    {
+      "id": "mem_1792973036441",
+      "key": "smart_screenshot_emulator-5556_evo_cycle_1",
+      "value": {
+        "screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\screen_emulator-5556_evo_cycle_1_1792973032071.png",
+        "annotated_screenshot_path": "D:\\Project\\multi-phone-agent\\reports\\screenshots\\som_emulator-5556_1792973036130.png",
+        "marks_count": 22,
+        "mean_brightness": 74.445,
+        "edge_density": 0.00608,
+        "is_blank": false
+      },
+      "category": "visual_perception",
+      "tags": [
+        "screenshot",
+        "perception",
+        "som",
+        "emulator-5556"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 07:03:56"
+    },
+    {
+      "id": "mem_1792973037368",
+      "key": "human_touch_emulator-5556_1792973037366",
+      "value": {
+        "status": "HUMAN_TAP_OK",
+        "serial": "emulator-5556",
+        "target": [
+          540,
+          768
+        ],
+        "actual_point": [
+          538,
+          769
+        ],
+        "dwell_ms": 110,
+        "subagent": "HumanTouchSubagent#17",
+        "action_type": "tap",
+        "elapsed_ms": 256.1
+      },
+      "category": "biomechanical_telemetry",
+      "tags": [
+        "human_touch",
+        "tap",
+        "emulator-5556"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 07:03:57"
+    },
+    {
+      "id": "mem_1792973048486",
+      "key": "live_web_testbench_e2e_emulator-5556",
+      "value": {
+        "status": "LIVE_WEB_TESTBENCH_E2E_PASSED",
+        "serial": "emulator-5556",
+        "url": "http://127.0.0.1:63598/amaf-testbench",
+        "solved_count": 5,
+        "all_solved": true
+      },
+      "category": "e2e_verification",
+      "tags": [
+        "live_web_testbench",
+        "captcha_2fa_e2e",
+        "emulator-5556"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 07:04:08"
+    },
+    {
+      "id": "mem_1792973077253",
+      "key": "crawl_emulator-5556_com.android.chrome",
+      "value": {
+        "serial": "emulator-5556",
+        "package": "com.android.chrome",
+        "unique_states_discovered": 1,
+        "transitions_recorded": 2,
+        "crashes_detected": 0
+      },
+      "category": "crawler",
+      "tags": [
+        "crawler",
+        "state_graph",
+        "emulator-5556",
+        "com.android.chrome"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 07:04:37"
+    },
+    {
+      "id": "mem_1792973082550",
+      "key": "net_api_audit_emulator-5556_com.android.chrome",
+      "value": {
+        "score": 100,
+        "rx_mb": 366.46,
+        "tx_mb": 6.65,
+        "api_calls": 0,
+        "cleartext_count": 0
+      },
+      "category": "general",
+      "tags": [
+        "network_api",
+        "emulator-5556",
+        "com.android.chrome"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 07:04:42"
+    },
+    {
+      "id": "mem_1792973082894",
+      "key": "perf_audit_emulator-5556_com.android.chrome",
+      "value": {
+        "score": 45,
+        "grade": "D",
+        "fps": 15.0,
+        "pss_mb": 93.35,
+        "leak_suspected": false
+      },
+      "category": "general",
+      "tags": [
+        "performance",
+        "memleak",
+        "emulator-5556",
+        "com.android.chrome"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 07:04:42"
+    },
+    {
+      "id": "mem_1792973113215",
+      "key": "screen_state_emulator-5556",
+      "value": {
+        "keyboard": true,
+        "dialog": false,
+        "dimensions": "1080x1920"
+      },
+      "category": "general",
+      "tags": [
+        "vision",
+        "emulator-5556",
+        "screen_state"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 07:05:13"
+    },
+    {
+      "id": "mem_1792973114208",
+      "key": "SEC_com_android_chrome_1792973114",
+      "value": {
+        "package": "com.android.chrome",
+        "findings": 2,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_chrome_1792973114.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.chrome",
+        "emulator-5556"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 07:05:14"
+    },
+    {
+      "id": "mem_1792973119963",
+      "key": "SEC_com_android_chrome_1792973119",
+      "value": {
+        "package": "com.android.chrome",
+        "findings": 2,
+        "report_path": "D:\\Project\\multi-phone-agent\\reports\\security_reports\\SEC_com_android_chrome_1792973119.md"
+      },
+      "category": "general",
+      "tags": [
+        "security",
+        "com.android.chrome",
+        "10CF5L0TYL00312"
+      ],
+      "metadata": {},
+      "timestamp": "2026-10-26 07:05:19"
     }
   ],
   "macros": {
@@ -2838,6 +3333,90 @@
       "avg_duration_s": 4.09,
       "success_count": 1,
       "updated_at": "2026-10-26 03:06:04"
+    },
+    "com.android.chrome::serve_interactive_web_testbench_over_adb_reverse_and": {
+      "goal_signature": "com.android.chrome::serve_interactive_web_testbench_over_adb_reverse_and",
+      "package_name": "com.android.chrome",
+      "steps": [
+        {
+          "milestone": "Launch_App",
+          "action": "launch",
+          "package": "com.android.chrome",
+          "description": "Launch target app com.android.chrome"
+        },
+        {
+          "milestone": "Enter_Phone_Number",
+          "action": "input",
+          "locator": "phone",
+          "text": "0941189263",
+          "description": "Enter phone number 0941189263"
+        },
+        {
+          "milestone": "Request_OTP",
+          "action": "tap",
+          "locator": "gửi mã|tiếp tục|login|sign in|xác nhận",
+          "description": "Tap request OTP / submit phone",
+          "verified_coords": [
+            540,
+            863
+          ],
+          "normalized_coords": [
+            0.5,
+            0.4495
+          ]
+        },
+        {
+          "milestone": "Auto_Deliver_Mock_OTP",
+          "action": "mock_otp_flow",
+          "phone": "0941189263",
+          "description": "Intercept and autofill OTP locally with 0 VND carrier cost"
+        },
+        {
+          "milestone": "Submit_Verification",
+          "action": "tap",
+          "locator": "xác thực|hoàn tất|verify|submit",
+          "description": "Submit verification and verify dashboard entry",
+          "verified_coords": [
+            540,
+            1632
+          ],
+          "normalized_coords": [
+            0.5,
+            0.85
+          ]
+        }
+      ],
+      "steps_count": 5,
+      "avg_duration_s": 31.41,
+      "success_count": 1,
+      "updated_at": "2026-10-26 07:05:14"
+    },
+    "com.android.chrome::classify_cross_app_auth_states_measure_pixel_luminance": {
+      "goal_signature": "com.android.chrome::classify_cross_app_auth_states_measure_pixel_luminance",
+      "package_name": "com.android.chrome",
+      "steps": [
+        {
+          "milestone": "Launch_App",
+          "action": "launch",
+          "package": "com.android.chrome",
+          "description": "Launch app com.android.chrome"
+        },
+        {
+          "milestone": "Dismiss_Dialogs",
+          "action": "dismiss_dialogs",
+          "description": "Handle system permission and greeting modals"
+        },
+        {
+          "milestone": "Explore_Core_Flows",
+          "action": "explore",
+          "max_steps": 15,
+          "description": "Autonomously navigate UI buttons and forms according to goal: Classify cross-app auth states, measure pixel luminance contrast ratios, and demangle Java/Native/ANR stack traces"
+        }
+      ],
+      "steps_count": 3,
+      "avg_duration_s": 5.72,
+      "success_count": 1,
+      "updated_at": "2026-10-26 07:05:20"
     }
   },
   "evolution_history": [
@@ -3133,6 +3712,48 @@
       "group_sync_status": "SYNC_COMPLETED",
       "evolved_prompt_version": "v13.0",
       "macros_total": 15
+    },
+    {
+      "cycle_id": "EVO_1792973120191",
+      "timestamp": "2026-10-26 07:05:20",
+      "cycle_index": 1,
+      "subagents_active": 35,
+      "primary_serial": "emulator-5556",
+      "duration_seconds": 109.72,
+      "online_devices_count": 2,
+      "real_devices_count": 1,
+      "feature_worktrees_count": 29,
+      "installed_apps_discovered": 1,
+      "oem_popup_status": "NO_POPUP_DETECTED",
+      "vivo_originos_status": "VIVO_ORIGINOS_OPTIMIZED",
+      "som_marks_count": 22,
+      "human_touch_status": "HUMAN_TAP_OK",
+      "captcha_check_status": "NO_CAPTCHA_PRESENT",
+      "audio_behavior_status": "solved",
+      "live_testbench_solved": 5,
+      "supported_captcha_types": 13,
+      "cdp_sockets_discovered": 0,
+      "two_factor_status": "NO_2FA_PRESENT",
+      "auth_state": "AUTHENTICATED_OR_GENERAL",
+      "supported_2fa_modes": 7,
+      "qr_scanner_detected": false,
+      "clipboard_status": "CLIPBOARD_READ",
+      "layout_health_score": 100,
+      "wcag_score": 0,
+      "wcag_level": "FAIL",
+      "crash_faults_count": 0,
+      "api_health_score": 100,
+      "performance_grade": "D",
+      "performance_score": 45,
+      "multi_app_flow_status": "FLOW_COMPLETED",
+      "action_reflection_outcome": "PROGRESS_VERIFIED",
+      "crawler_states_discovered": 1,
+      "cross_app_notes_count": 6,
+      "proposals_generated": 5,
+      "tasks_completed": 2,
+      "group_sync_status": "SYNC_COMPLETED",
+      "evolved_prompt_version": "v14.0",
+      "macros_total": 17
     }
   ]
 }

@@ -50,6 +50,11 @@ from agents.crash_tombstone_anr_subagent import CrashTombstoneAndANRSubagent
 from agents.network_api_latency_subagent import NetworkTrafficAndAPILatencySubagent
 from agents.performance_memleak_subagent import PerformanceAndMemLeakSubagent
 from agents.human_persona_ux_auditor_subagent import HumanPersonaUXAuditorSubagent
+from agents.live_web_testbench_e2e_subagent import LiveWebTestbenchAndRealPhoneE2ESubagent
+from agents.vivo_originos_optimizer_subagent import VivoOriginOSDeepOptimizerSubagent
+from agents.audio_behavior_captcha_subagent import InteractiveAudioAndBehaviorCaptchaSubagent
+from agents.session_credential_guard_subagent import CrossAppSessionAndCredentialGuardSubagent
+from agents.real_device_e2e_benchmark_subagent import RealDeviceE2EBenchmarkAndSelfHealerSubagent
 from core.memory_manager import MemoryManager
 from core.kanban_board import KanbanBoard
 from agents.device_lock_manager import DeviceLockManager
@@ -75,7 +80,7 @@ C_TEAL = "#94e2d5"
 class FarmDashboardApp:
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.root.title("Android Multi-Agent Farm (AMAF 8.0) | 31 Subagents & FoodGo P18 Live Control Center")
+        self.root.title("Android Multi-Agent Farm (AMAF 8.0) | 35 Subagents | 45 MCP Tools | Real Vivo V2417A & Live Web Testbench")
         self.root.geometry("1340x880")
         self.root.minsize(1100, 740)
         self.root.configure(bg=C_BASE)
@@ -107,6 +112,11 @@ class FarmDashboardApp:
         self.net_api_profiler = NetworkTrafficAndAPILatencySubagent(self.adb, self.memory)
         self.perf_profiler = PerformanceAndMemLeakSubagent(self.adb, self.memory)
         self.human_ux_auditor = HumanPersonaUXAuditorSubagent(self.adb)
+        self.live_testbench_agent = LiveWebTestbenchAndRealPhoneE2ESubagent(self.adb, self.memory)
+        self.vivo_optimizer = VivoOriginOSDeepOptimizerSubagent(self.adb, self.memory)
+        self.audio_behavior_captcha = InteractiveAudioAndBehaviorCaptchaSubagent(self.adb, self.memory)
+        self.session_guard = CrossAppSessionAndCredentialGuardSubagent(self.adb, self.memory)
+        self.e2e_benchmark = RealDeviceE2EBenchmarkAndSelfHealerSubagent(self.adb, self.memory)
 
         # Device card widget references: serial -> widget dict
         self.device_cards: Dict[str, Dict[str, Any]] = {}
@@ -174,7 +184,7 @@ class FarmDashboardApp:
 
         sub_lbl = tk.Label(
             title_frame,
-            text="31 Subagents | 40 MCP Tools | FoodGo P18 Live Viewer | Human-Persona UX Auditor (#31) | Universal 2FA & CAPTCHA CV",
+            text="35 Subagents | 45 MCP Tools | Vivo V2417A Real-Phone E2E | Live Web Testbench (#31) | Audio/Behavior CAPTCHA (#33)",
             font=("Segoe UI", 9),
             fg=C_SUBTEXT,
             bg=C_MANTLE
@@ -240,7 +250,7 @@ class FarmDashboardApp:
 
         # Tab 1: Multi-Agent & 30-Subagent Evolution
         self.tab_agents = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
-        self.notebook.add(self.tab_agents, text=" 🤖 30-Subagent Evolution & Loops ")
+        self.notebook.add(self.tab_agents, text=" 🤖 35-Subagent Evolution & Loops ")
         self._build_agents_tab()
 
         # Tab 2: Real Phone Farm & Group Broadcast Control
@@ -250,7 +260,7 @@ class FarmDashboardApp:
 
         # Tab 3: AMAF 7.0 2FA, CAPTCHA CV, Web & Deep Diagnostics
         self.tab_v7_lab = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
-        self.notebook.add(self.tab_v7_lab, text=" 🔐 2FA, CAPTCHA CV, Web & Diagnostics (v7.0) ")
+        self.notebook.add(self.tab_v7_lab, text=" 🔐 2FA, CAPTCHA CV, Live Web Testbench & Vivo Lab (v8.0) ")
         self._build_v7_lab_tab()
 
         # Tab 4: Defect Reports (Bug Tracker)
@@ -383,7 +393,7 @@ class FarmDashboardApp:
                                  relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_run_pipeline)
         btn_pipeline.pack(side=tk.LEFT, padx=2)
 
-        btn_evo = tk.Button(ctl2, text="🧬 Run 30-Subagent Self-Evolution (v7.0)", font=("Segoe UI", 9, "bold"), bg=C_TEAL, fg=C_CRUST,
+        btn_evo = tk.Button(ctl2, text="🧬 Run 35-Subagent Self-Evolution (v8.0)", font=("Segoe UI", 9, "bold"), bg=C_TEAL, fg=C_CRUST,
                             relief="flat", padx=12, pady=3, cursor="hand2", command=self.on_run_self_evolution)
         btn_evo.pack(side=tk.LEFT, padx=3)
 
@@ -565,8 +575,35 @@ class FarmDashboardApp:
         tk.Button(diag_bar, text="🚀 Profile FPS Jank & Memory Leak (#25)", font=("Segoe UI", 9, "bold"), bg=C_SURFACE0, fg=C_GREEN,
                   relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_v7_profile_perf).pack(side=tk.LEFT, padx=3)
 
-        tk.Button(diag_bar, text="🧠 Audit Human UX & Logic (#31)", font=("Segoe UI", 9, "bold"), bg=C_PEACH, fg=C_CRUST,
+        tk.Button(diag_bar, text="🧠 Audit Human UX & Logic", font=("Segoe UI", 9, "bold"), bg=C_PEACH, fg=C_CRUST,
                   relief="flat", padx=10, pady=3, cursor="hand2", command=self.on_v8_audit_human_ux).pack(side=tk.LEFT, padx=3)
+
+        # Row 4: AMAF 8.0 Real-Device Live Web Testbench, Vivo OriginOS 6, Audio/Behavior CAPTCHA, SSO & 8-Stage E2E (#31-#35)
+        v8_bar = tk.LabelFrame(
+            self.tab_v7_lab,
+            text=" 🚀 AMAF 8.0 Real-Device Live Web Testbench (#31), Vivo OriginOS 6 (#32), Audio/Behavior (#33), SSO (#34) & E2E Benchmark (#35) ",
+            font=("Segoe UI", 9, "bold"),
+            fg=C_GREEN,
+            bg=C_BASE,
+            padx=8,
+            pady=6
+        )
+        v8_bar.pack(fill=tk.X, pady=(0, 6))
+
+        tk.Button(v8_bar, text="🌐 Live Web Testbench E2E (#31)", font=("Segoe UI", 9, "bold"), bg=C_GREEN, fg=C_CRUST,
+                  relief="flat", padx=8, cursor="hand2", command=self.on_v8_live_testbench).pack(side=tk.LEFT, padx=3)
+
+        tk.Button(v8_bar, text="📱 Optimize Vivo OriginOS 6 (#32)", font=("Segoe UI", 9, "bold"), bg=C_YELLOW, fg=C_CRUST,
+                  relief="flat", padx=8, cursor="hand2", command=self.on_v8_vivo_optimize).pack(side=tk.LEFT, padx=3)
+
+        tk.Button(v8_bar, text="🔊 Audio/Dice/Behavior CAPTCHA (#33)", font=("Segoe UI", 9, "bold"), bg=C_MAUVE, fg=C_CRUST,
+                  relief="flat", padx=8, cursor="hand2", command=self.on_v8_audio_behavior_captcha).pack(side=tk.LEFT, padx=3)
+
+        tk.Button(v8_bar, text="🔑 SSO & Session Guard (#34)", font=("Segoe UI", 9, "bold"), bg=C_BLUE, fg=C_CRUST,
+                  relief="flat", padx=8, cursor="hand2", command=self.on_v8_session_guard).pack(side=tk.LEFT, padx=3)
+
+        tk.Button(v8_bar, text="🏆 8-Stage Real-Device E2E (#35)", font=("Segoe UI", 9, "bold"), bg=C_TEAL, fg=C_CRUST,
+                  relief="flat", padx=8, cursor="hand2", command=self.on_v8_e2e_benchmark).pack(side=tk.LEFT, padx=3)
 
         # Output Console for AMAF 7.0 Lab
         self.v7_output_text = tk.Text(self.tab_v7_lab, bg=C_CRUST, fg=C_TEXT, font=("Consolas", 9), relief="flat", padx=10, pady=8)
@@ -720,7 +757,7 @@ class FarmDashboardApp:
 
         self.status_lbl = tk.Label(
             status_bar,
-            text="Ready | AMAF 7.0 (30 Subagents | 40 MCP Tools | 51/51 Tests Passing) | D:\\Project\\multi-phone-agent",
+            text="Ready | AMAF 8.0 (35 Subagents | 45 MCP Tools | 71/71 Tests Passing) | D:\\Project\\multi-phone-agent",
             font=("Segoe UI", 8),
             fg=C_SUBTEXT,
             bg=C_CRUST
@@ -1307,6 +1344,52 @@ class FarmDashboardApp:
                 f"Semantic Issues: {rep['semantic_issues']} | Layout Warnings: {len(rep['layout_warnings'])}"
             )
             self.log_agent_msg("HumanPersonaUX(#31)", f"[{serial}] Score={rep['combined_score']}/100 (Layout={rep['layout_health_score']}, UX={rep['ux_logic_score']})", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v8_live_testbench(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            self._v7_log(f"[{serial}] Starting Subagent #31 LiveWebTestbenchAndRealPhoneE2ESubagent (HTTP Server + ADB Reverse + Chrome E2E)...")
+            res = self.live_testbench_agent.run_live_real_phone_testbench_e2e(serial, port=8765)
+            self._v7_log(f"[LiveWebTestbench #31] Result: {res}")
+            self.log_agent_msg("LiveWebTestbench(#31)", f"[{serial}] Solved={res.get('all_solved')} ({res.get('challenges_solved_count', 0)}/5)", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v8_vivo_optimize(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            self._v7_log(f"[{serial}] Running Subagent #32 VivoOriginOSDeepOptimizerSubagent...")
+            res = self.vivo_optimizer.optimize_vivo_real_phone(serial)
+            self._v7_log(f"[VivoOptimizer #32] Result: {res}")
+            self.log_agent_msg("VivoOptimizer(#32)", f"[{serial}] OriginOS Optimized: {res.get('status')}", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v8_audio_behavior_captcha(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            self._v7_log(f"[{serial}] Running Subagent #33 InteractiveAudioAndBehaviorCaptchaSubagent...")
+            res = self.audio_behavior_captcha.execute_human_behavior_verification(serial)
+            self._v7_log(f"[AudioBehaviorCaptcha #33] Result: {res}")
+            self.log_agent_msg("AudioBehaviorCaptcha(#33)", f"[{serial}] Trajectory Entropy Score={res.get('entropy_score')}", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v8_session_guard(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            self._v7_log(f"[{serial}] Running Subagent #34 CrossAppSessionAndCredentialGuardSubagent...")
+            res = self.session_guard.handle_sso_or_credential_prompt(serial)
+            self._v7_log(f"[SessionGuard #34] Result: {res}")
+            self.log_agent_msg("SessionGuard(#34)", f"[{serial}] SSO/Credential Guard: {res.get('status')}", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v8_e2e_benchmark(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        pkg = self.pkg_entry.get().strip() or "com.android.settings"
+        def _worker():
+            self._v7_log(f"[{serial}] Running Subagent #35 RealDeviceE2EBenchmarkAndSelfHealerSubagent (8-Stage E2E)...")
+            res = self.e2e_benchmark.run_full_device_e2e_benchmark(serial, package_name=pkg)
+            self._v7_log(f"[RealDeviceE2EBenchmark #35] Grade={res.get('overall_grade')} ({res.get('overall_score')}/100) | Report: {res.get('report_path')}")
+            self.log_agent_msg("E2EBenchmark(#35)", f"[{serial}] Grade={res.get('overall_grade')} ({res.get('overall_score')}/100)", "success")
         threading.Thread(target=_worker, daemon=True).start()
 
 
