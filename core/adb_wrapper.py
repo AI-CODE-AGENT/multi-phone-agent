@@ -52,11 +52,14 @@ class ADBWrapper:
             return f"ERROR: {err}"
         return out
 
-    def get_connected_devices(self) -> List[Dict[str, str]]:
-        """List all connected ADB devices with serial and status."""
-        code, out, _ = self.run_command(["devices", "-l"])
+    def get_connected_devices(self, ttl_sec: float = 1.2) -> List[Dict[str, str]]:
+        """List all connected ADB devices with serial and status (with fast timeout & short TTL cache)."""
+        now = time.time()
+        if ttl_sec > 0 and hasattr(self, "_devs_cache") and (now - getattr(self, "_devs_cache_ts", 0.0)) < ttl_sec:
+            return list(self._devs_cache)
+        code, out, _ = self.run_command(["devices", "-l"], timeout=4)
         if code != 0:
-            return []
+            return getattr(self, "_devs_cache", [])
 
         devices = []
         for line in out.splitlines()[1:]:
@@ -76,6 +79,8 @@ class ADBWrapper:
                     "status": status,
                     "model": model
                 })
+        self._devs_cache = list(devices)
+        self._devs_cache_ts = time.time()
         return devices
 
     def is_boot_completed(self, serial: str) -> bool:

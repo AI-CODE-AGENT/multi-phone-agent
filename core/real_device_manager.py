@@ -204,14 +204,31 @@ class RealDeviceManager:
                 "wifi_ip": serial.split(":")[0] if ":" in serial else None
             }
 
-        brand = self.adb.shell(serial, "getprop ro.product.manufacturer", timeout=4).strip() or "Android"
-        model = self.adb.shell(serial, "getprop ro.product.model", timeout=4).strip() or "Phone"
-        release = self.adb.shell(serial, "getprop ro.build.version.release", timeout=4).strip() or "14"
-        sdk = self.adb.shell(serial, "getprop ro.build.version.sdk", timeout=4).strip() or "34"
-        abi = self.adb.shell(serial, "getprop ro.product.cpu.abi", timeout=4).strip() or "arm64-v8a"
+        if not hasattr(self, "_hw_meta_cache"):
+            self._hw_meta_cache = {}
+        if serial in self._hw_meta_cache:
+            brand, model, release, sdk, abi = self._hw_meta_cache[serial]
+        else:
+            batch_out = self.adb.shell(
+                serial,
+                "getprop ro.product.manufacturer; getprop ro.product.model; getprop ro.build.version.release; getprop ro.build.version.sdk; getprop ro.product.cpu.abi",
+                timeout=3
+            )
+            lines = [ln.strip() for ln in (batch_out or "").splitlines() if ln.strip() and "ERROR" not in ln]
+            brand = lines[0] if len(lines) > 0 else "Android"
+            model = lines[1] if len(lines) > 1 else "Phone"
+            release = lines[2] if len(lines) > 2 else "14"
+            sdk = lines[3] if len(lines) > 3 else "34"
+            abi = lines[4] if len(lines) > 4 else "arm64-v8a"
+            if len(lines) >= 2:
+                self._hw_meta_cache[serial] = (brand, model, release, sdk, abi)
         width, height = self.get_device_resolution(serial)
         battery = self.get_battery_and_thermal_info(serial)
-        wifi_ip = self.get_device_wifi_ip(serial)
+        if not hasattr(self, "_wifi_ip_cache"):
+            self._wifi_ip_cache = {}
+        wifi_ip = self._wifi_ip_cache.get(serial) or self.get_device_wifi_ip(serial)
+        if wifi_ip:
+            self._wifi_ip_cache[serial] = wifi_ip
 
         profile = {
             "serial": serial,

@@ -124,8 +124,17 @@ class NVIDIACudaPTXAccelerator:
     NVIDIA GeForce RTX 3050 GPUs. Gracefully falls back to vectorized NumPy/PyTorch
     if `nvcuda.dll` is unavailable on the host.
     """
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
 
     def __init__(self) -> None:
+        if getattr(self, "_initialized", False):
+            return
+        self._initialized = True
         self.cuda: Optional[Any] = None
         self.device_handle = ctypes.c_int(0)
         self.context_handle = ctypes.c_void_p()
@@ -428,15 +437,48 @@ class ZeroTokenNeuralOCREngine:
     CHARSET_UPPER = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     GLYPH_W = 24
     GLYPH_H = 32
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
 
     def __init__(self, accelerator: Optional[NVIDIACudaPTXAccelerator] = None) -> None:
-        torch.manual_seed(42)
+        if getattr(self, "_initialized", False):
+            return
+        self._initialized = True
         self.accelerator = accelerator or NVIDIACudaPTXAccelerator()
-        self.crnn = CRNNCTCModel(num_classes=len(self.CHARSET_UPPER) + 1)
-        self.crnn.eval()
-        self.fonts = self._load_system_fonts()
-        self.glyph_bank: Dict[str, List[np.ndarray]] = self._build_glyph_bank()
-        self._calibrate_crnn_projection()
+        self._crnn: Optional[CRNNCTCModel] = None
+        self._fonts: Optional[List[ImageFont.FreeTypeFont]] = None
+        self._glyph_bank: Optional[Dict[str, List[np.ndarray]]] = None
+        self._calibrated: bool = False
+
+    def _ensure_ready(self) -> None:
+        if not self._calibrated:
+            torch.manual_seed(42)
+            self._crnn = CRNNCTCModel(num_classes=len(self.CHARSET_UPPER) + 1)
+            self._crnn.eval()
+            self._fonts = self._load_system_fonts()
+            self._glyph_bank = self._build_glyph_bank()
+            self._calibrated = True
+            self._calibrate_crnn_projection()
+
+    @property
+    def crnn(self) -> CRNNCTCModel:
+        self._ensure_ready()
+        return self._crnn  # type: ignore[return-value]
+
+    @property
+    def fonts(self) -> List[ImageFont.FreeTypeFont]:
+        if self._fonts is None:
+            self._fonts = self._load_system_fonts()
+        return self._fonts
+
+    @property
+    def glyph_bank(self) -> Dict[str, List[np.ndarray]]:
+        self._ensure_ready()
+        return self._glyph_bank  # type: ignore[return-value]
 
     def _load_system_fonts(self) -> List[ImageFont.FreeTypeFont]:
         """Load standard Windows TrueType fonts (Arial, Consolas, Cour, SegoeUI, Verdana, Tahoma) for glyph templates."""
@@ -834,7 +876,17 @@ class LocalGPUVisionOCREngine:
     - Zero-Token 3x3 CAPTCHA Grid Classifier (`classify_grid_3x3_zero_token`)
     """
 
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
     def __init__(self) -> None:
+        if getattr(self, "_initialized", False):
+            return
+        self._initialized = True
         self.accelerator = NVIDIACudaPTXAccelerator()
         self.ocr_engine = ZeroTokenNeuralOCREngine(accelerator=self.accelerator)
         self.grid_head = GridFeatureHead()

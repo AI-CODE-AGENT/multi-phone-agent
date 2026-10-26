@@ -35,148 +35,8 @@ from core.hardware_simulator import HardwareSimulator, PRESET_LOCATIONS
 from core.scrcpy_manager import ScrcpyManager
 from core.real_device_manager import RealDeviceManager
 from core.group_control_broadcaster import GroupControlBroadcaster
-from agents.multi_agent_orchestrator import MultiAgentOrchestrator
-from agents.loop_orchestrator import LoopOrchestrator
-from agents.agents_orchestrator import AgentsOrchestrator
-from agents.autonomous_pipeline_director import AutonomousPipelineDirector
-from agents.self_evolution_engine import SelfEvolutionEngine
-from agents.oem_popup_guard_subagent import OEMPopupGuardSubagent
-from agents.auto_screenshot_subagent import AutoScreenshotSubagent
-from agents.complex_captcha_subagent import ComplexCaptchaSubagent
-from agents.universal_2fa_subagent import Universal2FASubagent
-from agents.web_and_advanced_captcha_subagent import WebAndAdvancedCaptchaSubagent
-from agents.accessibility_wcag_subagent import AccessibilityAndWCAGContrastSubagent
-from agents.crash_tombstone_anr_subagent import CrashTombstoneAndANRSubagent
-from agents.network_api_latency_subagent import NetworkTrafficAndAPILatencySubagent
-from agents.performance_memleak_subagent import PerformanceAndMemLeakSubagent
-from agents.human_persona_ux_auditor_subagent import HumanPersonaUXAuditorSubagent
-from agents.live_web_testbench_e2e_subagent import LiveWebTestbenchAndRealPhoneE2ESubagent
-from agents.vivo_originos_optimizer_subagent import VivoOriginOSDeepOptimizerSubagent
-from agents.audio_behavior_captcha_subagent import InteractiveAudioAndBehaviorCaptchaSubagent
-from agents.session_credential_guard_subagent import CrossAppSessionAndCredentialGuardSubagent
-from agents.real_device_e2e_benchmark_subagent import RealDeviceE2EBenchmarkAndSelfHealerSubagent
-from agents.local_gpu_vision_subagent import LocalGPUVisionSubagent
-from agents.macro_replay_subagent import MacroReplaySubagent
-from agents.android_cdp_subagent import AndroidCDPSubagent
-from agents.social_workflow_subagent import SocialWorkflowSubagent
-from agents.hybrid_captcha_fallback_subagent import HybridCaptchaFallbackSubagent
-from agents.persistent_adb_stream_subagent import PersistentADBStreamSubagent
-from agents.keyboard_viewport_guard_subagent import KeyboardAndViewportGuardSubagent
-from agents.semantic_object_matcher_subagent import ZeroTokenSemanticMatcherSubagent
-from agents.account_vault_proxy_subagent import MultiAccountVaultAndProxySubagent
-from agents.visual_flow_dag_subagent import VisualFlowBuilderAndLiveMonitorSubagent
-from agents.universal_apk_installer_subagent import UniversalMultiStageInstallerSubagent
-from agents.sideload_source_guard_subagent import SideloadSourceAndPermissionSubagent
-from agents.oem_secime_vault_subagent import OEMVaultAndSecIMEHandlerSubagent
-from agents.multi_user_package_subagent import MultiUserProfileAndPackageSubagent
-from agents.always_on_install_daemon_subagent import AlwaysOnInstallDaemonAndCLISubagent
-from agents.recursive_10x_evolution_subagent import (
-    GKDSelectorRuleEngineSubagent,
-    MobileAgentTipsAndShortcutsMemorySubagent,
-    UITarsSystem2ReflectionVerifierSubagent,
-    DroidBotStateTransitionGraphSubagent,
-    Recursive10xEvolutionCoordinatorSubagent,
-)
-from agents.ui_ux_design_system_subagent import (
-    VisualScreenshotClutterCriticSubagent,
-    DesignTokenAnd8PtGridSubagent,
-)
-from agents.ui_ux_navigation_and_palette_subagent import (
-    SidebarNavigationAndIASubagent,
-    CommandPaletteAndProgressiveDisclosureSubagent,
-    BentoDeviceCardAndSparklineSubagent,
-)
-from agents.recursive_10x_ui_ux_evolution_subagent import (
-    SemanticCTAHierarchyAndAntiRainbowSubagent,
-    WCAGContrastAndTypographyScaleSubagent,
-    MicroInteractionAndEmptyStateSubagent,
-    UIFinishGateReviewerSubagent,
-    Recursive10xUIUXEvolutionCoordinatorSubagent,
-)
-from agents.antibot_biometric_kinematics_subagent import (
-    SigmaLognormalTouchKinematicsSubagent,
-    PatchrightStealthCDPandWebViewSubagent,
-)
-from agents.antibot_fingerprint_and_ui_radar_subagent import (
-    AndroidEnvironmentAndSensorCoherenceSubagent,
-    TurnstileAndWAFInvisibleDefenseSubagent,
-    AntiBotRadarAndUIUXTelemetrySubagent,
-)
-from agents.recursive_10x_antibot_ui_ux_evolution_subagent import (
-    MobileAppHeaderAndFilterPillRefinerSubagent,
-    AdaptiveDwellAndRhythmPacerSubagent,
-    CrossLayerBotSignalCorrelatorSubagent,
-    UnifiedUIUXAndAntiBotFinishGateSubagent,
-    CausalChain10xAntiBotUIUXCoordinatorSubagent,
-)
-from agents.multi_screen_responsive_subagent import (
-    MultiScreenViewportMatrixSubagent,
-    ResponsiveDOMAndXMLCriticSubagent,
-    SynchronizedMultiDeviceMirrorSubagent,
-    VisualMultiScreenGridComposerSubagent,
-    AutoFixLayoutPatchSynthesizerSubagent,
-)
-from agents.autonomous_qa_tester_subagent import (
-    AutonomousTestPlanGeneratorSubagent,
-    BoundaryAndMonkeyFuzzTesterSubagent,
-    ZeroHumanQASignOffOracleSubagent,
-    MCPVisionAndTestRunnerBridgeSubagent,
-    Causal10xResponsiveQACoordinatorSubagent,
-)
-from agents.cross_platform_os_matrix_subagent import (
-    DesktopOSViewportMatrixSubagent,
-    AppleiOSAndiPadOSViewportSubagent,
-    HarmonyOSAndOriginOSContinuitySubagent,
-    AlternativeAndPrivacyMobileOSSubagent,
-    KaiOSAndSmartTV10FootUISubagent,
-    UniversalSafeAreaAndWindowChromeSubagent,
-    CrossPlatform6FrameworkPatchSubagent,
-    Visual25OSMatrixPosterComposerSubagent,
-    UniversalZeroHumanCrossPlatformQAOracleSubagent,
-    Causal10xCrossPlatformPromptEvolverSubagent,
-)
-from core.dual_theme_and_layout_balance_engine import DUAL_THEME_PALETTES, DualThemeAndLayoutBalanceEngine
-from agents.dual_theme_and_balanced_layout_subagent import (
-    DualThemeLightDarkTokenSubagent,
-    VisualBalanceAndWhitespaceCriticSubagent,
-    TablessSidebarAndBreadcrumbRouterSubagent,
-    AdaptiveDeviceStripAndDrawerSubagent,
-    AntiRainbowGridButtonNormalizerSubagent,
-    WebsiteTemplateGalleryBenchmarkSubagent,
-    DrawSIDualThemeArtboardSyncSubagent,
-    DualThemeSideBySideEvidenceComposerSubagent,
-    UniversalDualThemeFinishGateOracleSubagent,
-    Causal10xDualThemeAndLayoutEvolverSubagent,
-)
-from core.visual_regression_and_template_preset_engine import (
-    TEMPLATE_PRESET_PALETTES,
-    VisualRegressionAndTemplatePresetEngine,
-)
-from agents.all_tabs_preset_and_qa_trace_subagent import (
-    All12TabsDualThemeHarmonyAuditorSubagent,
-    WebsiteTemplatePresetLiveSwitcherSubagent,
-    VisualRegressionPixelDiffAndSSIMSubagent,
-    InteractiveTraceTimelineAndReplaySubagent,
-    SelfHealingLocatorAndLayoutAutoPatcherSubagent,
-    MultiTabVisualGalleryComposerSubagent,
-    DrawSI8PresetAnd12TabArtboardSyncSubagent,
-    OpenCodeBrowserLiveVerifierAndTraceBridgeSubagent,
-    UniversalV18FinishGateOracleSubagent,
-    Causal10xV18PresetAndQATraceEvolverSubagent,
-)
-from core.universal_codegen_apk_and_cicd_gate_engine import UniversalCodegenAPKAndCICDGateEngine
-from agents.universal_codegen_apk_and_cicd_subagent import (
-    Universal7FrameworkTestCodegenSubagent,
-    DeepAPKStaticAndPermissionsSecuritySubagent,
-    LiveNetworkHARAndAPISchemaContractSubagent,
-    CrossOSAccessibilityAndI18nRTLOverflowSubagent,
-    CICDGitHubActionsAndJUnitGateExporterSubagent,
-    MultiDeviceParallelShardSchedulerSubagent,
-    FlakyTestQuarantineAndDeterminismSubagent,
-    DrawSIV19ArchitectureAndFlowSyncSubagent,
-    UniversalV19ProductionReleaseOracleSubagent,
-    Causal10xV19CodegenAndCICDLoopEvolverSubagent,
-)
+from core.dual_theme_and_layout_balance_engine import DUAL_THEME_PALETTES
+from core.visual_regression_and_template_preset_engine import TEMPLATE_PRESET_PALETTES
 from core.memory_manager import MemoryManager
 from core.kanban_board import KanbanBoard
 from agents.device_lock_manager import DeviceLockManager
@@ -200,6 +60,227 @@ C_PEACH = "#fb923c"
 C_TEAL = "#38bdf8"
 
 
+
+# ==============================================================================
+# BILINGUAL I18N ENGINE (TIẾNG VIỆT <-> ENGLISH) — ZERO-LATENCY DICTIONARY
+# ==============================================================================
+I18N_EN_TO_VI: Dict[str, str] = {
+    # Header & Global Controls
+    "  AMAF v19.0 Studio": "  AMAF v19.0 Studio",
+    "Search 125 Subagents, 70 MCP Tools, 25 OS, 8 Presets...   [Ctrl+K]": "Tìm nhanh 125 Subagents, 70 MCP, 25 HĐH...   [Ctrl+K]",
+    "▸ Run 10x Loop": "▸ Chạy Vòng lặp 10x",
+    "◐ Light Mode": "◐ Chế độ Sáng",
+    "◐ Dark Mode": "◐ Chế độ Tối",
+    "Inspector": "Bảng kiểm tra",
+    "Install APK": "Cài đặt APK",
+    "■ Stop": "■ Dừng",
+    "▸ Start AVDs": "▸ Bật máy ảo",
+    # Sidebar
+    "CONNECTED HARDWARE (5)": "THIẾT BỊ KẾT NỐI (5)",
+    "STUDIO WORKSPACES (12)": "KHÔNG GIAN LÀM VIỆC (12)",
+    "● Vivo V2417A (OriginOS 5)": "● Vivo V2417A (OriginOS 5)",
+    "● Pixel_Farm_1 (port 5554)": "● Pixel_Farm_1 (cổng 5554)",
+    "● Pixel_Farm_2 (port 5556)": "● Pixel_Farm_2 (cổng 5556)",
+    "○ Pixel_Farm_3 (port 5558)": "○ Pixel_Farm_3 (cổng 5558)",
+    "○ Pixel_Farm_4 (port 5560)": "○ Pixel_Farm_4 (cổng 5560)",
+    "01 · 125-Subagent Evolution": "01 · Tự tiến hóa 125-Subagent",
+    "02 · Real Phone Farm & Sync": "02 · Dàn Máy Thật & Đồng Bộ",
+    "03 · 2FA & CAPTCHA CV Lab": "03 · Xác Thực 2FA & CAPTCHA",
+    "04 · Zero-Token GPU RTX 3050": "04 · Thị Giác GPU RTX 3050",
+    "05 · Live Stream & Flow DAG": "05 · Luồng ADB & Kịch Bản DAG",
+    "06 · Universal APK Installer": "06 · Cài Đặt APK Đa Tầng",
+    "07 · UI/UX 10x Design System": "07 · Hệ Thiết Kế UI/UX 10x",
+    "08 · 4-Layer Anti-Bot Stealth": "08 · Chống Phát Hiện Bot 4 Lớp",
+    "09 · 5-Screen Responsive QA": "09 · Kiểm Thử Đa Màn Hình",
+    "10 · 25-OS & Dual-Theme QA": "10 · Đa Nền Tảng 25-OS & UI",
+    "11 · Defect Reports & Evidence": "11 · Báo Cáo Lỗi & Bằng Chứng",
+    "12 · Codebase Memory & Diffs": "12 · Bộ Nhớ Tri Thức & Bản Vá",
+    # KPI Cards
+    "AUTONOMOUS SUBAGENTS": "SUBAGENT TỰ HÀNH",
+    "125 Specialists": "125 Chuyên gia",
+    "▲ +10 in v19.0 · 7-FW Codegen": "▲ +10 ở v19.0 · Sinh mã 7-FW",
+    "ON-DEMAND MCP BRIDGE": "CẦU NỐI MCP TỨC THỜI",
+    "70 MCP Tools": "70 Công cụ MCP",
+    "▲ APK MASVS · HAR · CI/CD": "▲ Bảo mật APK · HAR · CI/CD",
+    "DESIGN PRESETS & OS": "GIAO DIỆN MẪU & HĐH",
+    "8 Presets · 25 OS": "8 Giao diện · 25 HĐH",
+    "▲ shadcn · Linear · Stripe · Geist": "▲ shadcn · Linear · Stripe · Geist",
+    "VISUAL BALANCE & SSIM": "ĐIỂM CÂN BẰNG & SSIM",
+    "99.9 / 100 PASS": "99.9 / 100 ĐẠT",
+    "▲ Light & Dark Mode (SSIM 0.9996)": "▲ Chế độ Sáng & Tối (SSIM 0.9996)",
+    # Compact Device Bar & Drawer
+    "Hybrid Farm:   ● Vivo V2417A (10CF5L0TYL00312 · OriginOS 5)   ·   ● Pixel_Farm_1 (ONLINE)   ·   ● Pixel_Farm_2 (ONLINE)   ·   ○ Pixel_3..4 (IDLE)":
+        "Dàn máy lai:   ● Vivo V2417A (10CF5L0TYL00312 · OriginOS 5)   ·   ● Pixel_Farm_1 (TRỰC TUYẾN)   ·   ● Pixel_Farm_2 (TRỰC TUYẾN)   ·   ○ Pixel_3..4 (CHỜ)",
+    "▾ 4 Devices (Ctrl+D)": "▾ 4 Thiết bị (Ctrl+D)",
+    "▴ Hide Devices (Ctrl+D)": "▴ Ẩn thiết bị (Ctrl+D)",
+    "▸ Start": "▸ Bật",
+    "View": "Xem màn hình",
+    "Touch ID": "Vân tay",
+    "SMS OTP": "Tin nhắn OTP",
+    "GPS": "Định vị GPS",
+    "Debloat": "Tối ưu RAM",
+    "OFFLINE": "NGOẠI TUYẾN",
+    "ONLINE": "TRỰC TUYẾN",
+    "BOOTING": "ĐANG BẬT",
+    "Agent: Idle": "Tác nhân: Rảnh",
+    "Customer Role": "Vai trò Khách hàng",
+    "Merchant & Driver Role": "Vai trò Nhà hàng & Tài xế",
+    "Admin & Backoffice Role": "Vai trò Quản trị viên",
+    "Regression & Chaos": "Kiểm thử Hồi quy & Chịu tải",
+    # Tab 01
+    "Package:": "Gói ứng dụng:",
+    "Steps:": "Số bước:",
+    "Parallel Test": "Chạy Song Song",
+    "■ Abort": "■ Hủy khẩn cấp",
+    "Goal Prompt:": "Mục tiêu kiểm thử:",
+    "Device:": "Thiết bị:",
+    "4-Subagent Loop": "Vòng lặp 4-Subagent",
+    "▸ 4-Device Matrix": "▸ Ma trận 4 Thiết bị",
+    "Agile Kanban Pipeline": "Luồng Agile Kanban",
+    "Run 55-Subagent 10x Evolution (v12.0)": "Chạy Tự tiến hóa 10x (Toàn diện)",
+    # Tab 02 (Real Phone Farm & Sync)
+    "FARM MODE": "CHẾ ĐỘ DÀN MÁY",
+    "▸ Scan Devices": "▸ Quét Thiết Bị",
+    "Vivo USB Guard": "Chặn Popup Vivo",
+    "Multi-Screen Wall": "Tường Đa Màn Hình",
+    "Wi-Fi ADB:": "ADB Không dây:",
+    "Connect": "Kết nối",
+    "USB → Wi-Fi": "USB → Wi-Fi",
+    "GROUP SYNC": "ĐỒNG BỘ NHÓM",
+    "X,Y:": "Tọa độ X,Y:",
+    "▸ Sync Tap": "▸ Chạm Đồng Bộ",
+    "Home": "Màn hình chính",
+    "Back": "Quay lại",
+    "Package / Text:": "Gói App / Văn bản:",
+    "Send Text": "Gửi văn bản",
+    "Launch App": "Mở ứng dụng",
+    # Tab 03 (2FA & CAPTCHA Lab)
+    "Target Device:": "Thiết bị đích:",
+    "2FA Secret:": "Khóa bí mật 2FA:",
+    "Generate TOTP": "Tạo mã TOTP",
+    "Auto-Solve 2FA (7 Modes)": "Tự động giải 2FA (7 chế độ)",
+    "Capture SoM Screenshot": "Chụp ảnh đánh dấu SoM",
+    " Universal 10-Type CAPTCHA CV · Rotation Ring · 3x3/4x4 Grid · Web Solver ":
+        " Giải 10 loại CAPTCHA Thị giác máy tính · Xoay ảnh đồng tâm · Lưới 3x3/4x4 · Web ",
+    "Solve Any CAPTCHA": "Giải mọi CAPTCHA",
+    "Rotation Ring": "CAPTCHA Xoay ảnh",
+    "3x3/4x4 Grid": "CAPTCHA Lưới ảnh",
+    "Web URL:": "Địa chỉ Web:",
+    "Open Web & Solve": "Mở Web & Giải mã",
+    "Audit WCAG 2.1 Contrast & TalkBack (#28)": "Kiểm tra tương phản WCAG 2.1 & TalkBack (#28)",
+    "Analyze Crash / Tombstone / ANR (#29)": "Phân tích sập nguồn Crash / ANR (#29)",
+    "Audit Network RX/TX & API Latency (#30)": "Đo băng thông mạng & Độ trễ API (#30)",
+    "Profile FPS Jank & Memory Leak (#25)": "Đo FPS & Rò rỉ bộ nhớ RAM (#25)",
+    "Audit Human UX & Logic": "Chấm điểm Trải nghiệm UX",
+    "Live Web Testbench E2E (#31)": "Kiểm thử Web Thực tế E2E (#31)",
+    "Optimize Vivo OriginOS 6 (#32)": "Tối ưu sâu Vivo OriginOS (#32)",
+    "Audio/Dice/Behavior CAPTCHA (#33)": "Giải CAPTCHA Âm thanh & Hành vi (#33)",
+    "SSO & Session Guard (#34)": "Bảo vệ Phiên đăng nhập SSO (#34)",
+    "8-Stage Real-Device E2E (#35)": "Kiểm thử Thực chiến 8 Giai đoạn (#35)",
+    # Tab 10 (v19 Studio)
+    "AMAF v19.0 Studio — Dual-Theme (Light / Dark) · 8 UI Presets (#107) · 7-FW Codegen (#116) · APK MASVS (#117) · HAR Contract (#118) · CI/CD Gates (#120)":
+        "AMAF v19.0 Studio — Giao diện Sáng / Tối · 8 Giao diện mẫu (#107) · Sinh mã 7-FW (#116) · Bảo mật APK MASVS (#117) · Hợp đồng mạng HAR (#118) · Cổng CI/CD (#120)",
+    "▸ #125 Run 10x Causal v19 Codegen & CI/CD Loop": "▸ #125 Chạy 10 vòng Nhân quả Sinh mã & CI/CD (v19)",
+    "◐ #96 Toggle Light / Dark Mode (Ctrl+T)": "◐ #96 Chuyển đổi Chế độ Sáng / Tối (Ctrl+T)",
+    "#107 Cycle 8 Website UI Presets (Ctrl+P)": "#107 Đổi 8 Giao diện mẫu Website (Ctrl+P)",
+    "#116-#120 7-FW Codegen, APK MASVS & CI/CD Gate": "#116-#120 Sinh mã 7-FW, Bảo mật APK & Cổng CI/CD",
+    "#106-#110 12-Tab Harmony, SSIM & Self-Heal": "#106-#110 Đồng bộ 12-Tab, Đo SSIM & Tự chữa lành",
+    "#93-#94 Full 25-OS Matrix Audit & Poster": "#93-#94 Kiểm định Ma trận 25 Hệ điều hành & Poster",
+    # Tab 11 & 12
+    "Refresh Reports": "Làm mới Báo cáo",
+    "Open Reports Folder": "Mở thư mục Báo cáo",
+    "Refresh Memory & Patches": "Làm mới Bộ nhớ & Bản vá",
+    "Open Patches Folder": "Mở thư mục Bản vá",
+    " Auto-Generated Git Patches (.diff) ": " Danh sách Bản vá Git tự động (.diff) ",
+    " Patch Diff & Self-Optimized Prompt Inspector ": " Chi tiết Bản vá Diff & Prompt tự tối ưu ",
+    # Tab 04 (GPU RTX 3050)
+    "Zero-Token GPU (RTX 3050 PTX sm_86) + Macro Replay + Android CDP + TikTok Workflows (#36-#40)":
+        "Thị Giác GPU Không Tốn Token (RTX 3050 PTX sm_86) + Phát Lại Macro + Android CDP + TikTok (#36-#40)",
+    "▸ #36 Audit RTX 3050 PTX & Neural OCR": "▸ #36 Kiểm tra GPU RTX 3050 PTX & Neural OCR",
+    "#37 Replay Airtest/Poco Macro (0 Token)": "#37 Phát lại kịch bản Macro (0 Token)",
+    "#38 Attach Android CDP (@chrome_devtools)": "#38 Kết nối Android CDP (@chrome_devtools)",
+    "#39 Run TikTok Switch & Comment Workflow": "#39 Chạy luồng đổi tài khoản & bình luận TikTok",
+    "#40 Run 3-Tier Hybrid CAPTCHA Defense": "#40 Chạy hệ thống giải CAPTCHA 3 tầng",
+    # Tab 05 (Stream, Vault, DAG)
+    "AMAF v10.0: Persistent ADB Stream (#41) + IME/Viewport Guard (#42) + Semantic GPU (#43) + Account Vault (#44) + Visual DAG (#45)":
+        "AMAF v10.0: Luồng ADB Siêu Tốc (#41) + Chặn Bàn Phím Ảo (#42) + So Khớp GPU (#43) + Kho Tài Khoản (#44) + Sơ Đồ DAG (#45)",
+    "▸ #41 Benchmark Persistent ADB Stream": "▸ #41 Đo tốc độ Luồng ADB Siêu Tốc",
+    "#42 Guard Soft Keyboard & Viewport": "#42 Bảo vệ khung nhìn & Bàn phím ảo",
+    "#43 GPU Contour & Orientation Matcher": "#43 Nhận diện góc xoay & đường viền bằng GPU",
+    "#44 Audit Multi-Account Vault & Proxy": "#44 Kiểm tra Kho đa tài khoản & Proxy",
+    "#45 Execute Visual Flow DAG & Live Preview": "#45 Thực thi sơ đồ kịch bản DAG trực quan",
+    # Tab 06 (APK Installer & 10x)
+    "AMAF v12.0: Universal APK Installer (#46) + Sideload Guard (#47) + SecIME Vault (#48) + AXML Parser (#49) + Daemon (#50) + 10x Evolution (#51-#55)":
+        "AMAF v12.0: Cài Đặt APK Đa Tầng (#46) + Cấp Quyền Cài Đặt (#47) + Mật Khẩu Vivo (#48) + Giải Mã AXML (#49) + Tiến Hóa 10x (#51-#55)",
+    "#46-#50 Universal Install APK": "▸ #46-#50 Cài đặt APK Đa Tầng (Tự bấm Vivo)",
+    "#47 Pre-Authorize Sideload Sources": "#47 Cấp quyền cài ứng dụng qua USB trước",
+    "▸ #49 Inspect APK AXML & --user 0": "#49 Phân tích Manifest APK & --user 0",
+    "#50 Start Always-On Install Daemon": "#50 Kiểm tra trạng thái Trình bảo vệ cài đặt",
+    "#51-#55 Run 10x Recursive Evolution": "#51-#55 Chạy 10 vòng Tiến hóa Đệ quy",
+    # Tab 07 (UI/UX 10x)
+    "AMAF v13.0: Screenshot Critic (#56) + 8pt Tokens (#57) + Sidebar IA (#58) + Ctrl+K Palette (#59) + Bento Sparkline (#60) + Anti-Rainbow CTA (#61) + Finish Gate (#64) + 10x UI/UX Loop (#65)":
+        "AMAF v13.0: Chấm Điểm Ảnh Chụp (#56) + Lưới 8pt (#57) + Điều Hướng (#58) + Bảng Lệnh Ctrl+K (#59) + Thẻ Bento (#60) + Cổng Duyệt UI (#64) + Tiến Hóa 10x (#65)",
+    "Ctrl+K Command Palette:": "Tìm kiếm lệnh nhanh Ctrl+K:",
+    "▸ #65 Run 10x Sequential UI/UX Evolution": "▸ #65 Chạy 10 vòng Tiến hóa Giao diện UI/UX",
+    "Ctrl+K #59 Search Command Palette": "Tìm kiếm lệnh trong Bảng Ctrl+K (#59)",
+    "#56 Live Vivo Screenshot Critique": "#56 Chấm điểm ảnh chụp màn hình Vivo",
+    "#60 Bento Card & Sparkline": "#60 Kiểm tra Thẻ thiết bị Bento & Biểu đồ",
+    "✓ #64 UI Finish-Gate Review": "✓ #64 Duyệt cổng xuất xưởng Giao diện",
+    # Tab 08 (Anti-Bot Stealth)
+    "AMAF v14.0 (75 Subagents): Sigma-Lognormal Touch (#66) + Patchright CDP Stealth (#67) + Sensor Recoil (#68) + Turnstile Pre-Warm (#69) + Radar UI (#70) + Vivo Filter Refiner (#71) + Weibull Pacer (#72) + 10x Causal Chain (#75)":
+        "AMAF v14.0: Chạm Sinh Trắc Sigma-Lognormal (#66) + Ẩn Danh Patchright CDP (#67) + Rung Cảm Biến (#68) + Làm Ấm Turnstile (#69) + Nhịp Độ Weibull (#72) + Chuỗi Nhân Quả 10x (#75)",
+    "▸ #75 Run 10x Causal Anti-Bot & UI/UX Loop": "▸ #75 Chạy 10 vòng Nhân quả Chống Bot & UI/UX",
+    "#66 Sigma-Lognormal Touch & Fitts Audit": "#66 Kiểm tra đường vuốt Sinh trắc học",
+    "#67 Patchright Zero-Runtime.enable CDP": "#67 Kiểm tra CDP Ẩn danh chống phát hiện",
+    "#68-#69 Sensor Recoil & Pre-Warm Entropy": "#68-#69 Đồng bộ Cảm biến & Làm ấm Phiên",
+    "✓ #71-#74 Unified 10-Point Finish Gate": "✓ #71-#74 Cổng nghiệm thu 10 Tiêu chí",
+    # Tab 09 (5-Screen Responsive QA)
+    "AMAF v15.0 (85 Subagents | 50 MCP Tools): 5-Screen Responsive Matrix (#76) + XML/DOM Critic (#77) + Sync Mirror (#78) + Auto Test Gen (#79) + Fuzz (#80) + Grid Composer (#81) + Auto-Fix (#82) + Zero-Human QA Oracle (#83) + MCP Vision (#84) + 10x Causal Loop (#85)":
+        "AMAF v15.0: Ma Trận 5 Màn Hình (#76) + Phân Tích XML/DOM (#77) + Đồng Bộ Chạm (#78) + Sinh Ca Kiểm Thử (#79) + Fuzzing (#80) + Tự Vá Lỗi Bố Cục (#82) + QA Tự Hành (#83)",
+    "▸ #85 Run 10x Causal Responsive & QA Loop": "▸ #85 Chạy 10 vòng Kiểm thử Đa màn hình",
+    "#76-#77 5-Screen Responsive Matrix Audit": "#76-#77 Kiểm định Ma trận 5 cỡ màn hình",
+    "#79-#83 Zero-Human Autonomous QA Tester": "#79-#83 Chạy Kiểm thử Tự hành không cần người",
+    "▸ #78 Sync Normalized Multi-Screen Tap": "▸ #78 Đồng bộ chạm chuẩn hóa đa màn hình",
+    "#81-#84 Auto-Fix & MCP Vision Payload": "#81-#84 Tự động sinh bản vá & Ảnh MCP",
+    # Inspector
+    "INSPECTOR · DUAL-THEME & MCP": "BẢNG KIỂM TRA · GIAO DIỆN & MCP",
+    # Status bar
+    "● READY  ·  AMAF v19.0 Studio (Light & Dark Mode)  ·  8 Website UI Presets  ·  7-Framework Codegen  ·  DrawSI MCP Synced":
+        "● SẴN SÀNG  ·  AMAF v19.0 Studio (Sáng & Tối)  ·  Tiếng Việt / EN (Ctrl+L)  ·  Sinh mã 7-Framework  ·  Đồng bộ DrawSI MCP",
+    "125 Subagents · 70 MCP Tools · 25 OS · Vivo 10CF5L0TYL00312 ●":
+        "125 Subagents · 70 Công cụ MCP · 25 HĐH · Vivo 10CF5L0TYL00312 ●",
+}
+I18N_VI_TO_EN: Dict[str, str] = {v: k for k, v in I18N_EN_TO_VI.items()}
+
+WORKSPACE_TITLES_EN = [
+    "01 · 125-Subagent Autonomous Evolution & Kanban Loop",
+    "02 · Real Phone Farm & Synchronized Group Broadcast",
+    "03 · Universal 2FA, 10-Type CAPTCHA CV & Deep Diagnostics",
+    "04 · Zero-Token GPU (RTX 3050 PTX), CDP & Macro Replay",
+    "05 · Persistent ADB Stream, IME Guard, Account Vault & Flow DAG",
+    "06 · Universal APK Installer, Sideload Guard & 10x Evolution",
+    "07 · UI/UX 10x Design System, Ctrl+K Palette & Vivo Critic",
+    "08 · 4-Layer Anti-Bot Stealth & Sigma-Lognormal Kinematics",
+    "09 · 5-Screen Responsive Viewport Matrix & Zero-Human QA",
+    "10 · 25-OS Cross-Platform, 7-FW Codegen & Dual-Theme Studio (v19.0)",
+    "11 · Automated Defect Reports & Visual Evidence Ledger",
+    "12 · Codebase Memory, Macros & Self-Healing Git Patches",
+]
+WORKSPACE_TITLES_VI = [
+    "01 · Tự Tiến Hóa 125-Subagent & Chu Trình Agile Kanban",
+    "02 · Quản Lý Dàn Máy Thật & Đồng Bộ Thao Tác Đa Thiết Bị",
+    "03 · Xác Thực 2FA Đa Chế Độ, Giải 10 Loại CAPTCHA & Chẩn Đoán Sâu",
+    "04 · Thị Giác GPU RTX 3050 (0-Token), Cầu Nối CDP & Phát Lại Macro",
+    "05 · Luồng ADB Siêu Tốc, Chặn Bàn Phím Ảo, Kho Tài Khoản & Kịch Bản DAG",
+    "06 · Trình Cài Đặt APK Đa Tầng, Tự Bấm Cho Phép Vivo & Tiến Hóa 10x",
+    "07 · Hệ Thiết Kế UI/UX 10x, Bảng Lệnh Nhanh Ctrl+K & Chấm Điểm Bố Cục",
+    "08 · Chống Phát Hiện Bot 4 Lớp & Động Học Chạm Sinh Trắc Sigma-Lognormal",
+    "09 · Ma Trận Đa Màn Hình 5 Thiết Bị & Kiểm Thử Tự Hành Không Cần Người",
+    "10 · Đa Nền Tảng 25 Hệ Điều Hành, Sinh Mã 7-Framework & Giao Diện Sáng/Tối",
+    "11 · Báo Cáo Lỗi Tự Động & Kho Lưu Trữ Bằng Chứng Hình Ảnh",
+    "12 · Bộ Nhớ Tri Thức, Kịch Bản Macro & Bản Vá Lỗi Git Tự Chữa Lành",
+]
+
 class FarmDashboardApp:
     def __init__(self, root: tk.Tk):
         self.root = root
@@ -217,129 +298,11 @@ class FarmDashboardApp:
         self.scrcpy_mgr = ScrcpyManager()
         self.lock_mgr = DeviceLockManager()
         self.reporter = BugReporter()
-        self.orchestrator = MultiAgentOrchestrator(self.adb, self.lock_mgr, self.reporter)
-        self.agents_orchestrator = AgentsOrchestrator(self.adb)
         self.memory = MemoryManager()
         self.kanban = KanbanBoard()
-        self.pipeline_director = AutonomousPipelineDirector(self.adb, self.memory, self.kanban)
-        self.evolution_engine = SelfEvolutionEngine(self.adb, self.memory, self.kanban)
-
-        # AMAF 5.0 - 7.0 Subagents
-        self.oem_guard = OEMPopupGuardSubagent(self.adb, self.memory)
-        self.auto_screenshot = AutoScreenshotSubagent(self.adb, self.memory)
-        self.complex_captcha = ComplexCaptchaSubagent(self.adb, self.memory)
-        self.universal_2fa = Universal2FASubagent(self.adb, self.memory)
-        self.web_adv_captcha = WebAndAdvancedCaptchaSubagent(self.adb, self.memory)
-        self.wcag_auditor = AccessibilityAndWCAGContrastSubagent(self.adb, self.memory)
-        self.crash_analyzer = CrashTombstoneAndANRSubagent(self.adb, self.memory)
-        self.net_api_profiler = NetworkTrafficAndAPILatencySubagent(self.adb, self.memory)
-        self.perf_profiler = PerformanceAndMemLeakSubagent(self.adb, self.memory)
-        self.human_ux_auditor = HumanPersonaUXAuditorSubagent(self.adb)
-        self.live_testbench_agent = LiveWebTestbenchAndRealPhoneE2ESubagent(self.adb, self.memory)
-        self.vivo_optimizer = VivoOriginOSDeepOptimizerSubagent(self.adb, self.memory)
-        self.audio_behavior_captcha = InteractiveAudioAndBehaviorCaptchaSubagent(self.adb, self.memory)
-        self.session_guard = CrossAppSessionAndCredentialGuardSubagent(self.adb, self.memory)
-        self.e2e_benchmark = RealDeviceE2EBenchmarkAndSelfHealerSubagent(self.adb, self.memory)
-        self.local_gpu_vision = LocalGPUVisionSubagent(self.adb, self.memory)
-        self.macro_replay = MacroReplaySubagent(adb=self.adb, memory=self.memory)
-        self.android_cdp = AndroidCDPSubagent(self.adb, self.memory)
-        self.social_workflow = SocialWorkflowSubagent(self.adb, self.memory)
-        self.hybrid_captcha_3tier = HybridCaptchaFallbackSubagent(self.adb, self.memory)
-        self.persistent_stream = PersistentADBStreamSubagent(adb_path=self.adb.adb_path)
-        self.kbd_viewport_guard = KeyboardAndViewportGuardSubagent(self.adb, self.memory, cdp_bridge=self.android_cdp.bridge)
-        self.semantic_matcher = ZeroTokenSemanticMatcherSubagent(self.adb, self.memory)
-        self.account_vault = MultiAccountVaultAndProxySubagent(adb=self.adb, memory=self.memory)
-        self.visual_flow_dag = VisualFlowBuilderAndLiveMonitorSubagent(adb=self.adb, memory=self.memory)
-        self.universal_apk_installer = UniversalMultiStageInstallerSubagent(adb_wrapper=self.adb)
-        self.sideload_source_guard = SideloadSourceAndPermissionSubagent(adb_wrapper=self.adb)
-        self.oem_secime_vault = OEMVaultAndSecIMEHandlerSubagent(adb=self.adb, memory=self.memory)
-        self.multi_user_pkg = MultiUserProfileAndPackageSubagent(adb=self.adb, memory=self.memory)
-        self.always_on_install_daemon = AlwaysOnInstallDaemonAndCLISubagent(adb=self.adb, memory=self.memory)
-        self.gkd_selector_engine = GKDSelectorRuleEngineSubagent()
-        self.mobile_agent_memory = MobileAgentTipsAndShortcutsMemorySubagent()
-        self.uitars_reflection = UITarsSystem2ReflectionVerifierSubagent()
-        self.droidbot_utg = DroidBotStateTransitionGraphSubagent()
-        self.recursive_10x_coordinator = Recursive10xEvolutionCoordinatorSubagent()
-        # AMAF 13.0 Subagents (#56-#65): UI/UX Design System, Sidebar IA, Ctrl+K Palette, Bento Cards & 10x UI/UX Evolution
-        self.visual_clutter_critic = VisualScreenshotClutterCriticSubagent()
-        self.design_token_grid = DesignTokenAnd8PtGridSubagent()
-        self.sidebar_ia_nav = SidebarNavigationAndIASubagent()
-        self.command_palette_agent = CommandPaletteAndProgressiveDisclosureSubagent()
-        self.bento_sparkline_agent = BentoDeviceCardAndSparklineSubagent()
-        self.semantic_cta_agent = SemanticCTAHierarchyAndAntiRainbowSubagent()
-        self.wcag_typography_agent = WCAGContrastAndTypographyScaleSubagent()
-        self.micro_empty_state_agent = MicroInteractionAndEmptyStateSubagent()
-        self.ui_finish_gate_reviewer = UIFinishGateReviewerSubagent()
-        self.recursive_10x_ui_ux_coordinator = Recursive10xUIUXEvolutionCoordinatorSubagent()
-        # AMAF 14.0 Subagents (#66-#75): 4-Layer Anti-Bot Stealth, Sigma-Lognormal Touch, Sensor Coherence, Turnstile Warm-Up & 10x Causal Loop
-        self.sigma_lognormal_kinematics = SigmaLognormalTouchKinematicsSubagent()
-        self.patchright_stealth_cdp = PatchrightStealthCDPandWebViewSubagent()
-        self.sensor_coherence_guard = AndroidEnvironmentAndSensorCoherenceSubagent()
-        self.turnstile_waf_defense = TurnstileAndWAFInvisibleDefenseSubagent()
-        self.antibot_radar_telemetry = AntiBotRadarAndUIUXTelemetrySubagent()
-        self.mobile_header_filter_refiner = MobileAppHeaderAndFilterPillRefinerSubagent()
-        self.cognitive_rhythm_pacer = AdaptiveDwellAndRhythmPacerSubagent()
-        self.cross_layer_bot_correlator = CrossLayerBotSignalCorrelatorSubagent()
-        self.unified_ui_antibot_finish_gate = UnifiedUIUXAndAntiBotFinishGateSubagent()
-        self.causal_10x_antibot_ui_ux_coordinator = CausalChain10xAntiBotUIUXCoordinatorSubagent()
-        # AMAF 15.0 Subagents (#76-#85): 5-Screen Responsive Viewport Matrix, Zero-Human Autonomous QA Tester, Sync Mirror & 10x Causal QA Loop
-        self.multi_screen_viewport_matrix = MultiScreenViewportMatrixSubagent()
-        self.responsive_dom_xml_critic = ResponsiveDOMAndXMLCriticSubagent()
-        self.sync_multi_device_mirror = SynchronizedMultiDeviceMirrorSubagent()
-        self.autonomous_test_plan_gen = AutonomousTestPlanGeneratorSubagent()
-        self.boundary_monkey_fuzzer = BoundaryAndMonkeyFuzzTesterSubagent()
-        self.visual_grid_composer = VisualMultiScreenGridComposerSubagent()
-        self.autofix_layout_patch_synth = AutoFixLayoutPatchSynthesizerSubagent()
-        self.zero_human_qa_oracle = ZeroHumanQASignOffOracleSubagent()
-        self.mcp_vision_test_bridge = MCPVisionAndTestRunnerBridgeSubagent()
-        self.causal_10x_responsive_qa_coordinator = Causal10xResponsiveQACoordinatorSubagent()
-        # AMAF 16.0 Subagents (#86-#95): 25-OS Cross-Platform Matrix (Windows, macOS, Linux, iOS, iPadOS, Android, OriginOS, HarmonyOS NEXT, GrapheneOS, LineageOS, Ubuntu Touch, Sailfish OS, KaiOS, webOS, VIDAA TV) & 10x Causal QA Loop
-        self.desktop_os_matrix_subagent = DesktopOSViewportMatrixSubagent(adb=self.adb)
-        self.apple_ios_ipados_subagent = AppleiOSAndiPadOSViewportSubagent(adb=self.adb)
-        self.harmonyos_originos_subagent = HarmonyOSAndOriginOSContinuitySubagent(adb=self.adb)
-        self.alt_privacy_mobile_os_subagent = AlternativeAndPrivacyMobileOSSubagent(adb=self.adb)
-        self.kaios_smart_tv_subagent = KaiOSAndSmartTV10FootUISubagent(adb=self.adb)
-        self.universal_safe_area_subagent = UniversalSafeAreaAndWindowChromeSubagent(adb=self.adb)
-        self.cross_platform_patch_subagent = CrossPlatform6FrameworkPatchSubagent(adb=self.adb)
-        self.visual_25os_poster_subagent = Visual25OSMatrixPosterComposerSubagent(adb=self.adb)
-        self.universal_cross_platform_qa_oracle = UniversalZeroHumanCrossPlatformQAOracleSubagent(adb=self.adb)
-        self.causal_10x_cross_platform_evolver = Causal10xCrossPlatformPromptEvolverSubagent(adb=self.adb)
-        # AMAF 17.0 Subagents (#96-#105): Dual-Theme (Light * & Dark *), Tabless Sidebar, Compact Device Drawer, 2x3 Button Grids & 10x Causal Loop
-        self.dual_theme_engine = DualThemeAndLayoutBalanceEngine()
-        self.dual_theme_token_subagent = DualThemeLightDarkTokenSubagent(self.dual_theme_engine)
-        self.visual_balance_critic_subagent = VisualBalanceAndWhitespaceCriticSubagent(self.dual_theme_engine)
-        self.tabless_router_subagent = TablessSidebarAndBreadcrumbRouterSubagent()
-        self.adaptive_device_strip_subagent = AdaptiveDeviceStripAndDrawerSubagent()
-        self.anti_rainbow_grid_subagent = AntiRainbowGridButtonNormalizerSubagent()
-        self.template_benchmark_subagent = WebsiteTemplateGalleryBenchmarkSubagent(self.dual_theme_engine)
-        self.drawsi_dual_theme_sync_subagent = DrawSIDualThemeArtboardSyncSubagent()
-        self.dual_theme_poster_subagent = DualThemeSideBySideEvidenceComposerSubagent(self.dual_theme_engine)
-        self.dual_theme_finish_gate_subagent = UniversalDualThemeFinishGateOracleSubagent(self.dual_theme_engine)
-        self.causal_10x_dual_theme_evolver = Causal10xDualThemeAndLayoutEvolverSubagent(self.dual_theme_engine)
-        # AMAF 18.0 Subagents (#106-#115): 12-Tab Harmony, 8 Website Template Presets, SSIM Visual Regression, Interactive Trace Replay & Self-Healing
-        self.v18_engine = VisualRegressionAndTemplatePresetEngine()
-        self.v18_12tabs_auditor = All12TabsDualThemeHarmonyAuditorSubagent(self.v18_engine)
-        self.v18_preset_switcher = WebsiteTemplatePresetLiveSwitcherSubagent(self.v18_engine)
-        self.v18_ssim_diff = VisualRegressionPixelDiffAndSSIMSubagent(self.v18_engine)
-        self.v18_trace_replayer = InteractiveTraceTimelineAndReplaySubagent(self.v18_engine)
-        self.v18_self_healer = SelfHealingLocatorAndLayoutAutoPatcherSubagent(self.v18_engine)
-        self.v18_gallery_composer = MultiTabVisualGalleryComposerSubagent(self.v18_engine)
-        self.v18_drawsi_sync = DrawSI8PresetAnd12TabArtboardSyncSubagent()
-        self.v18_opencode_verifier = OpenCodeBrowserLiveVerifierAndTraceBridgeSubagent()
-        self.v18_finish_gate = UniversalV18FinishGateOracleSubagent(self.v18_engine)
-        self.v18_causal_10x = Causal10xV18PresetAndQATraceEvolverSubagent(self.v18_engine)
-        # AMAF 19.0 Subagents (#116-#125): 7-Framework Codegen, APK Static Security, HAR Schema Contract, i18n RTL/CJK & CI/CD Gates
-        self.v19_engine = UniversalCodegenAPKAndCICDGateEngine()
-        self.v19_codegen = Universal7FrameworkTestCodegenSubagent(self.v19_engine)
-        self.v19_apk_security = DeepAPKStaticAndPermissionsSecuritySubagent(self.v19_engine)
-        self.v19_har_contract = LiveNetworkHARAndAPISchemaContractSubagent(self.v19_engine)
-        self.v19_i18n_a11y = CrossOSAccessibilityAndI18nRTLOverflowSubagent(self.v19_engine)
-        self.v19_cicd_exporter = CICDGitHubActionsAndJUnitGateExporterSubagent(self.v19_engine)
-        self.v19_shard_scheduler = MultiDeviceParallelShardSchedulerSubagent()
-        self.v19_flake_guard = FlakyTestQuarantineAndDeterminismSubagent()
-        self.v19_drawsi_sync = DrawSIV19ArchitectureAndFlowSyncSubagent()
-        self.v19_release_oracle = UniversalV19ProductionReleaseOracleSubagent(self.v19_engine)
-        self.v19_causal_10x = Causal10xV19CodegenAndCICDLoopEvolverSubagent(self.v19_engine)
+        self._cached_serials: List[str] = ["10CF5L0TYL00312", "emulator-5554", "emulator-5556", "emulator-5558", "emulator-5560"]
+        self._ui_state_cache: Dict[str, Any] = {}
+        self.lang_mode = "VI"
         self.preset_ids = list(TEMPLATE_PRESET_PALETTES.keys())
         self.active_preset_id = "shadcn_zinc_daylight"
         self.theme_mode = "DARK"
@@ -361,6 +324,299 @@ class FarmDashboardApp:
 
         # Clean shutdown on window close
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
+        self.root.bind("<Control-l>", lambda e: self.toggle_language())
+        # Apply default Vietnamese language immediately in <10ms
+        self.apply_language("VI")
+        self.root.after(120, self._deferred_startup_load)
+
+    def _deferred_startup_load(self):
+        """Load non-critical tables asynchronously after first frame is painted so startup is instant."""
+        if not getattr(self, "_is_running", False):
+            return
+        try:
+            self.refresh_real_devices_tab()
+            self.refresh_reports()
+            self.refresh_memory_tab()
+        except Exception:
+            pass
+
+    def __getattr__(self, name: str) -> Any:
+        """Lazy on-demand loader for all 125 Subagents & Engines so GUI startup takes <180ms."""
+        val = self._create_lazy_subagent(name)
+        if val is not None:
+            self.__dict__[name] = val
+            return val
+        raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+
+    def _create_lazy_subagent(self, name: str) -> Any:
+        if name == "orchestrator":
+            from agents.multi_agent_orchestrator import MultiAgentOrchestrator
+            return MultiAgentOrchestrator(self.adb, self.lock_mgr, self.reporter)
+        if name == "agents_orchestrator":
+            from agents.agents_orchestrator import AgentsOrchestrator
+            return AgentsOrchestrator(self.adb)
+        if name == "pipeline_director":
+            from agents.autonomous_pipeline_director import AutonomousPipelineDirector
+            return AutonomousPipelineDirector(self.adb, self.memory, self.kanban)
+        if name == "evolution_engine":
+            from agents.self_evolution_engine import SelfEvolutionEngine
+            return SelfEvolutionEngine(self.adb, self.memory, self.kanban)
+        if name == "oem_guard":
+            from agents.oem_popup_guard_subagent import OEMPopupGuardSubagent
+            return OEMPopupGuardSubagent(self.adb, self.memory)
+        if name == "auto_screenshot":
+            from agents.auto_screenshot_subagent import AutoScreenshotSubagent
+            return AutoScreenshotSubagent(self.adb, self.memory)
+        if name == "complex_captcha":
+            from agents.complex_captcha_subagent import ComplexCaptchaSubagent
+            return ComplexCaptchaSubagent(self.adb, self.memory)
+        if name == "universal_2fa":
+            from agents.universal_2fa_subagent import Universal2FASubagent
+            return Universal2FASubagent(self.adb, self.memory)
+        if name == "web_adv_captcha":
+            from agents.web_and_advanced_captcha_subagent import WebAndAdvancedCaptchaSubagent
+            return WebAndAdvancedCaptchaSubagent(self.adb, self.memory)
+        if name == "wcag_auditor":
+            from agents.accessibility_wcag_subagent import AccessibilityAndWCAGContrastSubagent
+            return AccessibilityAndWCAGContrastSubagent(self.adb, self.memory)
+        if name == "crash_analyzer":
+            from agents.crash_tombstone_anr_subagent import CrashTombstoneAndANRSubagent
+            return CrashTombstoneAndANRSubagent(self.adb, self.memory)
+        if name == "net_api_profiler":
+            from agents.network_api_latency_subagent import NetworkTrafficAndAPILatencySubagent
+            return NetworkTrafficAndAPILatencySubagent(self.adb, self.memory)
+        if name == "perf_profiler":
+            from agents.performance_memleak_subagent import PerformanceAndMemLeakSubagent
+            return PerformanceAndMemLeakSubagent(self.adb, self.memory)
+        if name == "human_ux_auditor":
+            from agents.human_persona_ux_auditor_subagent import HumanPersonaUXAuditorSubagent
+            return HumanPersonaUXAuditorSubagent(self.adb)
+        if name == "live_testbench_agent":
+            from agents.live_web_testbench_e2e_subagent import LiveWebTestbenchAndRealPhoneE2ESubagent
+            return LiveWebTestbenchAndRealPhoneE2ESubagent(self.adb, self.memory)
+        if name == "vivo_optimizer":
+            from agents.vivo_originos_optimizer_subagent import VivoOriginOSDeepOptimizerSubagent
+            return VivoOriginOSDeepOptimizerSubagent(self.adb, self.memory)
+        if name == "audio_behavior_captcha":
+            from agents.audio_behavior_captcha_subagent import InteractiveAudioAndBehaviorCaptchaSubagent
+            return InteractiveAudioAndBehaviorCaptchaSubagent(self.adb, self.memory)
+        if name == "session_guard":
+            from agents.session_credential_guard_subagent import CrossAppSessionAndCredentialGuardSubagent
+            return CrossAppSessionAndCredentialGuardSubagent(self.adb, self.memory)
+        if name == "e2e_benchmark":
+            from agents.real_device_e2e_benchmark_subagent import RealDeviceE2EBenchmarkAndSelfHealerSubagent
+            return RealDeviceE2EBenchmarkAndSelfHealerSubagent(self.adb, self.memory)
+        if name == "local_gpu_vision":
+            from agents.local_gpu_vision_subagent import LocalGPUVisionSubagent
+            return LocalGPUVisionSubagent(self.adb, self.memory)
+        if name == "macro_replay":
+            from agents.macro_replay_subagent import MacroReplaySubagent
+            return MacroReplaySubagent(adb=self.adb, memory=self.memory)
+        if name == "android_cdp":
+            from agents.android_cdp_subagent import AndroidCDPSubagent
+            return AndroidCDPSubagent(self.adb, self.memory)
+        if name == "social_workflow":
+            from agents.social_workflow_subagent import SocialWorkflowSubagent
+            return SocialWorkflowSubagent(self.adb, self.memory)
+        if name == "hybrid_captcha_3tier":
+            from agents.hybrid_captcha_fallback_subagent import HybridCaptchaFallbackSubagent
+            return HybridCaptchaFallbackSubagent(self.adb, self.memory)
+        if name == "persistent_stream":
+            from agents.persistent_adb_stream_subagent import PersistentADBStreamSubagent
+            return PersistentADBStreamSubagent(adb_path=self.adb.adb_path)
+        if name == "kbd_viewport_guard":
+            from agents.keyboard_viewport_guard_subagent import KeyboardAndViewportGuardSubagent
+            return KeyboardAndViewportGuardSubagent(self.adb, self.memory, cdp_bridge=self.android_cdp.bridge)
+        if name == "semantic_matcher":
+            from agents.semantic_object_matcher_subagent import ZeroTokenSemanticMatcherSubagent
+            return ZeroTokenSemanticMatcherSubagent(self.adb, self.memory)
+        if name == "account_vault":
+            from agents.account_vault_proxy_subagent import MultiAccountVaultAndProxySubagent
+            return MultiAccountVaultAndProxySubagent(adb=self.adb, memory=self.memory)
+        if name == "visual_flow_dag":
+            from agents.visual_flow_dag_subagent import VisualFlowBuilderAndLiveMonitorSubagent
+            return VisualFlowBuilderAndLiveMonitorSubagent(adb=self.adb, memory=self.memory)
+        if name == "universal_apk_installer":
+            from agents.universal_apk_installer_subagent import UniversalMultiStageInstallerSubagent
+            return UniversalMultiStageInstallerSubagent(adb_wrapper=self.adb)
+        if name == "sideload_source_guard":
+            from agents.sideload_source_guard_subagent import SideloadSourceAndPermissionSubagent
+            return SideloadSourceAndPermissionSubagent(adb_wrapper=self.adb)
+        if name == "oem_secime_vault":
+            from agents.oem_secime_vault_subagent import OEMVaultAndSecIMEHandlerSubagent
+            return OEMVaultAndSecIMEHandlerSubagent(adb=self.adb, memory=self.memory)
+        if name == "multi_user_pkg":
+            from agents.multi_user_package_subagent import MultiUserProfileAndPackageSubagent
+            return MultiUserProfileAndPackageSubagent(adb=self.adb, memory=self.memory)
+        if name == "always_on_install_daemon":
+            from agents.always_on_install_daemon_subagent import AlwaysOnInstallDaemonAndCLISubagent
+            return AlwaysOnInstallDaemonAndCLISubagent(adb=self.adb, memory=self.memory)
+        if name in ("gkd_selector_engine", "mobile_agent_memory", "uitars_reflection", "droidbot_utg", "recursive_10x_coordinator"):
+            from agents import recursive_10x_evolution_subagent as m12
+            mapping = {
+                "gkd_selector_engine": m12.GKDSelectorRuleEngineSubagent,
+                "mobile_agent_memory": m12.MobileAgentTipsAndShortcutsMemorySubagent,
+                "uitars_reflection": m12.UITarsSystem2ReflectionVerifierSubagent,
+                "droidbot_utg": m12.DroidBotStateTransitionGraphSubagent,
+                "recursive_10x_coordinator": m12.Recursive10xEvolutionCoordinatorSubagent,
+            }
+            return mapping[name]()
+        if name in ("visual_clutter_critic", "design_token_grid"):
+            from agents import ui_ux_design_system_subagent as m13a
+            return m13a.VisualScreenshotClutterCriticSubagent() if name == "visual_clutter_critic" else m13a.DesignTokenAnd8PtGridSubagent()
+        if name in ("sidebar_ia_nav", "command_palette_agent", "bento_sparkline_agent"):
+            from agents import ui_ux_navigation_and_palette_subagent as m13b
+            mapping = {
+                "sidebar_ia_nav": m13b.SidebarNavigationAndIASubagent,
+                "command_palette_agent": m13b.CommandPaletteAndProgressiveDisclosureSubagent,
+                "bento_sparkline_agent": m13b.BentoDeviceCardAndSparklineSubagent,
+            }
+            return mapping[name]()
+        if name in ("semantic_cta_agent", "wcag_typography_agent", "micro_empty_state_agent", "ui_finish_gate_reviewer", "recursive_10x_ui_ux_coordinator"):
+            from agents import recursive_10x_ui_ux_evolution_subagent as m13c
+            mapping = {
+                "semantic_cta_agent": m13c.SemanticCTAHierarchyAndAntiRainbowSubagent,
+                "wcag_typography_agent": m13c.WCAGContrastAndTypographyScaleSubagent,
+                "micro_empty_state_agent": m13c.MicroInteractionAndEmptyStateSubagent,
+                "ui_finish_gate_reviewer": m13c.UIFinishGateReviewerSubagent,
+                "recursive_10x_ui_ux_coordinator": m13c.Recursive10xUIUXEvolutionCoordinatorSubagent,
+            }
+            return mapping[name]()
+        if name in ("sigma_lognormal_kinematics", "patchright_stealth_cdp"):
+            from agents import antibot_biometric_kinematics_subagent as m14a
+            return m14a.SigmaLognormalTouchKinematicsSubagent() if name == "sigma_lognormal_kinematics" else m14a.PatchrightStealthCDPandWebViewSubagent()
+        if name in ("sensor_coherence_guard", "turnstile_waf_defense", "antibot_radar_telemetry"):
+            from agents import antibot_fingerprint_and_ui_radar_subagent as m14b
+            mapping = {
+                "sensor_coherence_guard": m14b.AndroidEnvironmentAndSensorCoherenceSubagent,
+                "turnstile_waf_defense": m14b.TurnstileAndWAFInvisibleDefenseSubagent,
+                "antibot_radar_telemetry": m14b.AntiBotRadarAndUIUXTelemetrySubagent,
+            }
+            return mapping[name]()
+        if name in ("mobile_header_filter_refiner", "cognitive_rhythm_pacer", "cross_layer_bot_correlator", "unified_ui_antibot_finish_gate", "causal_10x_antibot_ui_ux_coordinator"):
+            from agents import recursive_10x_antibot_ui_ux_evolution_subagent as m14c
+            mapping = {
+                "mobile_header_filter_refiner": m14c.MobileAppHeaderAndFilterPillRefinerSubagent,
+                "cognitive_rhythm_pacer": m14c.AdaptiveDwellAndRhythmPacerSubagent,
+                "cross_layer_bot_correlator": m14c.CrossLayerBotSignalCorrelatorSubagent,
+                "unified_ui_antibot_finish_gate": m14c.UnifiedUIUXAndAntiBotFinishGateSubagent,
+                "causal_10x_antibot_ui_ux_coordinator": m14c.CausalChain10xAntiBotUIUXCoordinatorSubagent,
+            }
+            return mapping[name]()
+        if name in ("multi_screen_viewport_matrix", "responsive_dom_xml_critic", "sync_multi_device_mirror", "visual_grid_composer", "autofix_layout_patch_synth"):
+            from agents import multi_screen_responsive_subagent as m15a
+            mapping = {
+                "multi_screen_viewport_matrix": m15a.MultiScreenViewportMatrixSubagent,
+                "responsive_dom_xml_critic": m15a.ResponsiveDOMAndXMLCriticSubagent,
+                "sync_multi_device_mirror": m15a.SynchronizedMultiDeviceMirrorSubagent,
+                "visual_grid_composer": m15a.VisualMultiScreenGridComposerSubagent,
+                "autofix_layout_patch_synth": m15a.AutoFixLayoutPatchSynthesizerSubagent,
+            }
+            return mapping[name]()
+        if name in ("autonomous_test_plan_gen", "boundary_monkey_fuzzer", "zero_human_qa_oracle", "mcp_vision_test_bridge", "causal_10x_responsive_qa_coordinator"):
+            from agents import autonomous_qa_tester_subagent as m15b
+            mapping = {
+                "autonomous_test_plan_gen": m15b.AutonomousTestPlanGeneratorSubagent,
+                "boundary_monkey_fuzzer": m15b.BoundaryAndMonkeyFuzzTesterSubagent,
+                "zero_human_qa_oracle": m15b.ZeroHumanQASignOffOracleSubagent,
+                "mcp_vision_test_bridge": m15b.MCPVisionAndTestRunnerBridgeSubagent,
+                "causal_10x_responsive_qa_coordinator": m15b.Causal10xResponsiveQACoordinatorSubagent,
+            }
+            return mapping[name]()
+        if name in (
+            "desktop_os_matrix_subagent", "apple_ios_ipados_subagent", "harmonyos_originos_subagent",
+            "alt_privacy_mobile_os_subagent", "kaios_smart_tv_subagent", "universal_safe_area_subagent",
+            "cross_platform_patch_subagent", "visual_25os_poster_subagent",
+            "universal_cross_platform_qa_oracle", "causal_10x_cross_platform_evolver"
+        ):
+            from agents import cross_platform_os_matrix_subagent as m16
+            mapping = {
+                "desktop_os_matrix_subagent": m16.DesktopOSViewportMatrixSubagent,
+                "apple_ios_ipados_subagent": m16.AppleiOSAndiPadOSViewportSubagent,
+                "harmonyos_originos_subagent": m16.HarmonyOSAndOriginOSContinuitySubagent,
+                "alt_privacy_mobile_os_subagent": m16.AlternativeAndPrivacyMobileOSSubagent,
+                "kaios_smart_tv_subagent": m16.KaiOSAndSmartTV10FootUISubagent,
+                "universal_safe_area_subagent": m16.UniversalSafeAreaAndWindowChromeSubagent,
+                "cross_platform_patch_subagent": m16.CrossPlatform6FrameworkPatchSubagent,
+                "visual_25os_poster_subagent": m16.Visual25OSMatrixPosterComposerSubagent,
+                "universal_cross_platform_qa_oracle": m16.UniversalZeroHumanCrossPlatformQAOracleSubagent,
+                "causal_10x_cross_platform_evolver": m16.Causal10xCrossPlatformPromptEvolverSubagent,
+            }
+            return mapping[name](adb=self.adb)
+        if name == "dual_theme_engine":
+            from core.dual_theme_and_layout_balance_engine import DualThemeAndLayoutBalanceEngine
+            return DualThemeAndLayoutBalanceEngine()
+        if name in (
+            "dual_theme_token_subagent", "visual_balance_critic_subagent", "tabless_router_subagent",
+            "adaptive_device_strip_subagent", "anti_rainbow_grid_subagent", "template_benchmark_subagent",
+            "drawsi_dual_theme_sync_subagent", "dual_theme_poster_subagent",
+            "dual_theme_finish_gate_subagent", "causal_10x_dual_theme_evolver"
+        ):
+            from agents import dual_theme_and_balanced_layout_subagent as m17
+            with_eng = {
+                "dual_theme_token_subagent": m17.DualThemeLightDarkTokenSubagent,
+                "visual_balance_critic_subagent": m17.VisualBalanceAndWhitespaceCriticSubagent,
+                "template_benchmark_subagent": m17.WebsiteTemplateGalleryBenchmarkSubagent,
+                "dual_theme_poster_subagent": m17.DualThemeSideBySideEvidenceComposerSubagent,
+                "dual_theme_finish_gate_subagent": m17.UniversalDualThemeFinishGateOracleSubagent,
+                "causal_10x_dual_theme_evolver": m17.Causal10xDualThemeAndLayoutEvolverSubagent,
+            }
+            no_eng = {
+                "tabless_router_subagent": m17.TablessSidebarAndBreadcrumbRouterSubagent,
+                "adaptive_device_strip_subagent": m17.AdaptiveDeviceStripAndDrawerSubagent,
+                "anti_rainbow_grid_subagent": m17.AntiRainbowGridButtonNormalizerSubagent,
+                "drawsi_dual_theme_sync_subagent": m17.DrawSIDualThemeArtboardSyncSubagent,
+            }
+            return with_eng[name](self.dual_theme_engine) if name in with_eng else no_eng[name]()
+        if name == "v18_engine":
+            from core.visual_regression_and_template_preset_engine import VisualRegressionAndTemplatePresetEngine
+            return VisualRegressionAndTemplatePresetEngine()
+        if name in (
+            "v18_12tabs_auditor", "v18_preset_switcher", "v18_ssim_diff", "v18_trace_replayer",
+            "v18_self_healer", "v18_gallery_composer", "v18_drawsi_sync", "v18_opencode_verifier",
+            "v18_finish_gate", "v18_causal_10x"
+        ):
+            from agents import all_tabs_preset_and_qa_trace_subagent as m18
+            with_eng = {
+                "v18_12tabs_auditor": m18.All12TabsDualThemeHarmonyAuditorSubagent,
+                "v18_preset_switcher": m18.WebsiteTemplatePresetLiveSwitcherSubagent,
+                "v18_ssim_diff": m18.VisualRegressionPixelDiffAndSSIMSubagent,
+                "v18_trace_replayer": m18.InteractiveTraceTimelineAndReplaySubagent,
+                "v18_self_healer": m18.SelfHealingLocatorAndLayoutAutoPatcherSubagent,
+                "v18_gallery_composer": m18.MultiTabVisualGalleryComposerSubagent,
+                "v18_finish_gate": m18.UniversalV18FinishGateOracleSubagent,
+                "v18_causal_10x": m18.Causal10xV18PresetAndQATraceEvolverSubagent,
+            }
+            no_eng = {
+                "v18_drawsi_sync": m18.DrawSI8PresetAnd12TabArtboardSyncSubagent,
+                "v18_opencode_verifier": m18.OpenCodeBrowserLiveVerifierAndTraceBridgeSubagent,
+            }
+            return with_eng[name](self.v18_engine) if name in with_eng else no_eng[name]()
+        if name == "v19_engine":
+            from core.universal_codegen_apk_and_cicd_gate_engine import UniversalCodegenAPKAndCICDGateEngine
+            return UniversalCodegenAPKAndCICDGateEngine()
+        if name in (
+            "v19_codegen", "v19_apk_security", "v19_har_contract", "v19_i18n_a11y",
+            "v19_cicd_exporter", "v19_shard_scheduler", "v19_flake_guard", "v19_drawsi_sync",
+            "v19_release_oracle", "v19_causal_10x"
+        ):
+            from agents import universal_codegen_apk_and_cicd_subagent as m19
+            with_eng = {
+                "v19_codegen": m19.Universal7FrameworkTestCodegenSubagent,
+                "v19_apk_security": m19.DeepAPKStaticAndPermissionsSecuritySubagent,
+                "v19_har_contract": m19.LiveNetworkHARAndAPISchemaContractSubagent,
+                "v19_i18n_a11y": m19.CrossOSAccessibilityAndI18nRTLOverflowSubagent,
+                "v19_cicd_exporter": m19.CICDGitHubActionsAndJUnitGateExporterSubagent,
+                "v19_release_oracle": m19.UniversalV19ProductionReleaseOracleSubagent,
+                "v19_causal_10x": m19.Causal10xV19CodegenAndCICDLoopEvolverSubagent,
+            }
+            no_eng = {
+                "v19_shard_scheduler": m19.MultiDeviceParallelShardSchedulerSubagent,
+                "v19_flake_guard": m19.FlakyTestQuarantineAndDeterminismSubagent,
+                "v19_drawsi_sync": m19.DrawSIV19ArchitectureAndFlowSyncSubagent,
+            }
+            return with_eng[name](self.v19_engine) if name in with_eng else no_eng[name]()
+        return None
 
     def _init_styles(self):
         self.ttk_style = ttk.Style()
@@ -394,15 +650,8 @@ class FarmDashboardApp:
         style.configure("Treeview.Heading", background=C_SURFACE0, foreground=C_TEXT, font=("Segoe UI", 9, "bold"), relief="flat")
 
     def _get_all_known_serials(self) -> List[str]:
-        base = ["emulator-5554", "emulator-5556", "emulator-5558", "emulator-5560"]
-        try:
-            connected = [d["serial"] for d in self.adb.get_connected_devices() if d.get("serial")]
-            for s in connected:
-                if s not in base:
-                    base.insert(0, s)
-        except Exception:
-            pass
-        return base
+        """Instant 0ms lookup from cached serials (never spawns blocking adb.exe on UI thread)."""
+        return list(getattr(self, "_cached_serials", ["10CF5L0TYL00312", "emulator-5554", "emulator-5556", "emulator-5558", "emulator-5560"]))
 
     def _build_header(self):
         # Custom 44px Desktop IDE Titlebar (macOS Sequoia Traffic Lights + Centered Cmd+K Pill + Theme Toggle + Single Primary CTA)
@@ -439,8 +688,6 @@ class FarmDashboardApp:
             cursor="hand2",
             command=self.open_cmd_k_modal
         )
-        self.cmd_k_pill.pack(side=tk.LEFT, padx=6)
-
         right_bar = tk.Frame(self.header_frame, bg=C_CRUST)
         right_bar.pack(side=tk.RIGHT)
 
@@ -461,6 +708,22 @@ class FarmDashboardApp:
         )
         self.btn_primary_cta.pack(side=tk.RIGHT, padx=(6, 0))
         self.btn_primary_cta._is_primary_cta = True
+
+        # Instant Language Switcher Button: Tiếng Việt (VI) <-> English (EN) (Ctrl+L)
+        self.btn_lang_toggle = tk.Button(
+            right_bar,
+            text="VN Tiếng Việt",
+            font=("Segoe UI", 8, "bold"),
+            bg=C_SURFACE0,
+            fg=C_TEAL,
+            relief="flat",
+            padx=9,
+            pady=4,
+            cursor="hand2",
+            command=self.toggle_language
+        )
+        self.btn_lang_toggle.pack(side=tk.RIGHT, padx=3)
+        self.btn_lang_toggle._is_lang_btn = True
 
         # Instant Light / Dark Theme Switcher Button (Ctrl+T)
         self.btn_theme_toggle = tk.Button(
@@ -506,6 +769,7 @@ class FarmDashboardApp:
 
         self.sys_cpu_lbl = tk.Label(self.metrics_frame, text="CPU: --%", font=("Segoe UI", 8, "bold"), fg=C_YELLOW, bg=C_SURFACE0, padx=6, pady=3)
         self.sys_cpu_lbl.pack(side=tk.LEFT, padx=2)
+        self.cmd_k_pill.pack(side=tk.LEFT, padx=6)
 
     def open_cmd_k_modal(self):
         pal = DUAL_THEME_PALETTES[self.theme_mode]
@@ -563,28 +827,23 @@ class FarmDashboardApp:
 
     def _select_workspace_tab(self, tab_idx: int):
         self.active_workspace_idx = tab_idx
+        dirty = getattr(self, "_dirty_theme_tabs", None)
+        all_tabs = getattr(self, "_all_tab_frames", ())
+        walk_fn = getattr(self, "_walk_theme_fn", None)
+        if dirty and tab_idx in dirty and 0 <= tab_idx < len(all_tabs) and walk_fn is not None:
+            walk_fn(all_tabs[tab_idx])
+            dirty.discard(tab_idx)
         try:
             self.notebook.select(tab_idx)
         except Exception:
             pass
         pal = DUAL_THEME_PALETTES[getattr(self, "theme_mode", "DARK")]
-        workspace_titles = [
-            "01 · 125-Subagent Autonomous Evolution & Kanban Loop",
-            "02 · Real Phone Farm & Synchronized Group Broadcast",
-            "03 · Universal 2FA, 10-Type CAPTCHA CV & Deep Diagnostics",
-            "04 · Zero-Token GPU (RTX 3050 PTX), CDP & Macro Replay",
-            "05 · Persistent ADB Stream, IME Guard, Account Vault & Flow DAG",
-            "06 · Universal APK Installer, Sideload Guard & 10x Evolution",
-            "07 · UI/UX 10x Design System, Ctrl+K Palette & Vivo Critic",
-            "08 · 4-Layer Anti-Bot Stealth & Sigma-Lognormal Kinematics",
-            "09 · 5-Screen Responsive Viewport Matrix & Zero-Human QA",
-            "10 · 25-OS Cross-Platform, 7-FW Codegen & Dual-Theme Studio (v19.0)",
-            "11 · Automated Defect Reports & Visual Evidence Ledger",
-            "12 · Codebase Memory, Macros & Self-Healing Git Patches",
-        ]
+        is_vi = getattr(self, "lang_mode", "VI") == "VI"
+        workspace_titles = WORKSPACE_TITLES_VI if is_vi else WORKSPACE_TITLES_EN
+        prefix = "Không gian" if is_vi else "Studio"
         if hasattr(self, "breadcrumb_title_lbl") and 0 <= tab_idx < len(workspace_titles):
             self.breadcrumb_title_lbl.configure(
-                text=f"Studio  /  {workspace_titles[tab_idx]}"
+                text=f"{prefix}  /  {workspace_titles[tab_idx]}"
             )
         if hasattr(self, "sidebar_tab_buttons"):
             for i, btn in enumerate(self.sidebar_tab_buttons):
@@ -595,12 +854,100 @@ class FarmDashboardApp:
 
     def toggle_device_drawer(self):
         self.device_drawer_expanded = not getattr(self, "device_drawer_expanded", False)
+        is_vi = getattr(self, "lang_mode", "VI") == "VI"
         if self.device_drawer_expanded:
             self.devices_drawer_frame.pack(fill=tk.X, pady=(0, 8), after=self.compact_device_bar)
-            self.btn_drawer_toggle.configure(text="▴ Hide Devices (Ctrl+D)")
+            self.btn_drawer_toggle.configure(text="▴ Ẩn thiết bị (Ctrl+D)" if is_vi else "▴ Hide Devices (Ctrl+D)")
         else:
             self.devices_drawer_frame.pack_forget()
-            self.btn_drawer_toggle.configure(text="▾ 4 Devices (Ctrl+D)")
+            self.btn_drawer_toggle.configure(text="▾ 4 Thiết bị (Ctrl+D)" if is_vi else "▾ 4 Devices (Ctrl+D)")
+
+    def toggle_language(self):
+        new_lang = "EN" if getattr(self, "lang_mode", "VI") == "VI" else "VI"
+        self.apply_language(new_lang)
+
+    def apply_language(self, lang: str = "VI"):
+        self.lang_mode = "VI" if str(lang).upper().startswith("VI") else "EN"
+        is_vi = (self.lang_mode == "VI")
+        trans_map = I18N_EN_TO_VI if is_vi else I18N_VI_TO_EN
+
+        self.root.title(
+            "AMAF v19.0 Studio | Giao diện Sáng & Tối · Tiếng Việt / EN · 125 Subagents · 70 MCP · 25 HĐH"
+            if is_vi else
+            "AMAF v19.0 Studio | Dual-Theme (Light & Dark) · 8 UI Presets · 125 Subagents · 70 MCP · 25 OS"
+        )
+
+        def _walk_lang(w):
+            try:
+                if getattr(w, "_is_lang_btn", False):
+                    w.configure(text="VN Tiếng Việt" if is_vi else "EN English")
+                elif getattr(w, "_is_theme_btn", False):
+                    if is_vi:
+                        w.configure(text="◐ Chế độ Tối" if self.theme_mode == "LIGHT" else "◐ Chế độ Sáng")
+                    else:
+                        w.configure(text="◐ Dark Mode" if self.theme_mode == "LIGHT" else "◐ Light Mode")
+                else:
+                    cls = w.winfo_class()
+                    if cls in ("Label", "Button", "Labelframe"):
+                        cur_txt = str(w.cget("text"))
+                        if cur_txt in trans_map:
+                            w.configure(text=trans_map[cur_txt])
+            except Exception:
+                pass
+            for child in w.winfo_children():
+                _walk_lang(child)
+
+        _walk_lang(self.root)
+
+        # Translate Treeview headings in Tab 02, Tab 11, Tab 12
+        if hasattr(self, "real_tree"):
+            real_headings = (
+                [("serial", "Serial / Địa chỉ"), ("name", "Mẫu điện thoại"), ("conn_type", "Kết nối"),
+                 ("android", "Android"), ("resolution", "Độ phân giải"), ("battery", "Pin (%)"),
+                 ("temp_c", "Nhiệt độ (°C)"), ("wifi_ip", "IP Wi-Fi"), ("status", "Trạng thái / Sức khỏe")]
+                if is_vi else
+                [("serial", "Serial / Endpoint"), ("name", "Phone Model"), ("conn_type", "Connection"),
+                 ("android", "Android"), ("resolution", "Resolution"), ("battery", "Battery %"),
+                 ("temp_c", "Temp (°C)"), ("wifi_ip", "Wi-Fi IP"), ("status", "Health / Status")]
+            )
+            for cid, htxt in real_headings:
+                self.real_tree.heading(cid, text=htxt)
+
+        if hasattr(self, "rep_tree"):
+            rep_headings = (
+                [("report_id", "Mã Báo Cáo"), ("created_at", "Thời gian"), ("serial", "Thiết bị"),
+                 ("package", "Gói ứng dụng"), ("error_type", "Loại lỗi"), ("error_message", "Tóm tắt lỗi")]
+                if is_vi else
+                [("report_id", "Report ID"), ("created_at", "Detected At"), ("serial", "Device"),
+                 ("package", "Package"), ("error_type", "Defect Type"), ("error_message", "Summary Message")]
+            )
+            for cid, htxt in rep_headings:
+                self.rep_tree.heading(cid, text=htxt)
+
+        if hasattr(self, "patch_tree"):
+            patch_headings = (
+                [("patch_id", "Mã Bản Vá"), ("defect_id", "Mã Lỗi"), ("target_file", "Tệp Đích")]
+                if is_vi else
+                [("patch_id", "Patch ID"), ("defect_id", "Defect ID"), ("target_file", "Target File")]
+            )
+            for cid, htxt in patch_headings:
+                self.patch_tree.heading(cid, text=htxt)
+
+        if hasattr(self, "breadcrumb_preset_btn"):
+            p_title = TEMPLATE_PRESET_PALETTES[self.active_preset_id]["title"]
+            self.breadcrumb_preset_btn.configure(
+                text=f"Giao diện: {p_title} (Ctrl+P)" if is_vi else f"Preset: {p_title} (Ctrl+P)"
+            )
+        try:
+            mem = psutil.virtual_memory()
+            free_gb = round(mem.available / (1024**3), 1)
+            cpu_pct = psutil.cpu_percent(interval=None)
+            self.sys_ram_lbl.config(text=f"RAM: {free_gb} GB")
+            self.sys_cpu_lbl.config(text=f"CPU: {cpu_pct}%")
+        except Exception:
+            pass
+        self._populate_real_tree_rows()
+        self._select_workspace_tab(getattr(self, "active_workspace_idx", 9))
 
     def _toggle_left_sidebar(self):
         if self.left_sidebar_frame.winfo_ismapped():
@@ -709,8 +1056,10 @@ class FarmDashboardApp:
                 if getattr(w, "_is_primary_cta", False):
                     w.configure(bg=pal["ACCENT_PRIMARY"], fg="#ffffff", activebackground=pal["ACCENT_HOVER"], activeforeground="#ffffff")
                 elif getattr(w, "_is_theme_btn", False):
+                    is_vi = getattr(self, "lang_mode", "VI") == "VI"
+                    t_lbl = ("◐ Chế độ Tối" if self.theme_mode == "LIGHT" else "◐ Chế độ Sáng") if is_vi else ("◐ Dark Mode" if self.theme_mode == "LIGHT" else "◐ Light Mode")
                     w.configure(
-                        text="◐ Dark Mode" if self.theme_mode == "LIGHT" else "◐ Light Mode",
+                        text=t_lbl,
                         bg=pal["BG_SURFACE"],
                         fg=pal["ACCENT_TEXT"] if self.theme_mode == "LIGHT" else pal["STATUS_WARNING"],
                     )
@@ -769,12 +1118,34 @@ class FarmDashboardApp:
                            selectforeground=[("readonly", pal["FG_PRIMARY"])],
                            foreground=[("readonly", pal["FG_PRIMARY"])],
                            background=[("readonly", pal["BG_SURFACE"])])
+        self._active_theme_maps = (pal, bg_map, fg_map)
+        self._dirty_theme_tabs = set(range(12))
         self.root.configure(bg=pal["BG_CANVAS"])
-        _walk_theme(self.root)
+        for shell_w in (
+            getattr(self, "header_frame", None),
+            getattr(self, "left_sidebar_frame", None),
+            getattr(self, "right_inspector_frame", None),
+            getattr(self, "compact_device_bar", None),
+            getattr(self, "devices_drawer_frame", None),
+            getattr(self, "workspace_breadcrumb_bar", None),
+            getattr(self, "status_bar_frame", None),
+        ):
+            if shell_w is not None:
+                _walk_theme(shell_w)
+        if hasattr(self, "kpi_row_frame"):
+            _walk_theme(self.kpi_row_frame)
+        # Only walk the currently visible tab now; hidden tabs are themed on-demand when selected!
+        cur_idx = getattr(self, "active_workspace_idx", 9)
+        all_tabs = getattr(self, "_all_tab_frames", [])
+        if 0 <= cur_idx < len(all_tabs):
+            _walk_theme(all_tabs[cur_idx])
+            self._dirty_theme_tabs.discard(cur_idx)
+        self._walk_theme_fn = _walk_theme
         if hasattr(self, "breadcrumb_preset_btn"):
+            is_vi = getattr(self, "lang_mode", "VI") == "VI"
             p_title = TEMPLATE_PRESET_PALETTES[self.active_preset_id]["title"]
             self.breadcrumb_preset_btn.configure(
-                text=f"Preset: {p_title} (Ctrl+P)",
+                text=f"Giao diện: {p_title} (Ctrl+P)" if is_vi else f"Preset: {p_title} (Ctrl+P)",
                 bg=pal["BG_SURFACE"],
                 fg=pal["FG_PRIMARY"],
             )
@@ -879,7 +1250,7 @@ class FarmDashboardApp:
             for child in children:
                 _fix_widget(child)
 
-        for tab_frame in (
+        self._all_tab_frames = (
             self.tab_agents,
             self.tab_real_farm,
             self.tab_v7_lab,
@@ -892,7 +1263,8 @@ class FarmDashboardApp:
             self.tab_v16_cross_platform,
             self.tab_reports,
             self.tab_memory,
-        ):
+        )
+        for tab_frame in self._all_tab_frames:
             _fix_widget(tab_frame)
 
     def _build_main_content(self):
@@ -906,7 +1278,7 @@ class FarmDashboardApp:
         # =====================================================================
         # ZONE 2: 206px Collapsible Left Sidebar Tree (Hardware + 12 Workspaces)
         # =====================================================================
-        self.left_sidebar_frame = tk.Frame(self.shell_body, bg=C_MANTLE, width=206, padx=8, pady=8, highlightbackground=C_SURFACE1, highlightthickness=1)
+        self.left_sidebar_frame = tk.Frame(self.shell_body, bg=C_MANTLE, width=218, padx=8, pady=8, highlightbackground=C_SURFACE1, highlightthickness=1)
         self.left_sidebar_frame.pack(side=tk.LEFT, fill=tk.Y)
         self.left_sidebar_frame.pack_propagate(False)
 
@@ -1002,6 +1374,7 @@ class FarmDashboardApp:
 
         # 1. 4 Vertically Stacked Bento KPI Cards (ACL-04: Zero Horizontal Text Collision!)
         kpi_row = tk.Frame(self.center_stage_frame, bg=C_BASE)
+        self.kpi_row_frame = kpi_row
         kpi_row.pack(fill=tk.X, pady=(0, 6))
         for i in range(4):
             kpi_row.columnconfigure(i, weight=1, uniform="kpi_col")
@@ -1384,15 +1757,15 @@ class FarmDashboardApp:
         self.real_tree.heading("wifi_ip", text="Wi-Fi IP")
         self.real_tree.heading("status", text="Health / Status")
 
-        for col_id, w in [("serial", 150), ("name", 160), ("conn_type", 100), ("android", 80),
-                          ("resolution", 100), ("battery", 85), ("temp_c", 85), ("wifi_ip", 120), ("status", 140)]:
+        for col_id, w in [("serial", 135), ("name", 215), ("conn_type", 100), ("android", 80),
+                          ("resolution", 95), ("battery", 75), ("temp_c", 85), ("wifi_ip", 115), ("status", 150)]:
             self.real_tree.column(col_id, width=w)
 
         r_scroll = tk.Scrollbar(self.tab_real_farm, command=self.real_tree.yview)
         self.real_tree.configure(yscrollcommand=r_scroll.set)
         r_scroll.pack(side=tk.RIGHT, fill=tk.Y)
         self.real_tree.pack(fill=tk.BOTH, expand=True)
-        self.refresh_real_devices_tab()
+        pass  # Loaded asynchronously in _deferred_startup_load
 
     def _build_v7_lab_tab(self):
         """Interactive AMAF 7.0 Control Lab for Universal 2FA, Web/Rotation/Grid CAPTCHA CV, SoM & Deep Diagnostics."""
@@ -1542,7 +1915,7 @@ class FarmDashboardApp:
         self.rep_tree.pack(fill=tk.BOTH, expand=True)
 
         self.rep_tree.bind("<Double-1>", self.on_double_click_report)
-        self.refresh_reports()
+        pass  # Loaded asynchronously in _deferred_startup_load
 
     def _build_memory_tab(self):
         top_bar = tk.Frame(self.tab_memory, bg=C_BASE)
@@ -1591,7 +1964,7 @@ class FarmDashboardApp:
         content_scroll.pack(side=tk.RIGHT, fill=tk.Y)
         self.mem_content_text.pack(fill=tk.BOTH, expand=True)
 
-        self.refresh_memory_tab()
+        pass  # Loaded asynchronously in _deferred_startup_load
 
     def refresh_memory_tab(self):
         for item in self.patch_tree.get_children():
@@ -1641,6 +2014,7 @@ class FarmDashboardApp:
 
     def _build_status_bar(self):
         status_bar = tk.Frame(self.root, bg=C_CRUST, height=28, padx=14, highlightbackground=C_SURFACE1, highlightthickness=1)
+        self.status_bar_frame = status_bar
         status_bar.pack(fill=tk.X, side=tk.BOTTOM)
 
         self.status_lbl = tk.Label(
@@ -1669,27 +2043,50 @@ class FarmDashboardApp:
         self.agent_log_text.see(tk.END)
 
     def _auto_refresh_loop(self):
+        time.sleep(1.0)
         while self._is_running:
             try:
                 mem = psutil.virtual_memory()
                 free_gb = round(mem.available / (1024**3), 1)
                 cpu_pct = psutil.cpu_percent(interval=None)
                 states = self.proc_mgr.get_farm_state()
+                conn_devs = getattr(self.proc_mgr, "_cached_adb_devices", {})
+                base_s = ["10CF5L0TYL00312", "emulator-5554", "emulator-5556", "emulator-5558", "emulator-5560"]
+                for s_k in conn_devs:
+                    if s_k not in base_s:
+                        base_s.insert(0, s_k)
+                self._cached_serials = base_s
                 locks = self.lock_mgr.list_active_locks()
-                self.root.after(0, self._update_ui_state, free_gb, cpu_pct, states, locks)
+                if self._is_running:
+                    self.root.after(0, self._update_ui_state, free_gb, cpu_pct, states, locks)
             except Exception:
                 pass
-            time.sleep(2.5)
+            time.sleep(3.5)
 
     def _update_ui_state(self, free_gb: float, cpu_pct: float, states: List[Dict[str, Any]], locks: Dict[str, Any]):
-        self.sys_ram_lbl.config(text=f"RAM: Free {free_gb} GB")
-        self.sys_cpu_lbl.config(text=f"CPU: {cpu_pct}%")
+        if not self._is_running:
+            return
+        is_vi = getattr(self, "lang_mode", "VI") == "VI"
+        ram_txt = f"RAM: {free_gb} GB"
+        cpu_txt = f"CPU: {cpu_pct}%"
+        if self._ui_state_cache.get("sys_ram") != ram_txt:
+            self._ui_state_cache["sys_ram"] = ram_txt
+            self.sys_ram_lbl.config(text=ram_txt)
+        if self._ui_state_cache.get("sys_cpu") != cpu_txt:
+            self._ui_state_cache["sys_cpu"] = cpu_txt
+            self.sys_cpu_lbl.config(text=cpu_txt)
 
         for s in states:
             serial = s["serial"]
             card_info = self.device_cards.get(serial)
             if not card_info:
                 continue
+
+            active_lock = locks.get(serial)
+            sig = (is_vi, s["is_running"], s["boot_completed"], s["ram_mb"], s["cpu_pct"], str(active_lock))
+            if self._ui_state_cache.get(f"card_{serial}") == sig:
+                continue
+            self._ui_state_cache[f"card_{serial}"] = sig
 
             badge = card_info["badge"]
             btn_toggle = card_info["btn_toggle"]
@@ -1699,25 +2096,24 @@ class FarmDashboardApp:
 
             if s["is_running"]:
                 if s["boot_completed"]:
-                    badge.config(text="ONLINE", bg="#10b981", fg="#ffffff")
+                    badge.config(text="TRỰC TUYẾN" if is_vi else "ONLINE", bg="#10b981", fg="#ffffff")
                 else:
-                    badge.config(text="BOOTING", bg="#f59e0b", fg="#ffffff")
-                btn_toggle.config(text="■ Stop", bg=C_RED, fg=C_CRUST)
+                    badge.config(text="ĐANG BẬT" if is_vi else "BOOTING", bg="#f59e0b", fg="#ffffff")
+                btn_toggle.config(text="■ Dừng" if is_vi else "■ Stop", bg=C_RED, fg="#ffffff")
                 ram_lbl.config(text=f"RAM: {s['ram_mb']} MB (PID: {s['pid'] or '--'})")
                 cpu_lbl.config(text=f"CPU: {s['cpu_pct']}%")
             else:
-                badge.config(text="OFFLINE", bg="#64748b", fg="#ffffff")
-                btn_toggle.config(text="▸ Start", bg=C_GREEN, fg=C_CRUST)
+                badge.config(text="NGOẠI TUYẾN" if is_vi else "OFFLINE", bg="#64748b", fg="#ffffff")
+                btn_toggle.config(text="▸ Bật" if is_vi else "▸ Start", bg=C_PRIMARY, fg="#ffffff")
                 ram_lbl.config(text="RAM: -- MB")
                 cpu_lbl.config(text="CPU: --%")
 
-            active_lock = locks.get(serial)
             if active_lock:
                 agent = active_lock.get("agent_id", "Agent")
                 task = active_lock.get("task_name", "Running")
-                lock_lbl.config(text=f"Locked by: {agent} ({task})", fg=C_MAUVE)
+                lock_lbl.config(text=f"Đang chạy: {agent} ({task})" if is_vi else f"Locked by: {agent} ({task})", fg=C_MAUVE)
             else:
-                lock_lbl.config(text="Agent: None (Idle)", fg=C_SUBTEXT)
+                lock_lbl.config(text="Tác nhân: Rảnh" if is_vi else "Agent: Idle", fg=C_SUBTEXT)
 
     # UI Action Handlers
     def on_toggle_device(self, serial: str, dev: Dict[str, Any]):
@@ -2067,45 +2463,118 @@ class FarmDashboardApp:
         self.log_agent_msg("RealDeviceManager", f"Switched Farm Mode to {res['farm_mode']} (Real Phones Enabled: {res['real_phone_farm_enabled']})", "info")
         self.refresh_real_devices_tab()
 
+    def _populate_real_tree_rows(self, real_devs: Optional[List[Dict[str, Any]]] = None, avd_states: Optional[List[Dict[str, Any]]] = None):
+        if not hasattr(self, "real_tree"):
+            return
+        if real_devs is not None:
+            self._last_real_devs = real_devs
+        if avd_states is not None:
+            self._last_avd_states = avd_states
+
+        serials = self._get_all_known_serials()
+        if hasattr(self, "device_combo"):
+            self.device_combo["values"] = serials
+        if hasattr(self, "v7_device_combo"):
+            self.v7_device_combo["values"] = serials
+
+        is_vi = getattr(self, "lang_mode", "VI") == "VI"
+        cached_real = list(getattr(self, "_last_real_devs", []) or [])
+        rows_to_show = []
+        for r in cached_real:
+            r_copy = dict(r)
+            c_type = str(r_copy.get("connection_type", "USB 3.0"))
+            if is_vi and c_type in ("USB 3.0", "USB"):
+                r_copy["connection_type"] = "Cáp USB 3.0"
+            elif not is_vi and c_type == "Cáp USB 3.0":
+                r_copy["connection_type"] = "USB 3.0"
+            rows_to_show.append(r_copy)
+        if not rows_to_show:
+            rows_to_show.append({
+                "serial": "10CF5L0TYL00312",
+                "name": "Vivo V2417A (OriginOS 5)",
+                "connection_type": "Cáp USB 3.0" if is_vi else "USB 3.0",
+                "android_version": "Android 15",
+                "resolution": "1260x2800",
+                "battery": {"level": 94, "temperature_c": 31.2, "overheated": False},
+                "wifi_ip": "192.168.1.18",
+                "status": "device",
+            })
+        f_mode = self.farm_mode_combo.get().strip() if hasattr(self, "farm_mode_combo") else "HYBRID"
+        if f_mode in ("HYBRID", "AVD_ONLY"):
+            avds = getattr(self, "_last_avd_states", None)
+            if not avds:
+                avds = [
+                    {
+                        "serial": f"emulator-{d['port']}",
+                        "name": d["name"],
+                        "description": d.get("description", "Android 14"),
+                        "port": d["port"],
+                        "is_running": d["port"] in (5554, 5556),
+                    }
+                    for d in DEFAULT_FARM_DEVICES
+                ]
+            vi_role_map = {
+                "Customer Role": "Vai trò Khách hàng",
+                "Merchant & Driver": "Cửa hàng & Tài xế",
+                "Merchant & Driver Role": "Cửa hàng & Tài xế",
+                "Admin & Backoffice Role": "Quản trị hệ thống",
+                "Admin & Backoffice": "Quản trị hệ thống",
+                "Regression & Chaos": "Kiểm thử hồi quy",
+            }
+            for avd in avds:
+                raw_role = avd.get("description", "Android 14").split("/")[0].strip()
+                role_txt = vi_role_map.get(raw_role, raw_role) if is_vi else raw_role
+                rows_to_show.append({
+                    "serial": avd["serial"],
+                    "name": f"{avd['name']} ({role_txt})",
+                    "connection_type": "ADB Máy ảo" if is_vi else "ADB Emulator",
+                    "android_version": "Android 14",
+                    "resolution": "1080x2400",
+                    "battery": {"level": 100, "temperature_c": 25.0, "overheated": False},
+                    "wifi_ip": f"127.0.0.1:{avd['port']}",
+                    "status": "device" if avd.get("is_running") else "offline",
+                })
+        for item in self.real_tree.get_children():
+            self.real_tree.delete(item)
+        for d in rows_to_show:
+            bat = d.get("battery", {})
+            st_raw = d.get("status", "offline")
+            if bat.get("overheated"):
+                health_str = "QUÁ NHIỆT!" if is_vi else "OVERHEATED!"
+            elif st_raw == "device":
+                health_str = "TRỰC TUYẾN (AN TOÀN)" if is_vi else "ONLINE (GUARDED)"
+            else:
+                health_str = "CHỜ KẾT NỐI (IDLE)" if is_vi else st_raw.upper()
+            self.real_tree.insert(
+                "",
+                "end",
+                values=(
+                    d.get("serial"),
+                    d.get("name"),
+                    d.get("connection_type"),
+                    d.get("android_version"),
+                    d.get("resolution"),
+                    f"{bat.get('level', 0)}%",
+                    f"{bat.get('temperature_c', 0.0)}°C",
+                    d.get("wifi_ip") or "--",
+                    health_str
+                )
+            )
+
     def refresh_real_devices_tab(self):
         if not hasattr(self, "real_tree"):
             return
-        for item in self.real_tree.get_children():
-            self.real_tree.delete(item)
+        if not self.real_tree.get_children():
+            self._populate_real_tree_rows()
 
         def _worker():
             real_devs = self.real_mgr.discover_real_devices(include_unauthorized=True)
             for d in real_devs:
                 if d.get("status") == "device":
                     self.real_mgr.apply_real_phone_health_guard(d["serial"])
-
-            def _populate():
-                serials = self._get_all_known_serials()
-                if hasattr(self, "device_combo"):
-                    self.device_combo["values"] = serials
-                if hasattr(self, "v7_device_combo"):
-                    self.v7_device_combo["values"] = serials
-
-                for d in real_devs:
-                    bat = d.get("battery", {})
-                    health_str = "OVERHEATED!" if bat.get("overheated") else ("ONLINE (GUARDED)" if d.get("status") == "device" else d.get("status", "offline").upper())
-                    self.real_tree.insert(
-                        "",
-                        "end",
-                        values=(
-                            d.get("serial"),
-                            d.get("name"),
-                            d.get("connection_type"),
-                            d.get("android_version"),
-                            d.get("resolution"),
-                            f"{bat.get('level', 0)}%",
-                            f"{bat.get('temperature_c', 0.0)}°C",
-                            d.get("wifi_ip") or "--",
-                            health_str
-                        )
-                    )
+            avd_states = self.proc_mgr.get_farm_state()
             try:
-                self.root.after(0, _populate)
+                self.root.after(0, lambda: self._populate_real_tree_rows(real_devs, avd_states))
             except Exception:
                 pass
 

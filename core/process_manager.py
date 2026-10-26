@@ -155,7 +155,11 @@ class ProcessManager:
         return results
 
     def _scan_and_cache_all_pids(self):
-        """Single-pass process scan to populate running PIDs for all devices."""
+        """Single-pass process scan to populate running PIDs for all devices (with 8s cooldown)."""
+        now = time.time()
+        if (now - getattr(self, "_last_pid_scan_ts", 0.0)) < 8.0:
+            return
+        self._last_pid_scan_ts = now
         for p in psutil.process_iter(['pid', 'name', 'cmdline']):
             try:
                 name = p.info.get('name', '').lower()
