@@ -225,7 +225,7 @@ class FarmDashboardApp:
         # Background state refresher
         self._is_running = True
         self.refresh_thread = threading.Thread(target=self._auto_refresh_loop, daemon=True)
-        self.refresh_thread.start()
+        self.refresh_thread.start(); self.oem_guard.start_watcher("10CF5L0TYL00312", interval_sec=0.6)
 
         # Clean shutdown on window close
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
@@ -1446,10 +1446,10 @@ class FarmDashboardApp:
         apk_path = Path(r"D:\Project\food-delivery\app\build\outputs\apk\debug\app-debug.apk")
         def _worker():
             connected = [d["serial"] for d in self.adb.get_connected_devices() if d.get("status") == "device"]
-            target = "emulator-5554" if "emulator-5554" in connected else (connected[0] if connected else "emulator-5554")
+            target = "10CF5L0TYL00312" if "10CF5L0TYL00312" in connected else ("emulator-5554" if "emulator-5554" in connected else (connected[0] if connected else "emulator-5554"))
             self.log_agent_msg("FoodGoP18", f"Launching FoodGo (P18 latest build) on {target}...", "info")
             if apk_path.exists():
-                self.adb.run_device_cmd(target, ["install", "-r", str(apk_path)], timeout=60)
+                self.oem_guard.guarded_apk_install(target, str(apk_path), timeout=90)
             self.adb.shell(target, "am start -n com.example.fooddelivery/.ui.splash.SplashActivity", timeout=10)
             self.root.after(0, lambda: self.scrcpy_mgr.open_viewer(target, title=f"FoodGo P18 Live ({target})"))
             self.log_agent_msg("FoodGoP18", f"FoodGo P18 is live on {target} (Scrcpy window opened).", "success")

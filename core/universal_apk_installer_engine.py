@@ -504,7 +504,7 @@ class UniversalAPKInstallerEngine:
                 adb_wrapper.tap(x, y)
                 return
         if hasattr(adb_wrapper, "shell"):
-            cmd = f"input swipe {x} {y} {x + 1} {y + 1} 85"
+            cmd = f"input tap {x} {y}"
             try:
                 if target_serial is not None:
                     adb_wrapper.shell(target_serial, cmd)
@@ -555,7 +555,7 @@ class UniversalAPKInstallerEngine:
                 }
             )
             if auto_sleep:
-                time.sleep(0.25)
+                time.sleep(0.35)
 
         # 2. Wait if countdown > 0 (capped at 10s)
         if plan["countdown_seconds"] > 0:

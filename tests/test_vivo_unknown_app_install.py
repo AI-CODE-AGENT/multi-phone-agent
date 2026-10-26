@@ -6,7 +6,7 @@ Tests Subagent #18 (OEMPopupWatcher & OEMPopupGuardSubagent) on OriginOS Package
 import sys
 import unicodedata
 from pathlib import Path
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -49,11 +49,11 @@ def test_vivo_unknown_app_checkbox_auto_ticked_and_continue_clicked():
     assert len(tapped_coords) == 2
     cb_tap, btn_tap = tapped_coords[0], tapped_coords[1]
 
-    # Checkbox bounds [105, 2418][1154, 2481] -> tapped at ~150, 2449
+    # Checkbox bounds [105, 2418][1154, 2481] -> tapped at center (629, 2449)
     assert 105 <= cb_tap[0] <= 1154
     assert 2418 <= cb_tap[1] <= 2481
 
-    # Button bounds [168, 2541][1092, 2702] -> center at 630, 2621
+    # Button bounds [168, 2541][1092, 2702] -> center at (630, 2621)
     assert 168 <= btn_tap[0] <= 1092
     assert 2541 <= btn_tap[1] <= 2702
 
@@ -69,3 +69,34 @@ def test_oem_popup_guard_subagent_persists_checkbox_telemetry():
 
     assert res["status"] == "POPUP_DISMISSED"
     assert res["checkbox_ticked"] is True
+
+
+def test_vivo_checkbox_uses_input_tap_and_not_input_swipe():
+    """Verify OEMPopupWatcher uses `input tap` (not `input swipe`) at center of `deleted_file_state_cb`."""
+    adb = ADBWrapper()
+    watcher = OEMPopupWatcher(adb=adb)
+    shell_cmds = []
+
+    def fake_shell(serial, cmd, timeout=5):
+        shell_cmds.append(cmd)
+        if "mCurrentFocus" in cmd:
+            return "mCurrentFocus=Window{123 u0 com.android.packageinstaller/com.android.packageinstaller.PackageInterceptActivity type=1 }"
+        if "wm size" in cmd:
+            return "Physical size: 1260x2800"
+        return ""
+
+    with patch.object(adb, "shell", side_effect=fake_shell):
+        with patch.object(adb, "dump_ui_hierarchy", return_value=XML_VIVO_PACKAGE_INTERCEPT):
+            res = watcher.scan_and_dismiss_oem_popup("10CF5L0TYL00312")
+
+    assert res["status"] == "POPUP_DISMISSED"
+    assert res["checkbox_ticked"] is True
+    tap_cmds = [c for c in shell_cmds if c.startswith("input tap ")]
+    swipe_cmds = [c for c in shell_cmds if c.startswith("input swipe ")]
+    assert len(tap_cmds) == 2
+    assert len(swipe_cmds) == 0
+    # First tap must be near center of deleted_file_state_cb (629, 2449)
+    parts_cb = tap_cmds[0].split()
+    cb_x, cb_y = int(parts_cb[2]), int(parts_cb[3])
+    assert 620 <= cb_x <= 638
+    assert 2440 <= cb_y <= 2458

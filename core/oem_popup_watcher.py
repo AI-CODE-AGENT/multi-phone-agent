@@ -116,11 +116,11 @@ OEM_CHECKBOX_ID_HINTS: List[str] = [
     "remember",
 ]
 
-VIVO_ORIGINOS_FALLBACK_CHECKBOX_COORDS: Tuple[float, float] = (0.12, 0.875)
+VIVO_ORIGINOS_FALLBACK_CHECKBOX_COORDS: Tuple[float, float] = (0.50, 0.875)
 
 VIVO_ORIGINOS_FALLBACK_BUTTON_COORDS: List[Tuple[float, float]] = [
-    (0.50, 0.936),  # Continue install button center on OriginOS 6 (1260x2800)
-    (0.50, 0.88),
+    (0.50, 0.936),  # Continue install button center on OriginOS 6 (1260x2800) -> y=2621 (never tap y=0.88 which is the checkbox!)
+    (0.50, 0.945),
     (0.72, 0.90),
     (0.50, 0.92),
 ]
@@ -162,7 +162,7 @@ class OEMPopupWatcher:
         """Perform a human-like micro-dwell touch swipe (`input swipe jx jy jx+1 jy+1 85`)."""
         jx = max(1, x + random.randint(-2, 2))
         jy = max(1, y + random.randint(-2, 2))
-        self.adb.shell(serial, f"input swipe {jx} {jy} {jx + 1} {jy + 1} 85", timeout=5)
+        self.adb.shell(serial, f"input tap {jx} {jy}", timeout=5)
         return jx, jy
 
     def _record_dismissal(self, record: Dict[str, Any]):
@@ -219,12 +219,12 @@ class OEMPopupWatcher:
                 # Tap the checkbox to check it!
                 x1 = bounds.get("x1", bounds.get("left", 0))
                 x2 = bounds.get("x2", bounds.get("right", x1 + 80))
-                cx = int(x1 + min(45, (x2 - x1) / 2))
+                cx = int(bounds.get("center_x", (x1 + x2) // 2))
                 cy = int(bounds["center_y"])
                 self._human_micro_dwell_tap(serial, cx, cy)
                 checkbox_ticked = True
                 ticked_checkbox_info = text_raw or desc_raw or res_id
-                time.sleep(0.18)  # Allow UI to animate checkmark and enable install button
+                time.sleep(0.35)  # Allow UI to animate checkmark and enable install button
                 break
 
         # 2. Search parsed UI nodes for matching consent buttons
@@ -324,13 +324,13 @@ class OEMPopupWatcher:
             pkg.lower() in focus_lower for pkg in OEM_SECURITY_PACKAGES
         )
 
-        if use_vivo_coordinate_fallback or is_oem_security_window:
+        if use_vivo_coordinate_fallback and (is_oem_security_window or not focus_lower.strip()):
             width, height = self._get_device_resolution(serial)
             # Step A: Tap checkbox location (left bottom area: ~12% width, ~87.5% height)
             cb_x = int(width * VIVO_ORIGINOS_FALLBACK_CHECKBOX_COORDS[0])
             cb_y = int(height * VIVO_ORIGINOS_FALLBACK_CHECKBOX_COORDS[1])
             self._human_micro_dwell_tap(serial, cb_x, cb_y)
-            time.sleep(0.15)
+            time.sleep(0.35)
 
             # Step B: Tap Continue Install button
             last_tapped: List[int] = [int(width * 0.50), int(height * 0.936)]

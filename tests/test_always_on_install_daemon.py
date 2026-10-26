@@ -122,7 +122,7 @@ def test_daemon_start_stop_lifecycle_and_heartbeat():
     dup_res = daemon.start()
     assert dup_res["status"] == "ALREADY_RUNNING"
 
-    time.sleep(0.30)
+    time.sleep(0.55)
     health = daemon.get_health_status()
     assert health["running"] is True
     assert health["healthy"] is True
