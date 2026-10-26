@@ -77,6 +77,22 @@ from agents.recursive_10x_evolution_subagent import (
     DroidBotStateTransitionGraphSubagent,
     Recursive10xEvolutionCoordinatorSubagent,
 )
+from agents.ui_ux_design_system_subagent import (
+    VisualScreenshotClutterCriticSubagent,
+    DesignTokenAnd8PtGridSubagent,
+)
+from agents.ui_ux_navigation_and_palette_subagent import (
+    SidebarNavigationAndIASubagent,
+    CommandPaletteAndProgressiveDisclosureSubagent,
+    BentoDeviceCardAndSparklineSubagent,
+)
+from agents.recursive_10x_ui_ux_evolution_subagent import (
+    SemanticCTAHierarchyAndAntiRainbowSubagent,
+    WCAGContrastAndTypographyScaleSubagent,
+    MicroInteractionAndEmptyStateSubagent,
+    UIFinishGateReviewerSubagent,
+    Recursive10xUIUXEvolutionCoordinatorSubagent,
+)
 from core.memory_manager import MemoryManager
 from core.kanban_board import KanbanBoard
 from agents.device_lock_manager import DeviceLockManager
@@ -102,7 +118,7 @@ C_TEAL = "#94e2d5"
 class FarmDashboardApp:
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.root.title("Android Multi-Agent Farm (AMAF 12.0) | 55 Subagents | Universal APK Installer | Sideload Guard | SecIME Vault | AXML Parser | Always-On Daemon & 10x Recursive Evolution")
+        self.root.title("Android Multi-Agent Farm (AMAF 13.0) | 65 Subagents | Linear/Raycast UI/UX Design System | Ctrl+K Command Palette | Vivo Screenshot Critic & 10x Recursive UI/UX Evolution")
         self.root.geometry("1340x880")
         self.root.minsize(1100, 740)
         self.root.configure(bg=C_BASE)
@@ -159,6 +175,17 @@ class FarmDashboardApp:
         self.uitars_reflection = UITarsSystem2ReflectionVerifierSubagent()
         self.droidbot_utg = DroidBotStateTransitionGraphSubagent()
         self.recursive_10x_coordinator = Recursive10xEvolutionCoordinatorSubagent()
+        # AMAF 13.0 Subagents (#56-#65): UI/UX Design System, Sidebar IA, Ctrl+K Palette, Bento Cards & 10x UI/UX Evolution
+        self.visual_clutter_critic = VisualScreenshotClutterCriticSubagent()
+        self.design_token_grid = DesignTokenAnd8PtGridSubagent()
+        self.sidebar_ia_nav = SidebarNavigationAndIASubagent()
+        self.command_palette_agent = CommandPaletteAndProgressiveDisclosureSubagent()
+        self.bento_sparkline_agent = BentoDeviceCardAndSparklineSubagent()
+        self.semantic_cta_agent = SemanticCTAHierarchyAndAntiRainbowSubagent()
+        self.wcag_typography_agent = WCAGContrastAndTypographyScaleSubagent()
+        self.micro_empty_state_agent = MicroInteractionAndEmptyStateSubagent()
+        self.ui_finish_gate_reviewer = UIFinishGateReviewerSubagent()
+        self.recursive_10x_ui_ux_coordinator = Recursive10xUIUXEvolutionCoordinatorSubagent()
 
         # Device card widget references: serial -> widget dict
         self.device_cards: Dict[str, Dict[str, Any]] = {}
@@ -217,7 +244,7 @@ class FarmDashboardApp:
 
         title_lbl = tk.Label(
             title_frame,
-            text="⚡ Android Multi-Agent Farm (AMAF 12.0 — 55 Subagents, Universal APK Installer & 10x Recursive Evolution)",
+            text="⚡ Android Multi-Agent Farm (AMAF 13.0 — 65 Subagents, Linear/Raycast UI/UX, Ctrl+K Palette & 10x UI/UX Evolution)",
             font=("Segoe UI", 16, "bold"),
             fg=C_BLUE,
             bg=C_MANTLE
@@ -226,7 +253,7 @@ class FarmDashboardApp:
 
         sub_lbl = tk.Label(
             title_frame,
-            text="55 Subagents | Universal APK Installer (#46) | Sideload Guard (#47) | SecIME Vault (#48) | AXML Parser (#49) | Always-On Daemon (#50) | 10x Recursive Evolution (#51-#55)",
+            text="65 Subagents | Screenshot Clutter Critic (#56) | 8pt Grid (#57) | Miller Sidebar IA (#58) | Ctrl+K Palette (#59) | Bento Sparklines (#60) | Anti-Rainbow CTA (#61) | Finish Gate (#64) | 10x UI/UX Loop (#65)",
             font=("Segoe UI", 9),
             fg=C_SUBTEXT,
             bg=C_MANTLE
@@ -292,7 +319,7 @@ class FarmDashboardApp:
 
         # Tab 1: Multi-Agent & 30-Subagent Evolution
         self.tab_agents = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
-        self.notebook.add(self.tab_agents, text=" 🤖 55-Subagent Evolution & 10x Loops ")
+        self.notebook.add(self.tab_agents, text=" 🤖 65-Subagent Evolution & 10x Loops ")
         self._build_agents_tab()
 
         # Tab 2: Real Phone Farm & Group Broadcast Control
@@ -319,6 +346,12 @@ class FarmDashboardApp:
         self.tab_v12_installer = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
         self.notebook.add(self.tab_v12_installer, text=" 📦 Universal APK Installer & 10x Evolution (v12.0) ")
         self._build_v12_installer_and_10x_tab()
+
+        # Tab 7: AMAF 13.0 UI/UX 10x Design System, Ctrl+K Command Palette, Bento Sparklines & Live Vivo Screenshot Critic
+        self.tab_v13_ui_ux = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
+        self.notebook.add(self.tab_v13_ui_ux, text=" 🎨 UI/UX 10x Design System, Ctrl+K & Vivo Critic (v13.0) ")
+        self._build_v13_ui_ux_and_critic_tab()
+        self.root.bind("<Control-k>", lambda e: self.on_v13_ctrl_k_search())
 
         # Tab 4: Defect Reports (Bug Tracker)
         self.tab_reports = tk.Frame(self.notebook, bg=C_BASE, padx=12, pady=10)
@@ -1714,6 +1747,101 @@ class FarmDashboardApp:
             res = self.recursive_10x_coordinator.run_10_iterations(live_serial=serial, write_report=True)
             self._v12_log(f"[Subagents #51-#55 Recursive10xEvolution] Passed={res.get('passed_iterations')}/10 | Report={res.get('report_path')}")
             self.log_agent_msg("Recursive10x(#55)", f"[{serial}] 10/10 Recursive Evolution Iterations Passed!", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+
+    def _build_v13_ui_ux_and_critic_tab(self):
+        top_bar = tk.Frame(self.tab_v13_ui_ux, bg=C_MANTLE, padx=12, pady=10)
+        top_bar.pack(fill=tk.X, pady=(0, 8))
+
+        tk.Label(
+            top_bar,
+            text="🎨 AMAF v13.0: Screenshot Critic (#56) + 8pt Tokens (#57) + Sidebar IA (#58) + Ctrl+K Palette (#59) + Bento Sparkline (#60) + Anti-Rainbow CTA (#61) + Finish Gate (#64) + 10x UI/UX Loop (#65)",
+            font=("Segoe UI", 9, "bold"),
+            fg=C_BLUE,
+            bg=C_MANTLE
+        ).pack(side=tk.LEFT)
+
+        search_row = tk.Frame(self.tab_v13_ui_ux, bg=C_BASE)
+        search_row.pack(fill=tk.X, pady=4)
+
+        tk.Label(search_row, text="⌘K Command Palette:", font=("Segoe UI", 9, "bold"), fg=C_TEXT, bg=C_BASE).pack(side=tk.LEFT, padx=(0, 6))
+        self.v13_cmd_entry = tk.Entry(search_row, font=("Segoe UI", 9), bg=C_MANTLE, fg=C_TEXT, insertbackground=C_TEXT, relief="flat", width=36)
+        self.v13_cmd_entry.insert(0, "install apk vivo")
+        self.v13_cmd_entry.pack(side=tk.LEFT, padx=(0, 8))
+
+        # Primary CTA (#6366f1 Indigo) + Neutral Secondary buttons (#313244) following Subagent #61 Anti-Rainbow Hierarchy
+        tk.Button(
+            search_row, text="🚀 #65 Run 10x Sequential UI/UX Evolution", font=("Segoe UI", 9, "bold"),
+            bg="#6366f1", fg="#f8fafc", relief="flat", padx=12, pady=6, command=self.on_v13_run_10x_ui_ux_evolution
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            search_row, text="⌘K #59 Search Command Palette", font=("Segoe UI", 9),
+            bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v13_ctrl_k_search
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            search_row, text="📸 #56 Live Vivo Screenshot Critique", font=("Segoe UI", 9),
+            bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v13_screenshot_critique
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            search_row, text="📊 #60 Bento Card & Sparkline", font=("Segoe UI", 9),
+            bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v13_bento_sparkline
+        ).pack(side=tk.LEFT, padx=4)
+
+        tk.Button(
+            search_row, text="✅ #64 UI Finish-Gate Review", font=("Segoe UI", 9),
+            bg=C_SURFACE0, fg=C_TEXT, relief="flat", padx=10, pady=6, command=self.on_v13_finish_gate_audit
+        ).pack(side=tk.LEFT, padx=4)
+
+        self.v13_log_text = tk.Text(self.tab_v13_ui_ux, bg=C_CRUST, fg=C_TEXT, font=("Consolas", 9), height=14, relief="flat", padx=10, pady=8)
+        self.v13_log_text.pack(fill=tk.BOTH, expand=True, pady=(6, 0))
+        self.v13_log_text.insert(tk.END, "[AMAF 13.0] Subagents #56-#65 (Visual Screenshot Clutter Critic, 8pt Grid & Tokens, Miller Sidebar IA, Ctrl+K Command Palette, Bento Sparklines, Semantic 3-Tier CTA, WCAG Contrast Auto-Fixer, Micro-Interactions, UI Finish-Gate Reviewer & 10x Sequential UI/UX Coordinator) Ready.\n")
+
+    def _v13_log(self, msg: str):
+        if hasattr(self, "v13_log_text"):
+            ts = time.strftime("%H:%M:%S")
+            self.root.after(0, lambda: (self.v13_log_text.insert(tk.END, f"[{ts}] {msg}\n"), self.v13_log_text.see(tk.END)))
+
+    def on_v13_ctrl_k_search(self):
+        query = self.v13_cmd_entry.get().strip() if hasattr(self, "v13_cmd_entry") else "install apk"
+        def _worker():
+            res = self.command_palette_agent.execute(query=query, top_k=5)
+            self._v13_log(f"[Subagent #59 CommandPalette Ctrl+K] query='{query}' -> {res.get('search_results')}")
+            self.log_agent_msg("CommandPalette(#59)", f"Ctrl+K query='{query}' matched {len(res.get('search_results', []))} commands", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v13_screenshot_critique(self):
+        def _worker():
+            res = self.visual_clutter_critic.execute()
+            self._v13_log(f"[Subagent #56 VisualScreenshotCritic] Score={res.get('overall_ui_score')} | Grade={res.get('grade')}")
+            self.log_agent_msg("ScreenshotCritic(#56)", f"UI Score={res.get('overall_ui_score')}/100 ({res.get('grade')})", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v13_bento_sparkline(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.bento_sparkline_agent.execute(serial=serial, model="Vivo V2417A (Physical)", status="ONLINE", is_physical=True)
+            card = res.get("card", {})
+            self._v13_log(f"[Subagent #60 BentoDeviceCard] {card.get('serial')} | Sparkline={card.get('sparkline_str')} | Action={card.get('primary_action')}")
+            self.log_agent_msg("BentoCard(#60)", f"[{serial}] Sparkline={card.get('sparkline_str')}", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v13_finish_gate_audit(self):
+        def _worker():
+            res = self.ui_finish_gate_reviewer.execute()
+            self._v13_log(f"[Subagent #64 UIFinishGateReviewer] Decision={res.get('gate_decision')} | Score={res.get('score')}/100")
+            self.log_agent_msg("FinishGate(#64)", f"Gate={res.get('gate_decision')} ({res.get('score')}/100)", "success")
+        threading.Thread(target=_worker, daemon=True).start()
+
+    def on_v13_run_10x_ui_ux_evolution(self):
+        serial = self.v7_device_combo.get().strip() if hasattr(self, "v7_device_combo") else "10CF5L0TYL00312"
+        def _worker():
+            res = self.recursive_10x_ui_ux_coordinator.execute(live_serial=serial, write_report=True)
+            self._v13_log(f"[Subagent #65 Recursive10xUIUXEvolution] Initial={res.get('initial_ui_score')} -> Final={res.get('final_ui_score')} | Gate={res.get('final_gate_decision')} | Report={res.get('report_path')}")
+            self.log_agent_msg("Recursive10xUIUX(#65)", f"[{serial}] 10/10 UI/UX Loops Complete: {res.get('initial_ui_score')} -> {res.get('final_ui_score')}/100 ({res.get('final_gate_decision')})", "success")
         threading.Thread(target=_worker, daemon=True).start()
 
 
